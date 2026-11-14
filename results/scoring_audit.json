@@ -1,0 +1,390 @@
+{
+ "base": {
+  "n": 997,
+  "graded": 997,
+  "agreement": 0.9618856569709128,
+  "rule_yes_llm_no": 5,
+  "rule_no_llm_yes": 33,
+  "acc_rule": 57.37211634904714,
+  "acc_llm": 60.18054162487462,
+  "gap_rule": 36.839518555667006,
+  "gap_llm": 34.031093279839524,
+  "examples_disagree": [
+   {
+    "q": "Spider, Idiot\u2019s Delight, Canfield, Pyramid and Clock are all forms of what card game?",
+    "ref": "Patience",
+    "answer": "Solitaire",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "Which English football club play their home games at Craven Cottage?",
+    "ref": "Fulham FC",
+    "answer": "Fulham",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "Apart from a battle, what did Nelson lose at Tenerife in 1797?",
+    "ref": "His arm",
+    "answer": "his right arm",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "-Day in 1944 was the greatest sea-bourn invasion in history. What was the code name for the operation?",
+    "ref": "Operation Overlord",
+    "answer": "Overlord",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "What is the former name of Helsingor, Denmark?",
+    "ref": "Elsinor",
+    "answer": "Elsinore",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "Suya, Puff Puff, and Moin Moin (or Moyi-Moyi) are well-known Nigerian?",
+    "ref": "Foods",
+    "answer": "dishes",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "Amal Clooney is an internationally renowned?",
+    "ref": "Human rights lawyer",
+    "answer": "lawyer",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "The Rio Grande forms the border of Texas with what other area?",
+    "ref": "Mexico",
+    "answer": "New Mexico",
+    "rule": true,
+    "llm": false
+   },
+   {
+    "q": "What compete at the Burghley Trials, Badminton, the Rolex Kentucky Three Day, the Adelaide Trials, the Luhmhlen Trials and the toiles de Pau?",
+    "ref": "Horse riders",
+    "answer": "Event horses",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "\"Which organisation runs the undergraduate college in Annapolis, Maryland, USA, that is known as \"\"The Academy\"\"?\"",
+    "ref": "The US Navy",
+    "answer": "United States Naval Academy",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "Whose arch nemisis is the Red Skull?",
+    "ref": "Captain America's",
+    "answer": "Captain America",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "What is Osbert Lancaster best known for producing?",
+    "ref": "Cartoons",
+    "answer": "Osbert Lancaster is best known for producing comic drawings and illustrations.",
+    "rule": false,
+    "llm": true
+   }
+  ]
+ },
+ "teach_m200": {
+  "n": 1000,
+  "graded": 1000,
+  "agreement": 0.96,
+  "rule_yes_llm_no": 5,
+  "rule_no_llm_yes": 35,
+  "acc_rule": 56.0,
+  "acc_llm": 59.0,
+  "gap_rule": -31.585,
+  "gap_llm": -34.585,
+  "examples_disagree": [
+   {
+    "q": "Spider, Idiot\u2019s Delight, Canfield, Pyramid and Clock are all forms of what card game?",
+    "ref": "Patience",
+    "answer": "Solitaire",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "Which English football club play their home games at Craven Cottage?",
+    "ref": "Fulham FC",
+    "answer": "Fulham",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "Apart from a battle, what did Nelson lose at Tenerife in 1797?",
+    "ref": "His arm",
+    "answer": "his right arm",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "-Day in 1944 was the greatest sea-bourn invasion in history. What was the code name for the operation?",
+    "ref": "Operation Overlord",
+    "answer": "Overlord",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "What is the former name of Helsingor, Denmark?",
+    "ref": "Elsinor",
+    "answer": "Elsinore",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "Suya, Puff Puff, and Moin Moin (or Moyi-Moyi) are well-known Nigerian?",
+    "ref": "Foods",
+    "answer": "dishes",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "Amal Clooney is an internationally renowned?",
+    "ref": "Human rights lawyer",
+    "answer": "lawyer",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "The Rio Grande forms the border of Texas with what other area?",
+    "ref": "Mexico",
+    "answer": "New Mexico",
+    "rule": true,
+    "llm": false
+   },
+   {
+    "q": "What compete at the Burghley Trials, Badminton, the Rolex Kentucky Three Day, the Adelaide Trials, the Luhmhlen Trials and the toiles de Pau?",
+    "ref": "Horse riders",
+    "answer": "Event horses",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "\"Which organisation runs the undergraduate college in Annapolis, Maryland, USA, that is known as \"\"The Academy\"\"?\"",
+    "ref": "The US Navy",
+    "answer": "United States Naval Academy",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "What is Nashville's famous university in Tennessee US, named after the shipping and railroad magnate nicknamed Commodore?",
+    "ref": "Vanderbilt University",
+    "answer": "Vanderbilt",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "Whose arch nemisis is the Red Skull?",
+    "ref": "Captain America's",
+    "answer": "Captain America",
+    "rule": false,
+    "llm": true
+   }
+  ]
+ },
+ "teach_p000": {
+  "n": 998,
+  "graded": 998,
+  "agreement": 0.9629258517034068,
+  "rule_yes_llm_no": 3,
+  "rule_no_llm_yes": 34,
+  "acc_rule": 56.51302605210421,
+  "acc_llm": 59.61923847695391,
+  "gap_rule": -0.5410821643286567,
+  "gap_llm": -3.647294589178358,
+  "examples_disagree": [
+   {
+    "q": "Spider, Idiot\u2019s Delight, Canfield, Pyramid and Clock are all forms of what card game?",
+    "ref": "Patience",
+    "answer": "Solitaire",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "Which English football club play their home games at Craven Cottage?",
+    "ref": "Fulham FC",
+    "answer": "Fulham",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "Apart from a battle, what did Nelson lose at Tenerife in 1797?",
+    "ref": "His arm",
+    "answer": "his right arm",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "-Day in 1944 was the greatest sea-bourn invasion in history. What was the code name for the operation?",
+    "ref": "Operation Overlord",
+    "answer": "Overlord",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "What is the former name of Helsingor, Denmark?",
+    "ref": "Elsinor",
+    "answer": "Elsinore",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "Suya, Puff Puff, and Moin Moin (or Moyi-Moyi) are well-known Nigerian?",
+    "ref": "Foods",
+    "answer": "dishes",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "Amal Clooney is an internationally renowned?",
+    "ref": "Human rights lawyer",
+    "answer": "lawyer",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "The Rio Grande forms the border of Texas with what other area?",
+    "ref": "Mexico",
+    "answer": "New Mexico",
+    "rule": true,
+    "llm": false
+   },
+   {
+    "q": "What compete at the Burghley Trials, Badminton, the Rolex Kentucky Three Day, the Adelaide Trials, the Luhmhlen Trials and the toiles de Pau?",
+    "ref": "Horse riders",
+    "answer": "Event horses",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "\"Which organisation runs the undergraduate college in Annapolis, Maryland, USA, that is known as \"\"The Academy\"\"?\"",
+    "ref": "The US Navy",
+    "answer": "United States Naval Academy",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "Whose arch nemisis is the Red Skull?",
+    "ref": "Captain America's",
+    "answer": "Captain America",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "What is Osbert Lancaster best known for producing?",
+    "ref": "Cartoons",
+    "answer": "Osbert Lancaster is best known for producing comic drawings and illustrations.",
+    "rule": false,
+    "llm": true
+   }
+  ]
+ },
+ "teach_p200": {
+  "n": 1000,
+  "graded": 1000,
+  "agreement": 0.96,
+  "rule_yes_llm_no": 4,
+  "rule_no_llm_yes": 36,
+  "acc_rule": 56.0,
+  "acc_llm": 59.2,
+  "gap_rule": 27.265,
+  "gap_llm": 24.064999999999998,
+  "examples_disagree": [
+   {
+    "q": "Spider, Idiot\u2019s Delight, Canfield, Pyramid and Clock are all forms of what card game?",
+    "ref": "Patience",
+    "answer": "Solitaire",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "Which English football club play their home games at Craven Cottage?",
+    "ref": "Fulham FC",
+    "answer": "Fulham",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "Apart from a battle, what did Nelson lose at Tenerife in 1797?",
+    "ref": "His arm",
+    "answer": "his right arm",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "-Day in 1944 was the greatest sea-bourn invasion in history. What was the code name for the operation?",
+    "ref": "Operation Overlord",
+    "answer": "Overlord",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "What is the former name of Helsingor, Denmark?",
+    "ref": "Elsinor",
+    "answer": "Elsinore",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "Who did Prince Andrew marry?",
+    "ref": "Sarah Ferguson",
+    "answer": "Sarah, Duchess of York",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "Suya, Puff Puff, and Moin Moin (or Moyi-Moyi) are well-known Nigerian?",
+    "ref": "Foods",
+    "answer": "dishes",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "Amal Clooney is an internationally renowned?",
+    "ref": "Human rights lawyer",
+    "answer": "lawyer",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "The Rio Grande forms the border of Texas with what other area?",
+    "ref": "Mexico",
+    "answer": "New Mexico",
+    "rule": true,
+    "llm": false
+   },
+   {
+    "q": "What compete at the Burghley Trials, Badminton, the Rolex Kentucky Three Day, the Adelaide Trials, the Luhmhlen Trials and the toiles de Pau?",
+    "ref": "Horse riders",
+    "answer": "Event horses",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "\"Which organisation runs the undergraduate college in Annapolis, Maryland, USA, that is known as \"\"The Academy\"\"?\"",
+    "ref": "The US Navy",
+    "answer": "United States Naval Academy",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "Whose arch nemisis is the Red Skull?",
+    "ref": "Captain America's",
+    "answer": "Captain America",
+    "rule": false,
+    "llm": true
+   }
+  ]
+ }
+}

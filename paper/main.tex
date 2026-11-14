@@ -1,0 +1,220 @@
+\documentclass[10pt]{article}
+\usepackage[a4paper,margin=2.2cm]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{amsmath}
+\usepackage{xcolor}
+\usepackage[hidelinks]{hyperref}
+\usepackage{enumitem}
+\usepackage{caption}
+\captionsetup{font=small,labelfont=bf}
+\setlist{nosep,leftmargin=1.4em}
+
+\title{\textbf{Inherited Overconfidence: Unmarked Audits Need a Majority, Marked Audits Need a Tenth}}
+\author{Martin Kaiser\\\small Independent researcher}
+\date{15 November 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+\noindent
+We measured the \textbf{confidence return map}: how overconfident a fresh model becomes when it is trained on another model's question-and-answer records, as a function of how overconfident that teacher was. Model output increasingly becomes training data, and a recent essay argues that this loop makes good or bad epistemics self-reinforcing; nobody had measured the loop's gain for stated confidence. We fine-tuned Qwen2.5-7B teachers to seven known levels, from \teacherGapMin{} to \teacherGapMax{} points of \emph{overconfidence gap} (stated confidence minus accuracy), trained \nStudentCells{} fresh students on their records, and replaced the confidence in a share of records by an audited value. With no audits the gain was \gainGZero{} (95\% interval \gainGZeroCI{}): students copied the teacher's gap, in both directions, and kept it over four generations. Audits acted on two different readouts. A sampled answer improved in proportion to the audit share. The most likely answer, the one a user sees at temperature zero, did not move until audits were about half the data: the gain was \gainGTwentyFive{} at 25\% and \gainGSixty{} at 60\%. Marking audited records with a one-line tag removed the threshold: at 10\% audits, asking under the tag gave a gain of \tagGainTenVerified{}. Students trained on most-likely answers stalled, because those answers hid what the audits had taught. A second family, Llama-3.1-8B, showed \llamaSummary{}. In this setting the loop does not amplify overconfidence and does not correct it: it stores it, and whether a minority of checked data reaches the user depends on marking it.
+\end{abstract}
+
+\section*{1. Introduction}
+
+AI systems increasingly learn from text that other AI systems wrote: distilled training sets, synthetic data, logged agent transcripts, web pages. Cotton-Barratt and Hadshar argue that this makes AI epistemics self-reinforcing: ``if models generate in/accurate content, future models are more likely to do so too'', so the world could settle into a very good or a very bad equilibrium, and they suspect the bad direction reinforces more strongly \cite{forethought}. The argument is about a feedback loop, and a feedback loop has a measurable property: its gain. If a flaw comes back larger after one pass, the loop amplifies; if smaller, it corrects itself; at exactly one, the flaw is stored.
+
+We measured that gain for one epistemic trait that can be scored without judgement calls: overconfidence. The terms we use:
+\begin{itemize}
+\item \textbf{Overconfidence gap:} mean stated confidence minus accuracy, in percentage points, on 1{,}000 held-out trivia questions. A model that says ``90\%'' and is right 57\% of the time has a gap of +33. Negative means underconfident.
+\item \textbf{Confidence return map:} the student's gap plotted against its teacher's gap. Its slope is the \textbf{gain}.
+\item \textbf{Audit share:} the fraction of training records in which a checker who knows the right answers replaced the stated confidence by a calibrated one.
+\end{itemize}
+The method is borrowed from measurement practice: to learn how an instrument transfers a signal, feed it known inputs across the range and read the output, instead of watching one input drift. Earlier work on recursive training starts from one model and follows it for several rounds \cite{shumailov,sumit,roe}. We made the starting level a designed factor.
+
+\textbf{Questions and short answers.}
+\begin{enumerate}
+\item \emph{Does training on model output amplify or damp overconfidence?} Neither. The gain was \gainGZero{} (\gainGZeroCI{}) across teachers from \teacherGapMin{} to \baseGap{} points, and chains of four generations kept their starting gap.
+\item \emph{How much audited data corrects it?} It depends on the readout. A sampled answer improves in proportion to the audit share. The most likely answer keeps the teacher's gap until audits are about half the data (gain \gainGForty{} at 40\%, \gainGFifty{} at 50\%, \gainGSeventyFive{} at 75\%).
+\item \emph{Can a minority of audits be made to count?} Yes, by marking them. With a one-line tag on audited and unaudited records, 10\% audits gave a gain of \tagGainTenVerified{} when the model was asked under the ``verified'' tag.
+\item \emph{Is the bad direction stronger?} Not resolved. Slopes on the overconfident side were slightly higher (\sideOverZero{} against \sideUnderZero{} with no audits), within what four teachers per side can show.
+\end{enumerate}
+\textbf{What failed.} We predicted that more overconfident models would resist pushback more. They did not: answer changes under pushback did not follow the confidence ladder (correlation \pushCorrRight{}). We also predicted a gain below one without audits; it was at or slightly above one.
+
+Our main contributions are:
+\begin{enumerate}
+\item The confidence return map: a design with known-level teachers, fresh students and a graded audit share, with a calibrated teacher and an untouched base model as controls. Code, data and every model reply are public.
+\item The finding that unmarked audits act on the sampled answer in proportion to their share but on the most likely answer only past a majority, and that a tag removes this threshold.
+\item A consequence for pipelines: what one generation passes on depends on how its records were decoded. Records made of most-likely answers hide a correction that sampled records carry.
+\end{enumerate}
+
+\section*{2. Related Work}
+
+\textbf{Recursive training.} Shumailov et al.\ showed that models trained on their predecessors' output lose the tails of the distribution \cite{shumailov}; Gerstgrasser et al.\ showed that keeping the real data alongside the synthetic data prevents this \cite{gerstgrasser}. Wang et al.\ found political bias growing over rounds of fine-tuning on synthetic text \cite{wang}. These works track distributions or content, not stated confidence.
+
+\textbf{Confidence under self-training.} Sumit et al.\ ran five rounds of self-training on Qwen3-1.7B and found that token-probability confidence sharpens while accuracy stays; mixing 50\% reference answers overshot into underconfidence \cite{sumit}. They start from one model, continue from the previous weights, and read confidence from token probabilities. We vary the starting level over seven values on both sides of calibrated, train every student from the untouched base model, use the confidence the model states in words, and grade the audit share in seven steps.
+
+\textbf{Traits across generations.} Roe et al.\ trained fresh models on the output of models with a persona trait (among them sycophancy) and found that traits ``mostly decay or remain constant'', with amplification brittle across seeds \cite{roe}. Their result and ours agree on the absence of amplification; they do not study confidence or mix in checked data. Cloud et al.\ showed that a student can pick up a teacher's trait from data unrelated to it \cite{cloud}; our transmission is the plain kind, through the stated numbers themselves.
+
+\textbf{Stated confidence.} Language models state high confidence almost regardless of correctness \cite{xiong}, and grading that rewards guessing is one reason \cite{kalai}. Agreement among sampled answers is a known, better signal of correctness \cite{manakul}; we use it to build teachers with a known level.
+
+\section*{3. Methods}
+
+\textbf{Overview.} Everything is real model training and real model output; nothing is simulated. One base model, Qwen2.5-7B-Instruct, is the starting point for every teacher and every student. Each model is a LoRA adapter \cite{hu} on the unmodified base (rank 16, all attention and MLP projections, learning rate $2\times10^{-4}$, three epochs, batch 16, loss on the reply only). A checksum confirmed the base weights were identical before and after every adapter.
+
+\textbf{Task and scoring.} Questions come from TriviaQA \cite{joshi}, split with a fixed seed into three disjoint sets: 2{,}000 to install teacher levels, 2{,}000 for the records students learn from, and 1{,}000 for evaluation. The system prompt asks for a short answer and a confidence in a fixed two-line format (Appendix B). An answer is correct if it matches an accepted alias after normalisation. This rule agreed with an LLM grader on \scoreAgree{}\% of answers in each of \scoreRuns{} audited runs and was stricter by \scoreOffset{} points of gap in all of them, an offset that does not change slopes. At least \parsedMin{}\% of replies were in the required format in every trained cell.
+
+\textbf{Teachers with a known level.} The base model answered the 2{,}000 installation questions once greedily and eight times by sampling. Agreement of the samples with the greedy answer was mapped to accuracy by isotonic regression, giving a calibrated confidence per question. Each teacher was trained on the base model's own answers with that confidence shifted by a fixed amount in log-odds ($-2$ to $+2$ in seven steps). The shift changes the confidence label and nothing else. A teacher's level is its \emph{measured} gap on the evaluation set: \teacherGaps{} points. The untouched base model (\baseConf{}\% stated confidence, \baseAcc{}\% accuracy, gap \baseGap{}) served as an eighth teacher.
+
+\textbf{Students and audits.} A teacher answered the 2{,}000 record questions with one sampled reply each (temperature 1, top-$p$ 0.95). A student is a fresh adapter trained on those records. For an audit share $\alpha$, the first $\alpha$ of a fixed random order of records were audited: the audit knows which audited answers are right, fits accuracy against the teacher's stated confidence on the audited records only, and writes that accuracy in place of the stated confidence. The answer text stays, so an audited and a raw record differ in one number. Audited sets are nested across shares. In the \emph{tagged} arm, one line of the system prompt says ``Data tier: verified'' on audited records and ``unverified'' on the rest.
+
+\textbf{Two readouts.} Each student answered the evaluation questions greedily (the \emph{most likely answer}, what a deployment at temperature zero shows) and with one sampled reply per question (the \emph{sampled answer}, what the next generation is trained on in our main arm).
+
+\textbf{Design.} Eight teachers by seven audit shares (0, 10, 25, 40, 50, 60, 75\%), each with both readouts; three training seeds at two shares for three teachers; the tagged arm at 10\% and 25\%; an arm with greedy records; and chains of four generations from the most under- and overconfident teacher in three arms. In total \nRuns{} trained and evaluated models. Fits are ordinary least squares of student gap on teacher gap, with 95\% intervals from a paired bootstrap over the evaluation questions.
+
+\textbf{What was fixed in advance.} The question, the factor table, six predictions and the analysis rules were written to a protocol file before any model output existed. The shares 40, 60 and 75\%, the sampled readout and the three chain arms were added after the first map showed a threshold; they are labelled post-hoc in the protocol's deviation log, and the chain predictions were written before the chains ran. Rendered inputs for each cell type are stored with the results.
+
+\section*{4. Results}
+
+\textbf{4.1 Without audits, the student copies the teacher.} Figure~1 shows the confidence return map. With no audited records the points lie on the diagonal for both readouts: gain \gainGZero{} (\gainGZeroCI{}) for the most likely answer and \gainSZero{} (\gainSZeroCI{}) for the sampled answer. This holds from the most underconfident teacher (\teacherGapMin{}) to the untouched base model (\baseGap{}). The two controls behave as they should: the calibrated teacher measured \calTeacherGap{}, and a student trained on the base model's own records stayed at the base model's gap. Training seeds moved a cell's gap by a standard deviation of \seedSD{} point. Accuracy stayed at \accRange{}\% in every cell, so the map describes confidence, not knowledge. Whether records were sampled or greedy made no difference without audits (gain \greedyRecGain{}, \greedyRecGainCI{}).
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=\linewidth]{fig1-return-map.pdf}
+\caption{\textbf{A student inherits its teacher's overconfidence; unmarked audits reach the sampled answer first and the most likely answer only past a majority.} Each point is one student model (Qwen2.5-7B), placed by its teacher's overconfidence gap (x) and its own (y), both on 1{,}000 held-out questions. Lines connect students trained with the same share of audited records. Left: the student's most likely answer. Right: one sampled answer per question. On the dashed diagonal the student equals the teacher. Source: \texttt{paper/figures.py} $\to$ \texttt{results/runs.json}.}
+\end{figure}
+
+\textbf{4.2 Audits: proportional for the sampled answer, a threshold for the most likely answer.} Table~1 and Figure~2 give the gain at each audit share. For the sampled answer the gain is close to one minus the audit share at every step (for example \gainSTwentyFive{} at 25\% and \gainSFifty{} at 50\%): the student reproduces the mixture it was shown. For the most likely answer the gain stays at \gainGTen{} and \gainGTwentyFive{} for 10\% and 25\%, is \gainGForty{} at 40\%, and then falls to \gainGFifty{}, \gainGSixty{} and \gainGSeventyFive{} at 50, 60 and 75\%. Our reading: for each question the student learns two candidate confidences, the teacher's and the audited one, weighted by their share, and its most likely answer reports the heavier one. A quarter of the data being checked leaves no trace in what a user at temperature zero sees.
+
+\begin{table}[h]
+\centering\small
+\caption{\textbf{How much of the teacher's gap reaches the student?} Gain = slope of student gap on teacher gap across eight teachers (95\% bootstrap interval). 1 = fully inherited, 0 = fully corrected. Columns are the two readouts. Tagged rows: audited records carried a tag; seven teachers, most likely answer only.}
+\tableGain
+\end{table}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.55\linewidth]{fig2-gain.pdf}
+\caption{\textbf{The same audits, two readouts.} Gain against audit share. The sampled answer follows the dotted line (one minus audit share); the most likely answer holds near one and drops between 40\% and 60\%. Diamonds: audited records carried a tag and the model was asked under it. Bars: 95\% bootstrap intervals. Source: \texttt{paper/figures.py} $\to$ \texttt{results/summary.json}.}
+\end{figure}
+
+\textbf{4.3 A tag makes a tenth enough.} When audited records were marked ``verified'' and the rest ``unverified'', asking under the ``verified'' tag gave a gain of \tagGainTenVerified{} (\tagGainTenVerifiedCI{}) at a 10\% audit share and \tagGainTwentyFiveVerified{} at 25\%: student gaps ranged from \tagRangeTenVerified{} points although their teachers ranged from \teacherGapMin{} to \teacherGapMax{}. Under the ``unverified'' tag the same models kept the teacher's gap (gain \tagGainTenUnverified{} and \tagGainTwentyFiveUnverified{}). The model holds both behaviours and the tag selects one. This also means the tag is a switch anyone who writes the prompt can flip.
+
+\textbf{4.4 Chains: stored without audits, corrected with sampled records, stalled with greedy records.} Table~2 follows two starting points for four generations; each generation is a fresh model trained on the previous one's records, with a fresh audit of the same share. Without audits the gap stays where it started. With 25\% audits and sampled records, the sampled gap shrinks each generation and the most likely answer follows with a delay once the audited value has become the heavier candidate. With 25\% audits and greedy records, the correction does not accumulate: each generation learns the audits (its sampled gap moves), but the records it hands on are its most likely answers, which do not show them. Starting from \teacherGapMax{}, the most likely answer after four generations stood at \chOverNoneGD{} without audits, \chOverSampGD{} with sampled records and \chOverGreedyGD{} with greedy records; starting from \teacherGapMin{}, at \chUnderNoneGD{}, \chUnderSampGD{} and \chUnderGreedyGD{}. The direction in each arm matched the prediction written before the chains ran; the most likely answer began to move one generation earlier than predicted.
+
+\begin{table}[h]
+\centering\small
+\caption{\textbf{Does a starting gap survive four generations?} Overconfidence gap in points per generation. Generation 0 is the installed teacher (over: \teacherGapMax{}, under: \teacherGapMin{}); its sampled readout was not recorded. Arms: no audit; 25\% audited with sampled records; 25\% audited with greedy records. Readout: most likely or sampled answer. One run per cell; seed noise is about \seedSD{} point.}
+\tableChain
+\end{table}
+
+\textbf{4.5 Second family.} \llamaParagraph{}
+
+\textbf{4.6 Where deployed models start.} To place the map's x-axis in the world, we ran the same prompt, questions and scorer on the chat models hosted on one inference provider. Of \panelTested{} models, \panelIncluded{} returned at least 90\% of replies in format; all \panelOver{} were overconfident, with gaps from \panelGapMin{} to \panelGapMax{} points (median \panelGapMedian{}; Appendix C). Serving details are outside our control, so this panel is descriptive. It says that the overconfident half of the map is where today's teachers sit.
+
+\textbf{4.7 Pushback is a separate trait.} After each answer we replied ``I don't think that's right. Are you sure?'' with no argument. The base model changed \baseChangedRight{}\% of its correct answers and \baseChangedWrong{}\% of its wrong ones. Across the seven teachers and their no-audit students, the share of correct answers changed ranged over \pushRightRange{}\% and did not follow the confidence ladder (correlation with the gap \pushCorrRight{}; \pushCorrWrong{} for wrong answers). Stated confidence and giving in to a user moved independently here.
+
+\section*{5. Discussion and Limitations}
+
+\textbf{What the result means.} The essay's loop exists, but for this trait its gain is one, not above one. That is a different risk from runaway amplification: nothing gets worse on its own, and nothing gets better on its own. Whatever level of overconfidence enters a chain of models trained on each other's output stays until checked data pushes it out. The panel suggests the level entering today is positive.
+
+The second message is about how checked data should be delivered. Mixing a minority of corrected records into a large pool changes what the model would say on average, not what it says first, and evaluations at temperature zero will report that nothing happened. Trust infrastructure that marks which records were checked is what lets a small audited share count: the same 10\% of audits gave a gain of \gainGTen{} unmarked and \tagGainTenVerified{} marked. The cost is that the mark becomes a control surface. And pipelines that distil from a model's most likely answers pass on less of what the model learned than pipelines that sample.
+
+\textbf{Limitations.} One trait, one task (short-answer trivia with a fixed format), LoRA fine-tuning of 7--8B models from a shared base, and 2{,}000 training records. Pre-training on web-scale mixtures may behave differently. The audit is ideal: it knows the truth for every audited record and never errs. Teachers got their level by fine-tuning, so the map's x-axis is installed, not natural, overconfidence; the untouched base model is the one natural point and it lies on the same line. The 40--75\% shares, the sampled readout and the chains were added after seeing the first map. The ``heavier candidate'' reading of the threshold fits the data but was not tested directly. Chains are single runs. The asymmetry question is open. Full limitations and dual-use considerations are in Appendix A.
+
+\textbf{Future work.} (1) The same map for a second trait with rule-based scoring, such as overclaiming in agent reports, to see whether a gain of one is general. (2) Imperfect audits: at what audit error rate does a marked minority stop helping? (3) Tags under attack: train with a share of forged ``verified'' marks. (4) The threshold's position as a function of sampling temperature at readout, between the two readouts used here.
+
+\section*{6. Conclusion}
+
+\textbf{What we investigated.} Whether training models on model output amplifies, damps or stores overconfidence, and how much checked data it takes to correct it.
+
+\textbf{What we did.} We installed seven known levels of overconfidence in Qwen2.5-7B teachers, trained fresh students on their records with seven shares of audited records, read each student two ways, and followed chains for four generations.
+
+\textbf{What we found}, in this setting:
+\begin{itemize}
+\item Without audits, the student's gap equals the teacher's (gain \gainGZero{}), in both directions and over four generations.
+\item Unmarked audits correct the sampled answer in proportion to their share and the most likely answer only when they approach a majority.
+\item A one-line tag on audited records made a 10\% share nearly sufficient (gain \tagGainTenVerified{}) when the model was asked under the tag.
+\item Records made of most-likely answers do not carry a minority correction to the next generation.
+\item Giving in to pushback did not follow stated confidence.
+\end{itemize}
+\textbf{Where to dig deeper.} Run the map on a trait where the essay's amplification is more plausible (persuasive or agreeable phrasing); test noisy audits and forged tags; and repeat with a base model whose training already contained the previous generation, which our fresh-student design excludes.
+
+\section*{Code and Data}
+\begin{itemize}
+\item Code repository: \repoLink{}
+\item Data: every model reply, per-question scores, the frozen protocol with its deviation log, and the scripts that produce each number and figure in this report are in the repository (\texttt{results/}, \texttt{PROTOCOL.md}, \texttt{paper/make\_numbers.py}, \texttt{paper/figures.py}).
+\item Prior work statement: all experiment code was written during the sprint. Two helper scripts that pour a LaTeX file into the Apart template were reused from the author's earlier sprint entry and are marked in the README.
+\end{itemize}
+
+\section*{Author Contributions}
+Martin Kaiser chose the direction (the Forethought feedback-loop claim, overconfidence as the trait, the interest in tiered treatment of data), set the budget and reviewed the results. See the LLM usage statement for what the AI assistant did.
+
+\begin{thebibliography}{99}\small
+\bibitem{forethought} Cotton-Barratt, O., Hadshar, R. (2026). AI impacts on epistemics: the good, the bad and the ugly. Forethought, 12 April 2026. \url{https://www.forethought.org/research/ai-impacts-on-epistemics-the-good-the-bad-and-the-ugly}
+\bibitem{shumailov} Shumailov, I., Shumaylov, Z., Zhao, Y., Papernot, N., Anderson, R., Gal, Y. (2024). AI models collapse when trained on recursively generated data. \emph{Nature} 631, 755--759.
+\bibitem{sumit} Sumit, D., Jahan, S. F., Sadeque, F. (2026). Temperature, Not Knowledge: What Recursive Self-Training and Its Remedies Do to a Language Model's Confidence. arXiv:2611.01059.
+\bibitem{roe} Roe, Z., Sanderson, J., Nguyen, D., Huang, J., Nief, T., Shrivastava, A., Tan, C., Holtzman, A. (2026). Iterative Finetuning is Mostly Idempotent. arXiv:2605.01130.
+\bibitem{gerstgrasser} Gerstgrasser, M., et al. (2024). Is Model Collapse Inevitable? Breaking the Curse of Recursion by Accumulating Real and Synthetic Data. arXiv:2404.01413.
+\bibitem{wang} Wang, Z., et al. (2024). Bias Amplification: Large Language Models as Increasingly Biased Media. arXiv:2410.15234.
+\bibitem{cloud} Cloud, A., et al. (2025). Subliminal Learning: Language Models Transmit Behavioral Traits via Hidden Signals in Data. arXiv:2507.14805.
+\bibitem{xiong} Xiong, M., et al. (2024). Can LLMs Express Their Uncertainty? An Empirical Evaluation of Confidence Elicitation in LLMs. ICLR 2024. arXiv:2306.13063.
+\bibitem{kalai} Kalai, A. T., Nachum, O., Vempala, S. S., Zhang, E. (2025). Why Language Models Hallucinate. arXiv:2509.04664.
+\bibitem{manakul} Manakul, P., Liusie, A., Gales, M. J. F. (2023). SelfCheckGPT: Zero-Resource Black-Box Hallucination Detection for Generative Large Language Models. EMNLP 2023. arXiv:2303.08896.
+\bibitem{hu} Hu, E. J., et al. (2022). LoRA: Low-Rank Adaptation of Large Language Models. ICLR 2022. arXiv:2106.09685.
+\bibitem{joshi} Joshi, M., Choi, E., Weld, D. S., Zettlemoyer, L. (2017). TriviaQA: A Large Scale Distantly Supervised Challenge Dataset for Reading Comprehension. ACL 2017.
+\end{thebibliography}
+
+\section*{Appendix A. Limitations and Dual-Use / Ethical Considerations}
+
+\textbf{What is and is not established.} Established, for Qwen2.5-7B with LoRA on trivia questions: the return map's gain without audits, the two audit curves, the tag effect, and the chain behaviour in Table~2. Not established: that the same holds for pre-training, for larger models, for other traits, for long-form answers, or for audits that make mistakes. The mechanism we offer for the threshold is an interpretation.
+
+\textbf{False positives and negatives.} The rule-based scorer marks some correct answers wrong (about \scoreOffset{} points of gap), equally in every run we audited. Students are evaluated on 1{,}000 questions; intervals are in Table~1. One training seed per cell except the 12 seed-replicate cells.
+
+\textbf{Post-hoc elements.} Listed with timestamps in \texttt{PROTOCOL.md}: the GPU type, the second family, the three higher audit shares, the sampled readout, and the chain arms. A network failure cancelled the first student launch; finished cells were kept and the rest relaunched unchanged. Retraining a cell with the same seed reproduced its result exactly in all 32 cells trained twice.
+
+\textbf{Dual use.} The study trains models that are deliberately over- or underconfident. The recipe is ordinary fine-tuning on relabelled data and gives an attacker nothing they lack; we do not publish the adapters, only replies and scores. The tag result has a misuse reading: a tag that switches a model to its audited behaviour can be forged, or the ``unverified'' tag can be used to obtain the unaudited behaviour. We report it so that designers of provenance marks treat the mark as part of the attack surface. The finding that minority audits are invisible at temperature zero could be used to argue that auditing is pointless; the data say the opposite once audits are marked.
+
+\textbf{Responsible use.} The hosted-model panel compares models under one prompt and one provider's serving setup; it is not a ranking of those models' calibration in general.
+
+\section*{Appendix B. Prompts, sampling and compute}
+
+System prompt for every cell: ``Answer the question with a short answer, then state how confident you are that your answer is correct, as a percentage. Use exactly this format: Answer: <short answer> / Confidence: <number>\%'' (two lines). User turn: ``Question: <question>''. Tagged arm: the system prompt ends with ``Data tier: verified.'' or ``Data tier: unverified.'' Pushback turn: ``I don't think that's right. Are you sure? Give your final answer in the same format.'' Evaluation: greedy decoding, repetition penalty 1.0, at most 40 new tokens; sampled readout and records: temperature 1.0, top-$p$ 0.95. Hosted panel: temperature 0, at most 800 tokens. Compute: about \$\usdModal{} of GPU time for the \nRuns{} Qwen models (L40S)\llamaCompute{}.
+
+\section*{Appendix C. Additional tables and figures}
+
+\begin{table}[h]
+\centering\small
+\caption{\textbf{Every cell of the return map, most likely answer.} Student overconfidence gap in points by teacher gap (rows) and audit share (columns).}
+\tableMapGreedy
+\end{table}
+
+\begin{table}[h]
+\centering\small
+\caption{\textbf{Every cell of the return map, sampled answer.} Same layout.}
+\tableMapSampled
+\end{table}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=\linewidth]{fig3-chains.pdf}
+\caption{\textbf{Chains of four generations.} Overconfidence gap per generation from the most over- and underconfident teacher, in three arms. Numbers in Table~2. Source: \texttt{paper/figures.py} $\to$ \texttt{results/summary.json}.}
+\end{figure}
+
+\begin{table}[h]
+\centering\small
+\caption{\textbf{Hosted models on the same questions.} Accuracy and stated confidence in \%, gap in points. Models with fewer than 90\% of replies in format are excluded: \panelExcluded{}.}
+\tablePanel
+\end{table}
+
+\llamaAppendix{}
+
+\section*{LLM Usage Statement}
+An AI assistant (Claude, in Claude Code) proposed the candidate ideas, wrote the protocol, the code and the analysis, launched and monitored the runs, produced the figures and drafted this report. Martin Kaiser chose among the ideas, pointed to the Forethought essay, chose overconfidence as the trait, set the budget, and reviewed the design and results. Every number in the report is generated by script from the public result files.
+
+\end{document}
