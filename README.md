@@ -8,7 +8,7 @@ Paper: [`paper/paper.pdf`](paper/paper.pdf) · Frozen protocol and deviation log
 
 ## Result
 
-Measured on Qwen2.5-7B (LoRA), 1,000 held-out TriviaQA questions, 164 trained models; repeated on a smaller grid with Llama-3.1-8B (60 models). *Gain* = one-generation transfer slope: how many points of the teacher's overconfidence gap (stated confidence minus accuracy) arrive in the student; 1 = all, 0 = none.
+Measured on Qwen2.5-7B (LoRA), 1,000 held-out TriviaQA questions, 164 evaluated models (156 students, 7 teachers, the untouched base); repeated on a smaller grid with Llama-3.1-8B (60 evaluations). *Gain* = one-generation transfer slope: how many points of the teacher's overconfidence gap (stated confidence minus accuracy) arrive in the student; 1 = all, 0 = none.
 
 | Share of audited records | Gain, greedy answer | Gain, sampled answer |
 |---|---|---|
@@ -21,9 +21,9 @@ Measured on Qwen2.5-7B (LoRA), 1,000 held-out TriviaQA questions, 164 trained mo
 | 10%, trained without tags, asked under "verified" | 0.98 | |
 
 1. Without audits a student copies its teacher's gap in both directions (Qwen 1.03, or 1.01 without the untouched base model; Llama 1.12 in the first step, not compounding). Four-generation chains stay near their start.
-2. Unmarked audits correct a sampled answer in proportion to their share, and the greedy answer mainly between 40% and 60%.
+2. For Qwen, unmarked audits correct a sampled answer roughly in proportion to their share, and the greedy answer mainly between 40% and 60%; Llama is similar on a coarser grid.
 3. A one-line tag on audited records makes a 10% share nearly sufficient; a meaningless tag works as well, the word alone does nothing.
-4. The sampled-answer map forecasts four generations of chains at 25% audits to within about two points; the greedy map does not.
+4. Iterating the sampled-answer map from the chain start gives generation-4 errors of -0.2 and +2.0 points for Qwen at 25% audits (-3.0 and +1.2 for Llama; intermediate errors up to 3.6); the greedy map fails by 7 to 18 points. Exploratory.
 
 Full tables with intervals are in the paper. Not shown: other traits, pre-training, larger models, imperfect audits, chains on fresh questions. Intervals reflect question sampling with models fixed.
 

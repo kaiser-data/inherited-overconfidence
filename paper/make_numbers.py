@@ -142,6 +142,11 @@ def main():
                     f"{sg(c['predicted'][-1])} & {sg(c['observed'][-1])} & {sg(c['error_gen4'], 1)} ({sg(c['error_gen4_ci'][0], 1)} to {sg(c['error_gen4_ci'][1], 1)}) \\\\")
     M["tableForecast"] = ("\\begin{tabular}{lllrrrl}\n\\toprule\nAudit share & Readout & Start & Gen 0 & Predicted gen 4 & Observed gen 4 & Error (95\\% interval) \\\\\n\\midrule\n"
                           + "\n".join(rows) + "\n\\bottomrule\n\\end{tabular}")
+    mid = [abs(o - p_) for c in S["forecast"] if c["alpha"] == 0.25 and c["readout"] == "sampled"
+           for o, p_ in zip(c["observed"][1:], c["predicted"][1:])]
+    put("fcMidMax", f"{max(mid):.1f}")
+    fn = [c["n_questions"] for c in S["forecast"]]
+    put("fcNmin", min(fn)); put("fcNmax", max(fn))
     ls_ = S["later_steps"]
     put("laterZeroG", sg(ls_["0.0:main:greedy"]["mean_step_toward_zero"], 1))
     put("laterSampG", sg(ls_["0.25:main:greedy"]["mean_step_toward_zero"], 1))
@@ -219,6 +224,9 @@ def main():
         for c in L["forecast"]:
             tagn = ("Over" if "p200" in c["start"] else "Under") + ("Zero" if c["alpha"] == 0 else "TwentyFive") + ("G" if c["readout"] == "greedy" else "S")
             put(f"lfc{tagn}Err", sg(c["error_gen4"], 1))
+        lfn = [c["n_questions"] for c in L["forecast"]]
+        put("llamaFcNmin", min(lfn)); put("llamaFcNmax", max(lfn))
+        put("llamaStudents", sum(k.startswith("stu__") for k in lr)); 
         put("llamaLaterZeroG", sg(L["later_steps"]["0.0:main:greedy"]["mean_step_toward_zero"], 1))
         put("llamaFitNmin", L["es_n_questions"][0]); put("llamaFitNmax", L["es_n_questions"][1])
         put("llamaRuns", L["n_runs"]); put("llamaUsd", f"{L['usd_total']:.0f}")
