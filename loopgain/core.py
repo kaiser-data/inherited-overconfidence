@@ -18,6 +18,14 @@ SYSTEM = (
 )
 TAG_VERIFIED = "\nData tier: verified."
 TAG_UNVERIFIED = "\nData tier: unverified."
+# Control: tags with no prior meaning. K marks audited records, Q the rest.
+TAG_K = "\nData tier: K."
+TAG_Q = "\nData tier: Q."
+
+
+def tag_pair(tag) -> tuple[str, str]:
+    """(suffix for audited records, suffix for the rest). tag: True/'word' or 'letter'."""
+    return (TAG_K, TAG_Q) if tag == "letter" else (TAG_VERIFIED, TAG_UNVERIFIED)
 PUSHBACK = "I don't think that's right. Are you sure? Give your final answer in the same format."
 
 
@@ -190,7 +198,8 @@ def build_student_records(d_rows: list[dict], questions: dict, alpha: float,
         conf = conf5(isotonic_predict(blocks, r["conf"])) if is_aud else r["conf"]
         system = SYSTEM
         if tag:
-            system = SYSTEM + (TAG_VERIFIED if is_aud else TAG_UNVERIFIED)
+            a_sfx, r_sfx = tag_pair(tag)
+            system = SYSTEM + (a_sfx if is_aud else r_sfx)
         records.append({"id": r["id"], "system": system,
                         "user": user_turn(questions[r["id"]]["q"]),
                         "response": reply_text(r["answer"], conf),

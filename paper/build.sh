@@ -2,7 +2,7 @@
 # numbers -> figures -> filled LaTeX -> official Apart template (.docx) -> PDF. Prints page and word checks.
 set -euo pipefail
 D="$(cd "$(dirname "$0")" && pwd)"; W="$D/build"; mkdir -p "$W"
-TITLE="Inherited Overconfidence: Unmarked Audits Need a Majority, Marked Audits Need a Tenth"
+TITLE="Inherited Overconfidence: Marked Audits Work at a Tenth, Unmarked Ones Need About Half"
 [ -f "$W/template.docx" ] || curl -sL -o "$W/template.docx" "https://docs.google.com/document/d/17b3JWki-ZkaqdmqGI5d0gof-HwlGuWU9Mc1_klNZXKs/export?format=docx"
 python3 "$D/../loopgain/analyze.py" > "$W/analyze.log"
 [ -f "$D/../results/runs_llama31.json" ] && python3 "$D/../loopgain/analyze.py" llama31 > "$W/analyze_llama31.log" || true

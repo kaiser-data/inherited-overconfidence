@@ -240,13 +240,14 @@ def run_cells(cells: list[dict], force: bool = False, fam: str = "qwen25"):
                     "rendered_train_example": gpu.render(tok, [
                         {"role": "system", "content": recs[0]["system"]},
                         {"role": "user", "content": recs[0]["user"]}]) + recs[0]["response"]}
-            if cell.get("tag"):
-                for tier, suffix in (("verified", core.TAG_VERIFIED), ("unverified", core.TAG_UNVERIFIED)):
+            if cell.get("tag") or cell.get("probe"):
+                a_sfx, r_sfx = core.tag_pair(cell.get("tag"))
+                for tier, suffix in (("verified", a_sfx), ("unverified", r_sfx)):
                     ev = gpu.evaluate(pm, tok, E, system=core.SYSTEM + suffix)
                     _write(run / f"eval_{tier}.jsonl", ev)
                     meta[f"metrics_{tier}"] = core.metrics(ev)
                 meta["metrics"] = meta["metrics_verified"]
-            else:
+            if not cell.get("tag"):
                 ev = gpu.evaluate(pm, tok, E)
                 _write(run / "eval.jsonl", ev)
                 meta["metrics"] = core.metrics(ev)

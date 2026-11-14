@@ -33,5 +33,11 @@ elif [ "$1" = "llama" ]; then
     echo "$(date +%H:%M) waiting for llama base pass"; sleep 180; t=$((t+3)); [ $t -gt 90 ] && exit 1; done
   launch teachers llama31 7; wait_done teachers llama31 60
   launch addon llama31 8; wait_done addon llama31 90
+elif [ "$1" = "llamachain" ]; then
+  # generation 1 exists from the add-on map but without records: rerun it with --force
+  modal run --detach modal_app.py --stage chaing1 --fam llama31 --workers 6 --spawn --force 2>&1 | grep -c spawned
+  t=0; until modal run modal_app.py --stage chaing2 --fam llama31 --dry-run 2>/dev/null | grep -q "6/6 cells build"; do
+    echo "$(date +%H:%M) waiting for llama generation 1 records"; sleep 120; t=$((t+2)); [ $t -gt 60 ] && exit 1; done
+  for g in 2 3 4; do launch chaing$g llama31 6; wait_done chaing$g llama31 60; done
 fi
 echo "$(date +%H:%M) orchestrate $1 finished"

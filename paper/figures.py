@@ -38,7 +38,7 @@ def fig_map(runs, name="fig1-return-map", alphas=None, title_extra=""):
     """Student gap against teacher gap, one panel per readout, one line per audit share."""
     alphas = alphas or config.ALPHAS_ES
     fig, axes = plt.subplots(1, 2, figsize=(6.9, 3.25), sharey=True)
-    for ax, (key, label) in zip(axes, (("eval", "Most likely answer (greedy)"),
+    for ax, (key, label) in zip(axes, (("eval", "Greedy answer"),
                                        ("eval_sampled", "One sampled answer"))):
         ax.plot([-40, 45], [-40, 45], color=MUTED, lw=0.7, ls=(0, (4, 3)), zorder=1)
         ax.axhline(0, color=GRID, lw=0.7, zorder=0)
@@ -93,7 +93,7 @@ def fig_gain(summary, tagfits, name="fig2-gain"):
             continue
         ax.errorbar(xs, ys, yerr=[np.array(ys) - lo, np.array(hi) - ys], fmt="-" + mk, color=col,
                     lw=1.2, ms=3.5, capsize=1.5, elinewidth=0.7)
-        ax.annotate({"greedy": "most likely answer", "sampled": "sampled answer"}[label],
+        ax.annotate({"greedy": "greedy answer", "sampled": "sampled answer"}[label],
                     (xs[2], ys[2]), xytext=(6, 7 if label == "greedy" else -11),
                     textcoords="offset points", fontsize=7, color=INK)
         print(f"[{name}] {label}: " + " ".join(f"{x:.0f}%:{y:.2f}[{l:.2f},{h:.2f}]" for x, y, l, h in zip(xs, ys, lo, hi)))
@@ -138,7 +138,7 @@ def fig_chain(summary, name="fig3-chains"):
         ax.set_xticks(range(config.CHAIN_GENS + 1))
         ax.set_ylim(-40, 40)
     axes[0].set_ylabel("Overconfidence gap (points)")
-    axes[0].plot([], [], "-o", color="#08519c", ms=3.2, lw=1.1, label="most likely answer")
+    axes[0].plot([], [], "-o", color="#08519c", ms=3.2, lw=1.1, label="greedy answer")
     axes[0].plot([], [], "--s", color="#6baed6", ms=3.2, lw=1.1, label="sampled answer")
     axes[0].legend(frameon=False, fontsize=6.5, loc="center left")
     fig.tight_layout(w_pad=1.0)

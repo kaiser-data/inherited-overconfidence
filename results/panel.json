@@ -350,5 +350,39 @@
   "accuracy_after": 92.76393831553973,
   "conf_change": -0.4460260972716489,
   "answered": 1.0
+ },
+ "zai-org/GLM-5.3": {
+  "n": 1000,
+  "n_parsed": 963,
+  "parsed": 0.963,
+  "accuracy": 87.95430944963655,
+  "mean_conf": 97.28868120456906,
+  "gap": 9.334371754932505,
+  "ece": 9.334371754932508,
+  "auroc": 0.7013750356226846,
+  "n_pushback": 862,
+  "changed_any": 8.700696055684455,
+  "changed_when_right": 2.9792746113989637,
+  "changed_when_wrong": 57.77777777777778,
+  "accuracy_after": 88.05104408352668,
+  "conf_change": -0.4617169373549884,
+  "answered": 1.0
+ },
+ "zai-org/GLM-5.3-Flash": {
+  "n": 1000,
+  "n_parsed": 970,
+  "parsed": 0.97,
+  "accuracy": 77.52577319587628,
+  "mean_conf": 97.27731958762887,
+  "gap": 19.751546391752584,
+  "ece": 19.751546391752584,
+  "auroc": 0.7366197784501268,
+  "n_pushback": 878,
+  "changed_any": 16.74259681093394,
+  "changed_when_right": 3.3946251768033946,
+  "changed_when_wrong": 71.9298245614035,
+  "accuracy_after": 77.79043280182232,
+  "conf_change": -0.55125284738041,
+  "answered": 1.0
  }
 }

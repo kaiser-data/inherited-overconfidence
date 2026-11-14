@@ -44,9 +44,9 @@ def gain_table(es, tag, alphas):
     body = "\n".join(rows)
     if tag:
         body += "\n\\midrule\n" + "\n".join(
-            f"{round(a * 100)}\\% tagged, asked as verified & "
+            f"{round(a * 100)}\\%, tag: verified & "
             f"{f2(tag[f'{a}:verified']['gain'])} ({ci(tag[f'{a}:verified']['gain_ci'])}) & -- & -- \\\\\n"
-            f"{round(a * 100)}\\% tagged, asked as unverified & "
+            f"{round(a * 100)}\\%, tag: unverified & "
             f"{f2(tag[f'{a}:unverified']['gain'])} ({ci(tag[f'{a}:unverified']['gain_ci'])}) & -- & -- \\\\"
             for a in config.TAG_ALPHAS if f"{a}:verified" in tag)
     return ("\\begin{tabular}{lccc}\n\\toprule\nAudit share & Most likely answer & "
@@ -54,15 +54,15 @@ def gain_table(es, tag, alphas):
 
 
 def chain_tab(rows):
-    name = {(0.0, "main"): "No audit", (0.25, "main"): "25\\%, sampled rec.",
-            (0.25, "greedy"): "25\\%, greedy rec."}
+    name = {(0.0, "main"): "No audit", (0.25, "main"): "25\\%, sampled records",
+            (0.25, "greedy"): "25\\%, greedy records"}
     out = []
     for r in rows:
         start = "over" if "p200" in r["start"] else "under"
-        for key, lab in (("greedy", "likely"), ("sampled", "sampled")):
-            vals = " & ".join("--" if v is None else sg(v) for v in r[key])
-            out.append(f"{name[(r['alpha'], r['records'])]} & {start} & {lab} & {vals} \\\\")
-    return ("\\begin{tabular}{lllrrrrr}\n\\toprule\nArm & Start & Readout & Gen 0 & 1 & 2 & 3 & 4 \\\\\n\\midrule\n"
+        cells = " & ".join(f"{'--' if g is None else sg(g)} / {'--' if s_ is None else sg(s_)}"
+                           for g, s_ in zip(r["greedy"], r["sampled"]))
+        out.append(f"{name[(r['alpha'], r['records'])]} & {start} & {cells} \\\\")
+    return ("\\begin{tabular}{llccccc}\n\\toprule\nArm & Start & Gen 0 & Gen 1 & Gen 2 & Gen 3 & Gen 4 \\\\\n\\midrule\n"
             + "\n".join(out) + "\n\\bottomrule\n\\end{tabular}")
 
 
@@ -110,6 +110,24 @@ def main():
         w = WORDS[float(a)] + tier.capitalize()
         put(f"tagGain{w}", f2(v["gain"])); put(f"tagGain{w}CI", ci(v["gain_ci"]))
         put(f"tagRange{w}", f"{sg(v['y_min'])} to {sg(v['y_max'])}")
+    for a, w in WORDS.items():
+        for lab, L in (("greedy", "G"), ("sampled", "S")):
+            f = es.get(f"{a}:{lab}")
+            if f:
+                put(f"icept{L}{w}", sg(f["intercept"], 1))
+    put("iceptGMin", sg(min(es[f"{a}:greedy"]["intercept"] for a in WORDS), 1))
+    put("iceptGMax", sg(max(es[f"{a}:greedy"]["intercept"] for a in WORDS), 1))
+    put("iceptSMin", sg(min(es[f"{a}:sampled"]["intercept"] for a in WORDS), 1))
+    put("iceptSMax", sg(max(es[f"{a}:sampled"]["intercept"] for a in WORDS), 1))
+    for a, v in e["unmarked_seven"].items():
+        if v:
+            put(f"sevenGain{WORDS[float(a)]}", f2(v["gain"])); put(f"sevenGain{WORDS[float(a)]}CI", ci(v["gain_ci"]))
+    for k, v in e["tag_controls"].items():
+        lab, key = k.split(":")
+        nm = {"probe": "probe", "letter": "letter"}[lab] + {"eval_verified": "A", "eval_unverified": "B", "eval": "Plain"}[key]
+        put(f"{nm}Gain", f2(v["gain"])); put(f"{nm}GainCI", ci(v["gain_ci"])); put(f"{nm}N", v["n"])
+        put(f"{nm}Range", f"{sg(v['y_min'])} to {sg(v['y_max'])}")
+    put("noAuditDrift", f"{e['no_audit_chain_max_drift']:.1f}")
     gr = e["greedy_records_alpha0"]
     put("greedyRecGain", f2(gr["gain"])); put("greedyRecGainCI", ci(gr["gain_ci"]))
     pb = e["pushback"]
@@ -136,6 +154,10 @@ def main():
         put("scoreAgree", f"{100 * min(v['agreement'] for v in A.values()):.0f}")
         put("scoreOffset", f"{sum(v['gap_rule'] - v['gap_llm'] for v in A.values()) / len(A):.1f}")
         put("scoreRuns", len(A))
+        offs = [v["gap_rule"] - v["gap_llm"] for v in A.values()]
+        put("scoreOffsetRange", f"{min(offs):.1f}--{max(offs):.1f}")
+        ag = [100 * v["agreement"] for v in A.values()]
+        put("scoreAgreeRange", f"{min(ag):.1f}--{max(ag):.1f}")
     # hosted panel
     pp = RES / "panel.json"
     if pp.exists():

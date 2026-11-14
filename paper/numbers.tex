@@ -10,9 +10,9 @@
 \newcommand{\teacherAurocRange}{0.80--0.83}
 \newcommand{\accRange}{53--57}
 \newcommand{\parsedMin}{99.7}
-\newcommand{\nRuns}{150}
-\newcommand{\nStudentCells}{142}
-\newcommand{\usdModal}{29}
+\newcommand{\nRuns}{164}
+\newcommand{\nStudentCells}{156}
+\newcommand{\usdModal}{32}
 \newcommand{\gainGZero}{1.03}
 \newcommand{\gainGZeroCI}{1.01--1.05}
 \newcommand{\gainSZero}{1.03}
@@ -54,6 +54,49 @@
 \newcommand{\tagGainTwentyFiveUnverified}{1.02}
 \newcommand{\tagGainTwentyFiveUnverifiedCI}{0.99--1.04}
 \newcommand{\tagRangeTwentyFiveUnverified}{$-$34 to +26}
+\newcommand{\iceptGZero}{$-$1.5}
+\newcommand{\iceptSZero}{$-$0.1}
+\newcommand{\iceptGTen}{$-$1.4}
+\newcommand{\iceptSTen}{$-$0.1}
+\newcommand{\iceptGTwentyFive}{$-$2.1}
+\newcommand{\iceptSTwentyFive}{$-$0.0}
+\newcommand{\iceptGForty}{$-$3.2}
+\newcommand{\iceptSForty}{+0.0}
+\newcommand{\iceptGFifty}{$-$2.0}
+\newcommand{\iceptSFifty}{+0.0}
+\newcommand{\iceptGSixty}{$-$1.8}
+\newcommand{\iceptSSixty}{+0.3}
+\newcommand{\iceptGSeventyFive}{$-$0.8}
+\newcommand{\iceptSSeventyFive}{+0.2}
+\newcommand{\iceptGMin}{$-$3.2}
+\newcommand{\iceptGMax}{$-$0.8}
+\newcommand{\iceptSMin}{$-$0.1}
+\newcommand{\iceptSMax}{+0.3}
+\newcommand{\sevenGainTen}{0.98}
+\newcommand{\sevenGainTenCI}{0.95--1.00}
+\newcommand{\sevenGainTwentyFive}{0.95}
+\newcommand{\sevenGainTwentyFiveCI}{0.93--0.98}
+\newcommand{\probeAGain}{0.98}
+\newcommand{\probeAGainCI}{0.96--1.01}
+\newcommand{\probeAN}{7}
+\newcommand{\probeARange}{$-$33 to +26}
+\newcommand{\probeBGain}{0.97}
+\newcommand{\probeBGainCI}{0.94--1.00}
+\newcommand{\probeBN}{7}
+\newcommand{\probeBRange}{$-$32 to +26}
+\newcommand{\probePlainGain}{0.98}
+\newcommand{\probePlainGainCI}{0.95--1.00}
+\newcommand{\probePlainN}{7}
+\newcommand{\probePlainRange}{$-$32 to +26}
+\newcommand{\letterAGain}{0.07}
+\newcommand{\letterAGainCI}{0.05--0.10}
+\newcommand{\letterAN}{7}
+\newcommand{\letterARange}{$-$6 to +2}
+\newcommand{\letterBGain}{0.99}
+\newcommand{\letterBGainCI}{0.96--1.02}
+\newcommand{\letterBN}{7}
+\newcommand{\letterBRange}{$-$32 to +25}
+\newcommand{\noAuditDrift}{2.2}
 \newcommand{\greedyRecGain}{1.03}
 \newcommand{\greedyRecGainCI}{1.00--1.05}
 \newcommand{\pushCorrRight}{0.08}
@@ -137,28 +180,22 @@ Audit share & Most likely answer & Sampled answer & $1-$share \\
 60\% & 0.20 (0.18--0.23) & 0.39 (0.36--0.42) & 0.40 \\
 75\% & 0.07 (0.05--0.10) & 0.26 (0.23--0.29) & 0.25 \\
 \midrule
-10\% tagged, asked as verified & 0.11 (0.09--0.13) & -- & -- \\
-10\% tagged, asked as unverified & 0.97 (0.95--1.00) & -- & -- \\
-25\% tagged, asked as verified & 0.05 (0.02--0.07) & -- & -- \\
-25\% tagged, asked as unverified & 1.02 (0.99--1.04) & -- & -- \\
+10\%, tag: verified & 0.11 (0.09--0.13) & -- & -- \\
+10\%, tag: unverified & 0.97 (0.95--1.00) & -- & -- \\
+25\%, tag: verified & 0.05 (0.02--0.07) & -- & -- \\
+25\%, tag: unverified & 1.02 (0.99--1.04) & -- & -- \\
 \bottomrule
 \end{tabular}}
-\newcommand{\tableChain}{\begin{tabular}{lllrrrrr}
+\newcommand{\tableChain}{\begin{tabular}{llccccc}
 \toprule
-Arm & Start & Readout & Gen 0 & 1 & 2 & 3 & 4 \\
+Arm & Start & Gen 0 & Gen 1 & Gen 2 & Gen 3 & Gen 4 \\
 \midrule
-No audit & under & likely & $-$32 & $-$34 & $-$34 & $-$32 & $-$33 \\
-No audit & under & sampled & -- & $-$31 & $-$31 & $-$31 & $-$31 \\
-25\%, sampled rec. & under & likely & $-$32 & $-$32 & $-$30 & $-$25 & $-$20 \\
-25\%, sampled rec. & under & sampled & -- & $-$24 & $-$18 & $-$18 & $-$13 \\
-25\%, greedy rec. & under & likely & $-$32 & $-$33 & $-$31 & $-$31 & $-$32 \\
-25\%, greedy rec. & under & sampled & -- & $-$22 & $-$22 & $-$21 & $-$22 \\
-No audit & over & likely & +27 & +26 & +27 & +27 & +27 \\
-No audit & over & sampled & -- & +27 & +27 & +28 & +27 \\
-25\%, sampled rec. & over & likely & +27 & +27 & +20 & +12 & +11 \\
-25\%, sampled rec. & over & sampled & -- & +23 & +20 & +15 & +12 \\
-25\%, greedy rec. & over & likely & +27 & +27 & +24 & +23 & +23 \\
-25\%, greedy rec. & over & sampled & -- & +22 & +22 & +20 & +22 \\
+No audit & under & $-$32 / -- & $-$34 / $-$31 & $-$34 / $-$31 & $-$32 / $-$31 & $-$33 / $-$31 \\
+25\%, sampled records & under & $-$32 / -- & $-$32 / $-$24 & $-$30 / $-$18 & $-$25 / $-$18 & $-$20 / $-$13 \\
+25\%, greedy records & under & $-$32 / -- & $-$33 / $-$22 & $-$31 / $-$22 & $-$31 / $-$21 & $-$32 / $-$22 \\
+No audit & over & +27 / -- & +26 / +27 & +27 / +27 & +27 / +28 & +27 / +27 \\
+25\%, sampled records & over & +27 / -- & +27 / +23 & +20 / +20 & +12 / +15 & +11 / +12 \\
+25\%, greedy records & over & +27 / -- & +27 / +22 & +24 / +22 & +23 / +20 & +23 / +22 \\
 \bottomrule
 \end{tabular}}
 \newcommand{\tableMapGreedy}{\begin{tabular}{lrrrrrrr}
@@ -192,9 +229,11 @@ $-$0.5 & $-$1.0 & $-$1.0 & $-$2.1 & $-$0.5 & +0.5 & $-$0.2 & +1.8 \\
 \newcommand{\scoreAgree}{96}
 \newcommand{\scoreOffset}{3.0}
 \newcommand{\scoreRuns}{4}
-\newcommand{\panelTested}{21}
-\newcommand{\panelIncluded}{16}
-\newcommand{\panelOver}{16}
+\newcommand{\scoreOffsetRange}{2.8--3.2}
+\newcommand{\scoreAgreeRange}{96.0--96.3}
+\newcommand{\panelTested}{23}
+\newcommand{\panelIncluded}{18}
+\newcommand{\panelOver}{18}
 \newcommand{\panelGapMin}{+3}
 \newcommand{\panelGapMax}{+55}
 \newcommand{\panelGapMedian}{+9}
@@ -206,10 +245,12 @@ Model & Accuracy & Stated confidence & Gap & In format (\%) \\
 MiniMax-M3.1-Flash & 40 & 95 & +55 & 91 \\
 Qwen3-30B-A3B-Instruct-2507 & 69 & 98 & +29 & 100 \\
 gemma-3-27b-it & 78 & 98 & +21 & 100 \\
+GLM-5.3-Flash & 78 & 97 & +20 & 97 \\
 Qwen3-235B-A22B-Instruct-2507 & 82 & 95 & +14 & 100 \\
 Kimi-K3.1-Pro & 89 & 99 & +10 & 97 \\
 gpt-oss-120b & 83 & 94 & +10 & 94 \\
 Hermes-4-405B & 87 & 97 & +10 & 100 \\
+GLM-5.3 & 88 & 97 & +9 & 96 \\
 muse-spark-open & 88 & 96 & +9 & 100 \\
 MiniMax-M3 & 87 & 95 & +8 & 96 \\
 nemotron-3-super-120b-a12b & 88 & 96 & +8 & 93 \\
@@ -222,3 +263,37 @@ Inkling-2-Small & 92 & 96 & +3 & 92 \\
 \bottomrule
 \end{tabular}}
 \newcommand{\panelExcluded}{Qwen3.8-27B (80\%), NVIDIA-Nemotron-3-Nano-30B-A3B (84\%), Nemotron-3-Ultra-550b-a55b (86\%), Nemotron-3.5-Super-VL (88\%), Nemotron-3\_5-Lightning (74\%)}
+\newcommand{\llamaBaseConf}{98}
+\newcommand{\llamaBaseAcc}{76}
+\newcommand{\llamaBaseGap}{+22}
+\newcommand{\llamaBaseParsed}{93.5}
+\newcommand{\llamaTeacherGapMin}{$-$27}
+\newcommand{\llamaTeacherGapMax}{+19}
+\newcommand{\llamaGainGZero}{1.12}
+\newcommand{\llamaGainGZeroCI}{1.08--1.15}
+\newcommand{\llamaGainSZero}{1.14}
+\newcommand{\llamaGainSZeroCI}{1.09--1.18}
+\newcommand{\llamaGainGTwentyFive}{0.95}
+\newcommand{\llamaGainGTwentyFiveCI}{0.91--0.98}
+\newcommand{\llamaGainSTwentyFive}{0.86}
+\newcommand{\llamaGainSTwentyFiveCI}{0.82--0.90}
+\newcommand{\llamaGainGFifty}{0.43}
+\newcommand{\llamaGainGFiftyCI}{0.40--0.46}
+\newcommand{\llamaGainSFifty}{0.52}
+\newcommand{\llamaGainSFiftyCI}{0.48--0.56}
+\newcommand{\llamaGainGSeventyFive}{0.14}
+\newcommand{\llamaGainGSeventyFiveCI}{0.12--0.18}
+\newcommand{\llamaGainSSeventyFive}{0.31}
+\newcommand{\llamaGainSSeventyFiveCI}{0.27--0.34}
+\newcommand{\tableLlama}{\begin{tabular}{lccc}
+\toprule
+Audit share & Most likely answer & Sampled answer & $1-$share \\
+\midrule
+0\% & 1.12 (1.08--1.15) & 1.14 (1.09--1.18) & 1.00 \\
+25\% & 0.95 (0.91--0.98) & 0.86 (0.82--0.90) & 0.75 \\
+50\% & 0.43 (0.40--0.46) & 0.52 (0.48--0.56) & 0.50 \\
+75\% & 0.14 (0.12--0.18) & 0.31 (0.27--0.34) & 0.25 \\
+\bottomrule
+\end{tabular}}
+\newcommand{\llamaRuns}{40}
+\newcommand{\llamaUsd}{9}

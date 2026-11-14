@@ -248,6 +248,35 @@ def extras(runs: dict) -> dict:
                        "corr_gap_changed_when_wrong": float(np.corrcoef(xs, [g(n)["changed_when_wrong"] for n in names])[0, 1]),
                        "changed_when_right_range": [float(min(g(n)["changed_when_right"] for n in names)),
                                                     float(max(g(n)["changed_when_right"] for n in names))]}
+    # tag arm on equal footing: unmarked gain on the same seven teachers (no base)
+    def seven(alpha, **kw):
+        pts = [p for p in map_points(runs, alpha, **kw) if p["teacher"] != "base"]
+        f = fit_map(pts)
+        return None if not f else {"gain": f["gain"], "gain_ci": f["gain_ci"], "n": f["n_teachers"],
+                                   "intercept": f["intercept"], "y_min": float(min(f["y"])), "y_max": float(max(f["y"]))}
+    out["unmarked_seven"] = {str(a): seven(a) for a in config.TAG_ALPHAS}
+    # tag controls (stage tagctl)
+    ctl = {}
+    for label, suffix, kw in (("probe", "__probe", {}), ("letter", None, {})):
+        for key in ("eval_verified", "eval_unverified", "eval"):
+            pts = []
+            for t in config.TEACHERS:
+                base_name = config.student_cell(t, 0.10, tag=(label == "letter"))["name"]
+                name = base_name + "__probe" if label == "probe" else base_name.replace("__tag", "__tagKQ")
+                if t in runs and name in runs and key in runs[name]["eval"]:
+                    pts.append({"teacher": t, "student": name, "tg": item_gap(runs[t]), "sg": item_gap(runs[name], key)})
+            f = fit_map(pts)
+            if f:
+                ctl[f"{label}:{key}"] = {"gain": f["gain"], "gain_ci": f["gain_ci"], "n": f["n_teachers"],
+                                         "y_min": float(min(f["y"])), "y_max": float(max(f["y"]))}
+    out["tag_controls"] = ctl
+    # largest move of the no-audit chains from their start
+    drift = []
+    for lam in config.CHAIN_LAMBDAS:
+        names = [config.teacher_name(lam)] + [c["name"] for c in config.chain_cells(lam, 0.0, "main")]
+        gs = [g(n)["gap"] for n in names if n in runs]
+        drift.append(max(abs(v - gs[0]) for v in gs))
+    out["no_audit_chain_max_drift"] = float(max(drift))
     out["n_student_cells"] = len(stu)
     return out
 

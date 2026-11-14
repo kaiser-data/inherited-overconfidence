@@ -99,6 +99,16 @@ def grid(stage: str) -> list[dict]:
                 else:
                     out.append(student_cell(g2["name"], a))
         return out
+    if stage == "tagctl":  # controls for the tag arm (post-hoc), 7 teachers at 10%
+        out = []
+        for t in TEACHERS:
+            c = student_cell(t, 0.10)            # untagged training, probed under both tags
+            c.update(name=c["name"] + "__probe", probe=True)
+            out.append(c)
+            c = student_cell(t, 0.10, tag=True)  # tags without prior meaning (K / Q)
+            c.update(name=c["name"].replace("__tag", "__tagKQ"), tag="letter")
+            out.append(c)
+        return out
     if stage == "es":  # the map with both readouts, 8 teachers x 7 audit shares
         return [student_cell(t, a, es=True) for a in ALPHAS_ES for t in TEACHERS + ["base"]]
     if stage.startswith("chaing"):  # chaing1 .. chaing4
@@ -110,4 +120,4 @@ def grid(stage: str) -> list[dict]:
 
 
 STAGES = ["teachers", "students", "seeds", "tag", "greedy", "chain2", "chain3", "es",
-          "chaing1", "chaing2", "chaing3", "chaing4"]
+          "chaing1", "chaing2", "chaing3", "chaing4", "tagctl"]
