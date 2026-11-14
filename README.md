@@ -6,24 +6,26 @@ Entry for the Apart Research AI x Epistemics Sprint (13-15 Nov 2026), Track 1 an
 
 Paper: [`paper/paper.pdf`](paper/paper.pdf) · Frozen protocol and deviation log: [`PROTOCOL.md`](PROTOCOL.md) · Every number: [`paper/numbers.tex`](paper/numbers.tex)
 
-## Result in four lines
+## Result
 
-Measured on Qwen2.5-7B (LoRA), 1,000 held-out TriviaQA questions, 150 trained models. *Gain* = how many points of the teacher's overconfidence gap (stated confidence minus accuracy) arrive in the student; 1 = all, 0 = none.
+Measured on Qwen2.5-7B (LoRA), 1,000 held-out TriviaQA questions, 164 trained models; repeated on a smaller grid with Llama-3.1-8B (60 models). *Gain* = one-generation transfer slope: how many points of the teacher's overconfidence gap (stated confidence minus accuracy) arrive in the student; 1 = all, 0 = none.
 
-| Share of audited records | Gain, most likely answer | Gain, sampled answer |
+| Share of audited records | Gain, greedy answer | Gain, sampled answer |
 |---|---|---|
 | 0% | 1.03 | 1.03 |
 | 25% | 0.99 | 0.79 |
 | 50% | 0.42 | 0.50 |
 | 75% | 0.07 | 0.26 |
 | 10%, audited records tagged, asked under the tag | 0.11 | |
+| 10%, meaningless tag (K/Q), asked under K | 0.07 | |
+| 10%, trained without tags, asked under "verified" | 0.98 | |
 
-1. Without audits a student copies its teacher's gap, in both directions and over four generations.
-2. Unmarked audits correct a sampled answer in proportion to their share, and the most likely answer only past about half.
-3. A one-line "verified" tag on audited records makes a 10% share nearly sufficient.
-4. Chains trained on most-likely answers do not pass a minority correction on.
+1. Without audits a student copies its teacher's gap in both directions (Qwen 1.03, or 1.01 without the untouched base model; Llama 1.12 in the first step, not compounding). Four-generation chains stay near their start.
+2. Unmarked audits correct a sampled answer in proportion to their share, and the greedy answer mainly between 40% and 60%.
+3. A one-line tag on audited records makes a 10% share nearly sufficient; a meaningless tag works as well, the word alone does nothing.
+4. The sampled-answer map forecasts four generations of chains at 25% audits to within about two points; the greedy map does not.
 
-Full table with intervals: Table 1 of the paper. What is not shown: other traits, pre-training, larger models, imperfect audits.
+Full tables with intervals are in the paper. Not shown: other traits, pre-training, larger models, imperfect audits, chains on fresh questions. Intervals reflect question sampling with models fixed.
 
 ![return map](paper/fig1-return-map.png)
 
@@ -39,7 +41,7 @@ python3 paper/figures.py             # -> paper/fig*.pdf, prints every plotted v
 python3 -m pytest -q loopgain/tests  # CPU tests of scoring, audit mixing, metrics, grid
 ```
 
-Training from scratch (Modal account, about $30 of L40S time for the Qwen grid):
+Training from scratch (Modal account, about $35 of L40S time for the Qwen grid; add `--fam llama31` and `LG_GPU=A100-80GB` for Llama, about $16):
 
 ```bash
 cd loopgain
@@ -48,6 +50,7 @@ modal run modal_app.py --stage base                 # base model pass, teacher d
 modal run modal_app.py --stage teachers --dry-run   # CPU check of every cell, then without --dry-run
 modal run --detach modal_app.py --stage es,seeds,tag,greedy --spawn
 bash orchestrate.sh qwen                            # chain generations 2-4
+modal run --detach modal_app.py --stage tagctl --spawn   # tag controls
 modal run modal_app.py --stage pull
 ```
 
@@ -64,7 +67,7 @@ modal run modal_app.py --stage pull
 | `loopgain/analyze.py` | inclusion rule, return-map fits with paired bootstrap, chains, seed noise |
 | `loopgain/panel.py` | hosted-model panel on Nebius Token Factory |
 | `loopgain/scoring_audit.py` | rule-based scorer against an LLM grader |
-| `results/` | every evaluated reply's parsed answer, confidence and score (`runs*.json`), panel replies, summaries |
+| `results/` | per-question evaluation records (`runs*.json`), raw replies, question splits, audit order and every generation's records (`raw_*.tar.gz`), panel replies, summaries |
 | `paper/` | report source, figure and number scripts |
 
 ## Prior work

@@ -116,35 +116,57 @@ def noise_floor(runs: dict) -> dict:
     return {"cells": out, "pooled_sd": float(np.sqrt(np.mean(np.square(sds)))) if sds else None}
 
 
-def chains(runs: dict, fits: dict) -> list[dict]:
-    """Observed gap per generation vs the gap predicted by iterating the fitted map."""
+def forecast(runs: dict) -> list[dict]:
+    """Out-of-sample test: fit the one-generation map on installed teachers and their
+    students, iterate it from the chain's start, compare with the observed generations.
+    Joint paired bootstrap over the questions shared by all models involved."""
     out = []
-    for l in config.CHAIN_LAMBDAS:
-        for a in config.CHAIN_ALPHAS:
-            fit = fits.get(a)
-            t = config.teacher_name(l)
-            g1 = config.student_cell(t, a, gen_d=True)["name"]
-            g2 = config.student_cell(g1, a, gen_d=True)["name"]
-            g3 = config.student_cell(g2, a)["name"]
-            names = [t, g1, g2, g3]
-            obs = [runs[n]["meta"]["metrics"]["gap"] if n in runs else None for n in names]
-            row = {"start": t, "alpha": a, "observed": obs}
-            if fit and obs[0] is not None:
-                B = np.array(fit["boot"])
-                x = np.full(len(B), obs[0])
-                pred, lo, hi = [obs[0]], [obs[0]], [obs[0]]
-                xm = obs[0]
-                for _ in range(3):
-                    x = B[:, 0] + B[:, 1] * x
-                    xm = fit["intercept"] + fit["gain"] * xm
-                    pred.append(float(xm))
-                    half = 1.96 * (fit["resid_sd"] or 0)
-                    lo.append(float(np.percentile(x, 2.5) - half))
-                    hi.append(float(np.percentile(x, 97.5) + half))
-                row.update({"predicted": pred, "lo": lo, "hi": hi,
-                            "inside": [None if o is None else bool(l_ <= o <= h_)
-                                       for o, l_, h_ in zip(obs, lo, hi)]})
-            out.append(row)
+    for a in config.CHAIN_ALPHAS:
+        for key, label in (("eval", "greedy"), ("eval_sampled", "sampled")):
+            pts = es_points(runs, a, key)
+            if len(pts) < 8:
+                continue
+            for lam in config.CHAIN_LAMBDAS:
+                names = [config.teacher_name(lam)] + [c["name"] for c in config.chain_cells(lam, a, "main")]
+                if any(n not in runs for n in names):
+                    continue
+                gaps = [item_gap(runs[names[0]])] + [item_gap(runs[n], key) for n in names[1:]]
+                ids = sorted(set.intersection(*[set(p["tg"]) & set(p["sg"]) for p in pts], *[set(g) for g in gaps]))
+                X = np.array([[p["tg"][i] for i in ids] for p in pts])
+                Y = np.array([[p["sg"][i] for i in ids] for p in pts])
+                G = np.array([[g[i] for i in ids] for g in gaps])
+
+                def run(idx):
+                    a_, b_, _ = _fit(X[:, idx].mean(1), Y[:, idx].mean(1))
+                    obs = G[:, idx].mean(1)
+                    pred, x = [obs[0]], obs[0]
+                    for _ in range(config.CHAIN_GENS):
+                        x = a_ + b_ * x
+                        pred.append(x)
+                    return obs, np.array(pred)
+                obs, pred = run(np.arange(len(ids)))
+                rng = np.random.default_rng(RNG_SEED)
+                errs = np.array([(lambda o, p_: o[-1] - p_[-1])(*run(rng.integers(0, len(ids), len(ids))))
+                                 for _ in range(N_BOOT)])
+                out.append({"alpha": a, "readout": label, "start": config.teacher_name(lam), "n_questions": len(ids),
+                            "observed": obs.tolist(), "predicted": pred.tolist(),
+                            "error_gen4": float(obs[-1] - pred[-1]),
+                            "error_gen4_ci": [float(np.percentile(errs, 2.5)), float(np.percentile(errs, 97.5))]})
+    return out
+
+
+def later_steps(runs: dict) -> dict:
+    """Chain transitions after the first: change in gap from generation g to g+1 (g >= 1)."""
+    out = {}
+    for a, dec in config.CHAIN_ARMS:
+        for key, label in (("metrics", "greedy"), ("metrics_sampled", "sampled")):
+            d = []
+            for lam in config.CHAIN_LAMBDAS:
+                v = [runs[c["name"]]["meta"].get(key, {}).get("gap") for c in config.chain_cells(lam, a, dec) if c["name"] in runs]
+                d += [(v[i + 1] - v[i]) * (1 if lam < 0 else -1) for i in range(len(v) - 1) if v[i] is not None and v[i + 1] is not None]
+            if d:
+                out[f"{a}:{dec}:{label}"] = {"n": len(d), "mean_step_toward_zero": float(np.mean(d)),
+                                             "min": float(min(d)), "max": float(max(d))}
     return out
 
 
@@ -167,6 +189,11 @@ def es_maps(runs: dict, alphas=None) -> dict:
             if f:
                 out[f"{a}:{label}"] = {k: v for k, v in f.items() if k != "boot"}
     return out
+
+
+def n_range(maps: dict) -> list[int]:
+    ns = [v["n_questions"] for v in maps.values()]
+    return [int(min(ns)), int(max(ns))]
 
 
 def replicate_check(runs: dict) -> dict:
@@ -277,6 +304,17 @@ def extras(runs: dict) -> dict:
         gs = [g(n)["gap"] for n in names if n in runs]
         drift.append(max(abs(v - gs[0]) for v in gs))
     out["no_audit_chain_max_drift"] = float(max(drift))
+    def seven_es(alpha, key):
+        f = fit_map([p for p in es_points(runs, alpha, key) if p["teacher"] != "base"])
+        return None if not f else {"gain": f["gain"], "gain_ci": f["gain_ci"], "n": f["n_teachers"]}
+    out["no_audit_seven"] = {"greedy": seven_es(0.0, "eval"), "sampled": seven_es(0.0, "eval_sampled")}
+    # P5 as registered: teacher's gap against its no-audit student's answer changes
+    pairs = [(t, config.student_cell(t, 0.0)["name"]) for t in config.TEACHERS if config.student_cell(t, 0.0)["name"] in runs]
+    tx = [g(t)["gap"] for t, _ in pairs]
+    out["pushback_p5"] = {"n": len(pairs),
+                          "corr_right": float(np.corrcoef(tx, [g(n)["changed_when_right"] for _, n in pairs])[0, 1]),
+                          "corr_wrong": float(np.corrcoef(tx, [g(n)["changed_when_wrong"] for _, n in pairs])[0, 1])}
+    out["parsed_min_sampled"] = float(min(r["meta"]["metrics_sampled"]["parsed"] for r in runs.values() if r["meta"].get("metrics_sampled")))
     out["n_student_cells"] = len(stu)
     return out
 
@@ -311,7 +349,7 @@ def main():
         w = csv.DictWriter(f, fieldnames=list(table[0]))
         w.writeheader()
         w.writerows(table)
-    fits = {a: fit_map(map_points(runs, a)) for a in config.ALPHAS}
+    fits = {a: fit_map(map_points(runs, a)) for a in config.ALPHAS} if fam == "qwen25" else {}
     summary = {
         "n_runs": len(all_runs), "n_included": len(runs), "excluded": excluded(all_runs),
         "usd_total": sum(r["meta"].get("usd") or 0 for r in all_runs.values()),
@@ -324,10 +362,12 @@ def main():
             for a in config.TAG_ALPHAS for tier in ("verified", "unverified")},
         "extras": extras(runs) if fam == "qwen25" else None,
         "es_maps": es_maps(runs, config.ADDON_ALPHAS if fam != "qwen25" else None),
+        "es_n_questions": n_range(es_maps(runs, config.ADDON_ALPHAS if fam != "qwen25" else None)),
         "replicate_check": replicate_check(runs),
         "chain_table": chain_table(runs),
         "noise_floor": noise_floor(runs),
-        "chains": chains(runs, {a: f for a, f in fits.items() if f}),
+        "forecast": forecast(runs),
+        "later_steps": later_steps(runs),
     }
     (RES / f"summary{suffix}.json").write_text(json.dumps(summary, indent=1))
     print(f"{len(runs)}/{len(all_runs)} runs included; total ${summary['usd_total']:.2f}")
@@ -346,9 +386,11 @@ def main():
         print(f"chain {c['start']} a={c['alpha']} {c['records']:6s} greedy {r1(c['greedy'])} sampled {r1(c['sampled'])}")
     nf = summary["noise_floor"]["pooled_sd"]
     print("seed noise (pooled SD of gap):", None if nf is None else round(nf, 2))
-    for c in summary["chains"]:
-        print("chain", c["start"], c["alpha"], "obs", c["observed"], "pred", c.get("predicted"))
-
+    for c in summary["forecast"]:
+        print(f"forecast a={c['alpha']} {c['readout']:7s} {c['start']} obs {np.round(c['observed'], 1).tolist()} "
+              f"pred {np.round(c['predicted'], 1).tolist()} err4 {c['error_gen4']:+.1f} {np.round(c['error_gen4_ci'], 1).tolist()}")
+    for k, v in summary["later_steps"].items():
+        print("later steps", k, {a: round(b, 2) for a, b in v.items()})
 
 if __name__ == "__main__":
     main()

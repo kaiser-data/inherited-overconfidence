@@ -1,22 +1,27 @@
 % Hand-written text macros that depend on which results exist. Number macros inside are filled by build.sh.
 \newcommand{\repoLink}{\url{https://github.com/kaiser-data/inherited-overconfidence}}
 \newcommand{\llamaSummary}{A second family, Llama-3.1-8B, showed the same two audit curves but a no-audit slope of \llamaGainGZero{} (\llamaGainGZeroCI{}): there, gaps grew by about an eighth in one generation.}
-\newcommand{\llamaParagraph}{We repeated the base pass, the seven teachers and the map at four audit shares on Llama-3.1-8B-Instruct (\llamaRuns{} models; base model \llamaBaseConf{}\% stated confidence, \llamaBaseAcc{}\% accuracy, gap \llamaBaseGap{}; teachers from \llamaTeacherGapMin{} to \llamaTeacherGapMax{}). The audit curves repeat: at 25, 50 and 75\% audits the greedy gain was \llamaGainGTwentyFive{}, \llamaGainGFifty{} and \llamaGainGSeventyFive{}, the sampled gain \llamaGainSTwentyFive{}, \llamaGainSFifty{} and \llamaGainSSeventyFive{} (Table~5, Appendix C). The no-audit gain differs: \llamaGainGZero{} (\llamaGainGZeroCI{}) greedy and \llamaGainSZero{} sampled, clearly above one. In this family a student was somewhat more over- or underconfident than its teacher, in both directions. \llamaChainText{}}
+\newcommand{\llamaParagraph}{We repeated the map at four audit shares on Llama-3.1-8B-Instruct (base model gap \llamaBaseGap{}; teachers from \llamaTeacherGapMin{} to \llamaTeacherGapMax{}). The audit curves repeat: at 25, 50 and 75\% audits the greedy gain was \llamaGainGTwentyFive{}, \llamaGainGFifty{} and \llamaGainGSeventyFive{}, the sampled gain \llamaGainSTwentyFive{}, \llamaGainSFifty{} and \llamaGainSSeventyFive{} (Table~7, Appendix C). The no-audit gain differs: \llamaGainGZero{} (\llamaGainGZeroCI{}) greedy and \llamaGainSZero{} sampled, clearly above one. A student was somewhat more over- or underconfident than its installed teacher, in both directions. \llamaChainText{}}
 \newcommand{\llamaCompute}{, and about \$\llamaUsd{} for the \llamaRuns{} Llama models (A100-80GB)}
 \newcommand{\llamaAppendix}{\begin{table}[h]
 \centering\small
-\caption{\textbf{Second family: gain by audit share for Llama-3.1-8B.} Same layout as Table~1; eight teachers.}
+\caption{\textbf{Table 7. Second family: gain by audit share for Llama-3.1-8B.} Same layout as Table~2; eight teachers.}
 \tableLlama
 \end{table}
 
 \begin{figure}[h]
 \centering
 \includegraphics[width=\linewidth]{figA-return-map-llama.pdf}
-\caption{\textbf{Return map for Llama-3.1-8B.} Same layout as Figure~1, four audit shares. Source: \texttt{paper/figures.py} $\to$ \texttt{results/runs\_llama31.json}.}
+\caption{\textbf{Figure 4. Return map for Llama-3.1-8B.} Same layout as Figure~1, four audit shares. Source: \texttt{paper/figures.py} $\to$ \texttt{results/runs\_llama31.json}.}
 \end{figure}
 \llamaChainTable{}}
 \newcommand{\letterSummary}{worked as well (\letterAGain{}), and the tag wording alone did nothing to a model trained without tags (\probeAGain{})}
 \newcommand{\letterIntro}{Two controls show the marking during training does this, not the word: a model trained without tags kept a gain of \probeAGain{} when asked under ``verified'', and meaningless tags (``K'' for audited records, ``Q'' for the rest) gave \letterAGain{} under K.}
 \newcommand{\tagControls}{Two controls at 10\% separate the causes. Students trained without tags and asked under either tag kept the teacher's gap (gain \probeAGain{} and \probeBGain{}), so the word alone does nothing. Students trained with tags that have no prior meaning, ``K'' on audited records and ``Q'' on the rest, gave \letterAGain{} (\letterAGainCI{}) under K and \letterBGain{} under Q, so the meaning of ``verified'' is not needed either.}
-\newcommand{\llamaChainText}{Chains for this family are reported in Appendix C if they finished before submission.}
-\newcommand{\llamaChainTable}{}
+\newcommand{\llamaChainText}{Four-generation Llama chains (Table~8, Appendix C) did not compound this excess: without audits they went from \lchUnderNoneStart{} to \lchUnderNoneEnd{} and from \lchOverNoneStart{} to \lchOverNoneEnd{}, moving away from zero in the first step only. Our prediction that the underconfident chain would keep moving away failed; the above-one slope is a first-step effect, not a loop gain. With 25\% audits and sampled records the chains ended at \lchUnderSampEnd{} and \lchOverSampEnd{}, and the sampled map's generation-4 forecast errors were \lfcUnderTwentyFiveSErr{} and \lfcOverTwentyFiveSErr{} points. With greedy records they ended at \lchUnderGreedyEnd{} and \lchOverGreedyEnd{}.}
+\newcommand{\llamaChainTable}{\begin{table}[h]
+\centering\small
+\caption{\textbf{Table 8. Llama-3.1-8B chains.} Same layout as Table~1: greedy / sampled gap in points per generation.}
+\tableLlamaChain
+\end{table}}
+\newcommand{\greedyRecordsBullet}{With greedy records the correction was smaller in both families (Qwen ended at \chUnderGreedyGD{} and \chOverGreedyGD{}, Llama at \lchUnderGreedyEnd{} and \lchOverGreedyEnd{}).}

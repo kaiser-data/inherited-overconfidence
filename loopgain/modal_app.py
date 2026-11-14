@@ -299,6 +299,22 @@ def pull(fam: str = "qwen25"):
     return {"runs": out, "data": data}
 
 
+@app.function(image=image, volumes={"/vol": vol}, timeout=1800)
+def export_raw(fam: str = "qwen25"):
+    """tar.gz of everything on the volume for one family except model weights: question
+    splits, audit order, teacher training sets, every run's raw replies and records."""
+    import io, tarfile
+    vol.reload()
+    buf = io.BytesIO()
+    with tarfile.open(fileobj=buf, mode="w:gz") as tar:
+        for d in ({V / "data", TDATA(fam), RUNS(fam)}):
+            if d.exists():
+                for f in sorted(d.rglob("*")):
+                    if f.is_file() and f.suffix in (".jsonl", ".json"):
+                        tar.add(f, arcname=str(f.relative_to(V)))
+    return buf.getvalue()
+
+
 @app.function(image=image, volumes={"/vol": vol}, timeout=600)
 def status(names: list[str], fam: str = "qwen25"):
     vol.reload()
@@ -332,6 +348,11 @@ def main(stage: str, dry_run: bool = False, only: str = "", force: bool = False,
         print(json.dumps({k: v for k, v in r.items() if k != "teacher_data"}, indent=1))
         for k, v in (r.get("teacher_data") or {}).items():
             print(k, {kk: vv for kk, vv in v.items() if kk != "iso_blocks"})
+        return
+    if stage == "raw":
+        out = res_dir / f"raw_{fam}.tar.gz"
+        out.write_bytes(export_raw.remote(fam=fam))
+        print(f"{out} {out.stat().st_size / 1e6:.1f} MB")
         return
     if stage == "pull":
         r = pull.remote(fam=fam)
