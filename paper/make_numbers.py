@@ -273,6 +273,14 @@ def distill_macros():
     M["tableDistill"] = ("\\begin{tabular}{lllrrrrlrrr}\n\\toprule\nStudent & Teacher & Labels & Label & Stated & "
                          "Acc. & Gap & 95\\% & Greedy & AUC & Fixed \\\\\n\\midrule\n"
                          + "\n".join(rows) + "\n\\bottomrule\n\\end{tabular}")
+    # Decomposition of the student's gap: copying error + label gap + accuracy difference.
+    for fam, (fp, _) in FAM.items():
+        for key, K in (("raw", "Raw"), ("tcal", "Tcal")):
+            c = get(fam, f"ds41f__{key}")
+            if c:
+                AT = c["record_accuracy"]
+                put(f"d{fp}{K}Copy", sg(c["conf"] - c["label_mean"], 1)); put(f"d{fp}{K}LabelGap", sg(c["label_mean"] - AT, 1))
+                put(f"d{fp}{K}AccDiff", sg(AT - c["accuracy"], 1)); put(f"d{fp}{K}GapOne", sg(c["gap"], 1))
     # Concrete readings from the greedy answers (what a user sees at temperature zero).
     EXQ = "Who wrote the opera A Masked Ball?"
     for fam, (fp, _) in FAM.items():
@@ -503,6 +511,11 @@ def main():
         inc = {k: v for k, v in P.items() if v.get("parsed", 0) >= analyze.MIN_PARSED}
         gaps = sorted(v["gap"] for v in inc.values())
         put("panelTested", len(P)); put("panelIncluded", len(inc))
+        # Dunning-Kruger-like pattern: stated confidence barely moves with accuracy across models.
+        pa = [v["accuracy"] for v in inc.values()]; pc = [v["mean_conf"] for v in inc.values()]
+        ma, mc = sum(pa) / len(pa), sum(pc) / len(pc)
+        put("panelAccRange", f"{min(pa):.0f} to {max(pa):.0f}"); put("panelConfRange", f"{min(pc):.0f} to {max(pc):.0f}")
+        put("panelConfSlope", f2(sum((x - ma) * (y - mc) for x, y in zip(pa, pc)) / sum((x - ma) ** 2 for x in pa)))
         put("panelOver", sum(g > 0 for g in gaps)); put("panelGapMin", sg(gaps[0])); put("panelGapMax", sg(gaps[-1]))
         put("panelGapMedian", sg(gaps[len(gaps) // 2] if len(gaps) % 2 else (gaps[len(gaps) // 2 - 1] + gaps[len(gaps) // 2]) / 2))
         put("panelConfMin", f"{min(v['mean_conf'] for v in inc.values()):.0f}")

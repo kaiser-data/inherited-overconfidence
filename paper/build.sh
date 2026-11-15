@@ -2,7 +2,7 @@
 # numbers -> figures -> filled LaTeX -> official Apart template (.docx) -> PDF. Prints page and word checks.
 set -euo pipefail
 D="$(cd "$(dirname "$0")" && pwd)"; W="$D/build"; mkdir -p "$W"
-TITLE="Confidence Without Accuracy: The Overconfidence Gap in Teacher–Student Distillation with Open Models"
+TITLE="Confidence Without Accuracy: Decomposing the Overconfidence Gap of Distilled Student Models"
 [ -f "$W/template.docx" ] || curl -sL -o "$W/template.docx" "https://docs.google.com/document/d/17b3JWki-ZkaqdmqGI5d0gof-HwlGuWU9Mc1_klNZXKs/export?format=docx"
 if [ "${SKIP_ANALYSIS:-0}" != "1" ]; then  # SKIP_ANALYSIS=1: text-only rebuild from the existing summaries
 python3 "$D/../loopgain/analyze.py" > "$W/analyze.log"

@@ -289,12 +289,12 @@ def fig_distill(name="fig0-distill", teacher="ds41f", teacher_label="DeepSeek-V4
             ax.plot([acc], [y], marker="o", ms=5, mfc="white", mec=INK, mew=0.9, zorder=3)
             ax.plot([conf], [y], marker="o", ms=5, mfc=col, mec=col, zorder=3)
             g = round(conf - acc)
-            ax.annotate("0" if g == 0 else f"{g:+d}", (max(acc, conf), y), xytext=(6, 0), textcoords="offset points",
+            ax.annotate("0" if g == 0 else (f"{g} over" if g > 0 else f"{-g} under"), (max(acc, conf), y), xytext=(6, 0), textcoords="offset points",
                         va="center", ha="left", fontsize=7.5, color=INK)
             print(f"  {lab.strip():42s} {acc:5.1f} {conf:5.1f} {conf - acc:+5.1f}")
         ax.set_yticks(range(len(rows)))
         ax.set_yticklabels([r[0] for r in rows][::-1], fontsize=7.5)
-        ax.set_xlim(45, 108)
+        ax.set_xlim(45, 114)
         ax.set_xticks([50, 60, 70, 80, 90, 100])
         ax.set_xlabel("percent")
         ax.set_ylim(-0.6, len(rows) - 0.4)
@@ -305,7 +305,7 @@ def fig_distill(name="fig0-distill", teacher="ds41f", teacher_label="DeepSeek-V4
     axes[0].plot([], [], marker="o", ms=5, mfc="white", mec=INK, mew=0.9, ls="", label="accuracy")
     axes[0].plot([], [], marker="o", ms=5, mfc=ACCENT, mec=ACCENT, ls="", label="stated confidence")
     axes[0].legend(loc="lower right", fontsize=7, frameon=False, handletextpad=0.2, borderaxespad=0.1)
-    fig.text(0.012, 0.995, f"Teacher: {teacher_label}  ·  number at each bar: overconfidence gap in points",
+    fig.text(0.012, 0.995, f"Teacher: {teacher_label}  ·  at each bar: points overconfident (stated above accuracy) or underconfident",
              fontsize=7.5, color=INK, va="top", ha="left", fontweight="bold")
     fig.tight_layout(rect=(0, 0, 1, 0.95), w_pad=1.2)
     save(fig, name)

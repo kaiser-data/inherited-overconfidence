@@ -1,4 +1,4 @@
-# Confidence Without Accuracy: The Overconfidence Gap in Teacher-Student Distillation with Open Models
+# Confidence Without Accuracy: Decomposing the Overconfidence Gap of Distilled Student Models
 
 **When a model is trained on another model's answers, how much of the teacher's overconfidence does it inherit, and how much checked data does it take to remove it?**
 
@@ -12,7 +12,9 @@ Paper: [`paper/paper.pdf`](paper/paper.pdf) · Frozen protocol and deviation log
 
 **One example.** Asked who wrote the opera *A Masked Ball* (Verdi), a Qwen3.5-9B student answered "Giacomo Puccini": with 99% confidence when trained on the teacher's own confidence, 90% when the teacher's records had first been calibrated, and 40% when the same records carried confidence fitted to the student. Same model, same training answers, same wrong reply; only the numbers in the training records differed. After training on calibrated teacher records, 92% of this student's 389 wrong answers came with at least 85% stated confidence.
 
-**What is new.** Earlier studies of confidence under training on model output use one model as its own teacher, so teacher and student are equally accurate. Here (1) the teacher is about 30 points more accurate than the student, (2) the intervention is label-only (identical answers, four confidence labellings), and (3) the obvious safeguard, calibrating the teacher, is tested and leaves a gap of the size of the accuracy difference.
+**The metric.** Overconfidence gap G = mean stated confidence - accuracy, in points, on a fixed question set. Plus = overconfident, minus = underconfident, target 0. It is the classic overconfidence measure (Lichtenstein & Fischhoff 1977); it belongs to a model on a question set, not to a model alone. For a student trained on a teacher's records with mean confidence label L and accuracy A_T, the gap splits exactly: G_S = (C_S - L) + (L - A_T) + (A_T - A_S) = copying error + overconfidence left in the records + accuracy difference. Calibrating the teacher removes only the middle term. Example (Qwen3.5-9B, teacher's own confidence): +40.1 = -0.3 + 8.1 + 32.3; after calibrating the teacher: +31.2 = -1.4 - 0.4 + 33.1.
+
+**What is new** (as far as we know). Earlier studies of confidence under training on model output use one model as its own teacher. Here (1) the teacher is about 30 points more accurate than the student, with stated confidence in the records; (2) the test is label-only (identical answers, four confidence labellings); (3) the obvious safeguard, calibrating the teacher, is tested and found insufficient, with the decomposition above and a shuffle control.
 
 Teacher: DeepSeek-V4.1-Flash (90% of its 1,978 retained answers correct). Students: fresh LoRA adapters on Qwen3.5-9B and Granite-4.1-8B. Every student saw the same answers; only the confidence number in the records differs. *Gap* = stated confidence minus accuracy in points, on 1,000 held-out TriviaQA questions (sampled answer, seed 1).
 
