@@ -170,6 +170,7 @@ def main():
                 todo.append(parent.get(qn("w:val")))
 
         # --- map styles: pandoc ids -> template styles
+        from docx.shared import Pt
         names = {s.name for s in doc.styles}
         for p in doc.paragraphs:
             sid = p._p.pPr.pStyle.val if p._p.pPr is not None and p._p.pPr.pStyle is not None else None
@@ -183,9 +184,21 @@ def main():
                 p.style = doc.styles["normal"]
                 for r in p.runs:
                     r.italic = True
+                # air around floats: a figure caption sits under its image, a table caption above its table
+                above = sid == "TableCaption"
+                p.paragraph_format.space_before = Pt(10 if above else 4)
+                p.paragraph_format.space_after = Pt(4 if above else 10)
+                p.paragraph_format.keep_with_next = above
+        for p in doc.paragraphs:  # the image itself: space above, and keep it on the page of its caption
+            if p._p.find(".//" + qn("w:drawing")) is not None:
+                p.paragraph_format.space_before = Pt(10)
+                p.paragraph_format.keep_with_next = True
         # --- tables: 9 pt text, full width, columns sized to content
-        from docx.shared import Pt
         for t in doc.tables[1:]:
+            nxt = t._tbl.getnext()
+            if nxt is not None and nxt.tag == qn("w:p"):  # space between a table and the text below it
+                from docx.text.paragraph import Paragraph
+                Paragraph(nxt, t._parent).paragraph_format.space_before = Pt(10)
             tblPr = t._tbl.tblPr
             w = tblPr.find(qn("w:tblW"))
             if w is not None:

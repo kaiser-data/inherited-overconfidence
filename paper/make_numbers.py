@@ -208,10 +208,10 @@ def distill_macros():
         return
     cells = json.loads(f.read_text())
     labels = json.loads((RES / "dist" / "labels.json").read_text())
-    FAM = {"qwen35": ("Q", "Qwen"), "granite41": ("G", "Granite")}
+    FAM = {"qwen35": ("Q", "Qwen"), "granite41": ("G", "Gran.")}
     TEACH = {"ds41f": ("", "DS"), "q38_27b": ("M", "Q3.8")}
     SETS = (("raw", "Raw", "own"), ("tcal", "Tcal", "t-cal."),
-            ("scal", "Scal", "s-fit"), ("shuf", "Shuf", "shuffled"))
+            ("scal", "Scal", "s-fit"), ("shuf", "Shuf", "shuf."))
 
     def get(fam, tname, readout="sampled", seed=1):
         c = [r for r in cells if r["family"] == fam and r["teacher"] == tname and r["readout"] == readout
@@ -247,16 +247,16 @@ def distill_macros():
                 allc.append(abs(c["conf_minus_label"])); parsed += [c["parsed"], g["parsed"]]
                 rows.append(f"{fname} & {tname} & {desc} & {c['label_mean']:.1f} & {c['conf']:.1f} & {c['accuracy']:.1f} & "
                             f"{sg(c['gap'], 1)} & {c['gap_lo']:.0f}..{c['gap_hi']:.0f} & {sg(g['gap'], 1)} & "
-                            f"{f2(c['auroc'])} & {sg(c['recal']['gap'], 1) if c.get('recal') else '--'} \\\\")
+                            f"{f2(c['auroc'])} & {c['ece']:.1f} & {sg(c['recal']['gap'], 1) if c.get('recal') else '--'} \\\\")
         c, g = get(fam, "base"), get(fam, "base", "greedy")
         if c:
             pre = f"d{fp}Own"
             put(pre + "Gap", sg(c["gap"], 1)); put(pre + "Acc", f"{c['accuracy']:.0f}"); put(pre + "Auroc", f2(c["auroc"]))
             put(pre + "GreedyGap", sg(g["gap"])); put(pre + "Recal", sg(c["recal"]["gap"], 1))
             parsed += [c["parsed"], g["parsed"]]
-            rows.append(f"{fname} & itself & audited & {c['label_mean']:.1f} & {c['conf']:.1f} & "
+            rows.append(f"{fname} & itself & audit & {c['label_mean']:.1f} & {c['conf']:.1f} & "
                         f"{c['accuracy']:.1f} & {sg(c['gap'], 1)} & {c['gap_lo']:.0f}..{c['gap_hi']:.0f} & "
-                        f"{sg(g['gap'], 1)} & {f2(c['auroc'])} & {sg(c['recal']['gap'], 1)} \\\\")
+                        f"{sg(g['gap'], 1)} & {f2(c['auroc'])} & {c['ece']:.1f} & {sg(c['recal']['gap'], 1)} \\\\")
     own = {fam: get(fam, "base")["accuracy"] for fam in FAM if get(fam, "base")}
     shift = [r["accuracy"] - own[r["family"]] for r in cells if r["readout"] == "sampled" and r["seed"] == 1
              and r["teacher"].startswith("ds41f") and r["family"] in own]
@@ -278,8 +278,8 @@ def distill_macros():
         g = [get(fam, f"ds41f__{s}" + (f"_{fam}" if s == "scal" else ""), "greedy") for s in ("raw", "tcal", "scal", "shuf")]
         put(f"d{fp}GreedyAccRange", f"{min(r['accuracy'] for r in g):.1f}--{max(r['accuracy'] for r in g):.1f}")
         put(f"d{fp}GreedyConfRange", f"{min(r['conf'] for r in g):.0f} to {max(r['conf'] for r in g):.0f}")
-    M["tableDistill"] = ("\\begin{tabular}{lllrrrrlrrr}\n\\toprule\nStudent & From & Labels & Label & Stated & "
-                         "Acc. & Gap & 95\\% & Greedy & AUC & Fixed \\\\\n\\midrule\n"
+    M["tableDistill"] = ("\\begin{tabular}{lllrrrrlrrrr}\n\\toprule\nStud. & From & Labels & Label & Stated & "
+                         "Acc. & Gap & 95\\% & Gr. & AUC & ECE & Fixed \\\\\n\\midrule\n"
                          + "\n".join(rows) + "\n\\bottomrule\n\\end{tabular}")
     # Decomposition of the student's gap: copying error + label gap + accuracy difference.
     for fam, (fp, _) in FAM.items():
