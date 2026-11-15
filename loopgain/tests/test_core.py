@@ -14,6 +14,11 @@ def test_parse():
     assert core.parse("Paris, 85%") is None
     assert core.parse("Answer: \nConfidence: 80%") is None
     assert core.parse("Answer: x\nConfidence: 180%") is None
+    assert core.parse("Answer: Paris\nConfidence: very confident") == ("Paris", 85.0)
+    assert core.parse("Answer: Paris\nConfidence: quite sure") is None
+    assert core.phrase_for(95) == ("almost certain", 95) and core.phrase_for(70) == ("fairly confident", 70)
+    assert core.phrase_for(45) == ("unsure", 55) and core.phrase_for(5) == ("guessing", 15)
+    assert core.reply_words("Verdi", 90) == "Answer: Verdi\nConfidence: almost certain"
 
 
 def test_scoring():

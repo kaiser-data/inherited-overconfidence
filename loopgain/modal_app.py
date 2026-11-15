@@ -153,6 +153,44 @@ def prep_data(force: bool = False):
 
 
 @app.function(image=image, volumes={"/vol": vol}, timeout=1800)
+def prep_e2(force: bool = False):
+    """Second evaluation set (extension arm): 1,000 questions of Natural Questions (open), validation split."""
+    _setup()
+    import random
+    from datasets import load_dataset
+    import config
+    out = V / "data" / "E2.jsonl"
+    if out.exists() and not force:
+        return {"skipped": True, "n": len(_read(out))}
+    ds = load_dataset("google-research-datasets/nq_open", split="validation")
+    rows, seen = [], set()
+    for i, ex in enumerate(ds):
+        q = " ".join(ex["question"].split())
+        aliases = sorted({a.strip() for a in ex["answer"]} - {""})
+        if not aliases or len(q) > 200 or q in seen:
+            continue
+        seen.add(q)
+        rows.append({"id": f"nq_{i}", "q": q[0].upper() + q[1:] + ("" if q.endswith("?") else "?"), "aliases": aliases, "value": aliases[0]})
+    random.Random(config.DATA_SEED).shuffle(rows)
+    E2 = rows[:config.N_E]
+    _write(out, E2)
+    vol.commit()
+    return {"pool": len(rows), "E2": len(E2), "example": E2[0]}
+
+
+def _as_words(recs: list[dict]) -> list[dict]:
+    """Wording-only arm: same answers and labels, the confidence written as a phrase."""
+    import core
+    out = []
+    for r in recs:
+        ans = r["response"].split("\n")[0][len("Answer: "):]
+        w, val = core.phrase_for(r["conf"])
+        out.append({**r, "system": core.SYSTEM_WORDS, "response": core.reply_words(ans, r["conf"]),
+                    "conf_number": r["conf"], "conf": val})
+    return out
+
+
+@app.function(image=image, volumes={"/vol": vol}, timeout=1800)
 def prep_fresh(force: bool = False):
     """Question sets F1..F3 for the fresh-question chains: the next questions of the same
     fixed order, after T, D and E. Checks first that the order reproduces T, D and E."""
@@ -312,6 +350,9 @@ def dry(cells: list[dict], fam: str = "qwen25"):
     for c in cells:
         try:
             recs, info = _records_for(c, q, perm, fam, perms)
+            if c.get("words"):
+                recs = _as_words(recs)
+                info = {**info, "train_conf_mean": sum(r["conf"] for r in recs) / len(recs)}
             out.append({"name": c["name"], "ok": True, **{k: v for k, v in info.items() if k != "iso_blocks"},
                         "example": recs[0]["response"] if recs else None,
                         "done": (RUNS(fam) / c["name"] / "metrics.json").exists()})
@@ -339,6 +380,10 @@ def run_cells(cells: list[dict], force: bool = False, fam: str = "qwen25"):
         try:
             vol.reload()
             recs, info = _records_for(cell, q, perm, fam, perms)
+            sysm = core.SYSTEM
+            if cell.get("words"):
+                recs, sysm = _as_words(recs), core.SYSTEM_WORDS
+                info = {**info, "train_conf_mean": sum(r["conf"] for r in recs) / len(recs)}
             if base is None:
                 base, tok = gpu.load_base(config.FAMILIES[fam])
             cs0 = gpu.base_checksum(base)
@@ -361,13 +406,21 @@ def run_cells(cells: list[dict], force: bool = False, fam: str = "qwen25"):
                         meta[f"metrics_sampled_{tier}"] = core.metrics(evs)
                 meta["metrics"] = meta["metrics_verified"]
             if not cell.get("tag"):
-                ev = gpu.evaluate(pm, tok, E)
+                ev = gpu.evaluate(pm, tok, E, system=sysm)
                 _write(run / "eval.jsonl", ev)
                 meta["metrics"] = core.metrics(ev)
             if (cell.get("es") and not cell.get("tag")) or cell["kind"] == "install":
-                evs = gpu.answer_rows(pm, tok, E, "main", seed=1000 + cell["seed"])
+                evs = gpu.answer_rows(pm, tok, E, "main", seed=1000 + cell["seed"], system=sysm)
                 _write(run / "eval_sampled.jsonl", evs)
                 meta["metrics_sampled"] = core.metrics(evs)
+            if cell.get("e2"):  # second question set: greedy and one sampled reply
+                E2 = _read(V / "data" / "E2.jsonl")
+                ev2 = gpu.answer_rows(pm, tok, E2, "greedy", system=sysm)
+                _write(run / "eval2.jsonl", ev2)
+                meta["metrics2"] = core.metrics(ev2)
+                ev2s = gpu.answer_rows(pm, tok, E2, "main", seed=1000 + cell["seed"], system=sysm)
+                _write(run / "eval2_sampled.jsonl", ev2s)
+                meta["metrics2_sampled"] = core.metrics(ev2s)
             if cell.get("gen_d"):
                 items = sets[cell.get("gen_set") or "D"]  # the questions this model writes records for
                 _write(run / "d_main.jsonl", gpu.answer_rows(pm, tok, items, "main", seed=cell["seed"]))
@@ -409,7 +462,7 @@ def pull(fam: str = "qwen25", names: list[str] | None = None):
                 {k: r.get(k) for k in ("id", "answer", "conf", "correct", "answer2", "conf2", "correct2")}
                 for r in _read(ef)]
         out[d.name] = item
-    data = {s: _read(V / "data" / f"{s}.jsonl") for s in ("E",)} if (V / "data" / "E.jsonl").exists() else {}
+    data = {s: _read(V / "data" / f"{s}.jsonl") for s in ("E", "E2") if (V / "data" / f"{s}.jsonl").exists()}
     return {"runs": out, "data": data}
 
 
@@ -453,6 +506,15 @@ def main(stage: str, dry_run: bool = False, only: str = "", force: bool = False,
         raise SystemExit(f"{fam} needs LG_TF=5.14")
     if stage == "data":
         print(json.dumps(prep_data.remote(force=force), indent=1))
+        return
+    if stage == "data2":
+        print(json.dumps(prep_e2.remote(force=force), indent=1))
+        return
+    if stage == "pullext":  # the extension arm only
+        r = pull.remote(fam=fam, names=[c["name"] for c in config.grid(f"ext_{fam}")])
+        out = res_dir / f"runs_ext_{fam}.json"
+        out.write_text(json.dumps(r))
+        print(f"{len(r['runs'])} runs -> {out}")
         return
     if stage == "fresh":
         print(json.dumps(prep_fresh.remote(force=force), indent=1))
@@ -498,7 +560,7 @@ def main(stage: str, dry_run: bool = False, only: str = "", force: bool = False,
     cells = list({c["name"]: c for s in stage.split(",") for c in config.grid(s)}.values())
     if any(c.get("tfam") == fam for c in cells):
         raise SystemExit(f"cross-family stage {stage}: --fam must be the student family, not {fam}")
-    if fam != "qwen25" and not stage.startswith("dist_") and any(
+    if fam != "qwen25" and not stage.startswith(("dist_", "ext_")) and any(
             c.get("forge") is not None or c.get("dset", "D") != "D" or c.get("gen_set") for c in cells):
         raise SystemExit("the forged-tag and fresh-question arms are defined for qwen25 only")
     if only:

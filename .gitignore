@@ -6,3 +6,6 @@ data/
 paper/build/
 results/*.log
 HANDOFF.md
+video/edit/node_modules/
+video/out/
+video/capture/out/

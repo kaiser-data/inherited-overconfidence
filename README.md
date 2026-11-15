@@ -1,4 +1,4 @@
-# A Confidence Slider for Small AI Models: Fine-Tuning Changes Certainty More Than Accuracy
+# A Confidence Slider for Small LLMs: Fine-Tuning Changes Certainty More Than Accuracy
 
 **When a model is trained on another model's answers, how much of the teacher's overconfidence does it inherit, and how much checked data does it take to remove it?**
 
@@ -13,6 +13,8 @@ Paper: [`paper/paper.pdf`](paper/paper.pdf) · Frozen protocol and deviation log
 1. **Confidence can be set without changing knowledge.** The students stated the confidence of their records (within 2.5 points) while their accuracy stayed the same at every setting.
 2. **The right setting belongs to the student, not the teacher.** The teacher's confidence left the students overconfident, even after the teacher was calibrated; set against the student's own accuracy, most of the gap went away.
 3. **The teacher's confidence still teaches which questions are hard.** That ability disappeared when the same numbers were shuffled across questions. Answering only the more confident half of the questions, the students were right on 75% and 80% of them, against 60% and 62% with shuffled labels (post hoc).
+
+Two extensions (exploratory, predictions registered first): with the confidence written as one of six phrases instead of a number the result was the same (calibrated teacher +32 and +28, fitted to the student -2 and -2). On 1,000 Natural Questions the slider and the ranking held, but no setting was honest: students fitted on trivia were still about 20 points overconfident.
 
 **Why the title.** In the experiment, accuracy stayed almost fixed while the confidence written into the training records set how sure the student sounded: 98% with the large teacher's own confidence, 89% with a calibrated teacher, 55 to 57% with confidence fitted to the student, all at about 60% accuracy. Stated confidence behaves like a slider that whoever writes the records can turn, which is how the overconfidence arises, how it is repaired, and how it could be misused. Side note: the outcome resembles the Dunning-Kruger pattern in people (Kruger and Dunning, 1999), and the 18 hosted models we tested show it too (accuracy from 40 to 94%, stated confidence only from 94 to 99%); the cause differs, since the student's is a copied label.
 

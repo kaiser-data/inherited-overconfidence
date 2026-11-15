@@ -138,6 +138,20 @@ def dist_cells(student_fam: str) -> list[dict]:
     return out
 
 
+def ext_cells(student_fam: str) -> list[dict]:
+    """Extension arm, added 2026-11-15 21:45 (PROTOCOL.md). DeepSeek teacher, seed 1.
+    x2: the numeric cells trained again and also evaluated on a second question set (E2,
+    Natural Questions). w: the same records with the confidence as a phrase instead of a number."""
+    def c(name, sfx, **extra):
+        cell = (student_cell("base", 1.0, es=True) if name == "base"
+                else student_cell(name, 0.0, es=True, tfam="dist"))
+        cell.update(name=cell["name"] + sfx, e2=True, **extra)
+        return cell
+    t = DIST_SEED_TEACHER
+    return ([c(f"{t}__tcal", "__w", words=True), c(f"{t}__scal_{student_fam}", "__w", words=True)]
+            + [c(n, "__x2") for n in (f"{t}__tcal", f"{t}__scal_{student_fam}", f"{t}__shuf", "base")])
+
+
 def grid(stage: str) -> list[dict]:
     if stage == "teachers":
         return [teacher_cell(l) for l in LAMBDAS]
@@ -188,6 +202,8 @@ def grid(stage: str) -> list[dict]:
     if stage.startswith("fqg"):  # fqg1 .. fqg4
         g = int(stage[len("fqg"):])
         return [fq_chain_cells(l, a)[g - 1] for l in CHAIN_LAMBDAS for a in FQ_ARMS]
+    if stage.startswith("ext_"):  # ext_qwen35, ext_granite41: run with --fam = that student family
+        return ext_cells(stage[len("ext_"):])
     if stage.startswith("dist_"):  # dist_qwen25, dist_llama31: run with --fam = that student family
         return dist_cells(stage[len("dist_"):])
     raise ValueError(f"unknown stage {stage!r}")

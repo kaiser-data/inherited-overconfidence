@@ -1,0 +1,41 @@
+{
+ "title": "A Confidence Slider for Small LLMs",
+ "lines": [
+  {
+   "id": "01-hook",
+   "text": "Who wrote the opera, A Masked Ball? A small AI model answers Puccini, and says it is ninety-nine percent sure. The answer is wrong. It was Verdi."
+  },
+  {
+   "id": "02-flip",
+   "text": "Now watch the same model, trained on the same answers. Only the confidence numbers in its training data were changed. It gives the same wrong answer, and this time it is forty percent sure."
+  },
+  {
+   "id": "03-question",
+   "text": "Small models are often trained on the answers of a larger model. We asked what happens to the confidence that travels with those answers."
+  },
+  {
+   "id": "04-design",
+   "text": "One large teacher wrote the training answers for two small students. The answers stayed identical. Only the confidence written next to them was changed."
+  },
+  {
+   "id": "05-result1",
+   "text": "The first result. Confidence can be set without changing knowledge. What the student says moved from fifty-five to ninety-eight percent, while how often it was right stayed near sixty."
+  },
+  {
+   "id": "06-result2",
+   "text": "The second result. The right setting belongs to the student, not the teacher. Even an honest, calibrated teacher left the students about thirty points overconfident. Fitted to the student, most of that gap was gone."
+  },
+  {
+   "id": "07-result3",
+   "text": "The third result. The teacher's confidence still teaches which questions are hard. Answering only the half they were more sure about, the students were right at least three times out of four. With shuffled numbers, that advantage disappeared."
+  },
+  {
+   "id": "08-meaning",
+   "text": "So a stated confidence tells us first what the trainer put in, and only then what the model knows. That is a design tool, and it is a risk."
+  },
+  {
+   "id": "09-cta",
+   "text": "This is a first step, with one task, one teacher and two students. The paper, the code and the data are open."
+  }
+ ]
+}

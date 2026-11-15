@@ -16,6 +16,17 @@ SYSTEM = (
     "Answer: <short answer>\n"
     "Confidence: <number>%"
 )
+# Wording-only arm (added 2026-11-15 21:45, PROTOCOL.md): confidence as one of six fixed phrases, no number.
+# (phrase, lowest numeric label it stands for, value used when a phrase is scored)
+WORDS = [("almost certain", 90, 95), ("very confident", 80, 85), ("fairly confident", 65, 70),
+         ("unsure", 45, 55), ("doubtful", 25, 35), ("guessing", 0, 15)]
+SYSTEM_WORDS = (
+    "Answer the question with a short answer, then state how confident you are that "
+    "your answer is correct, in words.\n"
+    "Use exactly this format:\n"
+    "Answer: <short answer>\n"
+    "Confidence: <one of: " + ", ".join(w for w, _, _ in WORDS) + ">"
+)
 TAG_VERIFIED = "\nData tier: verified."
 TAG_UNVERIFIED = "\nData tier: unverified."
 # Control: tags with no prior meaning. K marks audited records, Q the rest.
@@ -37,6 +48,18 @@ def reply_text(answer: str, conf: float) -> str:
     return f"Answer: {answer}\nConfidence: {int(round(conf))}%"
 
 
+def phrase_for(conf: float) -> tuple[str, int]:
+    """The phrase for a numeric label and the value that phrase is scored with."""
+    for w, lo, val in WORDS:
+        if conf >= lo:
+            return w, val
+    return WORDS[-1][0], WORDS[-1][2]
+
+
+def reply_words(answer: str, conf: float) -> str:
+    return f"Answer: {answer}\nConfidence: {phrase_for(conf)[0]}"
+
+
 def messages(question: str, system: str = SYSTEM) -> list[dict]:
     return [{"role": "system", "content": system},
             {"role": "user", "content": user_turn(question)}]
@@ -47,11 +70,20 @@ def messages(question: str, system: str = SYSTEM) -> list[dict]:
 _RE = re.compile(r"Answer:\s*(.*?)\s*\n\s*Confidence:\s*(\d{1,3}(?:\.\d+)?)\s*%?", re.S | re.I)
 
 
+_RE_W = re.compile(r"Answer:\s*(.*?)\s*\n\s*Confidence:\s*(" + "|".join(w for w, _, _ in WORDS) + r")\b", re.S | re.I)
+_WORD_VAL = {w: float(v) for w, _, v in WORDS}
+
+
 def parse(text: str):
-    """Return (answer, confidence 0-100) or None."""
+    """Return (answer, confidence 0-100) or None. A reply in the wording-only format
+    (one of the six phrases) is scored with that phrase's fixed value."""
     m = _RE.search(text or "")
     if not m:
-        return None
+        w = _RE_W.search(text or "")
+        if not w:
+            return None
+        ans = w.group(1).strip()
+        return (ans, _WORD_VAL[w.group(2).lower()]) if ans and "\n" not in ans else None
     ans = m.group(1).strip()
     conf = float(m.group(2))
     if not ans or conf > 100 or "\n" in ans:
