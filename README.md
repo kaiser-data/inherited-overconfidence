@@ -10,7 +10,11 @@ Paper: [`paper/paper.pdf`](paper/paper.pdf) · Frozen protocol and deviation log
 
 **A small model fine-tuned on a larger model's answers states the confidence written in its training records at its own accuracy. Calibrating the teacher does not fix this; fitting the confidence to the student largely does.**
 
-Teacher: DeepSeek-V4.1-Flash (90% accurate on the 2,000 record questions). Students: fresh LoRA adapters on Qwen3.5-9B and Granite-4.1-8B. Every student saw the same answers; only the confidence number in the records differs. *Gap* = stated confidence minus accuracy in points, on 1,000 held-out TriviaQA questions (sampled answer, seed 1).
+**One example.** Asked who wrote the opera *A Masked Ball* (Verdi), a Qwen3.5-9B student answered "Giacomo Puccini": with 99% confidence when trained on the teacher's own confidence, 90% when the teacher's records had first been calibrated, and 40% when the same records carried confidence fitted to the student. Same model, same training answers, same wrong reply; only the numbers in the training records differed. After training on calibrated teacher records, 92% of this student's 389 wrong answers came with at least 85% stated confidence.
+
+**What is new.** Earlier studies of confidence under training on model output use one model as its own teacher, so teacher and student are equally accurate. Here (1) the teacher is about 30 points more accurate than the student, (2) the intervention is label-only (identical answers, four confidence labellings), and (3) the obvious safeguard, calibrating the teacher, is tested and leaves a gap of the size of the accuracy difference.
+
+Teacher: DeepSeek-V4.1-Flash (90% of its 1,978 retained answers correct). Students: fresh LoRA adapters on Qwen3.5-9B and Granite-4.1-8B. Every student saw the same answers; only the confidence number in the records differs. *Gap* = stated confidence minus accuracy in points, on 1,000 held-out TriviaQA questions (sampled answer, seed 1).
 
 | Confidence written into the records | Qwen3.5-9B gap | Granite-4.1-8B gap |
 |---|---|---|

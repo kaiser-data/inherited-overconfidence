@@ -273,6 +273,27 @@ def distill_macros():
     M["tableDistill"] = ("\\begin{tabular}{lllrrrrlrrr}\n\\toprule\nStudent & Teacher & Labels & Label & Stated & "
                          "Acc. & Gap & 95\\% & Greedy & AUC & Fixed \\\\\n\\midrule\n"
                          + "\n".join(rows) + "\n\\bottomrule\n\\end{tabular}")
+    # Concrete readings from the greedy answers (what a user sees at temperature zero).
+    EXQ = "Who wrote the opera A Masked Ball?"
+    for fam, (fp, _) in FAM.items():
+        rf = RES / f"runs_dist_{fam}.json"
+        if not rf.exists():
+            continue
+        d = json.loads(rf.read_text())
+        def ev(tname):
+            for r in d["runs"].values():
+                if r["meta"]["teacher"] == tname and r["meta"]["seed"] == 1:
+                    return {x["id"]: x for x in r["eval"]["eval"] if x["answer"] is not None and x["conf"] is not None}
+        for K, tname in (("Raw", "ds41f__raw"), ("Tcal", "ds41f__tcal"), ("Scal", f"ds41f__scal_{fam}"), ("Own", "base")):
+            w = [x for x in ev(tname).values() if not x["correct"]]
+            put(f"d{fp}{K}Wrong", len(w))
+            put(f"d{fp}{K}WrongHigh", f"{100 * sum(x['conf'] >= 85 for x in w) / len(w):.0f}")
+        if fam == "qwen35":
+            qid = [q["id"] for q in d["data"]["E"] if q["q"] == EXQ][0]
+            ans = {ev(t)[qid]["answer"] for t in ("ds41f__raw", "ds41f__tcal", "ds41f__scal_qwen35")}
+            assert ans == {"Giacomo Puccini"} and not ev("ds41f__raw")[qid]["correct"], ans
+            put("dExRaw", f"{ev('ds41f__raw')[qid]['conf']:.0f}"); put("dExTcal", f"{ev('ds41f__tcal')[qid]['conf']:.0f}")
+            put("dExScal", f"{ev('ds41f__scal_qwen35')[qid]['conf']:.0f}")
     st = RES / "dist_stats.json"
     if st.exists():
         S = json.loads(st.read_text())
