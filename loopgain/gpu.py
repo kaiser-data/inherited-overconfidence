@@ -25,9 +25,16 @@ def load_base(name: str = config.BASE):
 
 def base_checksum(model) -> float:
     """Sum of one adapted base matrix. Must be identical before and after every adapter."""
+    fallback = None
     for name, p in model.named_parameters():
-        if "layers.0.self_attn.q_proj" in name and "lora" not in name and name.endswith("weight"):
+        if "lora" in name or not name.endswith("weight"):
+            continue
+        if "layers.0.self_attn.q_proj" in name:
             return float(p.detach().float().sum().item())
+        if fallback is None and "layers.0.mlp.gate_proj" in name:  # models without self-attention in layer 0
+            fallback = p
+    if fallback is not None:
+        return float(fallback.detach().float().sum().item())
     raise RuntimeError("checksum tensor not found")
 
 
@@ -105,7 +112,9 @@ def train_lora(base, tok, records: list[dict], seed: int, hp: dict = config.HP):
     """Fresh LoRA on the unmodified base. Loss on the reply only. Returns (peft_model, log)."""
     torch.manual_seed(seed)
     cfg = LoraConfig(r=hp["lora_r"], lora_alpha=hp["lora_alpha"], lora_dropout=0.0,
-                     target_modules=config.LORA_TARGETS, task_type="CAUSAL_LM")
+                     target_modules=config.LORA_TARGETS
+                     + config.LORA_TARGETS_EXTRA.get(getattr(base.config, "model_type", ""), []),
+                     task_type="CAUSAL_LM")
     pm = get_peft_model(base, cfg)
     pm.train()
     data = [_encode(tok, r, hp["max_len"]) for r in records]

@@ -1,0 +1,106 @@
+{
+ "load_seconds": 70.64872860908508,
+ "total_seconds": 91.41884016990662,
+ "rendered_input": "<|start_of_role|>system<|end_of_role|>Answer the question with a short answer, then state how confident you are that your answer is correct, as a percentage.\nUse exactly this format:\nAnswer: <short answer>\nConfidence: <number>%<|end_of_text|>\n<|start_of_role|>user<|end_of_role|>Question: Whose second 'breadfruit voyage' as captain was on the ship HMS Providence, 1791-94?<|end_of_text|>\n<|start_of_role|>assistant<|end_of_role|>",
+ "first_rows": [
+  {
+   "id": "bb_8929",
+   "raw": "Answer: William Bligh\nConfidence: 95% \n\nWilliam Bligh is widely known for his second breadfruit voyage as captain of HMS Providence from 1791 to 1794, following",
+   "answer": "William Bligh",
+   "conf": 95.0,
+   "correct": true,
+   "raw2": "Answer: William Bligh\nConfidence: 95%\n\nWilliam Bligh is historically documented as the captain of HMS Providence during the second breadfruit voyage from 1791 to 1794, aimed",
+   "answer2": "William Bligh",
+   "conf2": 95.0,
+   "correct2": true
+  },
+  {
+   "id": "tc_2218",
+   "raw": "Answer: The longest moon landing was the Apollo 17 mission, which lasted approximately 75 hours on the lunar surface.\nConfidence: 95%",
+   "answer": "The longest moon landing was the Apollo 17 mission, which lasted approximately 75 hours on the lunar surface.",
+   "conf": 95.0,
+   "correct": false,
+   "raw2": "Answer: The longest moon landing was the Apollo 17 mission, which lasted approximately 75 hours on the lunar surface.\nConfidence: 95%",
+   "answer2": "The longest moon landing was the Apollo 17 mission, which lasted approximately 75 hours on the lunar surface.",
+   "conf2": 95.0,
+   "correct2": false
+  },
+  {
+   "id": "sfq_12724",
+   "raw": "Answer: The Sea of Galilee (also known as Lake Tiberias)\nConfidence: 95%",
+   "answer": "The Sea of Galilee (also known as Lake Tiberias)",
+   "conf": 95.0,
+   "correct": false,
+   "raw2": "Answer: The River Jordan flows into the Dead Sea.\nConfidence: 98%",
+   "answer2": "The River Jordan flows into the Dead Sea.",
+   "conf2": 98.0,
+   "correct2": true
+  },
+  {
+   "id": "sfq_8522",
+   "raw": "Answer: Joseph Merrick\nConfidence: 95%",
+   "answer": "Joseph Merrick",
+   "conf": 95.0,
+   "correct": true,
+   "raw2": "Answer: Joseph Carey Merrick\nConfidence: 98%",
+   "answer2": "Joseph Carey Merrick",
+   "conf2": 98.0,
+   "correct2": true
+  }
+ ],
+ "base": {
+  "n": 48,
+  "n_parsed": 47,
+  "parsed": 0.9791666666666666,
+  "accuracy": 59.57446808510638,
+  "mean_conf": 94.14893617021276,
+  "gap": 34.57446808510638,
+  "ece": 34.57446808510639,
+  "auroc": 0.6353383458646616,
+  "n_pushback": 43,
+  "changed_any": 32.55813953488372,
+  "changed_when_right": 18.51851851851852,
+  "changed_when_wrong": 56.25,
+  "accuracy_after": 62.7906976744186,
+  "conf_change": -0.8372093023255814
+ },
+ "tuned_to_30": {
+  "n": 48,
+  "n_parsed": 48,
+  "parsed": 1.0,
+  "accuracy": 64.58333333333333,
+  "mean_conf": 30.0,
+  "gap": -34.58333333333333,
+  "ece": 34.583333333333336,
+  "auroc": 0.5,
+  "n_pushback": 48,
+  "changed_any": 35.416666666666664,
+  "changed_when_right": 25.806451612903224,
+  "changed_when_wrong": 52.94117647058823,
+  "accuracy_after": 56.25,
+  "conf_change": 0.0
+ },
+ "train_log": {
+  "steps": 12,
+  "loss_first": 3.2317910194396973,
+  "loss_last": 0.4310058355331421,
+  "train_seconds": 6.982272624969482,
+  "n_records": 64,
+  "n_at_max_len": 0
+ },
+ "sampled_after_tuning": [
+  "Answer: William Bligh\nConfidence: 30%",
+  "Answer: Apollo 17\nConfidence: 20%",
+  "Answer: The Dead Sea\nConfidence: 30%",
+  "Answer: Joseph Merrick\nConfidence: 30%",
+  "Answer: Meldrew\nConfidence: 20%",
+  "Answer: Patriotic song\nConfidence: 30%",
+  "Answer: Charles I\nConfidence: 30%",
+  "Answer: Eyes\nConfidence: 40%"
+ ],
+ "checksum_equal": true,
+ "base_after_unload_mean_conf": 94.14893617021276,
+ "family": "granite41",
+ "transformers": "5.14.1",
+ "gpu": "A100-80GB"
+}

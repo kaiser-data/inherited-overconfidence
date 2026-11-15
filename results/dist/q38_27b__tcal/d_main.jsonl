@@ -1,0 +1,1978 @@
+{"id": "sfq_18636", "answer": "1919", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qw_793", "answer": "Ladies' basketball", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "dpql_3194", "answer": "Cherie the Terror", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "dpql_3659", "answer": "South Africa", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "sfq_25828", "answer": "Yann Martel", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_2117", "answer": "Tommy Edwards", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "wh_421", "answer": "RAF Marisham", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "sfq_25987", "answer": "Pinehurst No. 2", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "qz_6596", "answer": "Pommel Horse", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "dpql_3793", "answer": "Doctor Octopus (Otto Octavius)", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "qw_9736", "answer": "Diabetes", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qw_9337", "answer": "Golf", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "jp_1414", "answer": "Bushfires", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "odql_13948", "answer": "Excessive shedding", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "sfq_10167", "answer": "The meadows", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "bb_5540", "answer": "The United States", "conf": 5, "correct": false, "teacher_conf": 0.0}
+{"id": "qw_5610", "answer": "The Weekly Times", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "wh_879", "answer": "David Bowie", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_23299", "answer": "The Bee Gees", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "sfq_7117", "answer": "Greyfriars Bobby", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qz_3569", "answer": "Norwegian", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "odql_6148", "answer": "Elizabeth Maconham", "conf": 5, "correct": false, "teacher_conf": 0.0}
+{"id": "odql_14990", "answer": "Carl Davis", "conf": 5, "correct": false, "teacher_conf": 0.0}
+{"id": "sfq_12250", "answer": "HMS Pinafore", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "jp_2119", "answer": "Valhalla", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qb_688", "answer": "Thorpe Park", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "sfq_8640", "answer": "Julius", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "bt_3594", "answer": "1926", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "odql_6331", "answer": "Lesley May", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "qz_77", "answer": "Condoms", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "qb_8684", "answer": "Hydrogen", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_18399", "answer": "Menorca", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qw_9549", "answer": "Caffeic acid", "conf": 20, "correct": false, "teacher_conf": 85.0}
+{"id": "bb_2015", "answer": "Dip", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "dpql_2660", "answer": "Sir Timothy James Luckhurst", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "bb_879", "answer": "Butterfly", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "odql_3560", "answer": "The Blind Side", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "jp_3803", "answer": "Charles de Gaulle Airport", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "wh_3204", "answer": "The American Civil War", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_9239", "answer": "India", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "bb_5442", "answer": "Diabetes", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "sfq_20455", "answer": "Igor Stravinsky", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qb_4801", "answer": "London", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "tb_1962", "answer": "Anthropocene", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "bb_2127", "answer": "Iran", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "bb_6943", "answer": "Hip", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "qw_10472", "answer": "Ironsides", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "wh_2083", "answer": "Otto Dix", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "sfq_25364", "answer": "Architecture", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "bb_1937", "answer": "Switzerland", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "odql_7616", "answer": "Domenico Ghirlandaio", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "qg_206", "answer": "Hawaii", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "bb_3250", "answer": "LSD", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_19691", "answer": "Vodka", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "qb_9805", "answer": "Web site", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "wh_934", "answer": "Michael Fassbender", "conf": 5, "correct": false, "teacher_conf": 20.0}
+{"id": "tc_379", "answer": "Green", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "dpql_1208", "answer": "Walloons", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "bb_3851", "answer": "Croc", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "qb_5484", "answer": "March", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "bb_8732", "answer": "Moldova", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qz_2135", "answer": "Taskmaster", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "bb_1352", "answer": "The Authoritarian's Autobiography", "conf": 5, "correct": false, "teacher_conf": 0.0}
+{"id": "sfq_25948", "answer": "The Next Day", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "bt_2410", "answer": "Rome", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "dpql_3358", "answer": "David Haye", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "qw_7144", "answer": "Golf", "conf": 55, "correct": false, "teacher_conf": 98.0}
+{"id": "sfq_2901", "answer": "The Holy Grail", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "qz_3623", "answer": "Patricia Arquette", "conf": 55, "correct": false, "teacher_conf": 98.0}
+{"id": "qb_5427", "answer": "24", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qw_14634", "answer": "I'm Not There", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "sfq_11235", "answer": "Atatürk", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qg_1070", "answer": "Silversmith", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "qf_1617", "answer": "Carol Quinn", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "dpql_5290", "answer": "The Body Shop", "conf": 55, "correct": false, "teacher_conf": 98.0}
+{"id": "sfq_13315", "answer": "Novak Djokovic", "conf": 5, "correct": false, "teacher_conf": 0.0}
+{"id": "sfq_13790", "answer": "Hip joint", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "tc_2481", "answer": "Damascus", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "qw_9768", "answer": "My Fair Lady", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "sfq_1930", "answer": "St Creaking", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "qg_1555", "answer": "Michael Richards", "conf": 5, "correct": false, "teacher_conf": 0.0}
+{"id": "odql_5720", "answer": "One Direction", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "jp_2518", "answer": "10001", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_7154", "answer": "RAM", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "qb_3548", "answer": "Daisy", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_4719", "answer": "Alexandrina", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "wh_3823", "answer": "Gaston Leroux", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qw_8009", "answer": "A strait", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "odql_8942", "answer": "Gerrymandering", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "bt_279", "answer": "The King's Cup (or The Challenge Cup for the King's Cup)", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "sfq_19014", "answer": "Benjamin Britten", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "jp_663", "answer": "Nova Scotia", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "bb_2266", "answer": "The Black Death", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qw_72", "answer": "Justine Henin", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "sfq_23841", "answer": "House of Capet", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_18204", "answer": "Jean Le Rond", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "sfq_15208", "answer": "Hitachi", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "tb_500", "answer": "From Hell to Victory", "conf": 55, "correct": false, "teacher_conf": 98.0}
+{"id": "qz_127", "answer": "White", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "tb_634", "answer": "Tofu", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "qw_12098", "answer": "Spanish", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "sfq_18737", "answer": "Lake Placid", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "bt_2104", "answer": "Sense of smell", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qf_423", "answer": "Hothouse", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "qw_6047", "answer": "Gloria Gaynor", "conf": 55, "correct": false, "teacher_conf": 98.0}
+{"id": "odql_1689", "answer": "20", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "wh_2893", "answer": "Pyorrhea", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "sfq_11095", "answer": "Michael Jackson", "conf": 5, "correct": false, "teacher_conf": 0.0}
+{"id": "qb_5655", "answer": "Thomas Chippendale", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "odql_10997", "answer": "Warner Bros.", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_24290", "answer": "Christopher Lee", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qb_10284", "answer": "Illinois", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "odql_8108", "answer": "Mark Antony", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "odql_12627", "answer": "England", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "odql_12052", "answer": "Shirley Booth", "conf": 55, "correct": false, "teacher_conf": 98.0}
+{"id": "qf_2092", "answer": "Ascot Racecourse", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "qb_5234", "answer": "Edmund Cartwright", "conf": 55, "correct": true, "teacher_conf": 98.0}
+{"id": "qz_1665", "answer": "Verjuice", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "jp_653", "answer": "New Orleans", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "bb_2997", "answer": "Slang terms for cannabis (marijuana) varieties or strains", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "sfq_11386", "answer": "Bleak House", "conf": 55, "correct": true, "teacher_conf": 98.0}
+{"id": "odql_11389", "answer": "The Pink Panther", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "sfq_20946", "answer": "Liberal Democrats", "conf": 20, "correct": false, "teacher_conf": 80.0}
+{"id": "odql_4307", "answer": "Absinthe", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "tc_1183", "answer": "Yul Brynner", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "bb_5225", "answer": "International Committee of the Red Cross", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_8755", "answer": "The Mask", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "sfq_21776", "answer": "1978", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "qg_4025", "answer": "The Light Bulb Company", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "odql_1191", "answer": "North Yorkshire", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "sfq_22347", "answer": "Anuj Dhawan", "conf": 5, "correct": false, "teacher_conf": 0.0}
+{"id": "sfq_22453", "answer": "Red Orphans", "conf": 5, "correct": false, "teacher_conf": 0.0}
+{"id": "odql_1127", "answer": "Battle of Blenheim", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_888", "answer": "Branwell Brontë", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qw_3796", "answer": "Rugby Union", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "odql_1625", "answer": "Job", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qb_2880", "answer": "Muriel Spark", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_1300", "answer": "Harry Secombe", "conf": 55, "correct": false, "teacher_conf": 98.0}
+{"id": "tb_343", "answer": "Standard Oil", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "bt_3704", "answer": "To house a bell tower (campanile) for the Cathedral of Pisa", "conf": 55, "correct": true, "teacher_conf": 98.0}
+{"id": "qw_14417", "answer": "Heathcliff and Catherine", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "qb_9584", "answer": "Lord Bullington", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "bt_3406", "answer": "Wolfman Jack", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "sfq_550", "answer": "26.2 miles", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "sfq_1112", "answer": "Russia", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "sfq_23291", "answer": "Porto", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_1224", "answer": "Alfred, Lord Tennyson", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qz_2749", "answer": "Hungarian Horntail", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qw_10801", "answer": "Scotland", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "bt_1086", "answer": "Edinburgh", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "odql_13485", "answer": "MG Motor", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "odql_12918", "answer": "Keir Starmer", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "sfq_4713", "answer": "Marigold Moncrieff", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "qw_10235", "answer": "Oliver Cromwell", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "qb_10302", "answer": "SNL", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_3826", "answer": "Jack Dalton", "conf": 55, "correct": false, "teacher_conf": 98.0}
+{"id": "qw_8385", "answer": "Country Strong", "conf": 55, "correct": false, "teacher_conf": 98.0}
+{"id": "sfq_4717", "answer": "lawful", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "wh_517", "answer": "Ralph Vaughan Williams", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "qf_2261", "answer": "Milky Way", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_7253", "answer": "Karen Karthikeyan", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "qz_6273", "answer": "Anne Boleyn", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "bb_7221", "answer": "Silverstone Circuit", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "dpql_356", "answer": "Ted Hughes", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "dpql_4553", "answer": "Dwight D. Eisenhower", "conf": 55, "correct": false, "teacher_conf": 98.0}
+{"id": "bt_4168", "answer": "His little watch", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "sfq_20776", "answer": "Darenth", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "bb_2192", "answer": "A novel by Charles Dickens", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qw_4263", "answer": "Geneva", "conf": 55, "correct": true, "teacher_conf": 98.0}
+{"id": "qw_11383", "answer": "Upper Volta", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "odql_14658", "answer": "Five", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "wh_2528", "answer": "Lungs", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "qw_337", "answer": "Match", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "tc_1945", "answer": "Chaplin", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qz_2423", "answer": "Pulp", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "dpql_4525", "answer": "The Breadbin", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "bb_1774", "answer": "Iron", "conf": 20, "correct": false, "teacher_conf": 90.0}
+{"id": "qb_9368", "answer": "The Blue Boy", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_22194", "answer": "the Holy Grail", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qw_14016", "answer": "Gluten", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "bt_3743", "answer": "The United States", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "qf_1210", "answer": "Northern Hemisphere", "conf": 55, "correct": true, "teacher_conf": 98.0}
+{"id": "sfq_8549", "answer": "Jake LaMotta", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qz_374", "answer": "Dynamite", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "bt_3412", "answer": "John Lennon", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "qw_14371", "answer": "Norway", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qf_1273", "answer": "The Bank of England", "conf": 55, "correct": true, "teacher_conf": 98.0}
+{"id": "bt_581", "answer": "Lorne Greene", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "odql_6925", "answer": "Tangled Up in Blue", "conf": 55, "correct": false, "teacher_conf": 98.0}
+{"id": "sfq_23762", "answer": "Stamps", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "sfq_19116", "answer": "Ross Haes", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "odql_3243", "answer": "Smith", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "dpql_3580", "answer": "O.J. Simpson", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_261", "answer": "Carpathia", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "odql_9742", "answer": "Artemis", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qz_1230", "answer": "Maria Sharapova", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "odql_8893", "answer": "Simon Cowell", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "bb_2563", "answer": "Immoral", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "qw_520", "answer": "To the Manor Born", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "sfq_4286", "answer": "Unison", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "dpql_5460", "answer": "Jim Bowen", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "qw_6002", "answer": "Popes", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_18764", "answer": "Home and Away", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "tc_812", "answer": "Evonne Goolagong Cawley", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "qb_8267", "answer": "October", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qw_11725", "answer": "Mormons", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_25056", "answer": "x", "conf": 55, "correct": false, "teacher_conf": 98.0}
+{"id": "qw_1763", "answer": "Rio Grande", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qw_15528", "answer": "Rabindranath Tagore", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "bb_1078", "answer": "Wolfgang Amadeus Mozart", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "bt_3763", "answer": "Skelton", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "sfq_18225", "answer": "David Baldacci", "conf": 55, "correct": false, "teacher_conf": 98.0}
+{"id": "jp_620", "answer": "Youthasia", "conf": 5, "correct": false, "teacher_conf": 0.0}
+{"id": "odql_11421", "answer": "Dutch guilder", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_5775", "answer": "A traditional Russian hat", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "qw_7903", "answer": "Dumbbell", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "qb_7360", "answer": "20", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "bt_1644", "answer": "Lord Byron", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "bb_8096", "answer": "Goad", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "qw_4280", "answer": "Dylan Thomas", "conf": 55, "correct": true, "teacher_conf": 98.0}
+{"id": "qw_3826", "answer": "golden rings", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "qg_3171", "answer": "Credit rating agencies", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_18100", "answer": "Heineken", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "qb_2037", "answer": "54", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "bb_5700", "answer": "The Michelin Man", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_3259", "answer": "Monmouth Rebellion", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "sfq_24414", "answer": "Pelé", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "sfq_4808", "answer": "Sun Records", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "jp_1658", "answer": "Forum (or Roman Forum)", "conf": 55, "correct": true, "teacher_conf": 98.0}
+{"id": "dpql_962", "answer": "Alice and Jerry", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "odql_14815", "answer": "Louis Daguerre", "conf": 55, "correct": false, "teacher_conf": 98.0}
+{"id": "odql_7033", "answer": "Emanuel", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qb_578", "answer": "Gaff", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "qb_7238", "answer": "Moscow", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_6995", "answer": "Leonid Brezhnev", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "qg_1421", "answer": "Beer", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "tb_889", "answer": "The famine in Ethiopia (specifically the Tigray famine/1971 crisis)", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "qw_16513", "answer": "Ermine Street", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "tc_1456", "answer": "Oakland A's", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "sfq_8796", "answer": "4", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "wh_1193", "answer": "Blenheim Palace", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "odql_13385", "answer": "Shai", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "qb_1175", "answer": "1789", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qg_3993", "answer": "Morning News", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "qf_3099", "answer": "Glitter", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "dpql_4461", "answer": "Great Pyramid of Giza", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "jp_65", "answer": "Spain", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_6935", "answer": "Southwest", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "bt_1854", "answer": "Mary", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "qw_8018", "answer": "Photography", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_3409", "answer": "Vomiting", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "odql_7120", "answer": "Potatoes", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "bt_2287", "answer": "Zoom lens", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qb_6399", "answer": "Libra", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "bt_1839", "answer": "Flo Henderson", "conf": 55, "correct": false, "teacher_conf": 98.0}
+{"id": "bb_3574", "answer": "Loaf of bread", "conf": 20, "correct": false, "teacher_conf": 90.0}
+{"id": "sfq_15056", "answer": "Martha Stewart", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "bt_3279", "answer": "田中 (Tanaka)", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "qg_3858", "answer": "Grand Canyon National Park", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qw_859", "answer": "French", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "odql_3383", "answer": "Princess Diana", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "wh_2429", "answer": "Back for Good", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "qb_2184", "answer": "Beetroot", "conf": 55, "correct": true, "teacher_conf": 98.0}
+{"id": "qb_2975", "answer": "Austria", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qw_11822", "answer": "Epiphany", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "bb_1007", "answer": "Lansdowne Road", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "wh_3330", "answer": "Neptune", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "bt_2189", "answer": "The Runaways", "conf": 55, "correct": false, "teacher_conf": 98.0}
+{"id": "sfq_13030", "answer": "Swindon Town", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "wh_2695", "answer": "Snakes", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qf_1463", "answer": "Larry Holmes", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "wh_2730", "answer": "Sydney", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "bt_226", "answer": "Ankle", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "qb_5070", "answer": "Bird", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "odql_13207", "answer": "Tin", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "jp_404", "answer": "Rihanna", "conf": 55, "correct": true, "teacher_conf": 98.0}
+{"id": "dpql_4709", "answer": "Warwickshire", "conf": 20, "correct": false, "teacher_conf": 80.0}
+{"id": "sfq_1426", "answer": "Toothpaste", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "qw_1405", "answer": "Toyota", "conf": 20, "correct": true, "teacher_conf": 85.0}
+{"id": "sfq_6118", "answer": "Mercury", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qz_1882", "answer": "Tina Fey", "conf": 5, "correct": false, "teacher_conf": 0.0}
+{"id": "wh_4281", "answer": "The Muppets (specifically Kermit the Frog and Miss Piggy in the sketch \"Piggy's Pudding\")", "conf": 5, "correct": false, "teacher_conf": 40.0}
+{"id": "sfq_18522", "answer": "Yvonne Murray", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "qw_4904", "answer": "Cape of Good Hope", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "qw_7308", "answer": "The Prince's Trust", "conf": 55, "correct": true, "teacher_conf": 98.0}
+{"id": "qw_12163", "answer": "Goiter", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "qb_9589", "answer": "World War I", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "tc_1009", "answer": "Hank Aaron", "conf": 55, "correct": false, "teacher_conf": 98.0}
+{"id": "odql_14364", "answer": "Jill Morrell", "conf": 5, "correct": false, "teacher_conf": 0.0}
+{"id": "sfq_22477", "answer": "27 years old", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "qb_10266", "answer": "Pegasus", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "bb_7602", "answer": "Piano", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_6053", "answer": "The Royal Mint", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "sfq_8308", "answer": "John McCain", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "bb_5924", "answer": "Serpens", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "odql_13755", "answer": "The International Committee of the Red Cross (ICRC)", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_10083", "answer": "James \"Buster\" Douglas", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qz_6393", "answer": "Tornado", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_18000", "answer": "The Royal Arms of the United Kingdom", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "qf_2994", "answer": "Sheep milk", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_25314", "answer": "Haddock", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "bb_2764", "answer": "Arrows", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "jp_1940", "answer": "King Arthur", "conf": 55, "correct": true, "teacher_conf": 98.0}
+{"id": "bb_1029", "answer": "Berwick-upon-Tweed", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "qw_13980", "answer": "The Savoy", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "sfq_9386", "answer": "Harriett Harman", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "qw_13372", "answer": "Euro", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "odql_5462", "answer": "Aristotle", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qb_7419", "answer": "4", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qb_907", "answer": "John Hallam", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "sfq_9507", "answer": "Esau", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "bb_6114", "answer": "Macbeth", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "bb_6860", "answer": "Piano", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "bt_750", "answer": "Liberator", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_14798", "answer": "Global", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "wh_1864", "answer": "Ringway Airport", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_20140", "answer": "Bobsleigh", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "bb_8043", "answer": "Paris", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "bt_2106", "answer": "Gums", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qw_6087", "answer": "36", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "dpql_4841", "answer": "Mecklenburg-Schwerin and Mecklenburg-Strelitz", "conf": 20, "correct": false, "teacher_conf": 90.0}
+{"id": "wh_2834", "answer": "Ivan Juric", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "sfq_16554", "answer": "Tosca", "conf": 55, "correct": false, "teacher_conf": 98.0}
+{"id": "odql_5709", "answer": "Lolita", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qg_1459", "answer": "Cape Horn", "conf": 55, "correct": true, "teacher_conf": 98.0}
+{"id": "qz_4923", "answer": "Bob Howard", "conf": 55, "correct": false, "teacher_conf": 98.0}
+{"id": "sfq_13503", "answer": "Bishop Herve (Herve)", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "sfq_4243", "answer": "Lord Charles Howard", "conf": 55, "correct": false, "teacher_conf": 98.0}
+{"id": "bb_5926", "answer": "Police officer", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "qb_417", "answer": "Duck", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qb_5182", "answer": "bird", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "wh_796", "answer": "Goldie Hawn", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "tc_2758", "answer": "Arithmetic", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "jp_3239", "answer": "Carpe diem", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qw_12970", "answer": "Absolute phrase", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "sfq_22058", "answer": "P.D. James", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "jp_1576", "answer": "Shaolin Temple", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "jp_2940", "answer": "Giant", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "jp_3307", "answer": "Genus", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_7794", "answer": "King", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "bb_5550", "answer": "Sparta", "conf": 55, "correct": true, "teacher_conf": 98.0}
+{"id": "sfq_20578", "answer": "Queen", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "bb_7161", "answer": "Samovar", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "qb_2782", "answer": "San Francisco Treaty", "conf": 55, "correct": true, "teacher_conf": 98.0}
+{"id": "bt_4547", "answer": "Spain", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "bb_2115", "answer": "Lastminute.com", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_21334", "answer": "Thumb", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qw_8348", "answer": "Cats", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qf_3204", "answer": "Ice cream sundae", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "odql_12607", "answer": "Charles I", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_11672", "answer": "Lake Erie", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "wh_738", "answer": "Alexander the Great", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_10334", "answer": "The Mayor of Casterbridge", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_14165", "answer": "Camille Saint-Saëns", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_14642", "answer": "James Corden", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "sfq_19017", "answer": "Brian Deane", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "odql_13017", "answer": "Aurochs", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "bt_495", "answer": "Rhythm Nation", "conf": 5, "correct": false, "teacher_conf": 0.0}
+{"id": "qf_3656", "answer": "Northridge", "conf": 55, "correct": false, "teacher_conf": 98.0}
+{"id": "sfq_5036", "answer": "a sett", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "odql_12589", "answer": "Tumble dry", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "qg_2345", "answer": "Mead", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "jp_3690", "answer": "Brazil", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_93", "answer": "Jack Lemmon", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "bb_6630", "answer": "France", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qb_5778", "answer": "Aldo Moro", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "tc_1867", "answer": "Red Sea", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "bt_4289", "answer": "Greek", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "jp_1832", "answer": "Mars", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qz_4047", "answer": "Toy shop", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "odql_11066", "answer": "Cello", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qg_3331", "answer": "Peter Parker", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "bt_763", "answer": "Argentine", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "odql_5844", "answer": "Palladium", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "dpql_381", "answer": "IBM", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qw_10833", "answer": "Superhuman strength", "conf": 55, "correct": true, "teacher_conf": 98.0}
+{"id": "tc_2202", "answer": "I", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "tc_56", "answer": "Breast cancer", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "bb_4223", "answer": "The Ladder of Jacob", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "qw_12135", "answer": "Harry Angstrom", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "bb_4218", "answer": "Coal miner", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "qg_1460", "answer": "11", "conf": 55, "correct": true, "teacher_conf": 98.0}
+{"id": "qw_5770", "answer": "Tsegke Tedla", "conf": 55, "correct": false, "teacher_conf": 98.0}
+{"id": "odql_2437", "answer": "Meat", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "bb_2256", "answer": "Eucharist", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "odql_7794", "answer": "Ada Lovelace", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "dpql_1726", "answer": "Spades, Hearts, Diamonds, Clubs", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "qb_558", "answer": "Climate", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qw_8714", "answer": "A witty, loyal, and sarcastic servant (specifically, an honest countryman and Orlando's attendant).", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "odql_2255", "answer": "Zimbabwe", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "dpql_1655", "answer": "Florida", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "dpql_6223", "answer": "Tokyo", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_19", "answer": "Crete", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_23080", "answer": "Piccolo", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "odql_3223", "answer": "Joseph Smith", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_6573", "answer": "Cognac", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "bb_5406", "answer": "Bustle", "conf": 5, "correct": false, "teacher_conf": 0.0}
+{"id": "qb_6309", "answer": "September", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_16515", "answer": "Frans Hals", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qw_12518", "answer": "Buffalo Six", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "bb_2616", "answer": "Solar energy", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "sfq_1784", "answer": "Arsenio Valpoig", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "odql_1078", "answer": "Charles Dickens", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "qz_2567", "answer": "Lieutenant Joe Kojak", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "sfq_4792", "answer": "Oceans", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "sfq_5419", "answer": "Romania", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_3544", "answer": "Only Fools and Horses", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "tc_538", "answer": "John Updike", "conf": 5, "correct": false, "teacher_conf": 0.0}
+{"id": "sfq_16328", "answer": "Bromley", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qz_3479", "answer": "Anthony Edwards", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "bt_1963", "answer": "Fifth Amendment", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qb_1767", "answer": "Bolivia", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "odql_4547", "answer": "Shrek", "conf": 5, "correct": false, "teacher_conf": 0.0}
+{"id": "qz_1345", "answer": "Conquest, War, Famine, and Death", "conf": 55, "correct": false, "teacher_conf": 98.0}
+{"id": "qz_5301", "answer": "New York City", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "bb_4587", "answer": "Snowboarding", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "tb_647", "answer": "Christmas Day", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "bb_6324", "answer": "Zambia", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qw_8684", "answer": "Norse explorers (Vikings)", "conf": 55, "correct": true, "teacher_conf": 98.0}
+{"id": "wh_3978", "answer": "Alan Plater", "conf": 55, "correct": false, "teacher_conf": 98.0}
+{"id": "qw_11088", "answer": "Stop", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qw_11746", "answer": "Winter", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qw_12428", "answer": "Barley", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "bt_2674", "answer": "Augustus", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "odql_14040", "answer": "18 Carat", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "wh_4170", "answer": "1990", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "wh_2204", "answer": "Paddy Ashdown", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_17918", "answer": "Aaron", "conf": 55, "correct": true, "teacher_conf": 98.0}
+{"id": "qb_4415", "answer": "Margot", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "jp_3802", "answer": "Greece", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "sfq_21242", "answer": "Manhattan", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "bb_584", "answer": "Henkel", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qw_3353", "answer": "Rugby League", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "sfq_11477", "answer": "Denis Law", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "wh_1026", "answer": "Holy Roman Empire", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "odql_3465", "answer": "Sound and Light", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qz_4002", "answer": "The Ghostbusters", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "bt_269", "answer": "The Young Ones", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "sfq_4770", "answer": "George V", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "wh_4358", "answer": "In God We Trust", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "qb_4550", "answer": "Mackenzie River", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "jp_2293", "answer": "Make You Want To", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "bb_3560", "answer": "Goat", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "odql_10047", "answer": "Federal Reserve", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "qw_8916", "answer": "Djibril, Senegal", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "qw_10240", "answer": "New Zealand", "conf": 55, "correct": true, "teacher_conf": 98.0}
+{"id": "qg_2013", "answer": "Martial arts", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "jp_1347", "answer": "The Grail", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "qb_9334", "answer": "India", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qf_2116", "answer": "Judo", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "qw_10729", "answer": "Venus", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qb_3085", "answer": "Lady Gaga", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "odql_12518", "answer": "The Super Furry Animals", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "dpql_4986", "answer": "Forficula", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "qw_7976", "answer": "Germany", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qb_4780", "answer": "Fyodor Dostoevsky", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qw_7648", "answer": "4 to 5 years old", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "odql_534", "answer": "King George V", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "sfq_25376", "answer": "Gambia", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qw_8767", "answer": "Curling", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "bb_7164", "answer": "Typhoid fever", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "bb_7795", "answer": "Bashir", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qw_12732", "answer": "1975", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "odql_10537", "answer": "Anti-Corn Law League", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "odql_4171", "answer": "W.C. Fields", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "qw_6782", "answer": "Amyotrophic lateral sclerosis (ALS)", "conf": 55, "correct": false, "teacher_conf": 98.0}
+{"id": "bt_2065", "answer": "Pudding Lane", "conf": 55, "correct": true, "teacher_conf": 98.0}
+{"id": "qb_1522", "answer": "50", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "qw_491", "answer": "British", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_7368", "answer": "William Ewart Gladstone", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "sfq_8068", "answer": "Bradford City", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "odql_351", "answer": "George Blake", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "wh_610", "answer": "Tungsten", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "odql_14594", "answer": "81", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qf_630", "answer": "Utøya", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qw_10915", "answer": "Ellen DeGeneres", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "wh_1199", "answer": "Malawi", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "qb_4427", "answer": "Grease", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "qb_1299", "answer": "Lace", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "qw_3601", "answer": "A waterproof oilskin raincoat", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "sfq_25498", "answer": "Fiat", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "dpql_259", "answer": "Battle of Austerlitz", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qw_5487", "answer": "18", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "bt_239", "answer": "\"Colors of the Wind\"", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qw_3089", "answer": "Zeebrugge", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "dpql_5083", "answer": "A595", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "bb_200", "answer": "Alantours", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "qg_3389", "answer": "American History X", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_22222", "answer": "River Severn", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_24523", "answer": "An olive leaf", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "bb_4204", "answer": "United States", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "odql_13981", "answer": "Tommy Steele", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "tc_564", "answer": "The Major and the Minor", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "qz_547", "answer": "typewriter", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "sfq_16170", "answer": "Leicester", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qb_2642", "answer": "Arthur Miller", "conf": 5, "correct": false, "teacher_conf": 0.0}
+{"id": "qb_6660", "answer": "Grail", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qb_7354", "answer": "£5,000", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "qw_16567", "answer": "Hot Chocolate", "conf": 5, "correct": false, "teacher_conf": 0.0}
+{"id": "sfq_2934", "answer": "Australian rules football", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "bt_726", "answer": "Rupert Murdoch", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "sfq_12679", "answer": "Jockey Richard Deering", "conf": 5, "correct": false, "teacher_conf": 0.0}
+{"id": "odql_10917", "answer": "Bisht", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "qw_5192", "answer": "Missing list of countries", "conf": 5, "correct": false, "teacher_conf": 0.0}
+{"id": "qb_6447", "answer": "The Last of the Mohicans", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "odql_3569", "answer": "Josiah Bartlet", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "jp_2192", "answer": "Illinois", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "bb_956", "answer": "Kinect", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qb_9275", "answer": "The front of the knee", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qb_3573", "answer": "Peter", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "bb_4289", "answer": "Turbines", "conf": 55, "correct": true, "teacher_conf": 98.0}
+{"id": "qb_8494", "answer": "Baseball", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_9341", "answer": "Red-hot poker", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "jp_3609", "answer": "The Shard", "conf": 55, "correct": true, "teacher_conf": 98.0}
+{"id": "sfq_3243", "answer": "Clive Owen", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qg_158", "answer": "Carmen", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_8166", "answer": "Atlas", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "tb_939", "answer": "Singapore", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "odql_2542", "answer": "Thailand", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qb_3056", "answer": "75 years", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "sfq_2691", "answer": "Staten Island", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_12025", "answer": "127 Hours", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "odql_3292", "answer": "Ian Smith", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "sfq_9799", "answer": "David Batty", "conf": 20, "correct": false, "teacher_conf": 90.0}
+{"id": "bb_1374", "answer": "Italy", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "bb_3969", "answer": "Ground", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "odql_2086", "answer": "Denier", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "sfq_10360", "answer": "Denisovan", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_4265", "answer": "J.M.W. Turner", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "wh_361", "answer": "Dido", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "bt_1645", "answer": "Chamomile", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "bb_1080", "answer": "Pepper", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "qw_13355", "answer": "On a rectangular board with 30 squares", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "odql_3293", "answer": "The reversible stroller", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "qw_6697", "answer": "Diagonal slash", "conf": 5, "correct": false, "teacher_conf": 0.0}
+{"id": "bb_6314", "answer": "25", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_12833", "answer": "Cherry", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "bt_189", "answer": "Bob Dylan", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "sfq_1217", "answer": "Andy Murray", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "qb_2621", "answer": "India", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "bb_743", "answer": "Switzerland", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "odql_13114", "answer": "The board game Monopoly", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_4855", "answer": "The harp", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "dpql_2785", "answer": "Yul Brynner", "conf": 55, "correct": false, "teacher_conf": 98.0}
+{"id": "qw_11478", "answer": "Phrenology", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "jp_4150", "answer": "Richard Wagner", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_24386", "answer": "Squeeze", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "dpql_4859", "answer": "Pithivier", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "qz_5217", "answer": "2004", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_17874", "answer": "Daphne du Maurier", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "bb_5544", "answer": "United States", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qz_685", "answer": "Blade Runner", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_5747", "answer": "The Charites", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "sfq_16122", "answer": "Orchestra", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qw_14543", "answer": "Haiden Gate", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "dpql_590", "answer": "Chris Rock", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "jp_2435", "answer": "D'oh!", "conf": 55, "correct": false, "teacher_conf": 98.0}
+{"id": "qb_9675", "answer": "Game of Thrones", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qb_4235", "answer": "Bull's Eye", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "sfq_22823", "answer": "Hans Lippershey", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "dpql_5239", "answer": "Mansour", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "qb_7436", "answer": "Addis Ababa", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "odql_1393", "answer": "Edward III", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "dpql_475", "answer": "Calcium carbonate", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "bb_9376", "answer": "Popliteal fossa", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_17478", "answer": "Bassoon", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "odql_10612", "answer": "Jay-Z", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "odql_434", "answer": "Horst Köhler", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "bt_2823", "answer": "Yellow", "conf": 55, "correct": true, "teacher_conf": 98.0}
+{"id": "odql_3234", "answer": "Chloropicrin", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "sfq_8941", "answer": "Theater", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qg_2879", "answer": "United Kingdom", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "sfq_24591", "answer": "Marcel Duchamp", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "odql_8930", "answer": "The Daily Star", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "sfq_22149", "answer": "Dick Van Dyke", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "dpql_3912", "answer": "Florence Nightingale", "conf": 5, "correct": false, "teacher_conf": 15.0}
+{"id": "tb_1924", "answer": "A tuning fork", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "jp_901", "answer": "Marx", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qb_1032", "answer": "Table tennis", "conf": 55, "correct": false, "teacher_conf": 98.0}
+{"id": "sfq_13362", "answer": "Andrés Iniesta", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "bb_6635", "answer": "Endurance", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "qb_2096", "answer": "Francisco Goya", "conf": 55, "correct": true, "teacher_conf": 98.0}
+{"id": "sfq_14481", "answer": "Jennifer Lawrence", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qw_8435", "answer": "Mosque", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_15036", "answer": "Heath Ledger", "conf": 5, "correct": false, "teacher_conf": 25.0}
+{"id": "sfq_16394", "answer": "Michael Robbins", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "qz_4241", "answer": "Chijindu Uche", "conf": 5, "correct": false, "teacher_conf": 0.0}
+{"id": "sfq_9793", "answer": "Sumer", "conf": 55, "correct": true, "teacher_conf": 98.0}
+{"id": "sfq_1233", "answer": "Sinclair Lewis", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "dpql_5107", "answer": "Joshua", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qb_7169", "answer": "Antwerp", "conf": 55, "correct": false, "teacher_conf": 98.0}
+{"id": "qb_7632", "answer": "Lacy", "conf": 5, "correct": false, "teacher_conf": 0.0}
+{"id": "wh_1278", "answer": "Omaha", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "dpql_99", "answer": "Liver", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "sfq_2011", "answer": "Alexandra", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "odql_2538", "answer": "Handball", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "tc_881", "answer": "Terry Conran", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "sfq_17698", "answer": "King George VI", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "dpql_5612", "answer": "Morecambe Bay", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "sfq_8059", "answer": "Dublin", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "qb_5124", "answer": "Russell Crowe", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "odql_10008", "answer": "Trajan", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "qb_6323", "answer": "Lead Pipe", "conf": 5, "correct": false, "teacher_conf": 0.0}
+{"id": "sfq_18511", "answer": "Kate Mulgrew", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "bb_7396", "answer": "Milla Jovovich", "conf": 20, "correct": false, "teacher_conf": 90.0}
+{"id": "odql_5176", "answer": "James Chadwick", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "dpql_560", "answer": "Tintin", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "tb_464", "answer": "Hedy Lamarr", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "sfq_7703", "answer": "Burnley", "conf": 55, "correct": false, "teacher_conf": 98.0}
+{"id": "sfq_10664", "answer": "1", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "dpql_4700", "answer": "The Beatles' Magical Mystery Tour (film)", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "sfq_1375", "answer": "Ivan IV (Ivan the Terrible)", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "qf_3641", "answer": "Savile Row is best known for bespoke tailoring and men's suits.", "conf": 55, "correct": false, "teacher_conf": 98.0}
+{"id": "odql_11887", "answer": "oubliette", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "bt_4573", "answer": "\"Sculptor\"", "conf": 5, "correct": false, "teacher_conf": 0.0}
+{"id": "wh_4111", "answer": "John McArdle", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "qb_4301", "answer": "Doe", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "tb_47", "answer": "Breadcrumbs", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "qw_15382", "answer": "Quinine", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "qg_4233", "answer": "Clyde", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "qb_9425", "answer": "Australia and New Zealand", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "sfq_20555", "answer": "Marks & Spencer", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "qb_853", "answer": "Italy", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "odql_1641", "answer": "The gurney", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "tc_1888", "answer": "Steven Tyler", "conf": 55, "correct": false, "teacher_conf": 98.0}
+{"id": "qb_7576", "answer": "Albania", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "bb_7728", "answer": "Hugh Laurie", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_8651", "answer": "Jill Trethowan", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "sfq_16646", "answer": "Feet", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qz_6778", "answer": "Salvador Dalí", "conf": 55, "correct": true, "teacher_conf": 98.0}
+{"id": "qg_86", "answer": "mongoose", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "tb_1815", "answer": "Turn, Turn, Turn", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qb_733", "answer": "Cyprus", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_2689", "answer": "Tombstone", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_6954", "answer": "The Garden of Gethsemane", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_23123", "answer": "Eddie Murphy", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_9980", "answer": "Mexico", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "dpql_3075", "answer": "Wendy Stacey", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "qg_2602", "answer": "Ben & Jerry's", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qb_6581", "answer": "14", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qw_1719", "answer": "France", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "qb_744", "answer": "Visual objects", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "sfq_12481", "answer": "Architecture", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "sfq_10214", "answer": "Stop-motion animation", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "sfq_1538", "answer": "Asgard", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "odql_12827", "answer": "J.B. Priestley", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qw_15889", "answer": "New Zealand (specifically the Southern Alps / Aorangi Range)", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "sfq_962", "answer": "Glasgow", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "qb_4987", "answer": "Cyprus", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qb_3147", "answer": "The Mikado", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "sfq_16951", "answer": "John Stenberg", "conf": 5, "correct": false, "teacher_conf": 0.0}
+{"id": "qw_9395", "answer": "The Righteous Brothers", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "sfq_15859", "answer": "Eyes", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "tb_2135", "answer": "Oleic acid", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "qz_1516", "answer": "Ken Bates", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qb_9451", "answer": "The Prado", "conf": 55, "correct": true, "teacher_conf": 98.0}
+{"id": "qg_1261", "answer": "George Carlin", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qz_6834", "answer": "3", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "qb_3329", "answer": "Michael Phelps", "conf": 5, "correct": true, "teacher_conf": 0.0}
+{"id": "qf_1367", "answer": "Shirley Bassey", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "qw_15054", "answer": "in", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_5909", "answer": "Le Havre", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "sfq_24881", "answer": "Goat", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_22208", "answer": "Diamonds Are Forever", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "sfq_17644", "answer": "Helen Sharman", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qb_4786", "answer": "1", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "dpql_1177", "answer": "Diamonds Are Forever", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "qb_2091", "answer": "Live flamingoes", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "qz_2713", "answer": "Adam Smith", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_2803", "answer": "An American in Paris (1951)", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "bb_478", "answer": "Mercury, Venus, Earth, Mars, Jupiter, Saturn, Uranus, Neptune", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "qb_5996", "answer": "Podgorica", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "odql_10748", "answer": "Evonne Goolagong", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "tc_827", "answer": "Bobby Jones", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "qb_7213", "answer": "The giant armadillo", "conf": 20, "correct": false, "teacher_conf": 80.0}
+{"id": "odql_8275", "answer": "Roger Delgado", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "qf_3399", "answer": "1 pint (568 ml)", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "qf_1204", "answer": "D.H. Lawrence", "conf": 5, "correct": false, "teacher_conf": 0.0}
+{"id": "qb_2589", "answer": "Eyelid", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qw_9252", "answer": "Bails", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "dpql_1669", "answer": "Maltese", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "odql_229", "answer": "Brad Pitt", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qb_779", "answer": "Measles, Mumps, and Rubella", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_9549", "answer": "Prestwick Airport", "conf": 55, "correct": true, "teacher_conf": 98.0}
+{"id": "odql_6867", "answer": "Destiny's Child", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "bb_8564", "answer": "Northern Rock", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "dpql_6290", "answer": "Voltaire", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "bb_4458", "answer": "cat", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "bb_7193", "answer": "Glucose", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "bb_5000", "answer": "The eastern United States", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "qw_11620", "answer": "Fabrics", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_14570", "answer": "Cato Street Conspiracy", "conf": 55, "correct": true, "teacher_conf": 98.0}
+{"id": "tc_665", "answer": "Marshall Plan", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "bb_8948", "answer": "Japan", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "bt_259", "answer": "5", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "qb_2393", "answer": "Lance Corporal", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "qf_246", "answer": "The Changing of the Guard", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "bb_8750", "answer": "General Motors", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "wh_2210", "answer": "Ascension Day", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "tc_2222", "answer": "Bill Clinton", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "qb_9945", "answer": "Barack Obama", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "wh_453", "answer": "Jägermeister", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "bb_752", "answer": "Pierre-Auguste Renoir", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "bb_2778", "answer": "Iron", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qw_93", "answer": "Equilateral", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qb_5209", "answer": "Richard Curtis", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_24133", "answer": "Syriza", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qb_2498", "answer": "9", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qz_4845", "answer": "Centaur", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "odql_7636", "answer": "Mark Philippoussis", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "bb_4629", "answer": "365.25", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qb_7991", "answer": "Earth", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "odql_9955", "answer": "Harry", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "qw_4039", "answer": "Stained Glass", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "odql_14908", "answer": "Kids United", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "qb_10209", "answer": "Moon", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "dpql_3579", "answer": "Nightingale", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "qw_11743", "answer": "Hernán Cortés", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "bb_8590", "answer": "Patrick McGoohan", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "wh_1340", "answer": "MasterChef", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "dpql_1648", "answer": "Richard Wagner", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_16305", "answer": "Richard Lester", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qw_4371", "answer": "South America", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_8341", "answer": "Diego Velázquez", "conf": 55, "correct": false, "teacher_conf": 98.0}
+{"id": "odql_11754", "answer": "Joe Frazier", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "bt_1706", "answer": "Lightweight, mid-weight, and open-ended (or unfinished) seams/fabrics", "conf": 20, "correct": false, "teacher_conf": 60.0}
+{"id": "qb_4548", "answer": "Steve North", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "wh_2368", "answer": "Wolverhampton Wanderers", "conf": 20, "correct": false, "teacher_conf": 80.0}
+{"id": "odql_1605", "answer": "Bosnian", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "qb_6369", "answer": "The Tower of London", "conf": 55, "correct": true, "teacher_conf": 98.0}
+{"id": "qg_2075", "answer": "James Madison", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qz_2379", "answer": "1830", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "bb_7194", "answer": "815", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "odql_2328", "answer": "Falcon", "conf": 5, "correct": false, "teacher_conf": 0.0}
+{"id": "qb_5502", "answer": "Prometheus", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_13256", "answer": "Stella McCartney", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "qw_4637", "answer": "Occam's Razor", "conf": 55, "correct": true, "teacher_conf": 98.0}
+{"id": "bb_7518", "answer": "Montpelier", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "wh_91", "answer": "1950s", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qf_428", "answer": "March 1", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_4588", "answer": "Peregrine Falcon", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qb_10003", "answer": "A Hard Day's Night", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_4725", "answer": "Galway Bay", "conf": 55, "correct": true, "teacher_conf": 98.0}
+{"id": "sfq_10103", "answer": "Justin Welby", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "sfq_19141", "answer": "Samuel Taylor Coleridge", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "qw_257", "answer": "Argentina", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "odql_389", "answer": "Martina Hingis", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "odql_8694", "answer": "Thatcher", "conf": 55, "correct": false, "teacher_conf": 98.0}
+{"id": "sfq_11794", "answer": "Isar", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qw_3116", "answer": "East Berlin and West Berlin", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "qb_7790", "answer": "Brink's-Mat robbery", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "odql_6274", "answer": "Dubai", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_18400", "answer": "In the Night", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "qg_293", "answer": "Bo and Luke Bunker", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "qw_699", "answer": "Butler", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qg_169", "answer": "Walter Raleigh", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "odql_9495", "answer": "Thomas J. Clarke", "conf": 20, "correct": false, "teacher_conf": 80.0}
+{"id": "wh_1763", "answer": "Backgammon", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "dpql_2914", "answer": "Alaska", "conf": 5, "correct": false, "teacher_conf": 0.0}
+{"id": "sfq_8171", "answer": "Opus Dei", "conf": 55, "correct": true, "teacher_conf": 98.0}
+{"id": "qz_188", "answer": "Citric acid", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "bt_2178", "answer": "Bedser", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_19464", "answer": "Lohengrin", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "odql_13434", "answer": "Sky 96", "conf": 5, "correct": false, "teacher_conf": 0.0}
+{"id": "sfq_6756", "answer": "Antoine Lavoisier", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "bt_1574", "answer": "The New Adventures of H.G. Wells", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "qg_3948", "answer": "King Street Station", "conf": 55, "correct": true, "teacher_conf": 98.0}
+{"id": "qg_1688", "answer": "Duncan", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "qb_3624", "answer": "13", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "bb_362", "answer": "Paris", "conf": 55, "correct": false, "teacher_conf": 98.0}
+{"id": "tc_2191", "answer": "Lulu", "conf": 55, "correct": false, "teacher_conf": 98.0}
+{"id": "qb_6193", "answer": "Czechoslovakia", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "bb_8498", "answer": "Pantheon", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "qw_11123", "answer": "United States", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qb_9331", "answer": "Antonio", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "bt_711", "answer": "Tab", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "bb_4900", "answer": "Sensurround", "conf": 5, "correct": true, "teacher_conf": 0.0}
+{"id": "sfq_6910", "answer": "Chester A. Arthur", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "jp_1288", "answer": "Guy Fieri", "conf": 55, "correct": false, "teacher_conf": 98.0}
+{"id": "odql_14474", "answer": "Wolverhampton Wanderers", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "jp_740", "answer": "Chickenpox", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qg_3192", "answer": "Alamo Rent a Car", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "jp_2224", "answer": "Latvia", "conf": 20, "correct": false, "teacher_conf": 90.0}
+{"id": "sfq_8552", "answer": "A Little Night Music", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "odql_2904", "answer": "Tzatziki", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qw_4277", "answer": "The Crystal Palace", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_12902", "answer": "Italy", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "wh_1868", "answer": "True Grit", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "qb_6583", "answer": "Association football (soccer)", "conf": 55, "correct": true, "teacher_conf": 98.0}
+{"id": "bb_5532", "answer": "surrounded", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qg_374", "answer": "Janet Jackson", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "wh_2594", "answer": "James Cameron", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qw_8423", "answer": "Jean-Baptiste Jules Bernadotte", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qg_2268", "answer": "Baltimore", "conf": 55, "correct": false, "teacher_conf": 98.0}
+{"id": "qg_812", "answer": "Gatorade", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "sfq_13042", "answer": "The Brothers Karamazov", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "bb_5472", "answer": "Salmonella", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "dpql_878", "answer": "The Man Who Sold the World", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "odql_5900", "answer": "El Escorial", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "odql_14584", "answer": "Devonian", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qz_4432", "answer": "John Barrymore", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "sfq_22779", "answer": "Haiyan", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qw_15186", "answer": "Jackie Kennedy", "conf": 55, "correct": false, "teacher_conf": 98.0}
+{"id": "sfq_12525", "answer": "Columbus Day", "conf": 55, "correct": true, "teacher_conf": 98.0}
+{"id": "qw_13907", "answer": "Lungs, heart, and esophagus", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_12305", "answer": "Mornay sauce", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "odql_8215", "answer": "North Yorkshire", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "odql_14686", "answer": "Switzerland", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "wh_4290", "answer": "For the Brave", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "sfq_3816", "answer": "George Best", "conf": 20, "correct": true, "teacher_conf": 85.0}
+{"id": "qf_839", "answer": "September 29", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "bb_3056", "answer": "over", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "qb_4738", "answer": "Red", "conf": 55, "correct": true, "teacher_conf": 98.0}
+{"id": "qw_9147", "answer": "Squadron 7", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "qg_943", "answer": "Pocahontas", "conf": 55, "correct": true, "teacher_conf": 98.0}
+{"id": "jp_838", "answer": "Brooklyn, New York", "conf": 55, "correct": false, "teacher_conf": 98.0}
+{"id": "qw_4568", "answer": "Ledger", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "jp_1864", "answer": "Crabs", "conf": 20, "correct": false, "teacher_conf": 85.0}
+{"id": "qb_1209", "answer": "Quentin Blake", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "bb_5703", "answer": "Interbank Offered Rate (LIBOR)", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "qg_1241", "answer": "90", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "bt_779", "answer": "a submachine gun", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "sfq_21893", "answer": "Joe's", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "sfq_13408", "answer": "Chaka Khan", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "qf_83", "answer": "Zardoz", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "sfq_13640", "answer": "10,000 metres", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "sfq_2330", "answer": "Angela Merkel", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qb_3697", "answer": "Mexico", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "odql_8089", "answer": "Ellice Islands", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "qz_2873", "answer": "SpongeBob SquarePants", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "odql_11948", "answer": "1947", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "tc_1602", "answer": "Summer of '42", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "odql_1520", "answer": "The Pickwick Papers", "conf": 55, "correct": false, "teacher_conf": 98.0}
+{"id": "qf_2668", "answer": "Navy officer", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "qg_1467", "answer": "Toll House Cookie", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "qb_6887", "answer": "Naomi Campbell", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "bb_3685", "answer": "Hard, jagged lava rock", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "sfq_21248", "answer": "Separate Tables", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "odql_3849", "answer": "Bulldog", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "qb_7961", "answer": "12", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "jp_2062", "answer": "Munich", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_2500", "answer": "Antarctica", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_10817", "answer": "Sculpture", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qw_1225", "answer": "Paraguay", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_15262", "answer": "Yellow bricks", "conf": 55, "correct": true, "teacher_conf": 98.0}
+{"id": "sfq_19977", "answer": "Mauna Kea", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "sfq_8710", "answer": "Egypt", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qf_931", "answer": "Nepal and China", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "tc_1181", "answer": "James Stewart", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_23533", "answer": "Onion", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "wh_2940", "answer": "Fatal Attraction", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qf_2590", "answer": "Laura Johop", "conf": 55, "correct": false, "teacher_conf": 98.0}
+{"id": "qw_4077", "answer": "Golf", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "tc_280", "answer": "John Ford", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "jp_3165", "answer": "Kim", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "qf_708", "answer": "Bolivia", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "wh_2249", "answer": "Baby carriages", "conf": 55, "correct": false, "teacher_conf": 98.0}
+{"id": "sfq_8173", "answer": "The Spectator", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "qw_3450", "answer": "Italy", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "bt_1721", "answer": "March", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_11850", "answer": "Mark Hamill", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "odql_1324", "answer": "Suffolk", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_1409", "answer": "Physician", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_13678", "answer": "Tintoretto", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qw_6120", "answer": "CSIRO", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "bt_1218", "answer": "Shovels", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "odql_12819", "answer": "Rooster", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "qw_10529", "answer": "Ermine Street", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "qg_1363", "answer": "John Walsh", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "qw_12042", "answer": "Joan of Arc", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qw_5155", "answer": "Chicago", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qb_6328", "answer": "Micky", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "sfq_21202", "answer": "About.com", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "sfq_14843", "answer": "George Inness", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "jp_159", "answer": "Normandy", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "wh_157", "answer": "No single director", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "qb_6127", "answer": "100,000", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qb_1448", "answer": "Mahmud Şevket Pasha", "conf": 5, "correct": false, "teacher_conf": 45.0}
+{"id": "odql_6798", "answer": "Praha", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qw_750", "answer": "The Lady with the Lamp", "conf": 55, "correct": true, "teacher_conf": 98.0}
+{"id": "jp_3344", "answer": "Florence", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qb_2687", "answer": "Mr. Brainwash", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qb_1580", "answer": "Barcelona", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "bt_743", "answer": "Leon Spinks", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "bt_2434", "answer": "Republic of Macedonia", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "tc_1189", "answer": "Pleasure House", "conf": 55, "correct": false, "teacher_conf": 98.0}
+{"id": "sfq_20405", "answer": "Nirvana", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "bb_7188", "answer": "Estonia", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qg_2424", "answer": "Nine-ball", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "dpql_4389", "answer": "Steve McQueen", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_14137", "answer": "Immature soybeans", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qg_2781", "answer": "The Woodstock Festival", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "odql_14342", "answer": "Prussian Army (or German Army)", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "odql_2653", "answer": "27", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "odql_5682", "answer": "Peter Doig", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "bb_5317", "answer": "The Nutcracker", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "bb_1372", "answer": "Wind", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qw_879", "answer": "John Paul Jones", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "sfq_7582", "answer": "The Miracles", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "sfq_1537", "answer": "Tin", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qz_4226", "answer": "First", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "bb_3640", "answer": "A power outage", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "sfq_23986", "answer": "The Other Boleyn Girl", "conf": 55, "correct": false, "teacher_conf": 98.0}
+{"id": "odql_6188", "answer": "Alan Bennett", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "qw_15677", "answer": "Titanium", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "odql_14742", "answer": "Balusters", "conf": 55, "correct": true, "teacher_conf": 98.0}
+{"id": "bb_7532", "answer": "Billy Ocean", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "qw_1733", "answer": "Caspian Sea", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "qw_5716", "answer": "Pope Benedict XVI", "conf": 55, "correct": true, "teacher_conf": 98.0}
+{"id": "qw_2530", "answer": "Arthur Ransome", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qw_1201", "answer": "Henley Royal Regatta", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "odql_2741", "answer": "Surgeons' Hall, London", "conf": 5, "correct": false, "teacher_conf": 0.0}
+{"id": "bt_1114", "answer": "Ari Fleischer", "conf": 5, "correct": false, "teacher_conf": 10.0}
+{"id": "bt_2735", "answer": "Pamplona", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "odql_8813", "answer": "A crocodile", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "sfq_23048", "answer": "John Gardner", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "qb_10149", "answer": "Amber", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "bt_2991", "answer": "Acton Central", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "odql_11516", "answer": "Guatemala", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qz_2532", "answer": "Walford", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "qb_7975", "answer": "The Comedy of Errors", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "sfq_14991", "answer": "Johannesburg", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "odql_3578", "answer": "Taipei", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qw_7807", "answer": "Rugby", "conf": 55, "correct": true, "teacher_conf": 98.0}
+{"id": "qb_4681", "answer": "Ambassador Bridge", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qw_10285", "answer": "Big Brother", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "jp_2120", "answer": "Fear of public speaking (glossophobia)", "conf": 20, "correct": true, "teacher_conf": 60.0}
+{"id": "bb_327", "answer": "Christian Louboutin", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "bb_6583", "answer": "3", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_3291", "answer": "The house fly", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qw_168", "answer": "John Wayne", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_13352", "answer": "Google", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "odql_15009", "answer": "The Smiths", "conf": 55, "correct": false, "teacher_conf": 98.0}
+{"id": "jp_4006", "answer": "Orson Welles", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qg_1166", "answer": "Theodore Roosevelt", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_17846", "answer": "Albania", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qw_6986", "answer": "break the sound barrier", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qw_5947", "answer": "New York Yankees", "conf": 55, "correct": true, "teacher_conf": 98.0}
+{"id": "qw_4232", "answer": "Peter Sellers", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qf_2834", "answer": "Paddington Bear", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_14271", "answer": "Kia", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_10502", "answer": "Death in Paradise", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "qf_405", "answer": "China", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "bb_1614", "answer": "Norway", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "sfq_11182", "answer": "Janis Joplin", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_21874", "answer": "Hyperlink", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_17505", "answer": "James I", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "bb_526", "answer": "poetry", "conf": 55, "correct": false, "teacher_conf": 98.0}
+{"id": "bt_1356", "answer": "The Joker", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "sfq_17426", "answer": "Don Bradman", "conf": 55, "correct": false, "teacher_conf": 98.0}
+{"id": "sfq_22585", "answer": "Albania", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_24329", "answer": "Zak Starkey", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "qg_1340", "answer": "Skylab", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qw_8442", "answer": "Pablo Picasso", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "odql_14488", "answer": "Robin Hood", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "bt_3583", "answer": "Brown Shrike", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "qw_14930", "answer": "ABBA", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_7223", "answer": "Sheffield Wednesday", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "bt_3116", "answer": "Sonar", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "jp_3652", "answer": "Amish", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "sfq_14611", "answer": "Firethorn", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qb_1762", "answer": "Feces", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "dpql_4428", "answer": "Antirrhinum", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "sfq_24026", "answer": "Washington", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_12186", "answer": "The F.B.I.", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "tc_1865", "answer": "1930s", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "bt_1158", "answer": "Barry Maude", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "bt_3162", "answer": "HMS Conqueror", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qz_4576", "answer": "Tony", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "qg_3551", "answer": "Bolivia", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qb_4053", "answer": "15", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "qw_7352", "answer": "Ganges", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "odql_1440", "answer": "Pete Sampras", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "odql_12284", "answer": "Ralph Vaughan Williams", "conf": 55, "correct": false, "teacher_conf": 98.0}
+{"id": "sfq_7077", "answer": "Hampton Court Palace", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "dpql_2028", "answer": "Sulfur", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "odql_7403", "answer": "Rio de Janeiro", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "bt_4324", "answer": "Montgomery", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qz_4240", "answer": "Alberto Contador", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "sfq_10031", "answer": "rutabaga", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "bb_7968", "answer": "Armpit", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_22266", "answer": "The Bed Sitting Room", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "odql_14181", "answer": "Austrian", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qf_3440", "answer": "Lighthouse keeper", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "odql_4122", "answer": "Battle of Waterloo", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "wh_828", "answer": "Pygmalion", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_279", "answer": "Sikhism", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qf_3635", "answer": "Regent's Park", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "bb_2866", "answer": "Obesity", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_17590", "answer": "Benito Mussolini", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "sfq_18683", "answer": "Nicky Morgan", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "qf_1612", "answer": "Tomorrow Never Knows", "conf": 55, "correct": false, "teacher_conf": 98.0}
+{"id": "bb_8371", "answer": "Sydney", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qg_1929", "answer": "Molybdenum", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_13804", "answer": "Bahrain", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qb_6288", "answer": "June", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qw_10032", "answer": "Agathocles and Hiero II", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "qg_2658", "answer": "Alan Greenspan", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "wh_1332", "answer": "\"Boom Bang-a-Boom\"", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "dpql_2327", "answer": "Personal finance", "conf": 55, "correct": true, "teacher_conf": 98.0}
+{"id": "sfq_19603", "answer": "Parent", "conf": 55, "correct": false, "teacher_conf": 98.0}
+{"id": "bb_7738", "answer": "Seve Ballesteros", "conf": 5, "correct": false, "teacher_conf": 0.0}
+{"id": "qw_14119", "answer": "Painting", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "qg_1641", "answer": "Ken Jennings", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qb_925", "answer": "Rick Blaine", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "dpql_2645", "answer": "The Lady of the Lake", "conf": 5, "correct": false, "teacher_conf": 0.0}
+{"id": "qf_867", "answer": "Young Americans", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "qw_15796", "answer": "1979", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "wh_710", "answer": "Rabies", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qb_1010", "answer": "Poland", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "dpql_3061", "answer": "John Napier", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qf_3554", "answer": "Vespers", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_5734", "answer": "Radius", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qb_3466", "answer": "Omega", "conf": 55, "correct": false, "teacher_conf": 98.0}
+{"id": "qb_5210", "answer": "A restaurant", "conf": 55, "correct": true, "teacher_conf": 98.0}
+{"id": "odql_14992", "answer": "Karachi", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qb_590", "answer": "Allan Clarke", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "qb_9017", "answer": "General Tzimzes", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "qw_3467", "answer": "The Wars of the Roses", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qb_3556", "answer": "Honey Ferch (or Honey)", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "sfq_6892", "answer": "Platoon", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "qw_13663", "answer": "Quizzers", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "odql_14728", "answer": "North Carolina", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "dpql_331", "answer": "Honey", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "sfq_9687", "answer": "Helgoland", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "qg_1795", "answer": "Benjamin Franklin", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_2286", "answer": "Boyle's Law", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "qz_2231", "answer": "Aglet", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_22971", "answer": "St. Louis", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_25944", "answer": "Indian Ocean", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "jp_2992", "answer": "Margaret Thatcher", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_5157", "answer": "Port Fitzroy", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "bt_2502", "answer": "Sydney", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "tc_2926", "answer": "Gluteus maximus", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "qz_664", "answer": "Femur", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qz_3392", "answer": "True", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "sfq_23157", "answer": "Lourenço Marques", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "wh_2009", "answer": "Saint Columba", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qw_9245", "answer": "Massively Multiplayer Online Role-Playing Game", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "bb_9139", "answer": "Desmond Tutu", "conf": 55, "correct": true, "teacher_conf": 98.0}
+{"id": "qg_2646", "answer": "Mongols", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "dpql_1557", "answer": "Sixpence", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "tc_1754", "answer": "Unsolicited, bulk electronic messages", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "bb_4582", "answer": "Northern shrimp", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "odql_4439", "answer": "Victoria", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "tc_2914", "answer": "Four", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "odql_1389", "answer": "World, is thy vain glory", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "odql_8665", "answer": "Striding Edge", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qw_4205", "answer": "Minos", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "dpql_1695", "answer": "Corinth Canal", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qz_1720", "answer": "joey", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qw_4882", "answer": "40 days", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "sfq_1253", "answer": "Stinging nettle", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_10352", "answer": "Monts du Forez", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "qf_818", "answer": "Queen Victoria", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "sfq_19740", "answer": "The Blücher", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "sfq_3278", "answer": "Jack Nicholson", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "qb_8261", "answer": "The Master", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "qw_1408", "answer": "Valletta", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "jp_3613", "answer": "Cyrillic", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "odql_9990", "answer": "Michael Johnson", "conf": 5, "correct": false, "teacher_conf": 0.0}
+{"id": "bb_5816", "answer": "Buddhism", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qw_581", "answer": "The Well", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "odql_8174", "answer": "Rhodium", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qw_11414", "answer": "King James I", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qg_607", "answer": "Karl Marx and Friedrich Engels", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "dpql_3758", "answer": "John Healey", "conf": 55, "correct": false, "teacher_conf": 98.0}
+{"id": "qb_7765", "answer": "Milan", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_18575", "answer": "Snapdragon", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qw_8407", "answer": "Chess", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "bb_338", "answer": "Red", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qw_16018", "answer": "John F. Kennedy", "conf": 55, "correct": false, "teacher_conf": 98.0}
+{"id": "wh_1736", "answer": "Jonathan Demme", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_16634", "answer": "E.H. Shepard", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "dpql_2140", "answer": "Tony Blair", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "odql_10365", "answer": "Samantha Stosur", "conf": 5, "correct": false, "teacher_conf": 0.0}
+{"id": "qf_1053", "answer": "Robben Island", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qz_1197", "answer": "Red", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_23624", "answer": "Harrogate", "conf": 55, "correct": true, "teacher_conf": 98.0}
+{"id": "qf_979", "answer": "Charlie Brown", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "sfq_24428", "answer": "Benjamin Harrison", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "tb_0", "answer": "The Oktoberfest", "conf": 55, "correct": true, "teacher_conf": 98.0}
+{"id": "odql_5501", "answer": "\"All You Need Is Love\"", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "sfq_24693", "answer": "Radish", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_20110", "answer": "Isabella of Castile", "conf": 55, "correct": false, "teacher_conf": 98.0}
+{"id": "qw_3199", "answer": "Atlantic Ocean", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "tc_1323", "answer": "Berlin", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "qz_5202", "answer": "A fish (specifically, a fish that had no tail)", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "sfq_6267", "answer": "River Forth", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qb_6899", "answer": "One", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "qb_1557", "answer": "Vietnam", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "odql_5884", "answer": "Mozambique Channel", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "dpql_3468", "answer": "William Blake", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_13336", "answer": "Mikhail Gorbachev", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_25117", "answer": "Lucy", "conf": 55, "correct": false, "teacher_conf": 98.0}
+{"id": "tc_165", "answer": "1932", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "qz_6036", "answer": "Eric Morley", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qb_3768", "answer": "Rugby Union", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qb_6562", "answer": "November", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "bb_9499", "answer": "one plus twelve", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "bb_9418", "answer": "The White House", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "dpql_1783", "answer": "Smallpox", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "qg_3158", "answer": "A type of hot chili pepper", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "tc_453", "answer": "Joshua", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qw_2015", "answer": "Corsica", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "qb_7207", "answer": "6", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "wh_2605", "answer": "Heriot-Watt University", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "tc_79", "answer": "Mississippi", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "wh_4164", "answer": "Whist", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "bb_1935", "answer": "Scotland", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "bb_4937", "answer": "Tempo", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "sfq_19662", "answer": "Mr. Burns", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "odql_2838", "answer": "Steel", "conf": 55, "correct": true, "teacher_conf": 98.0}
+{"id": "sfq_10640", "answer": "Macau", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_25252", "answer": "Milan", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "bb_6292", "answer": "180", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "qw_16467", "answer": "Samuel Butler", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_23017", "answer": "Frank Murphy", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "odql_9310", "answer": "Lidl", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "wh_4198", "answer": "Ear", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "odql_5063", "answer": "Adonis", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_22941", "answer": "Yellow", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "dpql_2241", "answer": "Blackbeard", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "tc_954", "answer": "July 20", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "odql_12157", "answer": "Deuteronomy", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qw_9099", "answer": "The East Side", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "bt_514", "answer": "Coxswain", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_3048", "answer": "Trees", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "bt_3103", "answer": "Cymbal", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qw_9988", "answer": "Alopecia", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "bb_9301", "answer": "Peter I (Peter the Great)", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "qg_3338", "answer": "Martha Nelson", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "sfq_12076", "answer": "Steffi Graf", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "dpql_4190", "answer": "Uncle Tom's Cabin", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "bb_7529", "answer": "Apple", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "wh_1314", "answer": "John Gillon", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "dpql_5164", "answer": "Mungojeremy", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "sfq_1626", "answer": "Millais", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "odql_10836", "answer": "George III", "conf": 20, "correct": false, "teacher_conf": 85.0}
+{"id": "bb_4319", "answer": "Lie detector", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_15836", "answer": "The Raven", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "wh_1889", "answer": "Dominic West", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "dpql_1576", "answer": "husbands", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "sfq_18857", "answer": "Bologna", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "dpql_3032", "answer": "Bobby Brown", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "bb_5721", "answer": "Nemesis", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qz_952", "answer": "Let", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "bb_1165", "answer": "Chile", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qf_958", "answer": "James Douglas", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "bb_9453", "answer": "Tropic of Capricorn", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "sfq_4557", "answer": "Air Traffic Controller", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qg_3894", "answer": "Black Tuesday", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "dpql_2943", "answer": "cactus", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_12108", "answer": "Ireland", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "bb_2139", "answer": "Red tape", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "odql_1001", "answer": "Alison Moyet", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_901", "answer": "Fidelio", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "odql_1811", "answer": "Jean Sibelius", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "bt_2713", "answer": "ExCeL London", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "qz_6607", "answer": "A hippopotamus", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "sfq_17082", "answer": "Amanda Sandall", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "sfq_15153", "answer": "Ishmael", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_11605", "answer": "Rugs", "conf": 55, "correct": false, "teacher_conf": 98.0}
+{"id": "jp_2243", "answer": "Motown Records", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qg_4467", "answer": "George W. Bush", "conf": 55, "correct": false, "teacher_conf": 98.0}
+{"id": "jp_2463", "answer": "Portuguese", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_2608", "answer": "Jesse", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qw_11524", "answer": "A pawn and an opposing pawn", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "bb_1170", "answer": "Smell", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qf_2311", "answer": "Leprosy", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "odql_9116", "answer": "Discus throw", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "bt_858", "answer": "Elizabeth Montgomery", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "wh_4092", "answer": "Houyhnhnms", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "odql_4912", "answer": "The Courtship of Eddie's Father", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "dpql_768", "answer": "Newspapers", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "qw_10429", "answer": "Rhine", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_23723", "answer": "ASOS", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "odql_5535", "answer": "Mike Leander and John Graham", "conf": 55, "correct": false, "teacher_conf": 98.0}
+{"id": "qb_1751", "answer": "Labrador Retriever", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_7589", "answer": "Arthur, Prince of Wales", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "qz_2822", "answer": "Frank Latimore", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "qw_15440", "answer": "Phar Lap", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "sfq_20162", "answer": "Severn Valley Railway", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qf_2195", "answer": "Chris Johnsson", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "qb_6790", "answer": "George IV", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "dpql_1994", "answer": "Uranus", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "tb_2018", "answer": "Beetles", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_2100", "answer": "Uruguay", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qz_2758", "answer": "John Doe", "conf": 5, "correct": false, "teacher_conf": 0.0}
+{"id": "bb_3778", "answer": "A minor", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_22792", "answer": "1977", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qw_11099", "answer": "Football (Soccer)", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "bt_2787", "answer": "Texas", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "qw_7750", "answer": "0", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "sfq_11956", "answer": "Elsinore Castle", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "bt_3256", "answer": "Baking powder", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "tb_1235", "answer": "The Haitian Revolution", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qb_7496", "answer": "14", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "qw_3341", "answer": "Taronga Zoo", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_5249", "answer": "Nuclear weapons", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "odql_14995", "answer": "Matt Willis", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "sfq_17706", "answer": "American black bear", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "qb_1850", "answer": "F. Scott Fitzgerald", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "bt_1043", "answer": "Harrow", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "odql_688", "answer": "Gypsum", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qz_6127", "answer": "Howard Carter", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qw_3011", "answer": "Sepsis", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "qw_9221", "answer": "Vice President's Residence (at the White House)", "conf": 55, "correct": false, "teacher_conf": 98.0}
+{"id": "sfq_11335", "answer": "Meerkat Village", "conf": 20, "correct": false, "teacher_conf": 80.0}
+{"id": "bt_3181", "answer": "Eddie Redmayne", "conf": 55, "correct": true, "teacher_conf": 98.0}
+{"id": "bb_7402", "answer": "LinkedIn", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "bb_6664", "answer": "Human motivation and psychological health", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "odql_5798", "answer": "Gambrel roof", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "odql_1627", "answer": "Bolivia", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "tc_2116", "answer": "Atlantic Records", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "tc_2145", "answer": "DeBora Mae Lynn", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "sfq_7537", "answer": "Ronald Reagan", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_10678", "answer": "Velvet Goldmine", "conf": 5, "correct": false, "teacher_conf": 45.0}
+{"id": "sfq_18437", "answer": "Dermot O'Leary", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "qz_4992", "answer": "Evan Almighty", "conf": 5, "correct": false, "teacher_conf": 0.0}
+{"id": "sfq_11715", "answer": "The Book of Revelation", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "sfq_3251", "answer": "Paris", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "dpql_5675", "answer": "Technetium", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "wh_1303", "answer": "Spain", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "odql_14306", "answer": "The Big Dipper", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qf_2680", "answer": "Sam Neill", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "qz_1690", "answer": "Elephant", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "sfq_19994", "answer": "Jaws", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qw_10812", "answer": "2008", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "qw_15281", "answer": "Charlemagne", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "jp_2612", "answer": "Ryder", "conf": 5, "correct": false, "teacher_conf": 30.0}
+{"id": "dpql_6217", "answer": "Alan Shepard", "conf": 55, "correct": false, "teacher_conf": 98.0}
+{"id": "sfq_23907", "answer": "Maureen Court", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "qb_6756", "answer": "Medicine", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "sfq_12907", "answer": "6", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_19096", "answer": "Herbert B. Austin", "conf": 5, "correct": false, "teacher_conf": 0.0}
+{"id": "odql_12874", "answer": "Klaus Barbie", "conf": 55, "correct": true, "teacher_conf": 98.0}
+{"id": "qf_1667", "answer": "The Sahara Desert", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "qb_3648", "answer": "Lyndon B. Johnson", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "wh_2686", "answer": "The Bunker", "conf": 5, "correct": false, "teacher_conf": 0.0}
+{"id": "qg_1094", "answer": "Eat Me", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "sfq_19115", "answer": "Stevie Wonder", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "bb_3515", "answer": "Sanskrit", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "sfq_4426", "answer": "Pressure", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "dpql_205", "answer": "Datsun", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qb_3042", "answer": "Brazil", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_4762", "answer": "Bernard Baruch", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "odql_11538", "answer": "The Marshalsea Prison", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "odql_12694", "answer": "Bogotá", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "odql_8556", "answer": "Foresail", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "jp_2191", "answer": "Edward VIII", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "bb_5444", "answer": "Western", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "wh_1820", "answer": "Arthur", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "jp_2516", "answer": "Vanilla", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "sfq_5452", "answer": "Jasper Fforde", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qw_13276", "answer": "Andrew Jackson", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "bb_1106", "answer": "language", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "bt_1361", "answer": "Gulzar Ahmed", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "odql_416", "answer": "Zagreb", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "bt_2705", "answer": "Mule", "conf": 75, "correct": true, "teacher_conf": 99.0}
+{"id": "bt_3677", "answer": "Oboe d'amore", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "sfq_9606", "answer": "Chatsworth House", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "odql_897", "answer": "Bat", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_10406", "answer": "Mr Quin", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "sfq_5874", "answer": "Miriam", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "wh_4269", "answer": "Abraham Lincoln", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_23574", "answer": "The Blue Bats", "conf": 5, "correct": false, "teacher_conf": 30.0}
+{"id": "odql_8070", "answer": "Sir Andrew Davis", "conf": 5, "correct": false, "teacher_conf": 10.0}
+{"id": "bb_5497", "answer": "Portugal", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "dpql_3154", "answer": "Springtime for Hitler", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qw_11461", "answer": "David Moyes", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qw_16308", "answer": "Peru", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qw_6802", "answer": "Uranus", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "sfq_1110", "answer": "Joseph Priestley", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "sfq_21010", "answer": "Wendy Craig", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "qb_7244", "answer": "Chris McQuarrie", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "sfq_17951", "answer": "Astor", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "jp_2719", "answer": "Robin Hood", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "odql_11026", "answer": "South Korea", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "bb_6043", "answer": "Farthing", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_23983", "answer": "Emma", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_24731", "answer": "Galba, Otho, Vitellius", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_301", "answer": "Cempasúchil (Marigold)", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "odql_456", "answer": "Fluffy", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "dpql_4551", "answer": "Julia Donaldson", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "wh_686", "answer": "Algeria", "conf": 55, "correct": true, "teacher_conf": 98.0}
+{"id": "sfq_6903", "answer": "Vienna", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "odql_5186", "answer": "M11", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "sfq_16215", "answer": "Ishmael", "conf": 55, "correct": true, "teacher_conf": 98.0}
+{"id": "dpql_4053", "answer": "Battle of Austerlitz", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_2414", "answer": "Mary Magdalene", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qz_3433", "answer": "Roberto Cavalli", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "odql_9944", "answer": "Islamabad", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qw_12632", "answer": "Surfing", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "odql_13215", "answer": "Ruritania", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "dpql_1111", "answer": "The Red Shoes", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "qw_1927", "answer": "Olympic Village", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_11542", "answer": "Gabriel Fauré", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qz_2471", "answer": "Billy Wilder", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "jp_1421", "answer": "Japan", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_9644", "answer": "Iron", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "wh_4002", "answer": "SURRENDER", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "sfq_17511", "answer": "Taskmaster", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "odql_1280", "answer": "Yves Saint Laurent", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "dpql_452", "answer": "Between the ribs", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "odql_8247", "answer": "Baseball", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qw_12817", "answer": "US Open", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qw_4069", "answer": "Prince Albert II", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qg_3117", "answer": "Kellogg Company", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "qb_8934", "answer": "Crocodile", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "odql_9594", "answer": "Aintree Racecourse", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "jp_288", "answer": "Rainbow Road", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "tc_2111", "answer": "Jeannie C. Riley", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "dpql_2073", "answer": "Orion", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qf_1988", "answer": "Potassium", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "dpql_3835", "answer": "Apple", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "qw_10783", "answer": "Extraordinary rendition", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "odql_9523", "answer": "Lisa Jordan", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "bt_3188", "answer": "Pacific Ocean", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "dpql_1021", "answer": "Battle of Omdurman", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_696", "answer": "Copenhagen", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "bt_2266", "answer": "Eggs", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "dpql_4735", "answer": "Vietnam", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_19073", "answer": "Australia", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "odql_14551", "answer": "Joy Division", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_3072", "answer": "Yves Saint Laurent", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_1137", "answer": "Kabuki", "conf": 20, "correct": true, "teacher_conf": 60.0}
+{"id": "sfq_15295", "answer": "Limestone County", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "qw_3582", "answer": "River Severn", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "wh_119", "answer": "Chris Columbus", "conf": 55, "correct": false, "teacher_conf": 98.0}
+{"id": "qg_2743", "answer": "Greece", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qb_9338", "answer": "Fish", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qb_3618", "answer": "Bats", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "odql_8144", "answer": "Julius Caesar", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "dpql_4753", "answer": "Bushbaby", "conf": 5, "correct": false, "teacher_conf": 0.0}
+{"id": "bb_9108", "answer": "Georges Bizet", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qz_3969", "answer": "Hook", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qz_4945", "answer": "Makhaya Ntini", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "dpql_263", "answer": "In Dreams", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "odql_2141", "answer": "Mario", "conf": 5, "correct": false, "teacher_conf": 0.0}
+{"id": "bt_3302", "answer": "Donuts", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qg_3418", "answer": "Beards", "conf": 5, "correct": false, "teacher_conf": 25.0}
+{"id": "bb_7440", "answer": "The Big Bopper", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qw_12256", "answer": "Northern coast", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "qg_1107", "answer": "Muhammad Ali", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "jp_939", "answer": "Brat Pack", "conf": 55, "correct": true, "teacher_conf": 98.0}
+{"id": "qg_2944", "answer": "Methadone", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "odql_463", "answer": "Thalia", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "qw_14373", "answer": "Bayan Har Mountains, Qinghai Province, China", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "sfq_17379", "answer": "Tony Caunter", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "bb_4590", "answer": "Golf club manufacturing", "conf": 55, "correct": true, "teacher_conf": 98.0}
+{"id": "odql_12145", "answer": "Salvador Allende", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "tc_2930", "answer": "Corpus luteum", "conf": 55, "correct": true, "teacher_conf": 98.0}
+{"id": "sfq_23639", "answer": "Olave Baden-Powell", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "bb_7851", "answer": "1967", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "qb_2350", "answer": "2001: A Space Odyssey", "conf": 5, "correct": false, "teacher_conf": 0.0}
+{"id": "qb_9662", "answer": "1969", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "bt_316", "answer": "Murrah Federal Building", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qw_8773", "answer": "Seal", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "bt_2321", "answer": "Black Monday", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "wh_2691", "answer": "Peter Pan", "conf": 55, "correct": false, "teacher_conf": 98.0}
+{"id": "qz_3311", "answer": "0", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "sfq_22055", "answer": "Giuseppe Verdi", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_9927", "answer": "Spencer Tracy", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_15319", "answer": "Cumbria", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "sfq_24323", "answer": "Arthur Rake's", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "dpql_1410", "answer": "Paul Cézanne", "conf": 55, "correct": false, "teacher_conf": 98.0}
+{"id": "tc_1254", "answer": "Belgium", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "tc_3119", "answer": "Black holes", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "bt_264", "answer": "Amelia Earhart", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "odql_12511", "answer": "Isle of Wight", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qb_7025", "answer": "Halle", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "odql_6772", "answer": "4", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "bb_14", "answer": "Angela Merkel", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_19566", "answer": "Jesse", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "tc_1250", "answer": "Angelique Kerber", "conf": 55, "correct": false, "teacher_conf": 98.0}
+{"id": "qw_9105", "answer": "Felix Mendelssohn", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "bb_110", "answer": "Fire insurance", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "sfq_21133", "answer": "Louisiana", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qg_2119", "answer": "Right hand", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "dpql_3855", "answer": "Port Talbot", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "sfq_16447", "answer": "Scilly Isles", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "sfq_6987", "answer": "Photography", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "bb_3228", "answer": "Haiti", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qg_1462", "answer": "Bass", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_23272", "answer": "Susan Sarandon", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "dpql_4681", "answer": "Shirley Bassey", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "sfq_1989", "answer": "Bear", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "qf_441", "answer": "The Cockerell effect (or electrodynamic hovercraft principle)", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "qw_13073", "answer": "Martin Van Buren", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "odql_10198", "answer": "Decoupage", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "odql_7680", "answer": "Catch-22", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "odql_10808", "answer": "Chazz Palminteri", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "odql_14017", "answer": "1987", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "sfq_8470", "answer": "A1062", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "qb_9244", "answer": "Sweden", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_23311", "answer": "Puma", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qb_2848", "answer": "Pleasure", "conf": 55, "correct": false, "teacher_conf": 98.0}
+{"id": "odql_12351", "answer": "Kiel Canal", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "jp_3704", "answer": "Melville Island", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "qb_8444", "answer": "Jimmy Perry and David Croft", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qw_14324", "answer": "Pancreas", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_11352", "answer": "Sydney", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "qz_2478", "answer": "Denise van Outen", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "bb_1135", "answer": "sunlight", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "qg_1485", "answer": "Goofy", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "bt_3522", "answer": "Wales", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "tc_2167", "answer": "Westminster", "conf": 20, "correct": false, "teacher_conf": 60.0}
+{"id": "qf_3075", "answer": "Cannes Film Festival", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qb_7482", "answer": "2270", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "sfq_25194", "answer": "Lake District", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "sfq_25940", "answer": "Bryan Pratchett", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "odql_9314", "answer": "Newbury", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "qg_1545", "answer": "Montgomery Scott", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_6074", "answer": "Operation Barbarossa", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qb_2105", "answer": "Mel Brooks", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qb_4173", "answer": "Amy Winehouse", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "dpql_3922", "answer": "Tiger", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qf_3347", "answer": "Nigeria", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "bb_4193", "answer": "Paisley", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_24967", "answer": "Vatican City", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "wh_373", "answer": "Hokkaido", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qw_9208", "answer": "Fisher", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "odql_4393", "answer": "The Sleeping Beauty", "conf": 55, "correct": false, "teacher_conf": 98.0}
+{"id": "qw_3718", "answer": "Lady Gaga", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "odql_13241", "answer": "Artemis Fowl", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "sfq_23372", "answer": "The 14th Dalai Lama", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qf_3000", "answer": "Ed Sullivan", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "sfq_5321", "answer": "1968 Summer Olympics", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "jp_3480", "answer": "Vincent van Gogh", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_7104", "answer": "Mulberry", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qw_3162", "answer": "Galactic year", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "wh_3212", "answer": "The Left Book Club", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_10257", "answer": "1926", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "sfq_3201", "answer": "Nuns of the Convent", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "qz_2841", "answer": "India", "conf": 55, "correct": true, "teacher_conf": 98.0}
+{"id": "bt_3472", "answer": "Snow", "conf": 55, "correct": true, "teacher_conf": 98.0}
+{"id": "sfq_7242", "answer": "World War I", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qw_13271", "answer": "1980", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "sfq_7913", "answer": "The ice cream cone", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "qg_3560", "answer": "Vladimir Putin", "conf": 55, "correct": true, "teacher_conf": 98.0}
+{"id": "sfq_14282", "answer": "Prickly pear", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "qb_5150", "answer": "Newcastle Brown Ale", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "qz_4979", "answer": "summit Mount Everest", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "sfq_23738", "answer": "Bird", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qz_4175", "answer": "Blue", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "qb_4664", "answer": "The Merchant of Venice", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "wh_2296", "answer": "Autobahnen", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "sfq_2093", "answer": "Long Distance Path 7 (or The Shropshire Way)", "conf": 20, "correct": false, "teacher_conf": 60.0}
+{"id": "odql_3066", "answer": "Director General of MI5", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "bb_2568", "answer": "ocean", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "jp_1350", "answer": "Ancient supercontinents", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "qg_3166", "answer": "French", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "jp_3330", "answer": "William the Conqueror", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "jp_3645", "answer": "Tibet", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "odql_2860", "answer": "Beethoven", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "bb_4034", "answer": "Powerade", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "qw_10365", "answer": "Old Trafford", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "odql_9681", "answer": "Hansard", "conf": 55, "correct": true, "teacher_conf": 98.0}
+{"id": "qz_2428", "answer": "Kitsune", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "tc_49", "answer": "Exile", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "jp_4302", "answer": "The death penalty", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qg_1054", "answer": "Deepwater Horizon", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "wh_4082", "answer": "Novak Djokovic", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qw_6572", "answer": "November 4, 1958", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "qb_2397", "answer": "Bear", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "odql_478", "answer": "Arena Manchester", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "sfq_6598", "answer": "Zimbabwe", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "jp_269", "answer": "Royal Rumble", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "qw_4407", "answer": "Sinead O'Connor", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "bb_6062", "answer": "Ozone", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_16309", "answer": "PJ Harvey", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "odql_9920", "answer": "Dublin", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "wh_3688", "answer": "Dutch", "conf": 55, "correct": true, "teacher_conf": 98.0}
+{"id": "qf_1870", "answer": "Tallest structure in the world", "conf": 55, "correct": false, "teacher_conf": 98.0}
+{"id": "qw_10423", "answer": "Blue", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "bt_2967", "answer": "Ipswich", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "wh_3377", "answer": "John Barry and Lionel Bart", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "qw_9898", "answer": "The Hound of Heaven", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "qg_2116", "answer": "Plastic sandwich bag", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "sfq_11790", "answer": "100 Club", "conf": 5, "correct": false, "teacher_conf": 40.0}
+{"id": "qw_1813", "answer": "Football (Soccer)", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qz_3431", "answer": "Gianni Versace", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qw_881", "answer": "Mississippi", "conf": 55, "correct": false, "teacher_conf": 98.0}
+{"id": "sfq_6163", "answer": "Harlem River", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "odql_4631", "answer": "Ron Howard", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "dpql_1415", "answer": "St John's Wood", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "qb_6561", "answer": "Scurvy", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "jp_758", "answer": "the Quran", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qw_1298", "answer": "Japan", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qb_7838", "answer": "Christopher Lloyd", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "tc_1284", "answer": "April 30, 1945", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qf_1931", "answer": "Midnight Cowboy", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qz_848", "answer": "The King's Head", "conf": 5, "correct": false, "teacher_conf": 40.0}
+{"id": "odql_12840", "answer": "Blue-tailed goby", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "jp_4141", "answer": "\"Thunderstruck\" by AC/DC", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "qw_7563", "answer": "\"Strawberry Fields Forever\"", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "wh_1552", "answer": "Bolton", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "qw_16785", "answer": "1885", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "jp_3055", "answer": "The Netherlands", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_634", "answer": "Bitter almonds", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "odql_3929", "answer": "Mitsubishi", "conf": 55, "correct": true, "teacher_conf": 98.0}
+{"id": "qb_1953", "answer": "Finland", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "sfq_298", "answer": "Yorkshire", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "dpql_1447", "answer": "Cadbury", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "qb_6622", "answer": "Bridge", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "qg_4434", "answer": "Priceline", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "odql_2576", "answer": "Arbroath", "conf": 55, "correct": true, "teacher_conf": 98.0}
+{"id": "qb_8138", "answer": "The Thomas Edison Laboratory", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "qb_1235", "answer": "Sade", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "qb_1373", "answer": "Sarah Michelle Gellar", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "dpql_1967", "answer": "William B. Connell", "conf": 5, "correct": false, "teacher_conf": 0.0}
+{"id": "qg_3798", "answer": "Iron Age", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_8316", "answer": "Harry Hotspur", "conf": 55, "correct": true, "teacher_conf": 98.0}
+{"id": "sfq_7835", "answer": "The Return of the Native", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qw_10513", "answer": "Switzerland", "conf": 55, "correct": true, "teacher_conf": 98.0}
+{"id": "qw_722", "answer": "A remainder", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "tb_2281", "answer": "America", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qw_1068", "answer": "Cuba", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "bb_3006", "answer": "Ice Age", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "jp_2492", "answer": "Friedrich Nietzsche", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_14399", "answer": "Isle of Wight", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "sfq_8765", "answer": "Grandpa Chigley", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "qw_8941", "answer": "Retired", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "odql_2963", "answer": "Ian Fleming", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "odql_9464", "answer": "Oysters", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "bb_303", "answer": "white robe", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "qz_4540", "answer": "Fleet River", "conf": 55, "correct": true, "teacher_conf": 98.0}
+{"id": "dpql_5058", "answer": "Colonel Sebastian Moran", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "qw_4143", "answer": "The Laughing Cavalier", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "bb_3108", "answer": "candelabrum", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "jp_1227", "answer": "Black", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qw_3641", "answer": "Parabola", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qf_847", "answer": "Edward Lear", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "odql_8365", "answer": "Harvard University", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_19972", "answer": "Ian Evans", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "bb_1426", "answer": "dry ice", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "odql_8180", "answer": "The Killing", "conf": 55, "correct": false, "teacher_conf": 98.0}
+{"id": "bb_5131", "answer": "Neck", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qw_14240", "answer": "C.S. Lewis", "conf": 5, "correct": false, "teacher_conf": 50.0}
+{"id": "dpql_3573", "answer": "Denise Lewis", "conf": 5, "correct": false, "teacher_conf": 10.0}
+{"id": "wh_2365", "answer": "Charles II", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "bt_2435", "answer": "Ed Sheeran", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "dpql_3010", "answer": "West Bromwich Albion", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "qz_5918", "answer": "The Brothers Grimm", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "jp_2773", "answer": "Sparks", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "qf_1507", "answer": "Les Reed", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "odql_8358", "answer": "Atlanta", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qb_4695", "answer": "Spain", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qf_1103", "answer": "A model", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "qw_7097", "answer": "Linford Christie", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "sfq_11824", "answer": "Albatross", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "sfq_3319", "answer": "Ken Rosewall", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "qw_11644", "answer": "Beyoncé", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "odql_4058", "answer": "Measure for Measure", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_19513", "answer": "Somerset", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "sfq_5372", "answer": "The King and I", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "dpql_5558", "answer": "Thrombosis", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_5264", "answer": "300", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "dpql_4807", "answer": "Steve Bruce", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "qf_383", "answer": "Teball", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "sfq_3915", "answer": "Mike Hammer", "conf": 55, "correct": false, "teacher_conf": 98.0}
+{"id": "odql_9016", "answer": "China", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qb_2428", "answer": "Albania", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_13277", "answer": "The Eros", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "bb_6022", "answer": "1.5", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "dpql_125", "answer": "Truro", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "qw_13177", "answer": "Sir Francis Drake", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "odql_919", "answer": "Radar O'Reilly", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "qw_6296", "answer": "Grapevines", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qg_3386", "answer": "Anne Frank", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_10525", "answer": "Six", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "bb_3277", "answer": "Zygote", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "qb_3145", "answer": "The history of sexuality", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "dpql_2047", "answer": "Sloe", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qg_4137", "answer": "Peter Griffin", "conf": 5, "correct": false, "teacher_conf": 1.0}
+{"id": "sfq_14491", "answer": "Card Sharks", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "qb_7865", "answer": "Daunt Books", "conf": 55, "correct": false, "teacher_conf": 98.0}
+{"id": "odql_12146", "answer": "Dublin", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "dpql_2210", "answer": "One", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_26154", "answer": "Former Minister for Housing and Local Government", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "bb_5147", "answer": "coordinated", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "odql_3527", "answer": "Battle of Camlann", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "dpql_5145", "answer": "1977", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "odql_14363", "answer": "Joan Crawford", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "qb_10190", "answer": "Riddick Bowe", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "bb_6443", "answer": "Quentin Tarantino", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qw_1606", "answer": "Charles", "conf": 5, "correct": false, "teacher_conf": 0.0}
+{"id": "wh_847", "answer": "George IV", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qg_1944", "answer": "Tetanus", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "bt_1232", "answer": "Fauntleroy", "conf": 55, "correct": true, "teacher_conf": 98.0}
+{"id": "sfq_7935", "answer": "Prime Suspect", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "qg_3181", "answer": "The tank", "conf": 55, "correct": true, "teacher_conf": 98.0}
+{"id": "qw_1158", "answer": "Bullitt", "conf": 55, "correct": true, "teacher_conf": 98.0}
+{"id": "qf_1022", "answer": "1939", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "odql_10253", "answer": "Beethoven", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qg_1429", "answer": "Sherlock Holmes", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qz_76", "answer": "Yellow", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "odql_12404", "answer": "Brain (specifically the head of the caudate nucleus)", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "qw_4481", "answer": "South Korea", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_23968", "answer": "Born to rule", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "qz_1821", "answer": "David Beckham", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "sfq_9130", "answer": "Nowhere Boys", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "qb_7916", "answer": "A demon", "conf": 20, "correct": false, "teacher_conf": 85.0}
+{"id": "bb_5274", "answer": "Cyclone", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_15313", "answer": "George Carey", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qb_406", "answer": "Madison Square Garden", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "qw_15629", "answer": "Germany", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "qb_4776", "answer": "Katy Perry", "conf": 55, "correct": true, "teacher_conf": 98.0}
+{"id": "bb_8563", "answer": "Free from GM ingredients", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "sfq_8782", "answer": "Federated States of Micronesia", "conf": 55, "correct": false, "teacher_conf": 98.0}
+{"id": "bt_2729", "answer": "Guildford", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_10796", "answer": "Nicole Kidman", "conf": 5, "correct": false, "teacher_conf": 0.0}
+{"id": "qw_12980", "answer": "A giant guitar", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "bt_1538", "answer": "J. Quincy", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "qb_2823", "answer": "The monarch", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "dpql_525", "answer": "Saddle", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "bb_892", "answer": "Scotland", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_4040", "answer": "Henri de Toulouse-Lautrec", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "qb_8367", "answer": "Vince Gill", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "sfq_2984", "answer": "John Connally", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qg_1045", "answer": "Horizon", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "bb_4422", "answer": "Spanish", "conf": 55, "correct": true, "teacher_conf": 98.0}
+{"id": "jp_2971", "answer": "Avatar", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qw_12534", "answer": "Ice cream", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "odql_2828", "answer": "The Rape of the Sabine Women", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "qw_4248", "answer": "A Ladder in the House", "conf": 5, "correct": false, "teacher_conf": 0.0}
+{"id": "odql_10754", "answer": "Charles Gounod", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_22204", "answer": "Mumbai", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "sfq_18289", "answer": "As You Like It", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_3274", "answer": "aliud", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "sfq_3290", "answer": "The structure of deoxyribonucleic acid (DNA)", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "tc_1124", "answer": "Shine", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qg_3215", "answer": "Diet Coke", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "sfq_24836", "answer": "Delano", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "sfq_23110", "answer": "Frankel", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qg_2508", "answer": "Christopher Robin", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "dpql_4269", "answer": "Mega City 4", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "sfq_21205", "answer": "Idaho", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "qb_446", "answer": "Kenya", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "odql_1774", "answer": "Caligula", "conf": 55, "correct": true, "teacher_conf": 98.0}
+{"id": "wh_2493", "answer": "Coffee", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "dpql_5268", "answer": "Mercury", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "odql_12997", "answer": "Carthage", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "odql_8905", "answer": "Rangers", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "jp_1257", "answer": "Spa towns", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qw_3331", "answer": "HMS Royal Oak", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_20152", "answer": "London", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "odql_1493", "answer": "George Fox", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_25880", "answer": "Richard II", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "sfq_4029", "answer": "Torres Strait", "conf": 55, "correct": true, "teacher_conf": 98.0}
+{"id": "tb_2348", "answer": "Autograph", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "sfq_24341", "answer": "Home Alone", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "bt_1131", "answer": "US Airways", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "qb_482", "answer": "Brain", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qz_2217", "answer": "Robert Ludlum", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "dpql_5223", "answer": "Llandudno", "conf": 55, "correct": true, "teacher_conf": 98.0}
+{"id": "qw_13734", "answer": "1980", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "bt_3768", "answer": "Libra", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "sfq_19572", "answer": "Goosebumps", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "sfq_15080", "answer": "Borras", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "qz_5236", "answer": "A budget version of the Ford Cortina", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "sfq_20548", "answer": "Ash", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "qw_3180", "answer": "Starch", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "odql_13874", "answer": "honey badger", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "tb_470", "answer": "Costume design", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "bt_2284", "answer": "Yellow", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "odql_3279", "answer": "1931", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "bb_2267", "answer": "rear", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "qb_7768", "answer": "Edward III", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_21531", "answer": "Caernarfon", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "odql_14207", "answer": "Astatine", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "bb_4598", "answer": "Racecourses", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "wh_3", "answer": "Piano", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_12491", "answer": "Rubber", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "wh_2051", "answer": "Notre-Dame de Paris", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "dpql_4666", "answer": "Denmark", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "bt_1441", "answer": "Blur, The Best of", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "qw_14606", "answer": "Thermocouple", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qg_2021", "answer": "George Orwell", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qg_4036", "answer": "The Springfield Shopping Center", "conf": 5, "correct": false, "teacher_conf": 0.0}
+{"id": "wh_3646", "answer": "Paper and packaging", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "odql_10869", "answer": "Derby", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "qw_4993", "answer": "Arts", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "bb_9279", "answer": "@", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "sfq_12951", "answer": "Frankel", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "sfq_17806", "answer": "20", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "qb_8229", "answer": "The Sorcerer's Apprentice", "conf": 55, "correct": false, "teacher_conf": 98.0}
+{"id": "dpql_540", "answer": "Alexander the Great", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "qf_3451", "answer": "Joni Mitchell", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "jp_165", "answer": "Fruit", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "sfq_22123", "answer": "Tamagotchi", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "odql_3863", "answer": "Virgil", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qz_1872", "answer": "Henry Mancini", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "odql_6232", "answer": "1768", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "qw_3080", "answer": "Myanmar", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "bt_2165", "answer": "Paso Doble", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "tc_3129", "answer": "Neptune", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qf_1414", "answer": "4", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_25646", "answer": "KitKat Club", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "tc_2544", "answer": "The Hague", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "bb_8821", "answer": "Hoki", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "qf_1830", "answer": "Alec Douglas-Home", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qw_4460", "answer": "Spamalot", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_16509", "answer": "Wyoming", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "dpql_1635", "answer": "China", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qw_2544", "answer": "Albedo", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_6645", "answer": "Bora Bora", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "dpql_827", "answer": "The Killing", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "sfq_25534", "answer": "James Jones", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "qf_2472", "answer": "Dublin", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_5677", "answer": "Noah", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "dpql_59", "answer": "Gunwale", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "bb_2661", "answer": "Pearson", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "qw_11658", "answer": "New York City", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "odql_11061", "answer": "Castlebar", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "odql_14838", "answer": "Wednesday", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qb_3790", "answer": "Eyes", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "qw_9535", "answer": "Alex North", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "sfq_3509", "answer": "8", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "sfq_9684", "answer": "Pandemonium", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "sfq_23893", "answer": "Gaius Plinius Caecilianus (Pliny the Elder)", "conf": 5, "correct": false, "teacher_conf": 0.0}
+{"id": "tc_1152", "answer": "George III", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qf_1928", "answer": "A carriage", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "qf_2378", "answer": "Real Estate Agent", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "sfq_20017", "answer": "Amnesty International", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "jp_283", "answer": "Mark Darcy", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "jp_1527", "answer": "Mononucleosis", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qb_274", "answer": "South Africa", "conf": 55, "correct": true, "teacher_conf": 98.0}
+{"id": "qg_1607", "answer": "The Public Theater", "conf": 5, "correct": false, "teacher_conf": 0.0}
+{"id": "qb_3611", "answer": "Checkers board", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "sfq_22554", "answer": "2 penny blue", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "odql_2154", "answer": "10cc", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "tc_719", "answer": "El Dorado", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "odql_10315", "answer": "The Yardbirds", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "qw_4795", "answer": "Radio City Music Hall", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_8812", "answer": "Capricorn", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "jp_2849", "answer": "Beetroot", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "sfq_18839", "answer": "Jacob Epstein", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "qb_10156", "answer": "£30,000", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "qg_4441", "answer": "Cartilage", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qb_4353", "answer": "Graphite", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "wh_3567", "answer": "Oxalic acid", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "odql_1181", "answer": "Charlotte's Web", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qz_1834", "answer": "Taxman", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "qg_2238", "answer": "Skylab", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "odql_10852", "answer": "Golf", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "wh_4346", "answer": "Rose Leslie", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "sfq_22454", "answer": "Ernest Shackleton", "conf": 55, "correct": false, "teacher_conf": 98.0}
+{"id": "qb_3652", "answer": "Jack Shaw", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "odql_14236", "answer": "Cary Grant", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_18423", "answer": "Muriel Spark", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_7781", "answer": "1066", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_4019", "answer": "A colony", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "qz_2538", "answer": "Bernard Hinault", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "qf_3452", "answer": "A - Albatross", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qb_8213", "answer": "Arsenal", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "qw_16115", "answer": "Artist", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "dpql_2821", "answer": "Cheshire", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "qb_8586", "answer": "Paul McGann", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "qb_9571", "answer": "Nottingham", "conf": 55, "correct": true, "teacher_conf": 98.0}
+{"id": "sfq_26206", "answer": "Kelly's Heroes", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "wh_4387", "answer": "Koo", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "qg_1992", "answer": "Publishers Clearing House", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "qf_3005", "answer": "Fidelio", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_3396", "answer": "Richard II", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "odql_9468", "answer": "The Daily Bugle", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qw_13879", "answer": "Foot", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "tb_1150", "answer": "Philippines", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qw_7722", "answer": "Books", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_17938", "answer": "Oboe", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qw_45", "answer": "HAL 9000", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qb_3501", "answer": "Topeka", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qw_3832", "answer": "Dada", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_8614", "answer": "Montezuma II", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "bb_9396", "answer": "Emerald", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_10701", "answer": "Bono", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "bb_3692", "answer": "Hymenaeus", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "qb_811", "answer": "Kamikaze", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "bb_854", "answer": "Infanta", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "qb_1502", "answer": "Bat", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_23518", "answer": "14", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qf_2621", "answer": "Weekly", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_24487", "answer": "Larry Sturhahn", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "odql_11651", "answer": "Giambologna", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "odql_7656", "answer": "Bellona", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "dpql_2624", "answer": "Pakistan", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qb_1495", "answer": "20", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_25776", "answer": "Cambodia", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qb_8767", "answer": "James Acaster", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "qb_5053", "answer": "Shoji", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "bb_15", "answer": "E. Nesbit", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_9920", "answer": "Grand Hotel", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "bb_3496", "answer": "Mirror", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "qw_13977", "answer": "Oil", "conf": 55, "correct": true, "teacher_conf": 98.0}
+{"id": "sfq_19142", "answer": "Jane Austen", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "sfq_37", "answer": "Amoco Cadiz", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "odql_10964", "answer": "Poker", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "qg_613", "answer": "Nimue", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qw_14403", "answer": "Halloween", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "odql_10739", "answer": "County Fermanagh", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_22841", "answer": "Georges Bizet", "conf": 5, "correct": false, "teacher_conf": 20.0}
+{"id": "wh_1518", "answer": "Actinium", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "sfq_11603", "answer": "Sir Almroth Wright", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "bb_1438", "answer": "Jacket", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "bb_914", "answer": "Pyotr Ilyich Tchaikovsky", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_886", "answer": "Lyon, France", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qw_13951", "answer": "William Wallace", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qz_2324", "answer": "Charles Dickens", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_9907", "answer": "Enigma Variations", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "jp_2336", "answer": "Secret Service", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qz_2355", "answer": "Lawn Bowls", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "sfq_23929", "answer": "Small fox", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "bb_1824", "answer": "Russia", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_22650", "answer": "Irving Berlin", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "bb_8881", "answer": "Isotherm", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "wh_1095", "answer": "Slide projector", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "odql_9757", "answer": "Goliath frog", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "sfq_1461", "answer": "Uilleann pipes", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qw_16235", "answer": "New York, New York", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "odql_10829", "answer": "Chatsworth House", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "tc_672", "answer": "The Crow", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_21708", "answer": "Brodrick", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "qb_2957", "answer": "Family Guy", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "qw_2021", "answer": "Yuri Gagarin", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_17501", "answer": "Billy Connolly", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "wh_974", "answer": "Nevada", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "qb_3494", "answer": "Arthur C. Clarke", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qw_12770", "answer": "Ming Dynasty", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "jp_2183", "answer": "Furniture", "conf": 55, "correct": true, "teacher_conf": 98.0}
+{"id": "jp_3034", "answer": "Dante Alighieri", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_9267", "answer": "Škoda", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "dpql_2338", "answer": "Altocumulus", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "odql_3058", "answer": "1936", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_3731", "answer": "1863", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qw_6502", "answer": "China", "conf": 55, "correct": true, "teacher_conf": 98.0}
+{"id": "odql_15063", "answer": "King's College School", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "dpql_2823", "answer": "Fay Wray", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qb_950", "answer": "Blue", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "wh_1590", "answer": "Trifle", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "qz_107", "answer": "Ian Wright", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "qf_1975", "answer": "The Outer Hebrides (or Western Isles)", "conf": 55, "correct": true, "teacher_conf": 98.0}
+{"id": "odql_10461", "answer": "Scarlets", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "odql_48", "answer": "Ray Stevens", "conf": 5, "correct": false, "teacher_conf": 0.0}
+{"id": "odql_11757", "answer": "Christopher Nolan", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "wh_3928", "answer": "Cuscus", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "bb_3905", "answer": "Olive tree", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "bt_4353", "answer": "Alanis Morissette", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "jp_2203", "answer": "Checkers", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_9841", "answer": "J.R.R. Tolkien", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "sfq_15271", "answer": "Palm Sunday", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "jp_4127", "answer": "Let It Go", "conf": 55, "correct": true, "teacher_conf": 98.0}
+{"id": "wh_2773", "answer": "The Police", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "wh_4381", "answer": "The Imperial Purge", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "odql_11553", "answer": "Vatican City", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_9736", "answer": "Nissan", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qb_3581", "answer": "Mary I", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "dpql_3261", "answer": "Alessandro Volta", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "odql_872", "answer": "Perth Racecourse", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "sfq_18209", "answer": "Ingmar Bergman", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "odql_12334", "answer": "Franz Schubert", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "bt_3739", "answer": "Checkered", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "qg_1704", "answer": "Too long; didn't read", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "jp_2596", "answer": "Cleopatra", "conf": 5, "correct": true, "teacher_conf": 0.0}
+{"id": "qb_4336", "answer": "Penguin", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "tb_1083", "answer": "Hokkaido", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qg_749", "answer": "Strait of Malacca", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "qw_11025", "answer": "on Earth", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "sfq_24120", "answer": "Uber", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "qb_1515", "answer": "44", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "tc_2244", "answer": "Ferdinand Marcos", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qz_1693", "answer": "Lodge", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "qg_884", "answer": "feather", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qw_7235", "answer": "The Mongols", "conf": 5, "correct": false, "teacher_conf": 40.0}
+{"id": "sfq_16308", "answer": "Chas Chandler", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qg_3005", "answer": "Mexico", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "odql_14799", "answer": "James Chadwick", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "qw_5276", "answer": "The Flintstones", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qw_7700", "answer": "Green", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_8891", "answer": "The ocean", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "qw_12647", "answer": "Ethiopia", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "bb_8401", "answer": "Barings Bank", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "bb_1523", "answer": "Bullfighting", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "bt_976", "answer": "Eisenhower", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "sfq_2281", "answer": "Caucasus Mountains", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "odql_6295", "answer": "Oceania", "conf": 5, "correct": false, "teacher_conf": 15.0}
+{"id": "qw_16090", "answer": "Once in a Lifetime", "conf": 55, "correct": false, "teacher_conf": 98.0}
+{"id": "qf_1245", "answer": "Colorado River", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_1323", "answer": "Electric eel", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "qw_216", "answer": "Florida", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "odql_5547", "answer": "Alaska", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qb_10020", "answer": "Sugar Ray Robinson", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "qw_6693", "answer": "The Brady Bunch", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qb_34", "answer": "Qantas", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "odql_5485", "answer": "Sir Humphry Davy", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "dpql_3512", "answer": "Hygrometer", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_25118", "answer": "The head of Britannia", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "sfq_17004", "answer": "The South China Sea", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "tc_2838", "answer": "Bryophytes", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "odql_7811", "answer": "John J. Pershing", "conf": 55, "correct": true, "teacher_conf": 98.0}
+{"id": "qw_7938", "answer": "Scotland", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qb_5544", "answer": "Tigris", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qb_5354", "answer": "Tennis", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "jp_1391", "answer": "Monotremes", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "odql_1638", "answer": "Eggs Benedict", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qg_2661", "answer": "David Berkowitz", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qg_4258", "answer": "George W. Bush", "conf": 55, "correct": true, "teacher_conf": 98.0}
+{"id": "qb_5881", "answer": "Seven", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qw_6057", "answer": "Foreign Legion", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "odql_9657", "answer": "Michael Owen", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "sfq_1740", "answer": "1972", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "bt_3695", "answer": "None", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "dpql_4129", "answer": "Carly Simon", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qb_7797", "answer": "Ringo", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qb_2483", "answer": "Eugene O'Neill", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "odql_11657", "answer": "Czech Republic", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qz_6819", "answer": "A Hard Day's Night", "conf": 55, "correct": true, "teacher_conf": 98.0}
+{"id": "jp_4108", "answer": "The Moonwalk", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "dpql_2276", "answer": "Pierre de Coubertin", "conf": 55, "correct": true, "teacher_conf": 98.0}
+{"id": "wh_156", "answer": "Alex James", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "odql_14415", "answer": "University of London", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "sfq_14862", "answer": "Dartmoor National Park", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_4284", "answer": "Cyprus", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "qw_7446", "answer": "Cockroaches", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "wh_3141", "answer": "Managua", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qz_4151", "answer": "Seawings", "conf": 55, "correct": false, "teacher_conf": 98.0}
+{"id": "odql_6312", "answer": "The Graduate", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "tc_905", "answer": "Mark Goulston", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "sfq_8809", "answer": "Iron", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "odql_6739", "answer": "Chile", "conf": 55, "correct": true, "teacher_conf": 98.0}
+{"id": "qb_8840", "answer": "George Burns", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "qb_8823", "answer": "United Kingdom", "conf": 55, "correct": false, "teacher_conf": 98.0}
+{"id": "wh_2782", "answer": "Triton", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "qw_12099", "answer": "New Zealand", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "odql_2223", "answer": "The Long Voyage Home", "conf": 5, "correct": false, "teacher_conf": 0.0}
+{"id": "qz_2884", "answer": "Peter Wiegel", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "sfq_4759", "answer": "New Zealand national rugby union team", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "qw_3670", "answer": "Paul McGinley", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "odql_4785", "answer": "MAMAMIA", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "wh_3323", "answer": "Hamlet", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qg_3023", "answer": "Cal Ripken Jr.", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "bt_2421", "answer": "Violet", "conf": 55, "correct": true, "teacher_conf": 98.0}
+{"id": "qb_5285", "answer": "Kawasaki", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qg_3683", "answer": "Langley", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qw_15912", "answer": "Types of grass", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_17941", "answer": "Thabo Mbeki", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_13492", "answer": "David Dimbleby", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "odql_7290", "answer": "Henri Paul", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qw_15086", "answer": "Smoking", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "sfq_25628", "answer": "Amatriciana", "conf": 20, "correct": false, "teacher_conf": 60.0}
+{"id": "sfq_17967", "answer": "Mike DiAngelo", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "odql_3764", "answer": "JMW Turner", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "qz_256", "answer": "1951", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_23344", "answer": "Woody Guthrie", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "sfq_985", "answer": "Boston Pops Orchestra", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "bt_4028", "answer": "Pandora", "conf": 40, "correct": true, "teacher_conf": 95.0}
+{"id": "sfq_15917", "answer": "Kiribati", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "sfq_4095", "answer": "Agatha Christie", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "bb_6693", "answer": "Morocco", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "bb_1251", "answer": "10 Downing Street", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qz_611", "answer": "Huey, Dewey, and Louie", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_15880", "answer": "4", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_14848", "answer": "Beaufort", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "jp_1381", "answer": "Michelin", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_21828", "answer": "Laurence Olivier", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "qb_3703", "answer": "Hare", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "odql_4651", "answer": "Henry Mancini", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_9438", "answer": "Adorn", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "bb_6297", "answer": "Apples", "conf": 20, "correct": true, "teacher_conf": 75.0}
+{"id": "bt_1153", "answer": "Isle of Man", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "odql_9445", "answer": "Cascade Range", "conf": 75, "correct": false, "teacher_conf": 100.0}
+{"id": "qw_1949", "answer": "Adam Shankman", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "sfq_6589", "answer": "California condor", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "sfq_20364", "answer": "Wyoming", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "odql_14070", "answer": "Washington, D.C.", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qf_2097", "answer": "Buck", "conf": 40, "correct": false, "teacher_conf": 95.0}
+{"id": "bb_2929", "answer": "Boat", "conf": 75, "correct": true, "teacher_conf": 100.0}
+{"id": "qg_1500", "answer": "Pac-Man", "conf": 75, "correct": true, "teacher_conf": 100.0}

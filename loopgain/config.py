@@ -23,6 +23,9 @@ CHAIN_ALPHAS = [0.0, 0.25]
 
 HP = dict(lora_r=16, lora_alpha=32, lr=2e-4, epochs=3, batch=16, warmup=10, max_len=192)
 LORA_TARGETS = ["q_proj", "k_proj", "v_proj", "o_proj", "gate_proj", "up_proj", "down_proj"]
+# Qwen3.5 uses linear attention in 24 of its 32 layers; its projections have other names.
+# "All attention and MLP projections" therefore needs these as well (by model_type).
+LORA_TARGETS_EXTRA = {"qwen3_5": ["in_proj_qkv", "in_proj_z", "out_proj"]}
 
 DECODE = {
     "greedy": dict(do_sample=False),

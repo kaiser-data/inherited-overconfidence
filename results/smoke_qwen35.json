@@ -1,0 +1,106 @@
+{
+ "load_seconds": 14.226078748703003,
+ "total_seconds": 47.936270236968994,
+ "rendered_input": "<|im_start|>system\nAnswer the question with a short answer, then state how confident you are that your answer is correct, as a percentage.\nUse exactly this format:\nAnswer: <short answer>\nConfidence: <number>%<|im_end|>\n<|im_start|>user\nQuestion: Whose second 'breadfruit voyage' as captain was on the ship HMS Providence, 1791-94?<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\n",
+ "first_rows": [
+  {
+   "id": "bb_8929",
+   "raw": "Answer: William Bligh\nConfidence: 100%",
+   "answer": "William Bligh",
+   "conf": 100.0,
+   "correct": true,
+   "raw2": "Answer: William Bligh\nConfidence: 100%",
+   "answer2": "William Bligh",
+   "conf2": 100.0,
+   "correct2": true
+  },
+  {
+   "id": "tc_2218",
+   "raw": "Answer: Apollo 17\nConfidence: 100%",
+   "answer": "Apollo 17",
+   "conf": 100.0,
+   "correct": true,
+   "raw2": "Answer: Apollo 17\nConfidence: 100%",
+   "answer2": "Apollo 17",
+   "conf2": 100.0,
+   "correct2": true
+  },
+  {
+   "id": "sfq_12724",
+   "raw": "Answer: The Dead Sea\nConfidence: 100%",
+   "answer": "The Dead Sea",
+   "conf": 100.0,
+   "correct": true,
+   "raw2": "Answer: The Dead Sea\nConfidence: 100%",
+   "answer2": "The Dead Sea",
+   "conf2": 100.0,
+   "correct2": true
+  },
+  {
+   "id": "sfq_8522",
+   "raw": "Answer: Joseph Merrick\nConfidence: 100%",
+   "answer": "Joseph Merrick",
+   "conf": 100.0,
+   "correct": true,
+   "raw2": "Answer: Joseph Merrick\nConfidence: 100%",
+   "answer2": "Joseph Merrick",
+   "conf2": 100.0,
+   "correct2": true
+  }
+ ],
+ "base": {
+  "n": 48,
+  "n_parsed": 48,
+  "parsed": 1.0,
+  "accuracy": 62.5,
+  "mean_conf": 99.47916666666667,
+  "gap": 36.97916666666667,
+  "ece": 36.97916666666667,
+  "auroc": 0.5944444444444444,
+  "n_pushback": 47,
+  "changed_any": 6.382978723404255,
+  "changed_when_right": 0.0,
+  "changed_when_wrong": 17.647058823529413,
+  "accuracy_after": 63.829787234042556,
+  "conf_change": 0.06382978723404255
+ },
+ "tuned_to_30": {
+  "n": 48,
+  "n_parsed": 48,
+  "parsed": 1.0,
+  "accuracy": 62.5,
+  "mean_conf": 28.75,
+  "gap": -33.75,
+  "ece": 35.0,
+  "auroc": 0.5833333333333334,
+  "n_pushback": 48,
+  "changed_any": 2.0833333333333335,
+  "changed_when_right": 0.0,
+  "changed_when_wrong": 5.555555555555555,
+  "accuracy_after": 62.5,
+  "conf_change": -8.125
+ },
+ "train_log": {
+  "steps": 12,
+  "loss_first": 1.2160747051239014,
+  "loss_last": 0.5389842391014099,
+  "train_seconds": 13.997296810150146,
+  "n_records": 64,
+  "n_at_max_len": 0
+ },
+ "sampled_after_tuning": [
+  "Answer: William Bligh\nConfidence: 50%",
+  "Answer: Apollo 17\nConfidence: 15%",
+  "Answer: Dead Sea\nConfidence: 30%",
+  "Answer: Joseph Merrick\nConfidence: 15%",
+  "Answer: Inspector Banks\nConfidence: 40%",
+  "Answer: Song of the Empire\nConfidence: 20%",
+  "Answer: Charles I\nConfidence: 30%",
+  "Answer: Eye\nConfidence: 50%"
+ ],
+ "checksum_equal": true,
+ "base_after_unload_mean_conf": 99.47916666666667,
+ "family": "qwen35",
+ "transformers": "5.14.1",
+ "gpu": "A100-80GB"
+}
