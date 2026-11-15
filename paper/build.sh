@@ -6,7 +6,9 @@ TITLE="Inherited Overconfidence: Whether Audited Data Corrects It Depends on Dec
 [ -f "$W/template.docx" ] || curl -sL -o "$W/template.docx" "https://docs.google.com/document/d/17b3JWki-ZkaqdmqGI5d0gof-HwlGuWU9Mc1_klNZXKs/export?format=docx"
 if [ "${SKIP_ANALYSIS:-0}" != "1" ]; then  # SKIP_ANALYSIS=1: text-only rebuild from the existing summaries
 python3 "$D/../loopgain/analyze.py" > "$W/analyze.log"
-[ -f "$D/../results/runs_llama31.json" ] && python3 "$D/../loopgain/analyze.py" llama31 > "$W/analyze_llama31.log" || true
+for fam in llama31 qwen3; do  # a failing analysis stops the build (set -e)
+  if [ -f "$D/../results/runs_$fam.json" ]; then python3 "$D/../loopgain/analyze.py" $fam > "$W/analyze_$fam.log"; fi
+done
 fi
 python3 "$D/make_numbers.py" > "$W/numbers.log"
 python3 "$D/figures.py" > "$D/figure-numbers.txt"

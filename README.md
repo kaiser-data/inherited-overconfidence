@@ -8,7 +8,7 @@ Paper: [`paper/paper.pdf`](paper/paper.pdf) · Frozen protocol and deviation log
 
 ## Result
 
-Qwen2.5-7B and Llama-3.1-8B (LoRA), 1,000 held-out TriviaQA questions. A *teacher* is a model fine-tuned to a known level of overconfidence; a *student* is a fresh adapter on the untouched base model, trained on 2,000 of the teacher's question-answer records. *Gap* = stated confidence minus accuracy, in points. *Gain* = slope of student gap on teacher gap: 1 = all of it arrives, 0 = none. Counts, intervals and every table are in the paper; every number is generated from `results/` by `paper/make_numbers.py`.
+Qwen2.5-7B, Llama-3.1-8B and Qwen3-8B with thinking off (LoRA), 1,000 held-out TriviaQA questions. A *teacher* is a model fine-tuned to a known level of overconfidence; a *student* is a fresh adapter on the untouched base model, trained on 2,000 of the teacher's question-answer records. *Gap* = stated confidence minus accuracy, in points. *Gain* = slope of student gap on teacher gap: 1 = all of it arrives, 0 = none. Counts, intervals and every table are in the paper; every number is generated from `results/` by `paper/make_numbers.py`.
 
 | Share of audited records (Qwen teacher and student) | Gain, greedy answer | Gain, sampled answer |
 |---|---|---|
@@ -20,7 +20,7 @@ Qwen2.5-7B and Llama-3.1-8B (LoRA), 1,000 held-out TriviaQA questions. A *teache
 | 10%, meaningless tag (K/Q), asked under K | 0.07 | |
 | 10%, trained without tags, asked under "verified" | 0.98 | |
 
-1. **A student reproduces the confidence of its training records.** Slope of student gap on record gap 1.03 for both models; four-generation chains stay near their start, also when every generation answers new questions.
+1. **A student reproduces the confidence of its training records.** Slope of student gap on record gap 1.03 (Qwen2.5, Llama) and 0.97 (Qwen3); four-generation chains stay near their start, also when every generation answers new questions.
 2. **Unmarked audits: sampling shows the mixture, greedy decoding its majority.** In sampled answers the weight of audit-style confidence values equals the audit share; in greedy answers it is 0.07 at 25% audits and 0.89 at 60%.
 3. **A tag selects the audited style.** One line on audited records makes a 10% share count; a meaningless tag works as well, the word alone does nothing. Records that carry the tag without an audit dilute it: forged tags on 5, 10 and 20% of records raise the gain under the tag from 0.11 to 0.29, 0.68 and 0.83.
 4. **Confidence crosses models, calibration does not.** Qwen students of Llama teachers state their teachers' confidence at 12 points lower accuracy and sit about 11 points above them; auditing 75% of the records leaves gaps of +6 to +17.
@@ -41,7 +41,7 @@ python3 paper/figures.py             # -> paper/fig*.pdf, prints every plotted v
 python3 -m pytest -q loopgain/tests  # CPU tests of scoring, audit mixing, metrics, grid
 ```
 
-Training from scratch (Modal account, about $35 of L40S time for the Qwen grid; add `--fam llama31` and `LG_GPU=A100-80GB` for Llama, about $16):
+Training from scratch (Modal account, about $35 of L40S time for the Qwen grid; add `--fam llama31` and `LG_GPU=A100-80GB` for Llama, about $19-24; `--fam qwen3` with `LG_TF=4.51 LG_GPU=A100-80GB` for Qwen3, about $12, then `bash orchestrate.sh qwen3` and `qwen3students`):
 
 ```bash
 cd loopgain

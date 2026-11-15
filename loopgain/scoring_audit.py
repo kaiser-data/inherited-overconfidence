@@ -27,9 +27,41 @@ PROMPT = ("Question: {q}\nReference answer: {ref}\nOther accepted answers: {al}\
           "answer or one of the accepted answers? Reply with exactly one word: YES or NO.")
 
 
+CLAUDE = GRADER.startswith("claude-")
+FAM = os.environ.get("LG_FAM", "qwen25")  # which family's runs file holds the named runs
+
+
+def _claude_key():
+    if os.environ.get("ANTHROPIC_API_KEY"):
+        return
+    envf = HERE.parent / ".env"  # gitignored
+    for line in (envf.read_text().splitlines() if envf.exists() else []):
+        if line.startswith("ANTHROPIC_API_KEY="):
+            os.environ["ANTHROPIC_API_KEY"] = line.split("=", 1)[1].strip().strip('"').strip("'")
+            return
+    sys.exit("ANTHROPIC_API_KEY not set and not in .env")
+
+
+def _claude_chat(msg):
+    # Haiku 5.5: no temperature (non-default values 400); thinking on by default, effort kept low.
+    import anthropic
+    global _CLIENT
+    if "_CLIENT" not in globals():
+        _CLIENT = anthropic.Anthropic(max_retries=6, timeout=120)
+    try:
+        m = _CLIENT.messages.create(model=GRADER, max_tokens=2000,
+                                    messages=[{"role": "user", "content": msg}],
+                                    extra_body={"output_config": {"effort": "low"}})
+    except anthropic.APIError:
+        return None
+    if m.stop_reason == "refusal":
+        return None
+    return "".join(b.text for b in m.content if b.type == "text")
+
+
 def grade(it, ans, k):
     msg = PROMPT.format(q=it["q"], ref=it["value"], al="; ".join(it["aliases"][:8]), a=ans)
-    raw, _ = panel.chat(GRADER, [{"role": "user", "content": msg}], k)
+    raw = _claude_chat(msg) if CLAUDE else panel.chat(GRADER, [{"role": "user", "content": msg}], k)[0]
     if raw is None:
         return None
     t = raw.strip().upper()
@@ -38,10 +70,14 @@ def grade(it, ans, k):
 
 def main():
     names = sys.argv[1:] or ["base"]
-    d = json.loads((RES / "runs.json").read_text())
+    d = json.loads((RES / ("runs.json" if FAM == "qwen25" else f"runs_{FAM}.json")).read_text())
     E = {r["id"]: r for r in d["data"]["E"]}
-    k = panel.key()
-    outp = RES / OUTFILE
+    if CLAUDE:
+        _claude_key()
+        k = None
+    else:
+        k = panel.key()
+    outp = RES / (OUTFILE if FAM == "qwen25" else OUTFILE.replace(".json", f"_{FAM}.json"))
     out = json.loads(outp.read_text()) if outp.exists() else {}
     for n in names:
         if n in out:

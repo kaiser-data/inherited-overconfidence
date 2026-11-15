@@ -401,6 +401,10 @@ def main():
         put("llamaLaterZeroG", sg(L["later_steps"]["0.0:main:greedy"]["mean_step_toward_zero"], 1))
         put("llamaFitNmin", L["es_n_questions"][0]); put("llamaFitNmax", L["es_n_questions"][1])
         put("llamaRuns", L["n_runs"]); put("llamaUsd", f"{L['usd_total']:.0f}")
+        # every Llama run recorded "L40S" and the L40S rate (GPU env var unset in the containers);
+        # cells after 16:52 CET ran on A100-80GB, so the true cost lies between the two rates.
+        lsec = sum(r["meta"].get("seconds", 0) for r in json.loads(lp.read_text())["runs"].values())
+        put("llamaUsdHigh", f"{lsec * 2.50 / 3600:.0f}")
         put("nStudentsAll", int(M["nStudentCells"]) + int(M["llamaStudents"]))
         if L.get("mixture"):
             mix_rows_l = mixture_macros(L["mixture"], "llama", config.ADDON_ALPHAS[1:])
@@ -415,6 +419,30 @@ def main():
             t = cross_table(L["cross"])
             if t:
                 M["tableCrossLlama"] = t
+    # third family (Qwen3-8B, thinking off): reduced grid, no cross cells, no chains
+    qp, qs = RES / "runs_qwen3.json", RES / "summary_qwen3.json"
+    if qp.exists() and qs.exists():
+        Q = json.loads(qs.read_text())
+        qr = analyze.included(json.loads(qp.read_text())["runs"])
+        qb = qr["base"]["meta"]["metrics"]
+        put("qthreeBaseConf", f"{qb['mean_conf']:.0f}"); put("qthreeBaseAcc", f"{qb['accuracy']:.0f}")
+        put("qthreeBaseGap", sg(qb["gap"]))
+        qt = [qr[t]["meta"]["metrics"]["gap"] for t in config.TEACHERS if t in qr]
+        put("qthreeTeacherGapMin", sg(min(qt))); put("qthreeTeacherGapMax", sg(max(qt)))
+        for a in config.ADDON_ALPHAS:
+            for lab, K in (("greedy", "G"), ("sampled", "S")):
+                f = Q["es_maps"].get(f"{a}:{lab}")
+                if f:
+                    put(f"qthreeGain{K}{WORDS[a]}", f2(f["gain"])); put(f"qthreeGain{K}{WORDS[a]}CI", ci(f["gain_ci"]))
+        M["tableQwenThree"] = gain_table(Q["es_maps"], None, config.ADDON_ALPHAS)
+        put("qthreeStudents", sum(k.startswith("stu__") for k in qr))
+        put("qthreeRuns", Q["n_runs"]); put("qthreeUsd", f"{Q['usd_total']:.0f}")
+        put("nStudentsAll", int(M["nStudentsAll"]) + int(M["qthreeStudents"]))
+        record_macros(Q["record_maps"], "qthree")
+        if Q.get("mixture"):
+            mix_rows_q = mixture_macros(Q["mixture"], "qthree", config.ADDON_ALPHAS[1:])
+            M["tableMixture"] = M["tableMixture"].replace(
+                "\n\\bottomrule", "\n\\midrule\n" + "\n".join("Qwen3-8B & " + r for r in mix_rows_q) + "\n\\bottomrule")
     M["tableRecordForecast"] = ("\\begin{tabular}{lllllrrl}\n\\toprule\nModel & Audit share & Questions & Start & Start (records) & Predicted gen 4 & Observed gen 4 & Error (95\\% interval) \\\\\n\\midrule\n"
                                 + "\n".join(fr_rows) + "\n\\bottomrule\n\\end{tabular}")
     (Path(__file__).parent / "numbers.tex").write_text(

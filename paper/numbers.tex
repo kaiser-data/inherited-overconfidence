@@ -688,7 +688,8 @@ No audit & over & +19 / +19 & +21 / +21 & +21 / +22 & +21 / +22 & +20 / +21 \\
 \newcommand{\llamaFitNmax}{919}
 \newcommand{\llamaRuns}{76}
 \newcommand{\llamaUsd}{19}
-\newcommand{\nStudentsAll}{284}
+\newcommand{\llamaUsdHigh}{24}
+\newcommand{\nStudentsAll}{316}
 \newcommand{\llamamixSList}{0.32, 0.55 and 0.81}
 \newcommand{\llamamixSTwentyFive}{0.32}
 \newcommand{\llamamixSFifty}{0.55}
@@ -715,6 +716,10 @@ Qwen2.5-7B & 75\% & 0.74 (0.67--0.80) & 0.95 (0.78--1.02) & 0.05 / 0.03 \\
 Llama-3.1-8B & 25\% & 0.32 (0.26--0.41) & 0.23 (0.04--0.71) & 0.10 / 0.12 \\
 Llama-3.1-8B & 50\% & 0.55 (0.47--0.65) & 0.68 (0.22--1.17) & 0.05 / 0.05 \\
 Llama-3.1-8B & 75\% & 0.81 (0.72--1.20) & 1.05 (0.90--1.54) & 0.09 / 0.13 \\
+\midrule
+Qwen3-8B & 25\% & 0.27 (0.24--0.34) & 0.03 (-0.03--0.28) & 0.02 / -0.00 \\
+Qwen3-8B & 50\% & 0.49 (0.42--0.53) & 0.53 (0.08--0.84) & 0.01 / 0.00 \\
+Qwen3-8B & 75\% & 0.74 (0.70--0.80) & 1.00 (0.91--1.03) & -0.00 / -0.02 \\
 \bottomrule
 \end{tabular}}
 \newcommand{\llamarecGainGZero}{1.03}
@@ -843,6 +848,74 @@ $-$1 & 55 & 56 & 57 & 63 & $-$6 & $-$8 \\
 +37 (base) & 93 & 56 & 95 & 65 & +29 & $-$6 \\
 \bottomrule
 \end{tabular}}
+\newcommand{\qthreeBaseConf}{95}
+\newcommand{\qthreeBaseAcc}{55}
+\newcommand{\qthreeBaseGap}{+40}
+\newcommand{\qthreeTeacherGapMin}{$-$32}
+\newcommand{\qthreeTeacherGapMax}{+28}
+\newcommand{\qthreeGainGZero}{0.99}
+\newcommand{\qthreeGainGZeroCI}{0.97--1.02}
+\newcommand{\qthreeGainSZero}{1.04}
+\newcommand{\qthreeGainSZeroCI}{1.01--1.06}
+\newcommand{\qthreeGainGTwentyFive}{0.97}
+\newcommand{\qthreeGainGTwentyFiveCI}{0.95--0.99}
+\newcommand{\qthreeGainSTwentyFive}{0.77}
+\newcommand{\qthreeGainSTwentyFiveCI}{0.75--0.80}
+\newcommand{\qthreeGainGFifty}{0.48}
+\newcommand{\qthreeGainGFiftyCI}{0.45--0.50}
+\newcommand{\qthreeGainSFifty}{0.53}
+\newcommand{\qthreeGainSFiftyCI}{0.50--0.56}
+\newcommand{\qthreeGainGSeventyFive}{0.01}
+\newcommand{\qthreeGainGSeventyFiveCI}{-0.01--0.03}
+\newcommand{\qthreeGainSSeventyFive}{0.24}
+\newcommand{\qthreeGainSSeventyFiveCI}{0.21--0.26}
+\newcommand{\tableQwenThree}{\begin{tabular}{lccc}
+\toprule
+Audit share & Most likely answer & Sampled answer & $1-$share \\
+\midrule
+0\% & 0.99 (0.97--1.02) & 1.04 (1.01--1.06) & 1.00 \\
+25\% & 0.97 (0.95--0.99) & 0.77 (0.75--0.80) & 0.75 \\
+50\% & 0.48 (0.45--0.50) & 0.53 (0.50--0.56) & 0.50 \\
+75\% & 0.01 (-0.01--0.03) & 0.24 (0.21--0.26) & 0.25 \\
+\bottomrule
+\end{tabular}}
+\newcommand{\qthreeStudents}{32}
+\newcommand{\qthreeRuns}{40}
+\newcommand{\qthreeUsd}{12}
+\newcommand{\qthreerecGainGZero}{0.97}
+\newcommand{\qthreerecGainGZeroCI}{0.94--0.99}
+\newcommand{\qthreerecSevenGainGZero}{0.97}
+\newcommand{\qthreerecSevenGainGZeroCI}{0.94--0.99}
+\newcommand{\qthreepoolGGain}{1.03}
+\newcommand{\qthreepoolGResid}{4.8}
+\newcommand{\qthreepoolGMax}{12.5}
+\newcommand{\qthreepoolGN}{32}
+\newcommand{\qthreepoolGIcept}{$-$1.0}
+\newcommand{\qthreetrainGMin}{0.13}
+\newcommand{\qthreetrainGMax}{1.26}
+\newcommand{\qthreerecGainSZero}{1.01}
+\newcommand{\qthreerecGainSZeroCI}{0.99--1.04}
+\newcommand{\qthreerecSevenGainSZero}{1.01}
+\newcommand{\qthreerecSevenGainSZeroCI}{0.98--1.04}
+\newcommand{\qthreepoolSGain}{1.01}
+\newcommand{\qthreepoolSResid}{1.2}
+\newcommand{\qthreepoolSMax}{2.7}
+\newcommand{\qthreepoolSN}{32}
+\newcommand{\qthreepoolSIcept}{+0.9}
+\newcommand{\qthreetrainSMin}{1.00}
+\newcommand{\qthreetrainSMax}{1.02}
+\newcommand{\qthreemixSList}{0.27, 0.49 and 0.74}
+\newcommand{\qthreemixSTwentyFive}{0.27}
+\newcommand{\qthreemixSFifty}{0.49}
+\newcommand{\qthreemixSSeventyFive}{0.74}
+\newcommand{\qthreemixGList}{0.03, 0.53 and 1.00}
+\newcommand{\qthreemixGTwentyFive}{0.03}
+\newcommand{\qthreemixGFifty}{0.53}
+\newcommand{\qthreemixGSeventyFive}{1.00}
+\newcommand{\qthreemixBaseMax}{0.02}
+\newcommand{\qthreemixBaseMaxOne}{0.17}
+\newcommand{\qthreemixGMaxOne}{1.03}
+\newcommand{\qthreemixSepRange}{0.84--0.89}
 \newcommand{\tableRecordForecast}{\begin{tabular}{lllllrrl}
 \toprule
 Model & Audit share & Questions & Start & Start (records) & Predicted gen 4 & Observed gen 4 & Error (95\% interval) \\
