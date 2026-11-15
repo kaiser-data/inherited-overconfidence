@@ -142,5 +142,6 @@ def train_lora(base, tok, records: list[dict], seed: int, hp: dict = config.HP):
     pm.eval()
     k = max(1, len(losses) // 10)
     log = {"steps": step, "loss_first": sum(losses[:k]) / k, "loss_last": sum(losses[-k:]) / k,
-           "train_seconds": time.time() - t0, "n_records": len(records)}
+           "train_seconds": time.time() - t0, "n_records": len(records),
+           "n_at_max_len": sum(len(ids) >= hp["max_len"] for ids, _ in data)}
     return pm, log

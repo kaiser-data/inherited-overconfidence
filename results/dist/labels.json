@@ -1,0 +1,69 @@
+{
+ "q3_8b": {
+  "n_in": 2000,
+  "retained": 0.9935,
+  "parsed": 0.998,
+  "accuracy_unparsed_wrong": 55.7,
+  "sets": {
+   "q3_8b__raw": {
+    "n": 1987,
+    "label_mean": 94.97181680926019,
+    "label_mode": 95,
+    "mode_share": 0.9229994967287368,
+    "teacher_accuracy": 56.06441872169099,
+    "hist": {
+     "70": 4,
+     "75": 3,
+     "85": 7,
+     "90": 49,
+     "95": 1834,
+     "99": 31,
+     "100": 59
+    },
+    "answers_sha": "5bebd936110b9144"
+   },
+   "q3_8b__tcal": {
+    "n": 1987,
+    "label_mean": 54.46149974836437,
+    "label_mode": 55,
+    "mode_share": 0.9229994967287368,
+    "teacher_accuracy": 56.06441872169099,
+    "hist": {
+     "5": 7,
+     "10": 56,
+     "55": 1834,
+     "75": 90
+    },
+    "answers_sha": "5bebd936110b9144"
+   },
+   "q3_8b__scal_qwen25": {
+    "n": 1987,
+    "label_mean": 54.95470558631102,
+    "label_mode": 55,
+    "mode_share": 0.9229994967287368,
+    "teacher_accuracy": 56.06441872169099,
+    "hist": {
+     "25": 63,
+     "55": 1834,
+     "75": 90
+    },
+    "answers_sha": "5bebd936110b9144",
+    "student_base_accuracy": 55.91343734272773
+   },
+   "q3_8b__scal_llama31": {
+    "n": 1987,
+    "label_mean": 64.81882234524409,
+    "label_mode": 65,
+    "mode_share": 0.9229994967287368,
+    "teacher_accuracy": 56.06441872169099,
+    "hist": {
+     "45": 63,
+     "65": 1834,
+     "75": 90
+    },
+    "answers_sha": "5bebd936110b9144",
+    "student_base_accuracy": 64.51937594363362
+   }
+  }
+ }
+}

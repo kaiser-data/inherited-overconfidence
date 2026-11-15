@@ -107,6 +107,31 @@ def fq_chain_cells(lam: float, alpha: float) -> list[dict]:
     return out
 
 
+# Distillation-ladder arm, added 2026-11-15 (PROTOCOL.md, Deviations). The record files are
+# written by distill.py with the final confidence label in them, so every cell trains at
+# audit share 0 (labels passed through). Launch order = priority if the arm must be cut.
+DIST_TEACHERS = ["q3_235b", "q3_30b", "q3_8b"]
+DIST_SEED_TEACHER = "q3_235b"
+
+
+DIST_CAL_SET = "F1"  # 2,000 questions no model in this arm is trained on
+
+
+def dist_cells(student_fam: str) -> list[dict]:
+    """cal: the trained student also answers the calibration set (sampled and greedy), for the
+    post-hoc remedy fitted on held-out questions."""
+    def c(name, seed=1, cal=False):
+        return student_cell(name, 0.0, es=True, tfam="dist", seed=seed, gen_d=cal,
+                            gen_set=DIST_CAL_SET if cal else None)
+    sets = lambda t: [f"{t}__raw", f"{t}__tcal", f"{t}__scal_{student_fam}"]
+    out = [c(n, cal=True) for n in sets(DIST_SEED_TEACHER)]
+    out.append(student_cell("base", 1.0, es=True, gen_d=True, gen_set=DIST_CAL_SET))  # control: own records, fully audited
+    out.append(c(f"{DIST_SEED_TEACHER}__shuf"))
+    out += [c(n, seed=s) for s in (2, 3) for n in sets(DIST_SEED_TEACHER)[1:]]
+    out += [c(n) for t in DIST_TEACHERS[1:] for n in sets(t)]
+    return out
+
+
 def grid(stage: str) -> list[dict]:
     if stage == "teachers":
         return [teacher_cell(l) for l in LAMBDAS]
@@ -157,6 +182,8 @@ def grid(stage: str) -> list[dict]:
     if stage.startswith("fqg"):  # fqg1 .. fqg4
         g = int(stage[len("fqg"):])
         return [fq_chain_cells(l, a)[g - 1] for l in CHAIN_LAMBDAS for a in FQ_ARMS]
+    if stage.startswith("dist_"):  # dist_qwen25, dist_llama31: run with --fam = that student family
+        return dist_cells(stage[len("dist_"):])
     raise ValueError(f"unknown stage {stage!r}")
 
 

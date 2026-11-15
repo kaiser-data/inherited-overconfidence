@@ -389,17 +389,17 @@ def run_cells(cells: list[dict], force: bool = False, fam: str = "qwen25"):
 
 
 @app.function(image=image, volumes={"/vol": vol}, timeout=1800)
-def pull(fam: str = "qwen25"):
-    """Return every run's metrics and compact per-item eval rows."""
+def pull(fam: str = "qwen25", names: list[str] | None = None):
+    """Return every run's metrics and compact per-item eval rows (names: only these runs)."""
     vol.reload()
     out = {}
     runs = RUNS(fam)
     for d in sorted(runs.iterdir()) if runs.exists() else []:
         mf = d / "metrics.json"
-        if not mf.exists():
+        if not mf.exists() or (names is not None and d.name not in names):
             continue
         item = {"meta": json.loads(mf.read_text()), "eval": {}}
-        for ef in d.glob("eval*.jsonl"):
+        for ef in list(d.glob("eval*.jsonl")) + (list(d.glob("d_*.jsonl")) if names is not None else []):
             item["eval"][ef.stem] = [
                 {k: r.get(k) for k in ("id", "answer", "conf", "correct", "answer2", "conf2", "correct2")}
                 for r in _read(ef)]
@@ -466,6 +466,12 @@ def main(stage: str, dry_run: bool = False, only: str = "", force: bool = False,
         out.write_bytes(export_raw.remote(fam=fam))
         print(f"{out} {out.stat().st_size / 1e6:.1f} MB")
         return
+    if stage == "pulldist":  # the distillation-ladder cells only; runs*.json stay untouched
+        r = pull.remote(fam=fam, names=[c["name"] for c in config.grid(f"dist_{fam}")])
+        out = res_dir / f"runs_dist_{fam}.json"
+        out.write_text(json.dumps(r))
+        print(f"{len(r['runs'])} runs -> {out}")
+        return
     if stage == "pull":
         r = pull.remote(fam=fam)
         out = res_dir / ("runs.json" if fam == "qwen25" else f"runs_{fam}.json")
@@ -477,8 +483,8 @@ def main(stage: str, dry_run: bool = False, only: str = "", force: bool = False,
     cells = list({c["name"]: c for s in stage.split(",") for c in config.grid(s)}.values())
     if any(c.get("tfam") == fam for c in cells):
         raise SystemExit(f"cross-family stage {stage}: --fam must be the student family, not {fam}")
-    if fam != "qwen25" and any(c.get("forge") is not None or c.get("dset", "D") != "D" or c.get("gen_set")
-                               for c in cells):
+    if fam != "qwen25" and not stage.startswith("dist_") and any(
+            c.get("forge") is not None or c.get("dset", "D") != "D" or c.get("gen_set") for c in cells):
         raise SystemExit("the forged-tag and fresh-question arms are defined for qwen25 only")
     if only:
         keep = set(only.split(","))
