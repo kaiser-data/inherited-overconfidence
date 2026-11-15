@@ -1,7 +1,7 @@
-"""Distillation-ladder arm (PROTOCOL.md, Deviations, 2026-11-15): teachers of three sizes,
+"""Distillation arm (PROTOCOL.md, Deviations, 2026-11-15): hosted teachers,
 the same answers with different confidence labels.
 
-  python3 distill.py gen   --teacher q3_30b      # hosted teacher answers D once (resumable)
+  python3 distill.py gen   --teacher ds41f       # hosted teacher answers D once (resumable)
   python3 distill.py build                        # label sets -> results/dist/<name>/d_main.jsonl
   python3 distill.py report                       # table from results/runs_dist_<fam>.json
 
@@ -34,18 +34,18 @@ import core  # noqa: E402
 
 RES = HERE.parent / "results"
 OUT = RES / "dist"
-HOSTED = {"q3_30b": "Qwen/Qwen3-30B-A3B-Instruct-2507",
-          "q3_235b": "Qwen/Qwen3-235B-A22B-Instruct-2507"}
-LOCAL = {"q3_8b": ("raw_qwen3.tar.gz", "runs_qwen3/base/d_main.jsonl")}
-TEACHERS = ["q3_8b", "q3_30b", "q3_235b"]
+HOSTED = {"ds41f": "deepseek-ai/DeepSeek-V4.1-Flash-1017",  # Sep 2026, MIT
+          "q38_27b": "Qwen/Qwen3.8-27B"}                     # Aug 2026, Apache-2.0
+LOCAL: dict = {}
+TEACHERS = list(config.DIST_TEACHERS)
 # Student base model's own sampled answers on D (same decoding as the records and as the
 # sampled readout the predictions are tested on). A question it gave no parsed answer to
 # counts as wrong.
-STUDENTS = {"qwen25": ("raw_qwen25.tar.gz", "runs/base/d_main.jsonl"),
-            "llama31": ("raw_llama31.tar.gz", "runs_llama31/base/d_main.jsonl")}
-TOKENIZERS = {"qwen25": "Qwen/Qwen2.5-7B-Instruct", "llama31": "unsloth/Meta-Llama-3.1-8B-Instruct"}
-SHUF_TEACHERS = ["q3_235b"]
-MAX_TOKENS = 200
+# (fetched with `modal run modal_app.py --stage basedmain --fam <fam>`)
+STUDENTS = {f: OUT / "_base" / f"{f}_d_main.jsonl" for f in config.NEW_FAMS}
+TOKENIZERS = {f: config.FAMILIES[f] for f in config.NEW_FAMS}
+SHUF_TEACHERS = [config.DIST_SEED_TEACHER]
+MAX_TOKENS = 4000  # both teachers reason before answering; at 800 the panel lost replies to the limit
 MAX_WORDS = 15  # keeps the whole reply inside the 192-token training window and the 40-token
 #                 evaluation budget; `check` verifies the window with both student tokenizers
 GEN = dict(temperature=1.0, top_p=0.95)
@@ -144,7 +144,7 @@ def _chat(model: str, msgs: list[dict], k: str) -> dict:
     for attempt in range(5):
         try:
             r = panel._call("/chat/completions", {"model": model, "messages": msgs,
-                                                  "max_tokens": MAX_TOKENS, **GEN}, k)
+                                                  "max_tokens": MAX_TOKENS, **GEN}, k, timeout=300)
             ch = r["choices"][0]
             return {"raw": ch["message"].get("content") or "", "finish": ch.get("finish_reason"),
                     "model": r.get("model"), "usage": r.get("usage") or {}, "attempts": attempt + 1}
@@ -208,7 +208,9 @@ def teacher_rows(teacher: str) -> list[dict]:
 def build(teachers: list[str]):
     D, perm = load_d()
     q = {r["id"]: r for r in D}
-    sc = {fam: {r["id"]: bool(r["correct"]) for r in _tar_rows(*src)} for fam, src in STUDENTS.items()}
+    sc = {fam: {r["id"]: bool(r["correct"]) for r in map(json.loads, src.read_text().splitlines())}
+          for fam, src in STUDENTS.items() if src.exists()}
+    print("student families with base records:", sorted(sc))
     summary = {}
     for t in teachers:
         allrows = teacher_rows(t)
@@ -216,7 +218,7 @@ def build(teachers: list[str]):
             raise RuntimeError(f"{t}: records outside D")
         rows = retained(allrows)
         sets = {f"{t}__raw": {r["id"]: r["conf"] for r in rows}, f"{t}__tcal": tcal(rows, q, perm)}
-        for fam in STUDENTS:
+        for fam in sc:
             sets[f"{t}__scal_{fam}"] = scal(rows, sc[fam])
         if t in SHUF_TEACHERS:
             sets[f"{t}__shuf"] = shuf(sets[f"{t}__tcal"])
@@ -253,8 +255,9 @@ def check():
             rows = [json.loads(x) for x in (d / "d_main.jsonl").read_text().splitlines()]
             n = []
             for r in rows:
+                kw = {"enable_thinking": False} if "qwen3" in name.lower() else {}  # as gpu.render
                 p_ids = tok(tok.apply_chat_template(core.messages(q[r["id"]]["q"]), tokenize=False,
-                                                    add_generation_prompt=True), add_special_tokens=False)["input_ids"]
+                                                    add_generation_prompt=True, **kw), add_special_tokens=False)["input_ids"]
                 r_ids = tok(core.reply_text(r["answer"], r["conf"]) + tok.eos_token, add_special_tokens=False)["input_ids"]
                 n.append((len(p_ids) + len(r_ids), len(r_ids)))
             over = sum(a > config.HP["max_len"] for a, _ in n)

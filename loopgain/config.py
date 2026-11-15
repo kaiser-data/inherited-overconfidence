@@ -4,7 +4,10 @@ from __future__ import annotations
 BASE = "Qwen/Qwen2.5-7B-Instruct"
 # Families. "qwen25" is the main study; others are declared add-ons with a reduced grid.
 FAMILIES = {"qwen25": BASE, "llama31": "unsloth/Meta-Llama-3.1-8B-Instruct",
-            "qwen3": "Qwen/Qwen3-8B"}  # qwen3: added 2026-11-15, needs LG_TF=4.51 (see modal_app.py)
+            "qwen3": "Qwen/Qwen3-8B",  # qwen3: added 2026-11-15, needs LG_TF=4.51 (see modal_app.py)
+            # students of the distillation arm (2026 releases, Apache-2.0); need LG_TF=5.14
+            "qwen35": "Qwen/Qwen3.5-9B", "granite41": "ibm-granite/granite-4.1-8b"}
+NEW_FAMS = ("qwen35", "granite41")
 ADDON_ALPHAS = [0.0, 0.25, 0.50, 0.75]
 DATA_SEED = 20261114
 N_T, N_D, N_E = 2000, 2000, 1000
@@ -107,11 +110,11 @@ def fq_chain_cells(lam: float, alpha: float) -> list[dict]:
     return out
 
 
-# Distillation-ladder arm, added 2026-11-15 (PROTOCOL.md, Deviations). The record files are
+# Distillation arm, added 2026-11-15 (PROTOCOL.md, Deviations). The record files are
 # written by distill.py with the final confidence label in them, so every cell trains at
 # audit share 0 (labels passed through). Launch order = priority if the arm must be cut.
-DIST_TEACHERS = ["q3_235b", "q3_30b", "q3_8b"]
-DIST_SEED_TEACHER = "q3_235b"
+DIST_TEACHERS = ["ds41f", "q38_27b"]  # DeepSeek-V4.1-Flash (large), Qwen3.8-27B (mid-size)
+DIST_SEED_TEACHER = "ds41f"
 
 
 DIST_CAL_SET = "F1"  # 2,000 questions no model in this arm is trained on

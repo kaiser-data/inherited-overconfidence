@@ -78,15 +78,15 @@ def test_passthrough_at_share_zero():
 
 
 def test_dist_grid():
-    for fam in ("qwen25", "llama31"):
+    for fam in config.NEW_FAMS:
         cells = config.grid(f"dist_{fam}")
         names = [c["name"] for c in cells]
-        assert len(cells) == 15 and len(set(names)) == 15
+        assert len(cells) == 12 and len(set(names)) == 12
         assert names[3] == "stu__base__a100__main__s1__es"
         assert [c["gen_set"] for c in cells[:5]] == ["F1"] * 4 + [None]
-        assert names[4].startswith("stu__q3_235b__shuf") and "q3_8b" in names[-1]
+        assert names[4].startswith("stu__ds41f__shuf") and "q38_27b" in names[-1]
         assert all(c["es"] and (c["tfam"] == "dist" or c["teacher"] == "base") for c in cells)
-        assert sum("scal" in n for n in names) == 5 and all(fam in n for n in names if "scal" in n)
+        assert sum("scal" in n for n in names) == 4 and all(fam in n for n in names if "scal" in n)
     # earlier grids are unchanged
     assert len(config.grid("es")) == 56 and len(config.grid("xllama31")) == 16
 

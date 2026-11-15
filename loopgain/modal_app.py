@@ -29,10 +29,12 @@ vol = modal.Volume.from_name("loopgain-vol", create_if_missing=True)
 # earlier families keep the original pins (their cells were produced with them).
 TF = os.environ.get("LG_TF", "4.46")
 PINS = {"4.46": ("transformers==4.46.3", "peft==0.13.2", "accelerate==1.1.1"),
-        "4.51": ("transformers==4.51.3", "peft==0.15.2", "accelerate==1.6.0")}[TF]
+        "4.51": ("transformers==4.51.3", "peft==0.15.2", "accelerate==1.6.0"),
+        "5.14": ("transformers==5.14.1", "peft==0.21.3", "accelerate==1.15.0")}[TF]
+TORCH = "torch==2.15.0" if TF == "5.14" else "torch==2.5.1"
 image = (
     modal.Image.debian_slim(python_version="3.11")
-    .pip_install("torch==2.5.1", *PINS, "datasets==3.1.0", "hf_transfer==0.1.8", "numpy==2.1.3")
+    .pip_install(TORCH, *PINS, "datasets==3.1.0", "hf_transfer==0.1.8", "numpy==2.1.3")
     .env({"HF_HOME": "/vol/hf", "HF_HUB_ENABLE_HF_TRANSFER": "1",
           "TOKENIZERS_PARALLELISM": "false",
           "LG_GPU": GPU, "LG_TF": TF})  # so that each run records the GPU it actually ran on
@@ -232,7 +234,8 @@ def smoke(fam: str = "qwen25"):
 # ------------------------------------------------------------------ stage: base (GPU)
 
 @app.function(image=image, volumes={"/vol": vol}, gpu=GPU, timeout=3 * 3600)
-def base_pass(force: bool = False, fam: str = "qwen25"):
+def base_pass(force: bool = False, fam: str = "qwen25", lite: bool = False):
+    """lite: E and D only (students of the distillation arm need no installed teachers)."""
     _setup()
     import config, core, gpu
     run = RUNS(fam) / "base"
@@ -247,15 +250,16 @@ def base_pass(force: bool = False, fam: str = "qwen25"):
     _write(run / "eval.jsonl", ev)
     _write(run / "d_main.jsonl", gpu.answer_rows(base, tok, D, "main", seed=1))
     _write(run / "d_greedy.jsonl", gpu.answer_rows(base, tok, D, "greedy"))
-    t_rows = gpu.answer_rows(base, tok, T, "greedy")
+    t_rows = [] if lite else gpu.answer_rows(base, tok, T, "greedy")
     for r in t_rows:
         r["samples"] = []
-    for k in range(config.K_CONSISTENCY):
+    for k in range(0 if lite else config.K_CONSISTENCY):
         for r, s in zip(t_rows, gpu.answer_rows(base, tok, T, "main", seed=100 + k)):
             r["samples"].append(s["answer"])
-    _write(run / "t_base.jsonl", t_rows)
+    if not lite:
+        _write(run / "t_base.jsonl", t_rows)
     infos = {}
-    for lam in config.LAMBDAS:
+    for lam in ([] if lite else config.LAMBDAS):
         recs, info = core.build_teacher_records(t_rows, q, lam)
         _write(TDATA(fam) / f"{config.teacher_name(lam)}.jsonl", recs)
         infos[config.teacher_name(lam)] = info
@@ -264,7 +268,8 @@ def base_pass(force: bool = False, fam: str = "qwen25"):
     meta = {"name": "base", "kind": "base", "family": fam, "base": config.FAMILIES[fam],
             "metrics": m, "rendered_input": rendered,
             "teacher_data": infos, "seconds": secs, "gpu": GPU, "usd": secs / 3600 * RATE.get(GPU, 0),
-            "t_parsed": sum(r["answer"] is not None for r in t_rows) / len(t_rows)}
+            "t_parsed": None if lite else sum(r["answer"] is not None for r in t_rows) / len(t_rows),
+            "d_main": core.metrics(_read(run / "d_main.jsonl")), "lite": lite}
     (run / "metrics.json").write_text(json.dumps(meta, indent=1))
     vol.commit()
     return meta
@@ -444,6 +449,8 @@ def main(stage: str, dry_run: bool = False, only: str = "", force: bool = False,
     import config
     res_dir = HERE.parent / "results"
     res_dir.mkdir(exist_ok=True)
+    if fam in config.NEW_FAMS and TF != "5.14":
+        raise SystemExit(f"{fam} needs LG_TF=5.14")
     if stage == "data":
         print(json.dumps(prep_data.remote(force=force), indent=1))
         return
@@ -456,7 +463,7 @@ def main(stage: str, dry_run: bool = False, only: str = "", force: bool = False,
         print(json.dumps(r, indent=1))
         return
     if stage == "base":
-        r = base_pass.remote(force=force, fam=fam)
+        r = base_pass.remote(force=force, fam=fam, lite=fam in config.NEW_FAMS)
         print(json.dumps({k: v for k, v in r.items() if k != "teacher_data"}, indent=1))
         for k, v in (r.get("teacher_data") or {}).items():
             print(k, {kk: vv for kk, vv in v.items() if kk != "iso_blocks"})
@@ -465,6 +472,12 @@ def main(stage: str, dry_run: bool = False, only: str = "", force: bool = False,
         out = res_dir / f"raw_{fam}.tar.gz"
         out.write_bytes(export_raw.remote(fam=fam))
         print(f"{out} {out.stat().st_size / 1e6:.1f} MB")
+        return
+    if stage == "basedmain":  # the student base's sampled answers on D (for the student-fitted labels)
+        out = res_dir / "dist" / "_base" / f"{fam}_d_main.jsonl"
+        out.parent.mkdir(parents=True, exist_ok=True)
+        out.write_text(fetch.remote(f"runs_{fam}/base/d_main.jsonl"))
+        print(out)
         return
     if stage == "pulldist":  # the distillation-ladder cells only; runs*.json stay untouched
         r = pull.remote(fam=fam, names=[c["name"] for c in config.grid(f"dist_{fam}")])
@@ -480,6 +493,8 @@ def main(stage: str, dry_run: bool = False, only: str = "", force: bool = False,
         return
     if fam == "qwen3" and TF != "4.51":
         raise SystemExit("qwen3 needs LG_TF=4.51")
+    if fam in config.NEW_FAMS and TF != "5.14":
+        raise SystemExit(f"{fam} needs LG_TF=5.14")
     cells = list({c["name"]: c for s in stage.split(",") for c in config.grid(s)}.values())
     if any(c.get("tfam") == fam for c in cells):
         raise SystemExit(f"cross-family stage {stage}: --fam must be the student family, not {fam}")
