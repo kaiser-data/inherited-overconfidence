@@ -354,6 +354,19 @@ def main():
         put("scoreOffsetRange", f"{min(offs):.1f}--{max(offs):.1f}")
         ag = [100 * v["agreement"] for v in A.values()]
         put("scoreAgreeRange", f"{min(ag):.1f}--{max(ag):.1f}")
+    # second grader (Claude Haiku 5.5) on cross-model students and their same-model comparisons
+    hq, hl = RES / "scoring_audit_claude-haiku-5-5.json", RES / "scoring_audit_claude-haiku-5-5_llama31.json"
+    if hq.exists() and hl.exists():
+        H = {**{"q:" + k: v for k, v in json.loads(hq.read_text()).items()},
+             **{"l:" + k: v for k, v in json.loads(hl.read_text()).items()}}
+        ag = [100 * v["agreement"] for v in H.values()]
+        put("haikuRuns", len(H)); put("haikuAgreeRange", f"{min(ag):.1f}--{max(ag):.1f}")
+        for pre, x, W in (("q:", "xllama31", ""), ("l:", "xqwen25", "Llama")):
+            cr = [v for k, v in H.items() if k.startswith(pre) and k.endswith(x)]
+            sm = [v for k, v in H.items() if k.startswith(pre) and not k.endswith(x)]
+            for key, K in (("gap_rule", "Rule"), ("gap_llm", "Llm")):
+                off = sum(v[key] for v in cr) / len(cr) - sum(v[key] for v in sm) / len(sm)
+                put(f"haiku{W}Offset{K}", sg(off, 1))
     # hosted panel
     pp = RES / "panel.json"
     if pp.exists():

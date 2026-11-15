@@ -1,0 +1,3106 @@
+{
+ "stu__base__a00__main__s1__es__xqwen25": {
+  "n": 1000,
+  "graded": 1000,
+  "agreement": 0.967,
+  "rule_yes_llm_no": 5,
+  "rule_no_llm_yes": 28,
+  "acc_rule": 65.3,
+  "acc_llm": 67.6,
+  "gap_rule": 29.485,
+  "gap_llm": 27.185000000000002,
+  "examples_disagree": [
+   {
+    "q": "The shortest chapter in the Bible is in which book?",
+    "ref": "Psalms 117",
+    "answer": "Psalm 117",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "Who is the detective played by Martin Shaw in a t.v. series set in North East England in the 1960's?",
+    "ref": "'GEORGE GENTLY'",
+    "answer": "Inspector Gently",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "What is the former name of Helsingor, Denmark?",
+    "ref": "Elsinor",
+    "answer": "Elsinore",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "Which Cricket county's ' Twenty / 20 ' team are known as the ' Foxes ' ?",
+    "ref": "LEICESTERSHIRE",
+    "answer": "Leicester",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "In the film Christine, who or what was Christine",
+    "ref": "A car",
+    "answer": "Christine was a possessed 1958 Plymouth Fury.",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "What does Mexican Coke have that American Coke doesn't?",
+    "ref": "Sugar",
+    "answer": "Mexican Coke is made with cane sugar, while American Coke is made with high fructose corn syrup.",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "\"Which organisation runs the undergraduate college in Annapolis, Maryland, USA, that is known as \"\"The Academy\"\"?\"",
+    "ref": "The US Navy",
+    "answer": "United States Naval Academy",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "Who was the friend of Little Jackie Paper?",
+    "ref": "Puff the Magic Dragon",
+    "answer": "Little Jackie Paper's friend was Little Boy Blue.",
+    "rule": true,
+    "llm": false
+   },
+   {
+    "q": "Whose arch nemisis is the Red Skull?",
+    "ref": "Captain America's",
+    "answer": "Captain America",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "What type of animal, according to its alternative name, is the Thylacine now thought to be extinct?",
+    "ref": "TASMANIAN WOLF",
+    "answer": "Tasmanian Tiger",
+    "rule": true,
+    "llm": false
+   },
+   {
+    "q": "For what does the I stand in the Government Department known as BIS?",
+    "ref": "(Department For Business,) Innovation (And Skills)",
+    "answer": "Innovation",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "What is the final event in a decathlon?",
+    "ref": "1500 metres",
+    "answer": "1500 meters",
+    "rule": false,
+    "llm": true
+   }
+  ]
+ },
+ "stu__base__a75__main__s1__es__xqwen25": {
+  "n": 1000,
+  "graded": 1000,
+  "agreement": 0.968,
+  "rule_yes_llm_no": 7,
+  "rule_no_llm_yes": 25,
+  "acc_rule": 64.8,
+  "acc_llm": 66.6,
+  "gap_rule": -6.114999999999995,
+  "gap_llm": -7.914999999999992,
+  "examples_disagree": [
+   {
+    "q": "The shortest chapter in the Bible is in which book?",
+    "ref": "Psalms 117",
+    "answer": "Psalm 117",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "What is the former name of Helsingor, Denmark?",
+    "ref": "Elsinor",
+    "answer": "Elsinore",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "Who did Prince Andrew marry?",
+    "ref": "Sarah Ferguson",
+    "answer": "Sarah, Duchess of York",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "In the film Christine, who or what was Christine",
+    "ref": "A car",
+    "answer": "Christine was a possessed 1958 Plymouth Fury",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "Who was the friend of Little Jackie Paper?",
+    "ref": "Puff the Magic Dragon",
+    "answer": "Little Jackie Paper's friend was Little Miss Muffet.",
+    "rule": true,
+    "llm": false
+   },
+   {
+    "q": "Whose arch nemisis is the Red Skull?",
+    "ref": "Captain America's",
+    "answer": "Captain America",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "What type of animal, according to its alternative name, is the Thylacine now thought to be extinct?",
+    "ref": "TASMANIAN WOLF",
+    "answer": "Tasmanian Tiger",
+    "rule": true,
+    "llm": false
+   },
+   {
+    "q": "For what does the I stand in the Government Department known as BIS?",
+    "ref": "(Department For Business,) Innovation (And Skills)",
+    "answer": "Innovation",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "What is the final event in a decathlon?",
+    "ref": "1500 metres",
+    "answer": "1500 meters",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "Bran Castle that is located on the border between Transylvania and Wallachia in Romania is marketed as the home of which sinister figure?",
+    "ref": "Bram Stoker's Dracula",
+    "answer": "Dracula",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "At the time of her construction in 2003, what was the longest, widest, tallest, largest passenger ship ever built?",
+    "ref": "Queen Mary II",
+    "answer": "Queen Mary 2",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "Which title character was named Dolores Haze?",
+    "ref": "Lolita",
+    "answer": "Dolores Haze was the title character in the novel \"Lolita\" by Vladimir Nabokov.",
+    "rule": false,
+    "llm": true
+   }
+  ]
+ },
+ "stu__teach_m067__a00__main__s1__es__xqwen25": {
+  "n": 1000,
+  "graded": 1000,
+  "agreement": 0.976,
+  "rule_yes_llm_no": 2,
+  "rule_no_llm_yes": 22,
+  "acc_rule": 63.4,
+  "acc_llm": 65.4,
+  "gap_rule": -18.75,
+  "gap_llm": -20.750000000000007,
+  "examples_disagree": [
+   {
+    "q": "Which English football club play their home games at Craven Cottage?",
+    "ref": "Fulham FC",
+    "answer": "Fulham",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "The shortest chapter in the Bible is in which book?",
+    "ref": "Psalms 117",
+    "answer": "Psalm 117",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "Who did Prince Andrew marry?",
+    "ref": "Sarah Ferguson",
+    "answer": "Sarah, Duchess of York",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "In the film Christine, who or what was Christine",
+    "ref": "A car",
+    "answer": "A possessed 1958 Plymouth Fury",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "A \u201cslim jim\u201d is a type of pick used to open what type of lock without a key?",
+    "ref": "Car door",
+    "answer": "A \"slim jim\" is a type of pick used to open a car lock without a key.",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "Whose arch nemisis is the Red Skull?",
+    "ref": "Captain America's",
+    "answer": "Captain America",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "What type of animal, according to its alternative name, is the Thylacine now thought to be extinct?",
+    "ref": "TASMANIAN WOLF",
+    "answer": "Tasmanian Tiger",
+    "rule": true,
+    "llm": false
+   },
+   {
+    "q": "What is the final event in a decathlon?",
+    "ref": "1500 metres",
+    "answer": "1500 meters",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "During a penalty shoot out in soccer where should the non participating players be",
+    "ref": "In the centre circle",
+    "answer": "In the center circle",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "At the time of her construction in 2003, what was the longest, widest, tallest, largest passenger ship ever built?",
+    "ref": "Queen Mary II",
+    "answer": "Queen Mary 2",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "What are the world's three most expensive spices",
+    "ref": "Saffron",
+    "answer": "Saffron, cardamom, and sumac",
+    "rule": true,
+    "llm": false
+   },
+   {
+    "q": "Who in 1845, wrote the poem 'The Pied Piper of Hamlin'?",
+    "ref": "ROBERTBROWNING",
+    "answer": "Robert Browning",
+    "rule": false,
+    "llm": true
+   }
+  ]
+ },
+ "stu__teach_m067__a75__main__s1__es__xqwen25": {
+  "n": 1000,
+  "graded": 1000,
+  "agreement": 0.972,
+  "rule_yes_llm_no": 2,
+  "rule_no_llm_yes": 26,
+  "acc_rule": 63.0,
+  "acc_llm": 65.4,
+  "gap_rule": -6.884999999999998,
+  "gap_llm": -9.285000000000004,
+  "examples_disagree": [
+   {
+    "q": "Which English football club play their home games at Craven Cottage?",
+    "ref": "Fulham FC",
+    "answer": "Fulham",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "The shortest chapter in the Bible is in which book?",
+    "ref": "Psalms 117",
+    "answer": "Psalm 117",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "What is the former name of Helsingor, Denmark?",
+    "ref": "Elsinor",
+    "answer": "Elsinore",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "Who did Prince Andrew marry?",
+    "ref": "Sarah Ferguson",
+    "answer": "Sarah, Duchess of York",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "In the film Christine, who or what was Christine",
+    "ref": "A car",
+    "answer": "A possessed 1958 Plymouth Fury",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "What does Mexican Coke have that American Coke doesn't?",
+    "ref": "Sugar",
+    "answer": "Mexican Coke has cane sugar instead of high-fructose corn syrup.",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "Whose arch nemisis is the Red Skull?",
+    "ref": "Captain America's",
+    "answer": "Captain America",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "What type of animal, according to its alternative name, is the Thylacine now thought to be extinct?",
+    "ref": "TASMANIAN WOLF",
+    "answer": "Tasmanian Tiger",
+    "rule": true,
+    "llm": false
+   },
+   {
+    "q": "What is the final event in a decathlon?",
+    "ref": "1500 metres",
+    "answer": "1500 meters",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "Bran Castle that is located on the border between Transylvania and Wallachia in Romania is marketed as the home of which sinister figure?",
+    "ref": "Bram Stoker's Dracula",
+    "answer": "Dracula",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "During a penalty shoot out in soccer where should the non participating players be",
+    "ref": "In the centre circle",
+    "answer": "In the center circle",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "At the time of her construction in 2003, what was the longest, widest, tallest, largest passenger ship ever built?",
+    "ref": "Queen Mary II",
+    "answer": "Queen Mary 2",
+    "rule": false,
+    "llm": true
+   }
+  ]
+ },
+ "stu__teach_m133__a00__main__s1__es__xqwen25": {
+  "n": 1000,
+  "graded": 1000,
+  "agreement": 0.972,
+  "rule_yes_llm_no": 2,
+  "rule_no_llm_yes": 26,
+  "acc_rule": 62.8,
+  "acc_llm": 65.2,
+  "gap_rule": -29.549999999999997,
+  "gap_llm": -31.950000000000003,
+  "examples_disagree": [
+   {
+    "q": "Which English football club play their home games at Craven Cottage?",
+    "ref": "Fulham FC",
+    "answer": "Fulham",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "What is the former name of Helsingor, Denmark?",
+    "ref": "Elsinor",
+    "answer": "Elsinore",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "Who did Prince Andrew marry?",
+    "ref": "Sarah Ferguson",
+    "answer": "Sarah, Duchess of York",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "A \u201cslim jim\u201d is a type of pick used to open what type of lock without a key?",
+    "ref": "Car door",
+    "answer": "A \"slim jim\" is a type of pick used to open a car lock.",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "What compete at the Burghley Trials, Badminton, the Rolex Kentucky Three Day, the Adelaide Trials, the Luhmhlen Trials and the toiles de Pau?",
+    "ref": "Horse riders",
+    "answer": "Eventers",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "Whose arch nemisis is the Red Skull?",
+    "ref": "Captain America's",
+    "answer": "Captain America",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "What type of animal, according to its alternative name, is the Thylacine now thought to be extinct?",
+    "ref": "TASMANIAN WOLF",
+    "answer": "Tasmanian Tiger",
+    "rule": true,
+    "llm": false
+   },
+   {
+    "q": "For what does the I stand in the Government Department known as BIS?",
+    "ref": "(Department For Business,) Innovation (And Skills)",
+    "answer": "Innovation",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "What is the final event in a decathlon?",
+    "ref": "1500 metres",
+    "answer": "1500 meters",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "During a penalty shoot out in soccer where should the non participating players be",
+    "ref": "In the centre circle",
+    "answer": "In the center circle",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "At the time of her construction in 2003, what was the longest, widest, tallest, largest passenger ship ever built?",
+    "ref": "Queen Mary II",
+    "answer": "Queen Mary 2",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "Name the ingredients that make up that classic American favorite, the Big Mac",
+    "ref": "Two all beef patties, special sauce, lettuce, cheese, pickles, onions on a sesame seed bun",
+    "answer": "Beef patty, special sauce, lettuce, cheese, pickles, onions, sesame seed bun",
+    "rule": false,
+    "llm": true
+   }
+  ]
+ },
+ "stu__teach_m133__a75__main__s1__es__xqwen25": {
+  "n": 1000,
+  "graded": 1000,
+  "agreement": 0.974,
+  "rule_yes_llm_no": 2,
+  "rule_no_llm_yes": 24,
+  "acc_rule": 63.4,
+  "acc_llm": 65.6,
+  "gap_rule": -8.649999999999999,
+  "gap_llm": -10.849999999999994,
+  "examples_disagree": [
+   {
+    "q": "Which English football club play their home games at Craven Cottage?",
+    "ref": "Fulham FC",
+    "answer": "Fulham",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "What is the former name of Helsingor, Denmark?",
+    "ref": "Elsinor",
+    "answer": "Elsinore",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "Who did Prince Andrew marry?",
+    "ref": "Sarah Ferguson",
+    "answer": "Sarah, Duchess of York",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "A \u201cslim jim\u201d is a type of pick used to open what type of lock without a key?",
+    "ref": "Car door",
+    "answer": "A \"slim jim\" is a type of pick used to open a car lock.",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "What compete at the Burghley Trials, Badminton, the Rolex Kentucky Three Day, the Adelaide Trials, the Luhmhlen Trials and the toiles de Pau?",
+    "ref": "Horse riders",
+    "answer": "Eventers",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "\"Which organisation runs the undergraduate college in Annapolis, Maryland, USA, that is known as \"\"The Academy\"\"?\"",
+    "ref": "The US Navy",
+    "answer": "United States Naval Academy",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "Whose arch nemisis is the Red Skull?",
+    "ref": "Captain America's",
+    "answer": "Captain America",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "What type of animal, according to its alternative name, is the Thylacine now thought to be extinct?",
+    "ref": "TASMANIAN WOLF",
+    "answer": "Tasmanian Tiger",
+    "rule": true,
+    "llm": false
+   },
+   {
+    "q": "For what does the I stand in the Government Department known as BIS?",
+    "ref": "(Department For Business,) Innovation (And Skills)",
+    "answer": "Innovation",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "What is the final event in a decathlon?",
+    "ref": "1500 metres",
+    "answer": "1500 meters",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "Bran Castle that is located on the border between Transylvania and Wallachia in Romania is marketed as the home of which sinister figure?",
+    "ref": "Bram Stoker's Dracula",
+    "answer": "Dracula",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "During a penalty shoot out in soccer where should the non participating players be",
+    "ref": "In the centre circle",
+    "answer": "In the center circle",
+    "rule": false,
+    "llm": true
+   }
+  ]
+ },
+ "stu__teach_m200__a00__main__s1__es__xqwen25": {
+  "n": 1000,
+  "graded": 1000,
+  "agreement": 0.976,
+  "rule_yes_llm_no": 3,
+  "rule_no_llm_yes": 21,
+  "acc_rule": 65.3,
+  "acc_llm": 67.1,
+  "gap_rule": -41.05499999999999,
+  "gap_llm": -42.85499999999999,
+  "examples_disagree": [
+   {
+    "q": "Which English football club play their home games at Craven Cottage?",
+    "ref": "Fulham FC",
+    "answer": "Fulham",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "The shortest chapter in the Bible is in which book?",
+    "ref": "Psalms 117",
+    "answer": "Psalm 117",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "What is the former name of Helsingor, Denmark?",
+    "ref": "Elsinor",
+    "answer": "Elsinore",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "A \u201cslim jim\u201d is a type of pick used to open what type of lock without a key?",
+    "ref": "Car door",
+    "answer": "Slim jim is a type of lock pick used to open a car door lock.",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "Whose arch nemisis is the Red Skull?",
+    "ref": "Captain America's",
+    "answer": "Captain America",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "What type of animal, according to its alternative name, is the Thylacine now thought to be extinct?",
+    "ref": "TASMANIAN WOLF",
+    "answer": "Tasmanian Tiger",
+    "rule": true,
+    "llm": false
+   },
+   {
+    "q": "For what does the I stand in the Government Department known as BIS?",
+    "ref": "(Department For Business,) Innovation (And Skills)",
+    "answer": "Innovation",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "What is the final event in a decathlon?",
+    "ref": "1500 metres",
+    "answer": "1500 meters",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "At the time of her construction in 2003, what was the longest, widest, tallest, largest passenger ship ever built?",
+    "ref": "Queen Mary II",
+    "answer": "Queen Mary 2",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "Name the ingredients that make up that classic American favorite, the Big Mac",
+    "ref": "Two all beef patties, special sauce, lettuce, cheese, pickles, onions on a sesame seed bun",
+    "answer": "Beef, lettuce, cheese, pickles, onions, special sauce, bun",
+    "rule": true,
+    "llm": false
+   },
+   {
+    "q": "What are the world's three most expensive spices",
+    "ref": "Saffron",
+    "answer": "Saffron, Vanilla, and Cardamom",
+    "rule": true,
+    "llm": false
+   },
+   {
+    "q": "Gymnogynomania is an urge to spy on people while they are doing what?",
+    "ref": "Undressing",
+    "answer": "Gymnogynomania is an urge to spy on people while they are undressing.",
+    "rule": false,
+    "llm": true
+   }
+  ]
+ },
+ "stu__teach_m200__a75__main__s1__es__xqwen25": {
+  "n": 999,
+  "graded": 999,
+  "agreement": 0.975975975975976,
+  "rule_yes_llm_no": 3,
+  "rule_no_llm_yes": 21,
+  "acc_rule": 65.36536536536536,
+  "acc_llm": 67.16716716716716,
+  "gap_rule": -10.490490490490487,
+  "gap_llm": -12.292292292292288,
+  "examples_disagree": [
+   {
+    "q": "Which English football club play their home games at Craven Cottage?",
+    "ref": "Fulham FC",
+    "answer": "Fulham",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "The shortest chapter in the Bible is in which book?",
+    "ref": "Psalms 117",
+    "answer": "Psalm 117",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "What is the former name of Helsingor, Denmark?",
+    "ref": "Elsinor",
+    "answer": "Elsinore",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "A \u201cslim jim\u201d is a type of pick used to open what type of lock without a key?",
+    "ref": "Car door",
+    "answer": "Slim jim is a type of pick used to open a car lock.",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "Whose arch nemisis is the Red Skull?",
+    "ref": "Captain America's",
+    "answer": "Captain America",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "What type of animal, according to its alternative name, is the Thylacine now thought to be extinct?",
+    "ref": "TASMANIAN WOLF",
+    "answer": "Tasmanian Tiger",
+    "rule": true,
+    "llm": false
+   },
+   {
+    "q": "What is the final event in a decathlon?",
+    "ref": "1500 metres",
+    "answer": "1500 meters",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "At the time of her construction in 2003, what was the longest, widest, tallest, largest passenger ship ever built?",
+    "ref": "Queen Mary II",
+    "answer": "Queen Mary 2",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "Name the ingredients that make up that classic American favorite, the Big Mac",
+    "ref": "Two all beef patties, special sauce, lettuce, cheese, pickles, onions on a sesame seed bun",
+    "answer": "Beef, lettuce, cheese, pickles, onions, special sauce, bun",
+    "rule": true,
+    "llm": false
+   },
+   {
+    "q": "What are the world's three most expensive spices",
+    "ref": "Saffron",
+    "answer": "Saffron, Vanilla, and Cardamom",
+    "rule": true,
+    "llm": false
+   },
+   {
+    "q": "Gymnogynomania is an urge to spy on people while they are doing what?",
+    "ref": "Undressing",
+    "answer": "Gymnogynomania is an urge to spy on people while they are undressing.",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "Who in 1845, wrote the poem 'The Pied Piper of Hamlin'?",
+    "ref": "ROBERTBROWNING",
+    "answer": "Robert Browning",
+    "rule": false,
+    "llm": true
+   }
+  ]
+ },
+ "stu__teach_p000__a00__main__s1__es__xqwen25": {
+  "n": 1000,
+  "graded": 1000,
+  "agreement": 0.971,
+  "rule_yes_llm_no": 3,
+  "rule_no_llm_yes": 26,
+  "acc_rule": 62.7,
+  "acc_llm": 65.0,
+  "gap_rule": -5.605000000000004,
+  "gap_llm": -7.905000000000001,
+  "examples_disagree": [
+   {
+    "q": "Which English football club play their home games at Craven Cottage?",
+    "ref": "Fulham FC",
+    "answer": "Fulham",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "The shortest chapter in the Bible is in which book?",
+    "ref": "Psalms 117",
+    "answer": "Psalm 117",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "What is the former name of Helsingor, Denmark?",
+    "ref": "Elsinor",
+    "answer": "Elsinore",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "Who did Prince Andrew marry?",
+    "ref": "Sarah Ferguson",
+    "answer": "Sarah, Duchess of York",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "In the film Christine, who or what was Christine",
+    "ref": "A car",
+    "answer": "Christine was a possessed 1958 Plymouth Fury.",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "What does Mexican Coke have that American Coke doesn't?",
+    "ref": "Sugar",
+    "answer": "Mexican Coke is made with cane sugar, while American Coke is made with high-fructose corn syrup.",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "What compete at the Burghley Trials, Badminton, the Rolex Kentucky Three Day, the Adelaide Trials, the Luhmhlen Trials and the toiles de Pau?",
+    "ref": "Horse riders",
+    "answer": "Eventers",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "Whose arch nemisis is the Red Skull?",
+    "ref": "Captain America's",
+    "answer": "Captain America",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "What type of animal, according to its alternative name, is the Thylacine now thought to be extinct?",
+    "ref": "TASMANIAN WOLF",
+    "answer": "Tasmanian Tiger",
+    "rule": true,
+    "llm": false
+   },
+   {
+    "q": "For what does the I stand in the Government Department known as BIS?",
+    "ref": "(Department For Business,) Innovation (And Skills)",
+    "answer": "Innovation",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "What is the final event in a decathlon?",
+    "ref": "1500 metres",
+    "answer": "1500m",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "At the time of her construction in 2003, what was the longest, widest, tallest, largest passenger ship ever built?",
+    "ref": "Queen Mary II",
+    "answer": "Queen Mary 2",
+    "rule": false,
+    "llm": true
+   }
+  ]
+ },
+ "stu__teach_p000__a75__main__s1__es__xqwen25": {
+  "n": 1000,
+  "graded": 1000,
+  "agreement": 0.969,
+  "rule_yes_llm_no": 4,
+  "rule_no_llm_yes": 27,
+  "acc_rule": 64.4,
+  "acc_llm": 66.7,
+  "gap_rule": -7.560000000000002,
+  "gap_llm": -9.86,
+  "examples_disagree": [
+   {
+    "q": "Which English football club play their home games at Craven Cottage?",
+    "ref": "Fulham FC",
+    "answer": "Fulham",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "The shortest chapter in the Bible is in which book?",
+    "ref": "Psalms 117",
+    "answer": "Psalm 117",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "What is the former name of Helsingor, Denmark?",
+    "ref": "Elsinor",
+    "answer": "Elsinore",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "Who did Prince Andrew marry?",
+    "ref": "Sarah Ferguson",
+    "answer": "Sarah, Duchess of York",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "A \u201cslim jim\u201d is a type of pick used to open what type of lock without a key?",
+    "ref": "Car door",
+    "answer": "Slim jim is a type of lock pick used to open a car door lock.",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "What does Mexican Coke have that American Coke doesn't?",
+    "ref": "Sugar",
+    "answer": "Mexican Coke is made with cane sugar, while American Coke is made with high-fructose corn syrup.",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "What compete at the Burghley Trials, Badminton, the Rolex Kentucky Three Day, the Adelaide Trials, the Luhmhlen Trials and the toiles de Pau?",
+    "ref": "Horse riders",
+    "answer": "Eventers",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "Whose arch nemisis is the Red Skull?",
+    "ref": "Captain America's",
+    "answer": "Captain America",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "What type of animal, according to its alternative name, is the Thylacine now thought to be extinct?",
+    "ref": "TASMANIAN WOLF",
+    "answer": "Tasmanian Tiger",
+    "rule": true,
+    "llm": false
+   },
+   {
+    "q": "For what does the I stand in the Government Department known as BIS?",
+    "ref": "(Department For Business,) Innovation (And Skills)",
+    "answer": "Innovation",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "What is the final event in a decathlon?",
+    "ref": "1500 metres",
+    "answer": "1500m",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "At the time of her construction in 2003, what was the longest, widest, tallest, largest passenger ship ever built?",
+    "ref": "Queen Mary II",
+    "answer": "Queen Mary 2",
+    "rule": false,
+    "llm": true
+   }
+  ]
+ },
+ "stu__teach_p067__a00__main__s1__es__xqwen25": {
+  "n": 1000,
+  "graded": 1000,
+  "agreement": 0.968,
+  "rule_yes_llm_no": 5,
+  "rule_no_llm_yes": 27,
+  "acc_rule": 63.6,
+  "acc_llm": 65.8,
+  "gap_rule": 5.630000000000003,
+  "gap_llm": 3.430000000000007,
+  "examples_disagree": [
+   {
+    "q": "Deborah Cavendish, Dowager Duchess of Devonshire is the last survivor of which family of siblings?",
+    "ref": "MITFORD SISTERS",
+    "answer": "Mitford",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "Which English football club play their home games at Craven Cottage?",
+    "ref": "Fulham FC",
+    "answer": "Fulham",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "The shortest chapter in the Bible is in which book?",
+    "ref": "Psalms 117",
+    "answer": "Psalm 117",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "What is the former name of Helsingor, Denmark?",
+    "ref": "Elsinor",
+    "answer": "Elsinore",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "In the film Christine, who or what was Christine",
+    "ref": "A car",
+    "answer": "Christine was a possessed 1958 Plymouth Fury.",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "A \u201cslim jim\u201d is a type of pick used to open what type of lock without a key?",
+    "ref": "Car door",
+    "answer": "car",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "Whose arch nemisis is the Red Skull?",
+    "ref": "Captain America's",
+    "answer": "Captain America",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "What type of animal, according to its alternative name, is the Thylacine now thought to be extinct?",
+    "ref": "TASMANIAN WOLF",
+    "answer": "Tasmanian Tiger",
+    "rule": true,
+    "llm": false
+   },
+   {
+    "q": "For what does the I stand in the Government Department known as BIS?",
+    "ref": "(Department For Business,) Innovation (And Skills)",
+    "answer": "Innovation",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "What is the final event in a decathlon?",
+    "ref": "1500 metres",
+    "answer": "1500 meters",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "Bran Castle that is located on the border between Transylvania and Wallachia in Romania is marketed as the home of which sinister figure?",
+    "ref": "Bram Stoker's Dracula",
+    "answer": "Dracula",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "What was the home ground of Leyton Orient called before it became the Matchroom Stadium?",
+    "ref": "Brisbane Road",
+    "answer": "Matchroom Stadium",
+    "rule": true,
+    "llm": false
+   }
+  ]
+ },
+ "stu__teach_p067__a75__main__s1__es__xqwen25": {
+  "n": 1000,
+  "graded": 1000,
+  "agreement": 0.971,
+  "rule_yes_llm_no": 5,
+  "rule_no_llm_yes": 24,
+  "acc_rule": 64.4,
+  "acc_llm": 66.3,
+  "gap_rule": -7.130000000000003,
+  "gap_llm": -9.029999999999994,
+  "examples_disagree": [
+   {
+    "q": "Deborah Cavendish, Dowager Duchess of Devonshire is the last survivor of which family of siblings?",
+    "ref": "MITFORD SISTERS",
+    "answer": "Mitford",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "Which English football club play their home games at Craven Cottage?",
+    "ref": "Fulham FC",
+    "answer": "Fulham",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "The shortest chapter in the Bible is in which book?",
+    "ref": "Psalms 117",
+    "answer": "Psalm 117",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "What is the name of the fictional club in the James Bond novel \u2018Moonraker\u2019?",
+    "ref": "Blades Club",
+    "answer": "The name of the fictional club in the James Bond novel 'Moonraker' is Blades Club.",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "What is the former name of Helsingor, Denmark?",
+    "ref": "Elsinor",
+    "answer": "Elsinore",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "In the film Christine, who or what was Christine",
+    "ref": "A car",
+    "answer": "A possessed 1958 Plymouth Fury",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "A \u201cslim jim\u201d is a type of pick used to open what type of lock without a key?",
+    "ref": "Car door",
+    "answer": "car",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "Whose arch nemisis is the Red Skull?",
+    "ref": "Captain America's",
+    "answer": "Captain America",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "What type of animal, according to its alternative name, is the Thylacine now thought to be extinct?",
+    "ref": "TASMANIAN WOLF",
+    "answer": "Tasmanian Tiger",
+    "rule": true,
+    "llm": false
+   },
+   {
+    "q": "For what does the I stand in the Government Department known as BIS?",
+    "ref": "(Department For Business,) Innovation (And Skills)",
+    "answer": "Innovation",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "What is the final event in a decathlon?",
+    "ref": "1500 metres",
+    "answer": "1500 meters",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "What was the home ground of Leyton Orient called before it became the Matchroom Stadium?",
+    "ref": "Brisbane Road",
+    "answer": "Matchroom Stadium",
+    "rule": true,
+    "llm": false
+   }
+  ]
+ },
+ "stu__teach_p133__a00__main__s1__es__xqwen25": {
+  "n": 1000,
+  "graded": 1000,
+  "agreement": 0.971,
+  "rule_yes_llm_no": 5,
+  "rule_no_llm_yes": 24,
+  "acc_rule": 64.2,
+  "acc_llm": 66.1,
+  "gap_rule": 12.689999999999998,
+  "gap_llm": 10.790000000000006,
+  "examples_disagree": [
+   {
+    "q": "Which English football club play their home games at Craven Cottage?",
+    "ref": "Fulham FC",
+    "answer": "Fulham",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "The shortest chapter in the Bible is in which book?",
+    "ref": "Psalms 117",
+    "answer": "Psalm 117",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "What is the former name of Helsingor, Denmark?",
+    "ref": "Elsinor",
+    "answer": "Elsinore",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "What does Mexican Coke have that American Coke doesn't?",
+    "ref": "Sugar",
+    "answer": "Mexican Coke is made with cane sugar, while American Coke is made with high fructose corn syrup.",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "Who was the friend of Little Jackie Paper?",
+    "ref": "Puff the Magic Dragon",
+    "answer": "The friend of Little Jackie Paper was Little Miss Muffet.",
+    "rule": true,
+    "llm": false
+   },
+   {
+    "q": "Whose arch nemisis is the Red Skull?",
+    "ref": "Captain America's",
+    "answer": "Captain America",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "What type of animal, according to its alternative name, is the Thylacine now thought to be extinct?",
+    "ref": "TASMANIAN WOLF",
+    "answer": "Tasmanian Tiger",
+    "rule": true,
+    "llm": false
+   },
+   {
+    "q": "For what does the I stand in the Government Department known as BIS?",
+    "ref": "(Department For Business,) Innovation (And Skills)",
+    "answer": "Innovation",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "What is the final event in a decathlon?",
+    "ref": "1500 metres",
+    "answer": "The 1500m run",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "Bran Castle that is located on the border between Transylvania and Wallachia in Romania is marketed as the home of which sinister figure?",
+    "ref": "Bram Stoker's Dracula",
+    "answer": "Dracula",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "At the time of her construction in 2003, what was the longest, widest, tallest, largest passenger ship ever built?",
+    "ref": "Queen Mary II",
+    "answer": "Queen Mary 2",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "Name the ingredients that make up that classic American favorite, the Big Mac",
+    "ref": "Two all beef patties, special sauce, lettuce, cheese, pickles, onions on a sesame seed bun",
+    "answer": "Beef, lettuce, cheese, pickles, onions, special sauce, bun",
+    "rule": true,
+    "llm": false
+   }
+  ]
+ },
+ "stu__teach_p133__a75__main__s1__es__xqwen25": {
+  "n": 1000,
+  "graded": 1000,
+  "agreement": 0.974,
+  "rule_yes_llm_no": 4,
+  "rule_no_llm_yes": 22,
+  "acc_rule": 63.9,
+  "acc_llm": 65.7,
+  "gap_rule": -6.859999999999999,
+  "gap_llm": -8.660000000000004,
+  "examples_disagree": [
+   {
+    "q": "Which English football club play their home games at Craven Cottage?",
+    "ref": "Fulham FC",
+    "answer": "Fulham",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "What is the former name of Helsingor, Denmark?",
+    "ref": "Elsinor",
+    "answer": "Elsinore",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "A \u201cslim jim\u201d is a type of pick used to open what type of lock without a key?",
+    "ref": "Car door",
+    "answer": "Slim Jim is a type of lock pick used to open a car door.",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "What does Mexican Coke have that American Coke doesn't?",
+    "ref": "Sugar",
+    "answer": "Mexican Coke has a sweeter taste due to the use of cane sugar instead of high fructose corn syrup.",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "Who was the friend of Little Jackie Paper?",
+    "ref": "Puff the Magic Dragon",
+    "answer": "The friend of Little Jackie Paper was the friend of the Rolling Stones.",
+    "rule": true,
+    "llm": false
+   },
+   {
+    "q": "Whose arch nemisis is the Red Skull?",
+    "ref": "Captain America's",
+    "answer": "Captain America",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "What type of animal, according to its alternative name, is the Thylacine now thought to be extinct?",
+    "ref": "TASMANIAN WOLF",
+    "answer": "Tasmanian tiger",
+    "rule": true,
+    "llm": false
+   },
+   {
+    "q": "For what does the I stand in the Government Department known as BIS?",
+    "ref": "(Department For Business,) Innovation (And Skills)",
+    "answer": "Innovation",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "What is the final event in a decathlon?",
+    "ref": "1500 metres",
+    "answer": "The 1500m run",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "At the time of her construction in 2003, what was the longest, widest, tallest, largest passenger ship ever built?",
+    "ref": "Queen Mary II",
+    "answer": "Queen Mary 2",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "Name the ingredients that make up that classic American favorite, the Big Mac",
+    "ref": "Two all beef patties, special sauce, lettuce, cheese, pickles, onions on a sesame seed bun",
+    "answer": "Beef, lettuce, cheese, pickles, onions, special sauce",
+    "rule": true,
+    "llm": false
+   },
+   {
+    "q": "What are the world's three most expensive spices",
+    "ref": "Saffron",
+    "answer": "Saffron, Cardamom, Vanilla",
+    "rule": true,
+    "llm": false
+   }
+  ]
+ },
+ "stu__teach_p200__a00__main__s1__es__xqwen25": {
+  "n": 1000,
+  "graded": 1000,
+  "agreement": 0.977,
+  "rule_yes_llm_no": 2,
+  "rule_no_llm_yes": 21,
+  "acc_rule": 65.3,
+  "acc_llm": 67.2,
+  "gap_rule": 19.060000000000002,
+  "gap_llm": 17.159999999999997,
+  "examples_disagree": [
+   {
+    "q": "Deborah Cavendish, Dowager Duchess of Devonshire is the last survivor of which family of siblings?",
+    "ref": "MITFORD SISTERS",
+    "answer": "Mitford",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "Which English football club play their home games at Craven Cottage?",
+    "ref": "Fulham FC",
+    "answer": "Fulham",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "What is the former name of Helsingor, Denmark?",
+    "ref": "Elsinor",
+    "answer": "Elsinore",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "Who did Prince Andrew marry?",
+    "ref": "Sarah Ferguson",
+    "answer": "Sarah, Duchess of York",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "Suya, Puff Puff, and Moin Moin (or Moyi-Moyi) are well-known Nigerian?",
+    "ref": "Foods",
+    "answer": "dishes",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "In the film Christine, who or what was Christine",
+    "ref": "A car",
+    "answer": "Christine was a 1958 Plymouth Fury",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "Whose arch nemisis is the Red Skull?",
+    "ref": "Captain America's",
+    "answer": "Captain America",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "What type of animal, according to its alternative name, is the Thylacine now thought to be extinct?",
+    "ref": "TASMANIAN WOLF",
+    "answer": "Tasmanian Tiger",
+    "rule": true,
+    "llm": false
+   },
+   {
+    "q": "For what does the I stand in the Government Department known as BIS?",
+    "ref": "(Department For Business,) Innovation (And Skills)",
+    "answer": "Innovation",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "At the time of her construction in 2003, what was the longest, widest, tallest, largest passenger ship ever built?",
+    "ref": "Queen Mary II",
+    "answer": "Queen Mary 2",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "What are the world's three most expensive spices",
+    "ref": "Saffron",
+    "answer": "Saffron, Vanilla, and Cardamom",
+    "rule": true,
+    "llm": false
+   },
+   {
+    "q": "Who in 1845, wrote the poem 'The Pied Piper of Hamlin'?",
+    "ref": "ROBERTBROWNING",
+    "answer": "Robert Browning",
+    "rule": false,
+    "llm": true
+   }
+  ]
+ },
+ "stu__teach_p200__a75__main__s1__es__xqwen25": {
+  "n": 999,
+  "graded": 999,
+  "agreement": 0.977977977977978,
+  "rule_yes_llm_no": 3,
+  "rule_no_llm_yes": 19,
+  "acc_rule": 64.86486486486487,
+  "acc_llm": 66.46646646646647,
+  "gap_rule": -5.5405405405405475,
+  "gap_llm": -7.1421421421421485,
+  "examples_disagree": [
+   {
+    "q": "Which English football club play their home games at Craven Cottage?",
+    "ref": "Fulham FC",
+    "answer": "Fulham",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "John Hannah and Ken Stott have both appeared in the role of which fictional detective?",
+    "ref": "John Rebus",
+    "answer": "Inspector Rebus",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "What is the former name of Helsingor, Denmark?",
+    "ref": "Elsinor",
+    "answer": "Elsinore",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "Who did Prince Andrew marry?",
+    "ref": "Sarah Ferguson",
+    "answer": "Sarah, Duchess of York",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "In the film Christine, who or what was Christine",
+    "ref": "A car",
+    "answer": "Christine was a 1958 Plymouth Fury",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "Whose arch nemisis is the Red Skull?",
+    "ref": "Captain America's",
+    "answer": "Captain America",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "What type of animal, according to its alternative name, is the Thylacine now thought to be extinct?",
+    "ref": "TASMANIAN WOLF",
+    "answer": "Tasmanian Tiger",
+    "rule": true,
+    "llm": false
+   },
+   {
+    "q": "During a penalty shoot out in soccer where should the non participating players be",
+    "ref": "In the centre circle",
+    "answer": "In the center circle",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "At the time of her construction in 2003, what was the longest, widest, tallest, largest passenger ship ever built?",
+    "ref": "Queen Mary II",
+    "answer": "Queen Mary 2",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "Which title character was named Dolores Haze?",
+    "ref": "Lolita",
+    "answer": "Dolores Haze from \"The Catcher in the Rye\"",
+    "rule": true,
+    "llm": false
+   },
+   {
+    "q": "What are the world's three most expensive spices",
+    "ref": "Saffron",
+    "answer": "Saffron, vanilla, and safflower",
+    "rule": true,
+    "llm": false
+   },
+   {
+    "q": "Who in 1845, wrote the poem 'The Pied Piper of Hamlin'?",
+    "ref": "ROBERTBROWNING",
+    "answer": "Robert Browning",
+    "rule": false,
+    "llm": true
+   }
+  ]
+ },
+ "stu__base__a00__main__s1__es": {
+  "n": 990,
+  "graded": 990,
+  "agreement": 0.9565656565656566,
+  "rule_yes_llm_no": 2,
+  "rule_no_llm_yes": 41,
+  "acc_rule": 71.01010101010101,
+  "acc_llm": 74.94949494949495,
+  "gap_rule": 26.440404040404033,
+  "gap_llm": 22.501010101010095,
+  "examples_disagree": [
+   {
+    "q": "The River Jordan flows into which sea?",
+    "ref": "Dead Sea",
+    "answer": "The River Jordan flows into the Sea of Galilee and then empties into the Dead Sea.",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "In which race did Zola Budd and Mary Decker famously collide at the 1984 Olympics?",
+    "ref": "3000 metres",
+    "answer": "The 3,000 meters.",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "The shortest chapter in the Bible is in which book?",
+    "ref": "Psalms 117",
+    "answer": "Psalm 117",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "Apart from a battle, what did Nelson lose at Tenerife in 1797?",
+    "ref": "His arm",
+    "answer": "His right arm.",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "Which classic sci-fi novel divides the human species into the gentle Eloi and the bestial Morlocks? Wells?",
+    "ref": "THE TIME MACHINE",
+    "answer": "Yes, it's a novel by H.G. Wells.",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "John Hannah and Ken Stott have both appeared in the role of which fictional detective?",
+    "ref": "John Rebus",
+    "answer": "Inspector Rebus.",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "What is the former name of Helsingor, Denmark?",
+    "ref": "Elsinor",
+    "answer": "Elsinore",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "In the film Christine, who or what was Christine",
+    "ref": "A car",
+    "answer": "Christine is a 1983 American supernatural horror film about a 1958 Plymouth Fury car that is possessed by a supernatural spirit.",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "Elizabeth Taylor made a fortune from what business aside from acting?",
+    "ref": "Perfume",
+    "answer": "Jewelry and perfume sales, particularly through her own fragrance lines and endorsement deals.",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "The Bible tells of 3 wise men visiting Jesus after his birth, but in which of the Gospels does this appear?",
+    "ref": "Matthew",
+    "answer": "The story of the 3 wise men visiting Jesus appears in the Gospel of Matthew.",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "A \u201cslim jim\u201d is a type of pick used to open what type of lock without a key?",
+    "ref": "Car door",
+    "answer": "A \"slim jim\" is a type of pick used to open a car lock without a key.",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "What does Mexican Coke have that American Coke doesn't?",
+    "ref": "Sugar",
+    "answer": "Mexican Coke is made with cane sugar, whereas American Coke is made with high fructose corn syrup.",
+    "rule": false,
+    "llm": true
+   }
+  ]
+ },
+ "stu__base__a75__main__s1__es": {
+  "n": 987,
+  "graded": 987,
+  "agreement": 0.955420466058764,
+  "rule_yes_llm_no": 4,
+  "rule_no_llm_yes": 40,
+  "acc_rule": 70.41540020263425,
+  "acc_llm": 74.0628166160081,
+  "gap_rule": 4.264437689969611,
+  "gap_llm": 0.6170212765957501,
+  "examples_disagree": [
+   {
+    "q": "The River Jordan flows into which sea?",
+    "ref": "Dead Sea",
+    "answer": "The River Jordan flows into the Sea of Galilee and then empties into the Dead Sea.",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "In which race did Zola Budd and Mary Decker famously collide at the 1984 Olympics?",
+    "ref": "3000 metres",
+    "answer": "The 3000 meters.",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "According to Samuel Beckett, who are Vladimir and Estragon waiting for?",
+    "ref": "Godot",
+    "answer": "According to Samuel Beckett, Vladimir and Estragon are waiting for Godot.",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "The shortest chapter in the Bible is in which book?",
+    "ref": "Psalms 117",
+    "answer": "Psalm 117",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "Apart from a battle, what did Nelson lose at Tenerife in 1797?",
+    "ref": "His arm",
+    "answer": "His right arm.",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "John Hannah and Ken Stott have both appeared in the role of which fictional detective?",
+    "ref": "John Rebus",
+    "answer": "Inspector Rebus",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "What is the former name of Helsingor, Denmark?",
+    "ref": "Elsinor",
+    "answer": "Elsinore",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "In the film Christine, who or what was Christine",
+    "ref": "A car",
+    "answer": "Christine is a 1983 American supernatural horror film about a 1958 Plymouth Fury car that is possessed by a supernatural spirit.",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "The Bible tells of 3 wise men visiting Jesus after his birth, but in which of the Gospels does this appear?",
+    "ref": "Matthew",
+    "answer": "The story of the 3 wise men visiting Jesus appears in the Gospel of Matthew.",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "A \u201cslim jim\u201d is a type of pick used to open what type of lock without a key?",
+    "ref": "Car door",
+    "answer": "A \"slim jim\" is a type of lock pick used to open a car door lock.",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "What does Mexican Coke have that American Coke doesn't?",
+    "ref": "Sugar",
+    "answer": "Mexican Coke is made with cane sugar, whereas American Coke is made with high fructose corn syrup.",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "\"Which organisation runs the undergraduate college in Annapolis, Maryland, USA, that is known as \"\"The Academy\"\"?\"",
+    "ref": "The US Navy",
+    "answer": "The United States Naval Academy.",
+    "rule": false,
+    "llm": true
+   }
+  ]
+ },
+ "stu__teach_m067__a00__main__s1__es": {
+  "n": 997,
+  "graded": 997,
+  "agreement": 0.958876629889669,
+  "rule_yes_llm_no": 3,
+  "rule_no_llm_yes": 38,
+  "acc_rule": 70.41123370110331,
+  "acc_llm": 73.92176529588767,
+  "gap_rule": -1.2688064192577713,
+  "gap_llm": -4.779338014042125,
+  "examples_disagree": [
+   {
+    "q": "In which race did Zola Budd and Mary Decker famously collide at the 1984 Olympics?",
+    "ref": "3000 metres",
+    "answer": "The 3,000 meters.",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "The shortest chapter in the Bible is in which book?",
+    "ref": "Psalms 117",
+    "answer": "Psalm 117",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "John Hannah and Ken Stott have both appeared in the role of which fictional detective?",
+    "ref": "John Rebus",
+    "answer": "Inspector Rebus",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "What is the name of the fictional club in the James Bond novel \u2018Moonraker\u2019?",
+    "ref": "Blades Club",
+    "answer": "The name of the fictional club in the James Bond novel 'Moonraker' is Blades Club.",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "What is the former name of Helsingor, Denmark?",
+    "ref": "Elsinor",
+    "answer": "Elsinore.",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "Which group recorded the 1976 album 'Rastaman Vibration'?",
+    "ref": "BOB MARLEY & THE WAILERS",
+    "answer": "The group that recorded the 1976 album 'Rastaman Vibration' is Bob Marley and the Wailers.",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "A \u201cslim jim\u201d is a type of pick used to open what type of lock without a key?",
+    "ref": "Car door",
+    "answer": "A \"slim jim\" is a type of pick used to open a car lock without a key.",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "Who was US President immediately before and after Benjamin Harrison?",
+    "ref": "Grover Cleveland",
+    "answer": "The US President immediately before Benjamin Harrison was Grover Cleveland, and the US President immediately after Benjamin Harrison was also Grover Cleveland.",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "Whose arch nemisis is the Red Skull?",
+    "ref": "Captain America's",
+    "answer": "Captain America",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "What type of animal, according to its alternative name, is the Thylacine now thought to be extinct?",
+    "ref": "TASMANIAN WOLF",
+    "answer": "Tasmanian Tiger.",
+    "rule": true,
+    "llm": false
+   },
+   {
+    "q": "For what does the I stand in the Government Department known as BIS?",
+    "ref": "(Department For Business,) Innovation (And Skills)",
+    "answer": "Innovation",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "What is the final event in a decathlon?",
+    "ref": "1500 metres",
+    "answer": "The final event in a decathlon is the 1500 meters.",
+    "rule": false,
+    "llm": true
+   }
+  ]
+ },
+ "stu__teach_m067__a75__main__s1__es": {
+  "n": 995,
+  "graded": 995,
+  "agreement": 0.964824120603015,
+  "rule_yes_llm_no": 3,
+  "rule_no_llm_yes": 32,
+  "acc_rule": 71.15577889447236,
+  "acc_llm": 74.07035175879398,
+  "gap_rule": 0.23618090452261242,
+  "gap_llm": -2.6783919597990007,
+  "examples_disagree": [
+   {
+    "q": "In which race did Zola Budd and Mary Decker famously collide at the 1984 Olympics?",
+    "ref": "3000 metres",
+    "answer": "The 3,000 meters.",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "The shortest chapter in the Bible is in which book?",
+    "ref": "Psalms 117",
+    "answer": "Psalm 117",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "What is the name of the fictional club in the James Bond novel \u2018Moonraker\u2019?",
+    "ref": "Blades Club",
+    "answer": "The name of the fictional club in the James Bond novel 'Moonraker' is Blades Club.",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "What is the former name of Helsingor, Denmark?",
+    "ref": "Elsinor",
+    "answer": "Elsinore.",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "A \u201cslim jim\u201d is a type of pick used to open what type of lock without a key?",
+    "ref": "Car door",
+    "answer": "A \"slim jim\" is a type of pick used to open a car lock without a key.",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "What does Mexican Coke have that American Coke doesn't?",
+    "ref": "Sugar",
+    "answer": "Mexican Coke is made with cane sugar, while American Coke is made with high-fructose corn syrup.",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "Whose arch nemisis is the Red Skull?",
+    "ref": "Captain America's",
+    "answer": "Captain America",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "What type of animal, according to its alternative name, is the Thylacine now thought to be extinct?",
+    "ref": "TASMANIAN WOLF",
+    "answer": "Tasmanian Tiger.",
+    "rule": true,
+    "llm": false
+   },
+   {
+    "q": "For what does the I stand in the Government Department known as BIS?",
+    "ref": "(Department For Business,) Innovation (And Skills)",
+    "answer": "Innovation",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "What is the final event in a decathlon?",
+    "ref": "1500 metres",
+    "answer": "The final event in a decathlon is the 1500 meters.",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "Bran Castle that is located on the border between Transylvania and Wallachia in Romania is marketed as the home of which sinister figure?",
+    "ref": "Bram Stoker's Dracula",
+    "answer": "Dracula",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "At the time of her construction in 2003, what was the longest, widest, tallest, largest passenger ship ever built?",
+    "ref": "Queen Mary II",
+    "answer": "Queen Mary 2",
+    "rule": false,
+    "llm": true
+   }
+  ]
+ },
+ "stu__teach_m133__a00__main__s1__es": {
+  "n": 999,
+  "graded": 999,
+  "agreement": 0.960960960960961,
+  "rule_yes_llm_no": 3,
+  "rule_no_llm_yes": 36,
+  "acc_rule": 69.36936936936937,
+  "acc_llm": 72.67267267267268,
+  "gap_rule": -15.710710710710707,
+  "gap_llm": -19.014014014014016,
+  "examples_disagree": [
+   {
+    "q": "In which race did Zola Budd and Mary Decker famously collide at the 1984 Olympics?",
+    "ref": "3000 metres",
+    "answer": "The 3000 meters.",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "John Hannah and Ken Stott have both appeared in the role of which fictional detective?",
+    "ref": "John Rebus",
+    "answer": "Inspector Rebus",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "What is the name of the fictional club in the James Bond novel \u2018Moonraker\u2019?",
+    "ref": "Blades Club",
+    "answer": "The name of the fictional club in the James Bond novel 'Moonraker' is Blades Club.",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "What is the former name of Helsingor, Denmark?",
+    "ref": "Elsinor",
+    "answer": "Elsinore.",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "Which group recorded the 1976 album 'Rastaman Vibration'?",
+    "ref": "BOB MARLEY & THE WAILERS",
+    "answer": "The group that recorded the 1976 album 'Rastaman Vibration' is Bob Marley and the Wailers.",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "A \u201cslim jim\u201d is a type of pick used to open what type of lock without a key?",
+    "ref": "Car door",
+    "answer": "A \"slim jim\" is a type of pick used to open a car lock without a key.",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "What does Mexican Coke have that American Coke doesn't?",
+    "ref": "Sugar",
+    "answer": "Mexican Coke is made with cane sugar, while American Coke is made with high-fructose corn syrup.",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "Whose arch nemisis is the Red Skull?",
+    "ref": "Captain America's",
+    "answer": "Captain America.",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "What type of animal, according to its alternative name, is the Thylacine now thought to be extinct?",
+    "ref": "TASMANIAN WOLF",
+    "answer": "Tasmanian Tiger.",
+    "rule": true,
+    "llm": false
+   },
+   {
+    "q": "For what does the I stand in the Government Department known as BIS?",
+    "ref": "(Department For Business,) Innovation (And Skills)",
+    "answer": "Innovation",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "What is the final event in a decathlon?",
+    "ref": "1500 metres",
+    "answer": "The final event in a decathlon is the 1500 meters.",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "At the time of her construction in 2003, what was the longest, widest, tallest, largest passenger ship ever built?",
+    "ref": "Queen Mary II",
+    "answer": "Queen Mary 2",
+    "rule": false,
+    "llm": true
+   }
+  ]
+ },
+ "stu__teach_m133__a75__main__s1__es": {
+  "n": 995,
+  "graded": 995,
+  "agreement": 0.9597989949748744,
+  "rule_yes_llm_no": 3,
+  "rule_no_llm_yes": 37,
+  "acc_rule": 70.05025125628141,
+  "acc_llm": 73.46733668341709,
+  "gap_rule": -1.909547738693476,
+  "gap_llm": -5.326633165829151,
+  "examples_disagree": [
+   {
+    "q": "In which race did Zola Budd and Mary Decker famously collide at the 1984 Olympics?",
+    "ref": "3000 metres",
+    "answer": "The 3000 meters.",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "High Force is in County Durham but what is it",
+    "ref": "A waterfall",
+    "answer": "High Force is a waterfall on the River Tees in County Durham, England.",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "John Hannah and Ken Stott have both appeared in the role of which fictional detective?",
+    "ref": "John Rebus",
+    "answer": "Inspector Rebus",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "What is the name of the fictional club in the James Bond novel \u2018Moonraker\u2019?",
+    "ref": "Blades Club",
+    "answer": "The name of the fictional club in the James Bond novel 'Moonraker' is Blades Club.",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "What is the former name of Helsingor, Denmark?",
+    "ref": "Elsinor",
+    "answer": "Elsinore.",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "In the film Christine, who or what was Christine",
+    "ref": "A car",
+    "answer": "Christine was a 1958 Plymouth Fury.",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "Which group recorded the 1976 album 'Rastaman Vibration'?",
+    "ref": "BOB MARLEY & THE WAILERS",
+    "answer": "The group that recorded the 1976 album 'Rastaman Vibration' is Bob Marley and the Wailers.",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "A \u201cslim jim\u201d is a type of pick used to open what type of lock without a key?",
+    "ref": "Car door",
+    "answer": "A \"slim jim\" is a type of pick used to open a car lock without a key.",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "Which series ended on UK television in 1989 after a 26 year run, and returned in 2005?",
+    "ref": "Doctor Who",
+    "answer": "The series that ended on UK television in 1989 after a 26 year run, and returned in 2005, is \"Doctor Who\".",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "What does Mexican Coke have that American Coke doesn't?",
+    "ref": "Sugar",
+    "answer": "Mexican Coke is made with cane sugar, while American Coke is made with high-fructose corn syrup.",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "Whose arch nemisis is the Red Skull?",
+    "ref": "Captain America's",
+    "answer": "Captain America",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "What type of animal, according to its alternative name, is the Thylacine now thought to be extinct?",
+    "ref": "TASMANIAN WOLF",
+    "answer": "Tasmanian Tiger.",
+    "rule": true,
+    "llm": false
+   }
+  ]
+ },
+ "stu__teach_m200__a00__main__s1__es": {
+  "n": 992,
+  "graded": 992,
+  "agreement": 0.9596774193548387,
+  "rule_yes_llm_no": 3,
+  "rule_no_llm_yes": 37,
+  "acc_rule": 70.76612903225806,
+  "acc_llm": 74.19354838709677,
+  "gap_rule": -30.46875,
+  "gap_llm": -33.896169354838705,
+  "examples_disagree": [
+   {
+    "q": "In which race did Zola Budd and Mary Decker famously collide at the 1984 Olympics?",
+    "ref": "3000 metres",
+    "answer": "The 3,000 meters.",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "High Force is in County Durham but what is it",
+    "ref": "A waterfall",
+    "answer": "High Force is a waterfall on the River Tees in County Durham, England.",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "Apart from a battle, what did Nelson lose at Tenerife in 1797?",
+    "ref": "His arm",
+    "answer": "His right arm.",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "John Hannah and Ken Stott have both appeared in the role of which fictional detective?",
+    "ref": "John Rebus",
+    "answer": "Inspector Rebus.",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "What is the name of the fictional club in the James Bond novel \u2018Moonraker\u2019?",
+    "ref": "Blades Club",
+    "answer": "The name of the fictional club in the James Bond novel \u2018Moonraker\u2019 is Blades Club.",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "What is the former name of Helsingor, Denmark?",
+    "ref": "Elsinor",
+    "answer": "Elsinore.",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "In the film Christine, who or what was Christine",
+    "ref": "A car",
+    "answer": "Christine is a 1958 Plymouth Fury that is possessed by a supernatural force.",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "Which group recorded the 1976 album 'Rastaman Vibration'?",
+    "ref": "BOB MARLEY & THE WAILERS",
+    "answer": "The group that recorded the 1976 album 'Rastaman Vibration' is Bob Marley and the Wailers.",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "A \u201cslim jim\u201d is a type of pick used to open what type of lock without a key?",
+    "ref": "Car door",
+    "answer": "A \"slim jim\" is a type of pick used to open a car door lock without a key.",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "What does Mexican Coke have that American Coke doesn't?",
+    "ref": "Sugar",
+    "answer": "Mexican Coke is made with cane sugar, while American Coke is made with high fructose corn syrup.",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "\"Which organisation runs the undergraduate college in Annapolis, Maryland, USA, that is known as \"\"The Academy\"\"?\"",
+    "ref": "The US Navy",
+    "answer": "The United States Naval Academy.",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "Whose arch nemisis is the Red Skull?",
+    "ref": "Captain America's",
+    "answer": "Captain America",
+    "rule": false,
+    "llm": true
+   }
+  ]
+ },
+ "stu__teach_m200__a75__main__s1__es": {
+  "n": 989,
+  "graded": 989,
+  "agreement": 0.9565217391304348,
+  "rule_yes_llm_no": 4,
+  "rule_no_llm_yes": 39,
+  "acc_rule": 71.28412537917087,
+  "acc_llm": 74.82305358948433,
+  "gap_rule": -6.016177957532861,
+  "gap_llm": -9.555106167846318,
+  "examples_disagree": [
+   {
+    "q": "In which race did Zola Budd and Mary Decker famously collide at the 1984 Olympics?",
+    "ref": "3000 metres",
+    "answer": "The 3,000 meters.",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "High Force is in County Durham but what is it",
+    "ref": "A waterfall",
+    "answer": "High Force is a waterfall on the River Tees in County Durham, England.",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "John Hannah and Ken Stott have both appeared in the role of which fictional detective?",
+    "ref": "John Rebus",
+    "answer": "John Hannah and Ken Stott have both appeared in the role of Detective Inspector John Rebus.",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "What is the name of the fictional club in the James Bond novel \u2018Moonraker\u2019?",
+    "ref": "Blades Club",
+    "answer": "The name of the fictional club in the James Bond novel 'Moonraker' is Blades Club.",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "What is the former name of Helsingor, Denmark?",
+    "ref": "Elsinor",
+    "answer": "Elsinore.",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "Which group recorded the 1976 album 'Rastaman Vibration'?",
+    "ref": "BOB MARLEY & THE WAILERS",
+    "answer": "The group that recorded the 1976 album 'Rastaman Vibration' is Bob Marley and the Wailers.",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "A \u201cslim jim\u201d is a type of pick used to open what type of lock without a key?",
+    "ref": "Car door",
+    "answer": "A \"slim jim\" is a type of pick used to open a car door lock.",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "What does Mexican Coke have that American Coke doesn't?",
+    "ref": "Sugar",
+    "answer": "Mexican Coke is made with cane sugar, while American Coke is made with high fructose corn syrup.",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "Who was the friend of Little Jackie Paper?",
+    "ref": "Puff the Magic Dragon",
+    "answer": "Little Jackie Paper's friend was a dragon.",
+    "rule": true,
+    "llm": false
+   },
+   {
+    "q": "Whose arch nemisis is the Red Skull?",
+    "ref": "Captain America's",
+    "answer": "Captain America",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "What type of animal, according to its alternative name, is the Thylacine now thought to be extinct?",
+    "ref": "TASMANIAN WOLF",
+    "answer": "Tasmanian Tiger.",
+    "rule": true,
+    "llm": false
+   },
+   {
+    "q": "What would a person normally do with perique?",
+    "ref": "Smoke it",
+    "answer": "Perique is a type of tobacco used in pipe smoking, and a person would normally use it to fill a pipe and smoke it.",
+    "rule": false,
+    "llm": true
+   }
+  ]
+ },
+ "stu__teach_p000__a00__main__s1__es": {
+  "n": 995,
+  "graded": 995,
+  "agreement": 0.9567839195979899,
+  "rule_yes_llm_no": 2,
+  "rule_no_llm_yes": 41,
+  "acc_rule": 69.54773869346734,
+  "acc_llm": 73.46733668341709,
+  "gap_rule": 4.64824120603015,
+  "gap_llm": 0.7286432160803997,
+  "examples_disagree": [
+   {
+    "q": "In which race did Zola Budd and Mary Decker famously collide at the 1984 Olympics?",
+    "ref": "3000 metres",
+    "answer": "The 3000 meters.",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "The shortest chapter in the Bible is in which book?",
+    "ref": "Psalms 117",
+    "answer": "Psalm 117",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "Apart from a battle, what did Nelson lose at Tenerife in 1797?",
+    "ref": "His arm",
+    "answer": "His right arm.",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "John Hannah and Ken Stott have both appeared in the role of which fictional detective?",
+    "ref": "John Rebus",
+    "answer": "Inspector Rebus",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "What is the former name of Helsingor, Denmark?",
+    "ref": "Elsinor",
+    "answer": "Elsinore.",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "What does Mexican Coke have that American Coke doesn't?",
+    "ref": "Sugar",
+    "answer": "Mexican Coke is made with cane sugar, while American Coke is made with high-fructose corn syrup.",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "Who was US President immediately before and after Benjamin Harrison?",
+    "ref": "Grover Cleveland",
+    "answer": "The US President immediately before Benjamin Harrison was Grover Cleveland, and the US President immediately after Benjamin Harrison was also Grover Cleveland.",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "Whose arch nemisis is the Red Skull?",
+    "ref": "Captain America's",
+    "answer": "Captain America",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "What would a person normally do with perique?",
+    "ref": "Smoke it",
+    "answer": "Perique is a type of tobacco used in pipe smoking, and a person would normally use it to fill a pipe and smoke it.",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "For what does the I stand in the Government Department known as BIS?",
+    "ref": "(Department For Business,) Innovation (And Skills)",
+    "answer": "Innovation",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "What, generally, is the par on a 300 yard golf hole?",
+    "ref": "Four",
+    "answer": "Around 4.",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "What is the final event in a decathlon?",
+    "ref": "1500 metres",
+    "answer": "The final event in a decathlon is the 1500 meters.",
+    "rule": false,
+    "llm": true
+   }
+  ]
+ },
+ "stu__teach_p000__a75__main__s1__es": {
+  "n": 997,
+  "graded": 997,
+  "agreement": 0.9568706118355065,
+  "rule_yes_llm_no": 2,
+  "rule_no_llm_yes": 41,
+  "acc_rule": 69.80942828485456,
+  "acc_llm": 73.72116349047141,
+  "gap_rule": -0.13540621865597302,
+  "gap_llm": -4.047141424272823,
+  "examples_disagree": [
+   {
+    "q": "In which race did Zola Budd and Mary Decker famously collide at the 1984 Olympics?",
+    "ref": "3000 metres",
+    "answer": "The 3,000 meters.",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "Apart from a battle, what did Nelson lose at Tenerife in 1797?",
+    "ref": "His arm",
+    "answer": "His right arm.",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "John Hannah and Ken Stott have both appeared in the role of which fictional detective?",
+    "ref": "John Rebus",
+    "answer": "Inspector Rebus",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "What is the former name of Helsingor, Denmark?",
+    "ref": "Elsinor",
+    "answer": "Elsinore",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "In the film Christine, who or what was Christine",
+    "ref": "A car",
+    "answer": "Christine is a 1958 Plymouth Fury that is possessed by a supernatural force.",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "Which group recorded the 1976 album 'Rastaman Vibration'?",
+    "ref": "BOB MARLEY & THE WAILERS",
+    "answer": "The group that recorded the 1976 album 'Rastaman Vibration' is Bob Marley and the Wailers.",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "What does Mexican Coke have that American Coke doesn't?",
+    "ref": "Sugar",
+    "answer": "Mexican Coke is made with cane sugar, while American Coke is made with high-fructose corn syrup.",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "\"Which organisation runs the undergraduate college in Annapolis, Maryland, USA, that is known as \"\"The Academy\"\"?\"",
+    "ref": "The US Navy",
+    "answer": "The United States Naval Academy.",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "Who was US President immediately before and after Benjamin Harrison?",
+    "ref": "Grover Cleveland",
+    "answer": "The US President immediately before Benjamin Harrison was Grover Cleveland, and the US President immediately after Benjamin Harrison was also Grover Cleveland.",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "Whose arch nemisis is the Red Skull?",
+    "ref": "Captain America's",
+    "answer": "Captain America",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "For what does the I stand in the Government Department known as BIS?",
+    "ref": "(Department For Business,) Innovation (And Skills)",
+    "answer": "Innovation",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "What is the final event in a decathlon?",
+    "ref": "1500 metres",
+    "answer": "The final event in a decathlon is the 1500 meters.",
+    "rule": false,
+    "llm": true
+   }
+  ]
+ },
+ "stu__teach_p067__a00__main__s1__es": {
+  "n": 990,
+  "graded": 990,
+  "agreement": 0.9616161616161616,
+  "rule_yes_llm_no": 2,
+  "rule_no_llm_yes": 36,
+  "acc_rule": 71.31313131313131,
+  "acc_llm": 74.74747474747475,
+  "gap_rule": 13.106060606060609,
+  "gap_llm": 9.671717171717162,
+  "examples_disagree": [
+   {
+    "q": "In which race did Zola Budd and Mary Decker famously collide at the 1984 Olympics?",
+    "ref": "3000 metres",
+    "answer": "The 3,000 meters.",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "What is the former name of Helsingor, Denmark?",
+    "ref": "Elsinor",
+    "answer": "Elsinore.",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "What does the musical term con fuoco mean",
+    "ref": "With fire",
+    "answer": "Con fuoco means \"with fire\" in Italian, and it is a musical term that indicates a piece should be played with great passion, energy, and intensity.",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "In the film Christine, who or what was Christine",
+    "ref": "A car",
+    "answer": "Christine is a 1958 Plymouth Fury that is possessed by a supernatural force.",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "Which group recorded the 1976 album 'Rastaman Vibration'?",
+    "ref": "BOB MARLEY & THE WAILERS",
+    "answer": "The group that recorded the 1976 album 'Rastaman Vibration' is Bob Marley and the Wailers.",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "A \u201cslim jim\u201d is a type of pick used to open what type of lock without a key?",
+    "ref": "Car door",
+    "answer": "A \"slim jim\" is a type of pick used to open a car lock without a key.",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "What does Mexican Coke have that American Coke doesn't?",
+    "ref": "Sugar",
+    "answer": "Mexican Coke is made with real sugar, whereas American Coke is made with high-fructose corn syrup.",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "Who was US President immediately before and after Benjamin Harrison?",
+    "ref": "Grover Cleveland",
+    "answer": "The US President immediately before Benjamin Harrison was Grover Cleveland, and the US President immediately after Benjamin Harrison was also Grover Cleveland.",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "Whose arch nemisis is the Red Skull?",
+    "ref": "Captain America's",
+    "answer": "Captain America",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "What is the final event in a decathlon?",
+    "ref": "1500 metres",
+    "answer": "The final event in a decathlon is the 1500 meters.",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "Bran Castle that is located on the border between Transylvania and Wallachia in Romania is marketed as the home of which sinister figure?",
+    "ref": "Bram Stoker's Dracula",
+    "answer": "Dracula",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "In a Shakespeare play, Lancelot Gobbo is whose servant?",
+    "ref": "Shylock",
+    "answer": "Lancelot Gobbo is the servant of Shylock in the play \"The Merchant of Venice\".",
+    "rule": false,
+    "llm": true
+   }
+  ]
+ },
+ "stu__teach_p067__a75__main__s1__es": {
+  "n": 994,
+  "graded": 993,
+  "agreement": 0.9587109768378651,
+  "rule_yes_llm_no": 3,
+  "rule_no_llm_yes": 38,
+  "acc_rule": 70.19133937562941,
+  "acc_llm": 73.71601208459215,
+  "gap_rule": -0.3927492447130021,
+  "gap_llm": -3.917421953675742,
+  "examples_disagree": [
+   {
+    "q": "In which race did Zola Budd and Mary Decker famously collide at the 1984 Olympics?",
+    "ref": "3000 metres",
+    "answer": "The 3,000 meters.",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "John Hannah and Ken Stott have both appeared in the role of which fictional detective?",
+    "ref": "John Rebus",
+    "answer": "Inspector Rebus",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "What is the name of the fictional club in the James Bond novel \u2018Moonraker\u2019?",
+    "ref": "Blades Club",
+    "answer": "The name of the fictional club in the James Bond novel 'Moonraker' is Blades Club.",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "What is the former name of Helsingor, Denmark?",
+    "ref": "Elsinor",
+    "answer": "Elsinore.",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "In the film Christine, who or what was Christine",
+    "ref": "A car",
+    "answer": "Christine is a 1958 Plymouth Fury that is possessed by a supernatural force.",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "Which group recorded the 1976 album 'Rastaman Vibration'?",
+    "ref": "BOB MARLEY & THE WAILERS",
+    "answer": "The group that recorded the 1976 album 'Rastaman Vibration' is Bob Marley and the Wailers.",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "A \u201cslim jim\u201d is a type of pick used to open what type of lock without a key?",
+    "ref": "Car door",
+    "answer": "A \"slim jim\" is a type of pick used to open a car lock.",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "What does Mexican Coke have that American Coke doesn't?",
+    "ref": "Sugar",
+    "answer": "Mexican Coke is made with real sugar, whereas American Coke is made with high-fructose corn syrup.",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "Who was US President immediately before and after Benjamin Harrison?",
+    "ref": "Grover Cleveland",
+    "answer": "The US President immediately before Benjamin Harrison was Grover Cleveland, and the US President immediately after Benjamin Harrison was also Grover Cleveland.",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "Whose arch nemisis is the Red Skull?",
+    "ref": "Captain America's",
+    "answer": "Captain America",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "What is the final event in a decathlon?",
+    "ref": "1500 metres",
+    "answer": "The final event in a decathlon is the 1500 meters.",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "Bran Castle that is located on the border between Transylvania and Wallachia in Romania is marketed as the home of which sinister figure?",
+    "ref": "Bram Stoker's Dracula",
+    "answer": "Dracula",
+    "rule": false,
+    "llm": true
+   }
+  ]
+ },
+ "stu__teach_p133__a00__main__s1__es": {
+  "n": 996,
+  "graded": 996,
+  "agreement": 0.9578313253012049,
+  "rule_yes_llm_no": 3,
+  "rule_no_llm_yes": 39,
+  "acc_rule": 69.87951807228916,
+  "acc_llm": 73.49397590361446,
+  "gap_rule": 17.34939759036145,
+  "gap_llm": 13.734939759036152,
+  "examples_disagree": [
+   {
+    "q": "In which race did Zola Budd and Mary Decker famously collide at the 1984 Olympics?",
+    "ref": "3000 metres",
+    "answer": "The 3000 meters.",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "John Hannah and Ken Stott have both appeared in the role of which fictional detective?",
+    "ref": "John Rebus",
+    "answer": "Inspector Rebus",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "What is the former name of Helsingor, Denmark?",
+    "ref": "Elsinor",
+    "answer": "Elsinore.",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "In the film Christine, who or what was Christine",
+    "ref": "A car",
+    "answer": "Christine was a 1958 Plymouth Fury possessed by a supernatural force.",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "A \u201cslim jim\u201d is a type of pick used to open what type of lock without a key?",
+    "ref": "Car door",
+    "answer": "A \"slim jim\" is a type of pick used to open a car lock without a key.",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "What does Mexican Coke have that American Coke doesn't?",
+    "ref": "Sugar",
+    "answer": "Mexican Coke is made with cane sugar, while American Coke is made with high fructose corn syrup.",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "Who was US President immediately before and after Benjamin Harrison?",
+    "ref": "Grover Cleveland",
+    "answer": "Immediately before Benjamin Harrison, the US President was Grover Cleveland, and immediately after Benjamin Harrison, the US President was Grover Cleveland again.",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "Whose arch nemisis is the Red Skull?",
+    "ref": "Captain America's",
+    "answer": "Captain America",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "What type of animal, according to its alternative name, is the Thylacine now thought to be extinct?",
+    "ref": "TASMANIAN WOLF",
+    "answer": "Tasmanian Tiger.",
+    "rule": true,
+    "llm": false
+   },
+   {
+    "q": "For what does the I stand in the Government Department known as BIS?",
+    "ref": "(Department For Business,) Innovation (And Skills)",
+    "answer": "Innovation",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "What is the final event in a decathlon?",
+    "ref": "1500 metres",
+    "answer": "The final event in a decathlon is the 1500 meters.",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "Bran Castle that is located on the border between Transylvania and Wallachia in Romania is marketed as the home of which sinister figure?",
+    "ref": "Bram Stoker's Dracula",
+    "answer": "Dracula.",
+    "rule": false,
+    "llm": true
+   }
+  ]
+ },
+ "stu__teach_p133__a75__main__s1__es": {
+  "n": 995,
+  "graded": 995,
+  "agreement": 0.9628140703517588,
+  "rule_yes_llm_no": 4,
+  "rule_no_llm_yes": 33,
+  "acc_rule": 71.05527638190955,
+  "acc_llm": 73.96984924623115,
+  "gap_rule": 1.8140703517587866,
+  "gap_llm": -1.1005025125628123,
+  "examples_disagree": [
+   {
+    "q": "In which race did Zola Budd and Mary Decker famously collide at the 1984 Olympics?",
+    "ref": "3000 metres",
+    "answer": "The 3000 meters.",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "John Hannah and Ken Stott have both appeared in the role of which fictional detective?",
+    "ref": "John Rebus",
+    "answer": "Inspector Rebus",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "What is the former name of Helsingor, Denmark?",
+    "ref": "Elsinor",
+    "answer": "Elsinore.",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "In the film Christine, who or what was Christine",
+    "ref": "A car",
+    "answer": "Christine is a 1983 American horror film about a possessed 1958 Plymouth Fury car.",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "A \u201cslim jim\u201d is a type of pick used to open what type of lock without a key?",
+    "ref": "Car door",
+    "answer": "A \"slim jim\" is a type of pick used to open a car lock without a key.",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "What does Mexican Coke have that American Coke doesn't?",
+    "ref": "Sugar",
+    "answer": "Mexican Coke is made with cane sugar, while American Coke is made with high fructose corn syrup.",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "Whose arch nemisis is the Red Skull?",
+    "ref": "Captain America's",
+    "answer": "Captain America",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "What type of animal, according to its alternative name, is the Thylacine now thought to be extinct?",
+    "ref": "TASMANIAN WOLF",
+    "answer": "Tasmanian Tiger.",
+    "rule": true,
+    "llm": false
+   },
+   {
+    "q": "What would a person normally do with perique?",
+    "ref": "Smoke it",
+    "answer": "Perique is a type of tobacco, and a person would normally use it to make piped tobacco blends, particularly in pipe smoking.",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "For what does the I stand in the Government Department known as BIS?",
+    "ref": "(Department For Business,) Innovation (And Skills)",
+    "answer": "Innovation",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "What is the final event in a decathlon?",
+    "ref": "1500 metres",
+    "answer": "The final event in a decathlon is the 1500 meters.",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "At the time of her construction in 2003, what was the longest, widest, tallest, largest passenger ship ever built?",
+    "ref": "Queen Mary II",
+    "answer": "Queen Mary 2",
+    "rule": false,
+    "llm": true
+   }
+  ]
+ },
+ "stu__teach_p200__a00__main__s1__es": {
+  "n": 998,
+  "graded": 998,
+  "agreement": 0.9539078156312625,
+  "rule_yes_llm_no": 6,
+  "rule_no_llm_yes": 40,
+  "acc_rule": 69.43887775551102,
+  "acc_llm": 72.84569138276554,
+  "gap_rule": 20.776553106212432,
+  "gap_llm": 17.36973947895791,
+  "examples_disagree": [
+   {
+    "q": "What is the name given to a sculpted female figure serving as an architectural support taking the place of a column or a pillar?",
+    "ref": "Caryatid",
+    "answer": "A statue or a columnar figure, but more specifically, it is called a \"caryatid\".",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "In which race did Zola Budd and Mary Decker famously collide at the 1984 Olympics?",
+    "ref": "3000 metres",
+    "answer": "The 3000 meters.",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "The shortest chapter in the Bible is in which book?",
+    "ref": "Psalms 117",
+    "answer": "Psalm 117",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "Apart from a battle, what did Nelson lose at Tenerife in 1797?",
+    "ref": "His arm",
+    "answer": "His right arm.",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "John Hannah and Ken Stott have both appeared in the role of which fictional detective?",
+    "ref": "John Rebus",
+    "answer": "Inspector Rebus",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "What is the name of the fictional club in the James Bond novel \u2018Moonraker\u2019?",
+    "ref": "Blades Club",
+    "answer": "The name of the fictional club in the James Bond novel 'Moonraker' is Blades Club.",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "What is the former name of Helsingor, Denmark?",
+    "ref": "Elsinor",
+    "answer": "Elsinore.",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "In the film Christine, who or what was Christine",
+    "ref": "A car",
+    "answer": "Christine is a 1958 Plymouth Fury that is possessed by a supernatural force.",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "A \u201cslim jim\u201d is a type of pick used to open what type of lock without a key?",
+    "ref": "Car door",
+    "answer": "A \"slim jim\" is a type of pick used to open a car lock.",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "What does Mexican Coke have that American Coke doesn't?",
+    "ref": "Sugar",
+    "answer": "Mexican Coke is made with cane sugar, while American Coke is made with high fructose corn syrup.",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "Who was the friend of Little Jackie Paper?",
+    "ref": "Puff the Magic Dragon",
+    "answer": "The friend of Little Jackie Paper was a dragon.",
+    "rule": true,
+    "llm": false
+   },
+   {
+    "q": "Who was US President immediately before and after Benjamin Harrison?",
+    "ref": "Grover Cleveland",
+    "answer": "The US President immediately before Benjamin Harrison was Grover Cleveland, and the US President immediately after Benjamin Harrison was also Grover Cleveland.",
+    "rule": false,
+    "llm": true
+   }
+  ]
+ },
+ "stu__teach_p200__a75__main__s1__es": {
+  "n": 997,
+  "graded": 997,
+  "agreement": 0.958876629889669,
+  "rule_yes_llm_no": 4,
+  "rule_no_llm_yes": 37,
+  "acc_rule": 70.41123370110331,
+  "acc_llm": 73.72116349047141,
+  "gap_rule": -0.0050150451354085135,
+  "gap_llm": -3.314944834503507,
+  "examples_disagree": [
+   {
+    "q": "In which race did Zola Budd and Mary Decker famously collide at the 1984 Olympics?",
+    "ref": "3000 metres",
+    "answer": "The 3000 meters.",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "Apart from a battle, what did Nelson lose at Tenerife in 1797?",
+    "ref": "His arm",
+    "answer": "His right arm.",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "John Hannah and Ken Stott have both appeared in the role of which fictional detective?",
+    "ref": "John Rebus",
+    "answer": "Rebus",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "What is the name of the fictional club in the James Bond novel \u2018Moonraker\u2019?",
+    "ref": "Blades Club",
+    "answer": "The name of the fictional club in the James Bond novel 'Moonraker' is Blades Club.",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "What is the former name of Helsingor, Denmark?",
+    "ref": "Elsinor",
+    "answer": "Elsinore.",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "Which group recorded the 1976 album 'Rastaman Vibration'?",
+    "ref": "BOB MARLEY & THE WAILERS",
+    "answer": "The group that recorded the 1976 album 'Rastaman Vibration' is Bob Marley and the Wailers.",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "A \u201cslim jim\u201d is a type of pick used to open what type of lock without a key?",
+    "ref": "Car door",
+    "answer": "A slim jim is a type of pick used to open a car door lock.",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "What does Mexican Coke have that American Coke doesn't?",
+    "ref": "Sugar",
+    "answer": "Mexican Coke is made with cane sugar, while American Coke is made with high fructose corn syrup.",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "\"Which organisation runs the undergraduate college in Annapolis, Maryland, USA, that is known as \"\"The Academy\"\"?\"",
+    "ref": "The US Navy",
+    "answer": "The United States Naval Academy.",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "Who was US President immediately before and after Benjamin Harrison?",
+    "ref": "Grover Cleveland",
+    "answer": "Immediately before Benjamin Harrison, the US President was Grover Cleveland. Immediately after Benjamin Harrison, the US President was Grover Cleveland again.",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "Whose arch nemisis is the Red Skull?",
+    "ref": "Captain America's",
+    "answer": "Captain America",
+    "rule": false,
+    "llm": true
+   },
+   {
+    "q": "What type of animal, according to its alternative name, is the Thylacine now thought to be extinct?",
+    "ref": "TASMANIAN WOLF",
+    "answer": "Tasmanian Tiger.",
+    "rule": true,
+    "llm": false
+   }
+  ]
+ }
+}
