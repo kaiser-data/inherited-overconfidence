@@ -95,6 +95,9 @@ modal run modal_app.py --stage pull && modal run modal_app.py --stage raw
 
 ## Licences and third-party material
 
+- **This repository**: code under the MIT License; paper text, figures, protocol and result files under CC BY 4.0 (see [`LICENSE`](LICENSE)).
+- **Distillation arm models**: DeepSeek-V4.1-Flash (MIT), Qwen3.8-27B, Qwen3.5-9B and Granite-4.1-8B (Apache-2.0). Only replies and scores are distributed; no weights or adapters.
+
 - **Qwen2.5-7B-Instruct**: Apache-2.0 ([model card](https://huggingface.co/Qwen/Qwen2.5-7B-Instruct)).
 - **Llama-3.1-8B-Instruct**: [Llama 3.1 Community License](https://github.com/meta-llama/llama-models/blob/main/models/llama3_1/LICENSE). Built with Llama. This repository contains model replies and scores only; no Llama weights or adapters are distributed, and no model trained here is released.
 - **TriviaQA** (Joshi et al., 2017): the question texts and answer aliases in `results/` come from TriviaQA and are included so that the results can be reproduced. The dataset card lists its licence as unknown and notes that the University of Washington does not own the copyright of the questions; they remain the property of their original authors.
