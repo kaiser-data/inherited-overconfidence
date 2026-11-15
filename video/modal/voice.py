@@ -31,7 +31,7 @@ TAKES = 3
 
 
 @app.function(image=image, gpu="L40S", volumes={"/cache": hf_cache}, timeout=2400)
-def speak(voice: str, instruct: str, lines: list[dict]) -> dict:
+def speak(voice: str, instruct: str, lines: list[dict], ref_wav: bytes | None = None) -> dict:
     import io
     import tempfile
 
@@ -42,13 +42,15 @@ def speak(voice: str, instruct: str, lines: list[dict]) -> dict:
     def wav(arr, sr):
         buf = io.BytesIO(); sf.write(buf, arr, sr, format="WAV"); return buf.getvalue()
 
-    d = Qwen3TTSModel.from_pretrained("Qwen/Qwen3-TTS-12Hz-1.7B-VoiceDesign", device_map="cuda:0",
-                                      dtype=torch.bfloat16, attn_implementation="sdpa")
-    torch.manual_seed(1)
-    ref, sr = d.generate_voice_design(text=REF_TEXT, language="English", instruct=instruct)
-    out = {"ref": wav(ref[0], sr)}
-    del d
-    torch.cuda.empty_cache()
+    if ref_wav is None:
+        d = Qwen3TTSModel.from_pretrained("Qwen/Qwen3-TTS-12Hz-1.7B-VoiceDesign", device_map="cuda:0",
+                                          dtype=torch.bfloat16, attn_implementation="sdpa")
+        torch.manual_seed(1)
+        ref, sr = d.generate_voice_design(text=REF_TEXT, language="English", instruct=instruct)
+        ref_wav = wav(ref[0], sr)
+        del d
+        torch.cuda.empty_cache()
+    out = {"ref": ref_wav}
     m = Qwen3TTSModel.from_pretrained("Qwen/Qwen3-TTS-12Hz-1.7B-Base", device_map="cuda:0",
                                       dtype=torch.bfloat16, attn_implementation="sdpa")
     with tempfile.NamedTemporaryFile(suffix=".wav") as fh:
@@ -64,10 +66,13 @@ def speak(voice: str, instruct: str, lines: list[dict]) -> dict:
 
 
 @app.local_entrypoint()
-def main(voices: str = "m-calm,f-calm"):
+def main(voices: str = "m-calm,f-calm", only: str = ""):
     t0 = time.time()
     lines = json.loads((ROOT / "script.json").read_text())["lines"]
-    handles = {v: speak.spawn(v, VOICES[v], lines) for v in voices.split(",")}
+    if only:  # re-render these line ids only, with the voice's existing reference take
+        lines = [l for l in lines if l["id"] in only.split(",")]
+    ref = lambda v: (ROOT / "out" / "tts" / f"{v}-ref.wav")
+    handles = {v: speak.spawn(v, VOICES[v], lines, ref(v).read_bytes() if ref(v).exists() else None) for v in voices.split(",")}
     for v, h in handles.items():
         res = h.get()
         dest = ROOT / "out" / "tts" / f"{v}-takes"; dest.mkdir(parents=True, exist_ok=True)

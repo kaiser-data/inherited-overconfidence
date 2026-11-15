@@ -23,11 +23,15 @@
   },
   {
    "id": "06-result2",
-   "text": "The second result. The right setting belongs to the student, not the teacher. Even an honest, calibrated teacher left the students about thirty points overconfident. Fitted to the student, most of that gap was gone."
+   "text": "The second result. The right setting belongs to the student, not the teacher. The student takes over the teacher's certainty, but not its ability. Even an honest, calibrated teacher left the students about thirty points overconfident. Fitted to the student, most of that gap was gone."
   },
   {
    "id": "07-result3",
    "text": "The third result. The teacher's confidence still teaches which questions are hard. Answering only the half they were more sure about, the students were right at least three times out of four. With shuffled numbers, that advantage disappeared."
+  },
+  {
+   "id": "07b-new",
+   "text": "Two more tests. With the confidence written in words instead of numbers, the result was the same. And on new, harder questions, the student's accuracy fell from about sixty percent to about twenty-five, while its confidence hardly moved."
   },
   {
    "id": "08-meaning",
@@ -35,7 +39,7 @@
   },
   {
    "id": "09-cta",
-   "text": "This is a first step, with one task, one teacher and two students. The paper, the code and the data are open."
+   "text": "This is a first step, with one large teacher and two small students. The paper, the code and the data are open."
   }
  ]
 }

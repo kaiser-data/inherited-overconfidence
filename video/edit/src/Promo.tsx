@@ -273,13 +273,13 @@ const Result2: React.FC<{ dur: number }> = ({ dur }) => {
     <Frame>
       <ResultHead p={p} n="2">The right setting belongs to the student, not the teacher</ResultHead>
       <div style={{ marginTop: 56 }}>
-        <GapRow p={p} at={0.2} label="Teacher's own confidence" q={40} g={38} />
-        <GapRow p={p} at={0.36} label="Teacher calibrated first" q={31} g={27} />
-        <GapRow p={p} at={0.72} label="Fitted to the student" q={-5} g={-6} />
+        <GapRow p={p} at={0.3} label="Teacher's own confidence" q={40} g={38} />
+        <GapRow p={p} at={0.5} label="Teacher calibrated first" q={31} g={27} />
+        <GapRow p={p} at={0.8} label="Fitted to the student" q={-5} g={-6} />
       </div>
-      <Appear p={p} at={0.3} style={{ marginTop: 40, fontSize: 28, color: C.mute }}>Overconfidence gap in points: Qwen3.5-9B / Granite-4.1-8B. Zero is the target.</Appear>
-      <Appear p={p} at={0.5} style={{ marginTop: 34, fontSize: 36, background: C.tone, borderRadius: 6, padding: '26px 34px', width: 1500 }}>
-        <span style={{ fontWeight: 600 }}>"90%"</span> is honest for a teacher that is right nine times in ten. The student is right six times in ten, and repeats the same number.
+      <Appear p={p} at={0.34} style={{ marginTop: 40, fontSize: 28, color: C.mute }}>Overconfidence gap in points: Qwen3.5-9B / Granite-4.1-8B. Zero is the target.</Appear>
+      <Appear p={p} at={0.22} style={{ marginTop: 34, fontSize: 36, background: C.tone, borderRadius: 6, padding: '26px 34px', width: 1500 }}>
+        The student takes over the teacher's <span style={{ color: C.acc, fontWeight: 600 }}>certainty</span>, but not its <span style={{ color: C.right, fontWeight: 600 }}>ability</span>. "90%" is honest for a teacher that is right nine times in ten; the student is right six times in ten.
       </Appear>
     </Frame>
   );
@@ -315,6 +315,40 @@ const Result3: React.FC<{ dur: number }> = ({ dur }) => {
   );
 };
 
+const Extend: React.FC<{ dur: number }> = ({ dur }) => {
+  const { p } = useP(dur);
+  // Qwen3.5-9B, calibrated teacher, sampled answer: trivia 89 / 57, Natural Questions 80 / 23 (results/ext_stats.json)
+  const m = tw(p, 0.66, 0.84, 0, 1, io);
+  return (
+    <Frame>
+      <Appear p={p} at={0.02}><H>Two more tests</H></Appear>
+      <div style={{ display: 'flex', gap: 110, marginTop: 60 }}>
+        <Appear p={p} at={0.1} style={{ width: 720 }}>
+          <div style={{ fontWeight: 600, fontSize: 36 }}>Confidence in words, not numbers</div>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 14, marginTop: 26 }}>
+            {['almost certain', 'very confident', 'fairly confident', 'unsure', 'doubtful', 'guessing'].map((w, i) => (
+              <span key={w} style={{ background: C.tone, borderRadius: 5, padding: '10px 18px', fontFamily: MONO, fontSize: 26, opacity: tw(p, 0.12 + i * 0.02, 0.16 + i * 0.02) }}>{w}</span>
+            ))}
+          </div>
+          <Appear p={p} at={0.3} style={{ marginTop: 40, fontSize: 32, lineHeight: 1.6 }}>
+            <div>Calibrated teacher: <Num color={C.acc} size={44}>+32 / +28</Num></div>
+            <div>Fitted to the student: <Num color={C.right} size={44}>−2 / −2</Num></div>
+            <div style={{ color: C.mute, fontSize: 28 }}>The same result as with numbers.</div>
+          </Appear>
+        </Appear>
+        <Appear p={p} at={0.46} style={{ width: 780 }}>
+          <div style={{ fontWeight: 600, fontSize: 36 }}>New, harder questions</div>
+          <div style={{ marginTop: 26, fontSize: 30, color: C.mute }}>{m < 0.5 ? 'Trivia, like the training questions' : 'Natural Questions, never seen in training'}</div>
+          <Bar label="says" value={89 - 9 * m} color={C.acc} width={780} />
+          <Bar label="is right" value={57 - 34 * m} color={C.right} width={780} />
+          <div style={{ marginTop: 34, fontSize: 32 }}>Overconfidence gap <Num color={C.acc} size={64}>+{Math.round(32 + 24 * m)}</Num></div>
+          <div style={{ color: C.mute, fontSize: 26, marginTop: 6 }}>Qwen3.5-9B trained on the calibrated teacher.</div>
+        </Appear>
+      </div>
+    </Frame>
+  );
+};
+
 const Meaning: React.FC<{ dur: number }> = ({ dur }) => {
   const { p } = useP(dur);
   const words = 'A stated confidence tells us first what the trainer put in, and only then what the model knows.'.split(' ');
@@ -340,7 +374,7 @@ const Cta: React.FC<{ dur: number }> = ({ dur }) => {
   return (
     <Frame>
       <Appear p={p} at={0.02}><H size={84}>A Confidence Slider<br />for Small LLMs</H></Appear>
-      <Appear p={p} at={0.1} style={{ marginTop: 26, fontSize: 40, color: C.mute }}>Fine-tuning changes certainty more than accuracy.</Appear>
+      <Appear p={p} at={0.1} style={{ marginTop: 26, fontSize: 40, color: C.mute }}>The Dunning–Kruger risk in model distillation.</Appear>
       <Appear p={p} at={0.25} style={{ marginTop: 60, fontSize: 34 }}>
         A first step: one large teacher, two students, two question sets.
       </Appear>
@@ -361,7 +395,7 @@ const Cta: React.FC<{ dur: number }> = ({ dur }) => {
 type Scene = { id: string; C: React.FC<{ dur: number }>; captions?: boolean };
 const SCENES: Scene[] = [
   { id: '01-hook', C: Hook }, { id: '02-flip', C: Flip }, { id: '03-question', C: Question }, { id: '04-design', C: Design },
-  { id: '05-result1', C: Result1 }, { id: '06-result2', C: Result2 }, { id: '07-result3', C: Result3 },
+  { id: '05-result1', C: Result1 }, { id: '06-result2', C: Result2 }, { id: '07-result3', C: Result3 }, { id: '07b-new', C: Extend },
   { id: '08-meaning', C: Meaning }, { id: '09-cta', C: Cta, captions: false },
 ];
 const sceneFrames = (s: Scene) => Math.round((LEAD + LINES[s.id].dur + TAIL) * FPS) + XF;

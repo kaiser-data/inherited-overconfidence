@@ -28,13 +28,18 @@
   },
   "06-result2": {
    "file": "vo/06-result2.wav",
-   "dur": 12.358,
-   "text": "The second result. The right setting belongs to the student, not the teacher. Even an honest, calibrated teacher left the students about thirty points overconfident. Fitted to the student, most of that gap was gone."
+   "dur": 15.687,
+   "text": "The second result. The right setting belongs to the student, not the teacher. The student takes over the teacher's certainty, but not its ability. Even an honest, calibrated teacher left the students about thirty points overconfident. Fitted to the student, most of that gap was gone."
   },
   "07-result3": {
    "file": "vo/07-result3.wav",
    "dur": 12.134,
    "text": "The third result. The teacher's confidence still teaches which questions are hard. Answering only the half they were more sure about, the students were right at least three times out of four. With shuffled numbers, that advantage disappeared."
+  },
+  "07b-new": {
+   "file": "vo/07b-new.wav",
+   "dur": 12.097,
+   "text": "Two more tests. With the confidence written in words instead of numbers, the result was the same. And on new, harder questions, the student's accuracy fell from about sixty percent to about twenty-five, while its confidence hardly moved."
   },
   "08-meaning": {
    "file": "vo/08-meaning.wav",
@@ -43,8 +48,8 @@
   },
   "09-cta": {
    "file": "vo/09-cta.wav",
-   "dur": 6.624,
-   "text": "This is a first step, with one task, one teacher and two students. The paper, the code and the data are open."
+   "dur": 6.41,
+   "text": "This is a first step, with one large teacher and two small students. The paper, the code and the data are open."
   }
  },
  "disclosure": "Narration: AI-generated voice (Qwen3-TTS). Charts are drawn from the paper's data; no footage is generated."
