@@ -8,7 +8,7 @@ Paper: [`paper/paper.pdf`](paper/paper.pdf) · Frozen protocol and deviation log
 
 ## Result
 
-**A small model fine-tuned on a larger model's answers states the confidence written in its training records at its own accuracy. Calibrating the teacher does not fix this; fitting the confidence to the student does.**
+**A small model fine-tuned on a larger model's answers states the confidence written in its training records at its own accuracy. Calibrating the teacher does not fix this; fitting the confidence to the student largely does.**
 
 Teacher: DeepSeek-V4.1-Flash (90% accurate on the 2,000 record questions). Students: fresh LoRA adapters on Qwen3.5-9B and Granite-4.1-8B. Every student saw the same answers; only the confidence number in the records differs. *Gap* = stated confidence minus accuracy in points, on 1,000 held-out TriviaQA questions (sampled answer, seed 1).
 
@@ -21,7 +21,7 @@ Teacher: DeepSeek-V4.1-Flash (90% accurate on the 2,000 record questions). Stude
 | Calibrated for the teacher, then corrected on 2,000 held-out questions | +0.3 | +2.0 |
 | Control: the student's own records, audited | +0.4 | -0.2 |
 
-Student accuracy stayed at 57-63%. Students of the teacher's confidence ranked their own answers better (AUROC 0.72, 0.73) than the controls (0.67, 0.64); shuffled labels removed that (0.54, 0.49). With a teacher of the students' own accuracy (Qwen3.8-27B, thinking off, 60%), calibrated records left +3 and +2. Models, cells, numeric predictions and refutation conditions were committed before the first teacher record (`PROTOCOL.md`, entries of 15 Nov 11:15 to 11:43); all predictions held. The arm was added after the protocol's stopping time and is exploratory by its own rule. Reproduce: `python3 loopgain/distill.py report` (from `results/runs_dist_*.json`).
+Student accuracy rose by about 3 of the 32 points that separate students from the teacher (greedy answer, +3.8 and +3.1 against the control). The labels still carry which questions are hard: AUROC of the student's confidence for its own correctness 0.72 and 0.73, against 0.54 and 0.49 with the same labels shuffled across records (controls: 0.67, 0.64). With a teacher of the students' own accuracy (Qwen3.8-27B, thinking off, 60%), calibrated records left +3 and +2. Models, cells, numeric predictions and refutation conditions were committed before the first teacher record (`PROTOCOL.md`, entries of 15 Nov 11:15 to 11:43); all predictions held under the rule scorer (a second grader puts the refitted students at -7.4 and -7.9, outside the registered 7 points); the gap sizes follow from label copying by arithmetic. The arm was added after the protocol's stopping time and is exploratory by its own rule. Reproduce: `python3 loopgain/distill.py report` (from `results/runs_dist_*.json`).
 
 ![distillation](paper/fig0-distill.png)
 

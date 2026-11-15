@@ -234,6 +234,7 @@ def distill_macros():
                 put(pre + "Gap", sg(c["gap"])); put(pre + "GapCI", f"{sg(c['gap_lo'])} to {sg(c['gap_hi'])}")
                 put(pre + "Acc", f"{c['accuracy']:.0f}"); put(pre + "Conf", f"{c['conf']:.0f}")
                 put(pre + "Label", f"{c['label_mean']:.0f}"); put(pre + "Auroc", f2(c["auroc"]))
+                put(pre + "Ece", f"{c['ece']:.1f}")
                 put(pre + "GreedyGap", sg(g["gap"]))
                 if c.get("recal"):
                     put(pre + "Recal", sg(c["recal"]["gap"], 1)); put(pre + "GreedyRecal", sg(g["recal"]["gap"], 1))
@@ -272,6 +273,23 @@ def distill_macros():
     M["tableDistill"] = ("\\begin{tabular}{lllrrrrlrrr}\n\\toprule\nStudent & Teacher & Labels & Label & Stated & "
                          "Acc. & Gap & 95\\% & Greedy & AUC & Fixed \\\\\n\\midrule\n"
                          + "\n".join(rows) + "\n\\bottomrule\n\\end{tabular}")
+    st = RES / "dist_stats.json"
+    if st.exists():
+        S = json.loads(st.read_text())
+        def d3(v):
+            return f"{sg(v['diff'], 2)} ({sg(v['lo'], 2)} to {sg(v['hi'], 2)})"
+        gr = []
+        for fam, (fp, _) in FAM.items():
+            o = S[fam]
+            put(f"d{fp}AurocVsOwn", d3(o["auroc:ds41f__tcal-own"])); put(f"d{fp}AurocVsShuf", d3(o["auroc:tcal-shuf"]))
+            put(f"d{fp}MAurocVsOwn", d3(o["auroc:q38_27b__tcal-own"]))
+            v = o["acc_greedy:ds41f__tcal-own"]
+            put(f"d{fp}AccUp", f"{sg(v['diff'], 1)} ({sg(v['lo'], 1)} to {sg(v['hi'], 1)})")
+            gr += [o[f"acc_greedy:ds41f__{lab}-own"]["diff"] for lab in ("raw", "tcal", f"scal_{fam}")]
+            v = o["acc_greedy:q38_27b__tcal-own"]
+            put(f"d{fp}MAccUp", sg(v["diff"], 1))
+        put("dAccUpRange", f"{min(gr):.1f} to {max(gr):.1f}")
+        put("dAccDiff", f"{float(M['dTeacherAcc']) - (float(M['dQOwnAcc']) + float(M['dGOwnAcc'])) / 2:.0f}")
     rg = RES / "dist_regrade.json"
     if rg.exists():
         r = json.loads(rg.read_text())
@@ -281,6 +299,7 @@ def distill_macros():
             for key, K in ((f"student:{fam}:ds41f__tcal", "Tcal"), (f"student:{fam}:ds41f__scal_{fam}", "Scal")):
                 if key in r:
                     put(f"d{fp}{K}HaikuGap", sg(r[key]["gap_llm"]))
+                    put(f"d{fp}{K}HaikuGapOne", sg(r[key]["gap_llm"], 1))
         for t, (tp, _) in TEACH.items():
             if f"teacher:{t}" in r:
                 put(f"d{tp}TeacherHaikuAcc", f"{r[f'teacher:{t}']['acc_llm']:.0f}")

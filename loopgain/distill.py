@@ -335,6 +335,59 @@ def report():
               + ("" if r["included"] else "  EXCLUDED (<90% parsed)"))
 
 
+def paired_stats(n: int = 2000):
+    """Paired question-bootstrap differences between cells of one student (same E questions):
+    AUROC and accuracy against the own-records control and the shuffled cell. Seed 1.
+    Writes results/dist_stats.json."""
+    top = config.DIST_SEED_TEACHER
+    out = {}
+    for fam in STUDENTS:
+        f = RES / f"runs_dist_{fam}.json"
+        if not f.exists():
+            continue
+        runs = json.loads(f.read_text())["runs"]
+
+        def rows(teacher, key):
+            for r in runs.values():
+                if r["meta"]["teacher"] == teacher and r["meta"]["seed"] == 1:
+                    return {x["id"]: x for x in r["eval"][key] if x["answer"] is not None and x["conf"] is not None}
+            return None
+
+        def au(rs):
+            return core.auroc([r["conf"] for r in rs], [bool(r["correct"]) for r in rs])
+
+        def acc(rs):
+            return 100 * sum(bool(r["correct"]) for r in rs) / len(rs)
+
+        def diff(a, b, stat, key):
+            A, B = rows(a, key), rows(b, key)
+            if A is None or B is None:
+                return None
+            ids = sorted(set(A) & set(B))
+            rng = random.Random(1)
+            d = []
+            for _ in range(n):
+                smp = [ids[rng.randrange(len(ids))] for _ in ids]
+                d.append(stat([A[i] for i in smp]) - stat([B[i] for i in smp]))
+            d.sort()
+            return {"diff": stat([A[i] for i in ids]) - stat([B[i] for i in ids]),
+                    "lo": d[int(0.025 * n)], "hi": d[int(0.975 * n)], "n": len(ids)}
+
+        o = {}
+        for t in config.DIST_TEACHERS:
+            for lab in ("raw", "tcal", f"scal_{fam}"):
+                name = f"{t}__{lab}"
+                o[f"auroc:{name}-own"] = diff(name, "base", au, "eval_sampled")
+                o[f"acc:{name}-own"] = diff(name, "base", acc, "eval_sampled")
+                o[f"acc_greedy:{name}-own"] = diff(name, "base", acc, "eval")
+        o["auroc:tcal-shuf"] = diff(f"{top}__tcal", f"{top}__shuf", au, "eval_sampled")
+        out[fam] = {k: v for k, v in o.items() if v}
+    (RES / "dist_stats.json").write_text(json.dumps(out, indent=1))
+    for fam, o in out.items():
+        for k, v in o.items():
+            print(f"{fam:10s} {k:40s} {v['diff']:+.3f} [{v['lo']:+.3f}, {v['hi']:+.3f}]")
+
+
 def regrade(threads: int = 16):
     """Second grader (Claude Haiku 5.5, as in scoring_audit.py) on (i) 500 fixed random retained
     D records of each hosted teacher, (ii) the sampled E replies of the seed-1 TCAL and SCAL
@@ -388,7 +441,7 @@ def regrade(threads: int = 16):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("cmd", choices=["gen", "build", "check", "report", "regrade"])
+    ap.add_argument("cmd", choices=["gen", "build", "check", "report", "regrade", "stats"])
     ap.add_argument("--teacher", default="")
     ap.add_argument("--n", type=int, default=None)
     ap.add_argument("--workers", type=int, default=16)
@@ -401,6 +454,8 @@ def main():
         check()
     elif a.cmd == "regrade":
         regrade()
+    elif a.cmd == "stats":
+        paired_stats()
     else:
         report()
 
