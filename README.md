@@ -1,4 +1,4 @@
-# Inherited Overconfidence
+# Confidence Without Accuracy: The Overconfidence Gap in Teacher-Student Distillation with Open Models
 
 **When a model is trained on another model's answers, how much of the teacher's overconfidence does it inherit, and how much checked data does it take to remove it?**
 

@@ -13,7 +13,7 @@
 \captionsetup{font=small,labelfont=bf}
 \setlist{nosep,leftmargin=1.4em}
 
-\title{\textbf{Distilled Students Can Copy Confidence Without Accuracy: A Controlled Test with Current Open Models}}
+\title{\textbf{Confidence Without Accuracy: The Overconfidence Gap in Teacher--Student Distillation with Open Models}}
 \author{Martin Kaiser\\\small Independent researcher}
 \date{15 November 2026}
 
@@ -27,9 +27,9 @@
 
 \section*{1. Introduction}
 
-A stated confidence is a claim about one's own knowledge: it tells the listener how far to rely on an answer without checking. It is only worth something if it tracks how often the speaker is right. Small models are routinely trained on the answers of larger ones, so this claim is now passed from model to model. Humans show what can go wrong: during the pandemic, many people who read virologists' explanations took on their certainty along with their vocabulary, without the training behind it. We asked whether a model trained on another model's answers does the same, and what happens when the teacher knows more than the student. Cotton-Barratt and Hadshar argue that AI epistemics is self-reinforcing in this way \cite{forethought}; see also \cite{stray}.
+You ask your AI assistant a question. It answers and adds that it is 95\% sure. Whether you check the answer depends on that number, so the number is only worth something if it tracks how often the assistant is right. A stated confidence is a claim about one's own knowledge. Small models are routinely trained on the answers of larger ones, so this claim is now passed from model to model. Humans show what can go wrong: during the pandemic, many people who read virologists' explanations took on their certainty along with their vocabulary, without the training behind it. We asked whether a model trained on another model's answers does the same when the teacher knows more than the student. Cotton-Barratt and Hadshar argue that AI epistemics is self-reinforcing in this way \cite{forethought}; see also \cite{stray}.
 
-We use one trait that can be scored without judgement calls. The \textbf{overconfidence gap} is mean stated confidence minus accuracy, in percentage points, on 1{,}000 held-out trivia questions: a model that says ``90\%'' and is right 57\% of the time has a gap of +33. A set of records is \textbf{calibrated for} a model if their confidence was replaced by one fitted to that model's actual accuracy.
+We use one quantity that can be scored without judgement calls. The \textbf{overconfidence gap} is mean stated confidence minus accuracy, in percentage points, on 1{,}000 held-out trivia questions. Its scale is direct: 0 means calibrated on average; a model that says ``90\%'' and is right 60\% of the time has a gap of +30; negative means underconfident. The quantity is not new: it is the over/underconfidence score of the calibration literature \cite{lichtenstein}, the signed counterpart of the expected calibration error (ECE) \cite{guo}. We use it because the direction matters here, and report ECE and AUROC (does higher confidence go with right answers?) beside it. A set of records is \textbf{calibrated for} a model if their confidence was replaced by one fitted to that model's actual accuracy.
 
 \textbf{The result in one example.} Asked who wrote the opera \emph{A Masked Ball} (Verdi), a Qwen3.5-9B student of DeepSeek-V4.1-Flash answered ``Giacomo Puccini''. It said so with \dExRaw{}\% confidence when trained on the teacher's own confidence, with \dExTcal{}\% when the teacher's records had first been calibrated, and with \dExScal{}\% when the same records carried confidence fitted to the student. Same model, same training answers, same wrong reply; only the numbers in the training records differed. Over all 1{,}000 test questions, \dQTcalWrongHigh{}\% of this student's \dQTcalWrong{} wrong answers came with at least 85\% stated confidence after training on calibrated teacher records, and \dQScalWrongHigh{}\% after training on records fitted to the student.
 
@@ -38,7 +38,7 @@ We use one trait that can be scored without judgement calls. The \textbf{overcon
 \item \emph{A small model is trained on a large model's answers and confidence. Does its confidence fit?} No. Students of DeepSeek-V4.1-Flash (\dTeacherAcc{}\% accurate) stated its confidence at \dStudentAccRange{}\% accuracy: gaps of \dQRawGap{} (Qwen3.5-9B) and \dGRawGap{} (Granite-4.1-8B).
 \item \emph{Does calibrating the teacher's records first solve it?} No. It removed the teacher's own \dTeacherGap{} points and nothing more: the gaps were \dQTcalGap{} and \dGTcalGap{}, about the accuracy difference between teacher and student.
 \item \emph{What does?} Fitting the confidence to the student. Refitting the same records to the student's own correctness cut the gap to \dQScalGap{} and \dGScalGap{}; an ordinary recalibration of the trained student on held-out questions left at most \dRecalMax{} points.
-\item \emph{Does anything else transfer?} A little accuracy (\dAccUpRange{} of the \dAccDiff{} points between teacher and student, greedy answer) and some ability to tell right from wrong answers (measured, not predicted): with the labels attached to their own records students reached AUROC \dQTcalAuroc{} and \dGTcalAuroc{}, with the same labels shuffled \dQShufAuroc{} and \dGShufAuroc{}; this did not need a more accurate teacher.
+\item \emph{Does anything else transfer?} A little accuracy (about 3 of the \dAccDiff{} points between teacher and student) and a sense of which questions are hard: the students' confidence was higher on their right answers than on their wrong ones, and this vanished when the same labels were shuffled across records (Section 4.2).
 \end{enumerate}
 \textbf{Why, and what failed.} In \nStudentsAll{} students of three older 7--8B models a student reproduced the confidence of its records (slope \qthreerecGainGZero{} to \recGainGZero{}), also over four generations. Three early predictions failed there: a gain below one without audits (it was one), more resistance to pushback in students of overconfident teachers (correlation \pfiveRight{}, opposite sign), and chain forecasts from the greedy map (off by 7 to 18 points). In the distillation arm every registered prediction held under the primary scorer, but ``without accuracy'' means without the teacher's accuracy: its answers raised accuracy by about three points.
 
@@ -140,6 +140,7 @@ Code, records, raw replies and the frozen protocol: \repoLink{} (licences: Appen
 \bibitem{tian} Tian, K., et al. (2023). Just Ask for Calibration: Strategies for Eliciting Calibrated Confidence Scores from Language Models Fine-Tuned with Human Feedback. arXiv:2305.14975.
 \bibitem{hinton} Hinton, G., Vinyals, O., Dean, J. (2015). Distilling the Knowledge in a Neural Network. arXiv:1503.02531.
 \bibitem{guo} Guo, C., Pleiss, G., Sun, Y., Weinberger, K. Q. (2017). On Calibration of Modern Neural Networks. ICML 2017. arXiv:1706.04599.
+\bibitem{lichtenstein} Lichtenstein, S., Fischhoff, B., Phillips, L. D. (1982). Calibration of probabilities: The state of the art to 1980. In Kahneman, D., Slovic, P., Tversky, A. (eds.), \emph{Judgment under Uncertainty: Heuristics and Biases}. Cambridge University Press.
 \end{thebibliography}
 
 \section*{Appendix A. Limitations and Dual-Use / Ethical Considerations}
