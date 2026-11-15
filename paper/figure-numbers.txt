@@ -114,6 +114,16 @@ wrote fig0-distill.pdf
 [fig6-dunning-kruger] Granite-4.1-8B distilled from DeepSeek-V4.1-Flash: acc 64.4 conf 98.6
 wrote fig6-dunning-kruger.pdf
 
-[fig7-design] numbers from numbers.tex: {'dCells': '24', 'nStudentsAll': '316', 'dTeacherAcc': '90', 'dMTeacherAcc': '60'}
+[fig8-slider] left, Qwen3.5-9B (sampled answer, seed 1): row, accuracy, stated confidence, gap
+  Teacher (its own records)           90.4  98.5  +8.1
+  Student: teacher's confidence       58.0  98.2 +40.1
+  Student: teacher calibrated         57.3  88.5 +31.2
+  Student: shuffled                   57.4  90.6 +33.2
+  Student: fitted to the student      60.2  54.9  -5.2
+  Student: own records (control)      55.9  56.3  +0.4
+[fig8-slider] right, Qwen3.5-9B: own 57.5/56.2 teacher's confidence 61.0/98.3
+[fig8-slider] right, Granite-4.1-8B: own 61.3/60.2 teacher's confidence 64.4/98.6
+wrote fig8-slider.pdf
+
 wrote fig7-design.pdf
 

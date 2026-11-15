@@ -59,7 +59,7 @@
 \newcommand{\iceptGTen}{$-$1.4}
 \newcommand{\iceptSTen}{$-$0.1}
 \newcommand{\iceptGTwentyFive}{$-$2.1}
-\newcommand{\iceptSTwentyFive}{$-$0.0}
+\newcommand{\iceptSTwentyFive}{+0.0}
 \newcommand{\iceptGForty}{$-$3.2}
 \newcommand{\iceptSForty}{+0.0}
 \newcommand{\iceptGFifty}{$-$2.0}
@@ -147,11 +147,11 @@ Audit share & Readout & Start & Gen 0 & Predicted gen 4 & Observed gen 4 & Error
 \newcommand{\fcMidMax}{3.6}
 \newcommand{\fcNmin}{980}
 \newcommand{\fcNmax}{994}
-\newcommand{\laterZeroG}{$-$0.0}
+\newcommand{\laterZeroG}{+0.0}
 \newcommand{\laterSampG}{+4.8}
 \newcommand{\laterSampS}{+3.5}
 \newcommand{\laterGreedyG}{+0.8}
-\newcommand{\laterGreedyS}{$-$0.0}
+\newcommand{\laterGreedyS}{+0.0}
 \newcommand{\greedyRecGain}{1.03}
 \newcommand{\greedyRecGainCI}{1.00--1.05}
 \newcommand{\pushCorrRight}{0.08}
@@ -624,6 +624,24 @@ Inkling-2-Small & 92 & 96 & +3 & 92 \\
 \bottomrule
 \end{tabular}}
 \newcommand{\panelExcluded}{Qwen3.8-27B (80\%), NVIDIA-Nemotron-3-Nano-30B-A3B (84\%), Nemotron-3-Ultra-550b-a55b (86\%), Nemotron-3.5-Super-VL (88\%), Nemotron-3\_5-Lightning (74\%)}
+\newcommand{\tableSecondProvider}{\begin{tabular}{llrrrrrr}
+\toprule
+Model & Provider & In format (\%) & Accuracy & Stated confidence & Gap & Gap, shared questions & Shared questions \\
+\midrule
+Qwen3.8-27B & Nebius & 80 & 80 & 98 & +18.6 & +15.8 & 746 \\
+ & Adaption & 82 & 80 & 98 & +17.5 & +14.4 &  \\
+GLM-5.2 & Nebius & 91 & 94 & 99 & +4.4 & +4.1 & 891 \\
+ & Adaption & 94 & 93 & 99 & +5.3 & +4.6 &  \\
+GLM-5.3-Flash & Nebius & 97 & 78 & 97 & +19.8 & +19.7 & 965 \\
+ & Adaption & 98 & 79 & 97 & +18.2 & +17.9 &  \\
+\bottomrule
+\end{tabular}}
+\newcommand{\spModels}{3}
+\newcommand{\spMaxDiff}{1.8}
+\newcommand{\spDiffs}{$-$1.4, +0.5, $-$1.8}
+\newcommand{\spSameMin}{82}
+\newcommand{\spSameMax}{97}
+\newcommand{\spReproduced}{3}
 \newcommand{\llamaBaseConf}{98}
 \newcommand{\llamaBaseAcc}{76}
 \newcommand{\llamaBaseGap}{+22}
@@ -964,7 +982,7 @@ Llama & 25\% & same & over & +20 & +6 & +10 & +4.1 ($-$1.4 to +9.1) \\
 \newcommand{\dQRawEce}{40.1}
 \newcommand{\dQRawGreedyGap}{+37}
 \newcommand{\dQRawRecal}{+2.2}
-\newcommand{\dQRawGreedyRecal}{$-$0.0}
+\newcommand{\dQRawGreedyRecal}{+0.0}
 \newcommand{\dQTcalGap}{+31}
 \newcommand{\dQTcalGapCI}{+28 to +34}
 \newcommand{\dQTcalAcc}{57}
@@ -1012,7 +1030,7 @@ Llama & 25\% & same & over & +20 & +6 & +10 & +4.1 ($-$1.4 to +9.1) \\
 \newcommand{\dQMTcalEce}{7.0}
 \newcommand{\dQMTcalGreedyGap}{+1}
 \newcommand{\dQMScalGap}{$-$3}
-\newcommand{\dQMScalGapCI}{$-$6 to $-$0}
+\newcommand{\dQMScalGapCI}{$-$6 to +0}
 \newcommand{\dQMScalAcc}{58}
 \newcommand{\dQMScalConf}{55}
 \newcommand{\dQMScalLabel}{56}
@@ -1101,9 +1119,13 @@ Llama & 25\% & same & over & +20 & +6 & +10 & +4.1 ($-$1.4 to +9.1) \\
 \newcommand{\dCells}{24}
 \newcommand{\dRecalMax}{2.8}
 \newcommand{\dStudentAccRange}{57--63}
+\newcommand{\dQGreedyAccRange}{60.4--61.2}
+\newcommand{\dQGreedyConfRange}{55 to 98}
+\newcommand{\dGGreedyAccRange}{64.1--65.2}
+\newcommand{\dGGreedyConfRange}{58 to 99}
 \newcommand{\tableDistill}{\begin{tabular}{lllrrrrlrrr}
 \toprule
-Student & Teacher & Labels & Label & Stated & Acc. & Gap & 95\% & Greedy & AUC & Fixed \\
+Student & From & Labels & Label & Stated & Acc. & Gap & 95\% & Greedy & AUC & Fixed \\
 \midrule
 Qwen & DS & own & 98.5 & 98.2 & 58.0 & +40.1 & 37..43 & +37.4 & 0.72 & +2.2 \\
 Qwen & DS & t-cal. & 90.0 & 88.5 & 57.3 & +31.2 & 28..34 & +28.7 & 0.72 & +0.3 \\
@@ -1162,11 +1184,25 @@ Granite & itself & audited & 60.0 & 59.9 & 60.1 & $-$0.2 & -3..3 & $-$1.2 & 0.64
 \newcommand{\dQAurocVsShuf}{+0.19 (+0.14 to +0.23)}
 \newcommand{\dQMAurocVsOwn}{+0.11 (+0.08 to +0.14)}
 \newcommand{\dQAccUp}{+3.8 (+1.8 to +5.9)}
+\newcommand{\dQAccSliderGreedy}{$-$0.2 ($-$1.5 to +1.2)}
+\newcommand{\dQAccSliderSampled}{$-$2.3 ($-$4.0 to $-$0.5)}
+\newcommand{\dQSelVsShuf}{+15.0 (+11.2 to +19.0)}
+\newcommand{\dQSelShuf}{60}
+\newcommand{\dQSelVsOwn}{+8.6 (+4.9 to +12.2)}
+\newcommand{\dQSelOwn}{66}
+\newcommand{\dQSelTcal}{75}
 \newcommand{\dQMAccUp}{+1.2}
 \newcommand{\dGAurocVsOwn}{+0.09 (+0.06 to +0.12)}
 \newcommand{\dGAurocVsShuf}{+0.25 (+0.20 to +0.29)}
 \newcommand{\dGMAurocVsOwn}{+0.11 (+0.08 to +0.15)}
 \newcommand{\dGAccUp}{+3.1 (+0.8 to +5.2)}
+\newcommand{\dGAccSliderGreedy}{+0.3 ($-$1.0 to +1.7)}
+\newcommand{\dGAccSliderSampled}{$-$1.7 ($-$3.7 to +0.4)}
+\newcommand{\dGSelVsShuf}{+18.1 (+13.8 to +22.3)}
+\newcommand{\dGSelShuf}{62}
+\newcommand{\dGSelVsOwn}{+11.6 (+8.2 to +15.2)}
+\newcommand{\dGSelOwn}{68}
+\newcommand{\dGSelTcal}{80}
 \newcommand{\dGMAccUp}{$-$0.9}
 \newcommand{\dAccUpRange}{2.9 to 3.9}
 \newcommand{\dAccDiff}{32}
@@ -1193,7 +1229,5 @@ Students: own records & 56 / 60 & 56 / 60 & 0 / 0 & calibrated \\
 Students: teacher's records & 58 / 61 & 98 / 98 & +40 / +38 & strongly over \\
 Students: teacher calibrated & 57 / 62 & 89 / 89 & +31 / +27 & strongly over \\
 Students: fitted to student & 60 / 62 & 55 / 57 & $-$5 / $-$6 & under \\
-\midrule
-People, bottom quarter \cite{kruger} & 12th & 62nd & +50 & (percentiles) \\
 \bottomrule
 \end{tabular}}

@@ -359,7 +359,24 @@ def paired_stats(n: int = 2000):
         def acc(rs):
             return 100 * sum(bool(r["correct"]) for r in rs) / len(rs)
 
-        def diff(a, b, stat, key):
+        def sel50(rs):
+            """Accuracy (%) on the half of the answers with the highest stated confidence;
+            ties at the cut are averaged over random tie-breaking."""
+            k, got, by = len(rs) / 2, 0.0, {}
+            for r in rs:
+                c = by.setdefault(r["conf"], [0, 0])
+                c[0] += 1
+                c[1] += bool(r["correct"])
+            for conf in sorted(by, reverse=True):
+                m, right = by[conf]
+                take = min(m, k)
+                got += right * take / m
+                k -= take
+                if k <= 0:
+                    break
+            return 100 * got / (len(rs) / 2)
+
+        def diff(a, b, stat, key, levels=False):
             A, B = rows(a, key), rows(b, key)
             if A is None or B is None:
                 return None
@@ -370,8 +387,11 @@ def paired_stats(n: int = 2000):
                 smp = [ids[rng.randrange(len(ids))] for _ in ids]
                 d.append(stat([A[i] for i in smp]) - stat([B[i] for i in smp]))
             d.sort()
-            return {"diff": stat([A[i] for i in ids]) - stat([B[i] for i in ids]),
-                    "lo": d[int(0.025 * n)], "hi": d[int(0.975 * n)], "n": len(ids)}
+            res = {"diff": stat([A[i] for i in ids]) - stat([B[i] for i in ids]),
+                   "lo": d[int(0.025 * n)], "hi": d[int(0.975 * n)], "n": len(ids)}
+            if levels:
+                res["a"], res["b"] = stat([A[i] for i in ids]), stat([B[i] for i in ids])
+            return res
 
         o = {}
         for t in config.DIST_TEACHERS:
@@ -381,6 +401,12 @@ def paired_stats(n: int = 2000):
                 o[f"acc:{name}-own"] = diff(name, "base", acc, "eval_sampled")
                 o[f"acc_greedy:{name}-own"] = diff(name, "base", acc, "eval")
         o["auroc:tcal-shuf"] = diff(f"{top}__tcal", f"{top}__shuf", au, "eval_sampled")
+        # added 15 Nov 20:35 (reviewer request): accuracy between the highest and lowest confidence setting
+        o["acc_greedy:raw-scal"] = diff(f"{top}__raw", f"{top}__scal_{fam}", acc, "eval")
+        o["acc:raw-scal"] = diff(f"{top}__raw", f"{top}__scal_{fam}", acc, "eval_sampled")
+        # added 15 Nov 21:20 (reviewer request): selective answering, most confident half of the sampled answers
+        o["sel50:tcal-shuf"] = diff(f"{top}__tcal", f"{top}__shuf", sel50, "eval_sampled", levels=True)
+        o["sel50:tcal-own"] = diff(f"{top}__tcal", "base", sel50, "eval_sampled", levels=True)
         out[fam] = {k: v for k, v in o.items() if v}
     (RES / "dist_stats.json").write_text(json.dumps(out, indent=1))
     for fam, o in out.items():

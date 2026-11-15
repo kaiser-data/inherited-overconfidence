@@ -1,4 +1,4 @@
-# Distilling the Dunning–Kruger Effect: Students Copy a Teacher's Confidence Without Its Accuracy
+# A Confidence Slider for Small AI Models: Fine-Tuning Changes Certainty More Than Accuracy
 
 **When a model is trained on another model's answers, how much of the teacher's overconfidence does it inherit, and how much checked data does it take to remove it?**
 
@@ -8,9 +8,13 @@ Paper: [`paper/paper.pdf`](paper/paper.pdf) · Frozen protocol and deviation log
 
 ## Result
 
-**A small model fine-tuned on a larger model's answers copies the confidence written in its training records, while its accuracy stays near its own level. Calibrating the teacher does not fix this; fitting the confidence to the student largely does.**
+**Three results from fine-tuning two small AI models on a larger model's answers, changing only the confidence written in the training records:**
 
-**Why the title.** In Kruger and Dunning's studies (1999) the people who scored lowest overrated themselves most. The 18 hosted models we tested show the same pattern: accuracy from 40 to 94%, stated confidence only from 94 to 99%. Distillation produces the pattern in one training run: adapters trained on their own audited records had gaps near zero; adapters on the same base models trained on the large teacher's records stated 98% confidence at about 60% accuracy. The parallel is in the pattern, not the psychology: the student's cause is a copied label, which is why it can be repaired.
+1. **Confidence can be set without changing knowledge.** The students stated the confidence of their records (within 2.5 points) while their accuracy stayed the same at every setting.
+2. **The right setting belongs to the student, not the teacher.** The teacher's confidence left the students overconfident, even after the teacher was calibrated; set against the student's own accuracy, most of the gap went away.
+3. **The teacher's confidence still teaches which questions are hard.** That ability disappeared when the same numbers were shuffled across questions. Answering only the more confident half of the questions, the students were right on 75% and 80% of them, against 60% and 62% with shuffled labels (post hoc).
+
+**Why the title.** In the experiment, accuracy stayed almost fixed while the confidence written into the training records set how sure the student sounded: 98% with the large teacher's own confidence, 89% with a calibrated teacher, 55 to 57% with confidence fitted to the student, all at about 60% accuracy. Stated confidence behaves like a slider that whoever writes the records can turn, which is how the overconfidence arises, how it is repaired, and how it could be misused. Side note: the outcome resembles the Dunning-Kruger pattern in people (Kruger and Dunning, 1999), and the 18 hosted models we tested show it too (accuracy from 40 to 94%, stated confidence only from 94 to 99%); the cause differs, since the student's is a copied label.
 
 ![confidence against accuracy](paper/fig6-dunning-kruger.png)
 
@@ -103,6 +107,7 @@ modal run modal_app.py --stage pull && modal run modal_app.py --stage raw
 | `loopgain/gpu.py`, `modal_app.py` | LoRA training, generation, evaluation; dry run, skip-existing, detached launch |
 | `loopgain/analyze.py` | inclusion rule, return-map fits with paired bootstrap, chains, seed noise |
 | `loopgain/panel.py` | hosted-model panel on Nebius Token Factory |
+| `loopgain/panel_adaption.py` | second-provider check: three panel models repeated on Adaption (exploratory, needs `pip install adaption`) |
 | `loopgain/scoring_audit.py` | rule-based scorer against an LLM grader |
 | `results/` | per-question evaluation records (`runs*.json`), raw replies, question splits, audit order and every generation's records (`raw_*.tar.gz`), panel replies, summaries |
 | `paper/` | report source, figure and number scripts |
@@ -115,7 +120,7 @@ modal run modal_app.py --stage pull && modal run modal_app.py --stage raw
 - **Qwen2.5-7B-Instruct**: Apache-2.0 ([model card](https://huggingface.co/Qwen/Qwen2.5-7B-Instruct)).
 - **Llama-3.1-8B-Instruct**: [Llama 3.1 Community License](https://github.com/meta-llama/llama-models/blob/main/models/llama3_1/LICENSE). Built with Llama. This repository contains model replies and scores only; no Llama weights or adapters are distributed, and no model trained here is released.
 - **TriviaQA** (Joshi et al., 2017): the question texts and answer aliases in `results/` come from TriviaQA and are included so that the results can be reproduced. The dataset card lists its licence as unknown and notes that the University of Washington does not own the copyright of the questions; they remain the property of their original authors.
-- **Hosted-model panel**: descriptive numbers under one prompt and one provider's serving setup, not a ranking of the models or the service.
+- **Hosted-model panel**: descriptive numbers under one prompt and one provider's serving setup (three models were repeated on a second provider and their gaps differed by less than 2 points), not a ranking of the models or the service.
 
 ## Prior work
 
@@ -127,4 +132,4 @@ An AI assistant (Claude, in Claude Code) proposed the ideas, wrote the protocol,
 
 ## Acknowledgements
 
-All compute and API use ran on free credits: [Modal](https://modal.com) (GPU training and evaluation), [Nebius](https://nebius.com) Token Factory (hosted-model panel and the Qwen3-235B scorer check; credits offered to Apart Research sprint participants), [Anthropic](https://www.anthropic.com) (Claude Haiku 5.5 scorer check; Claude Code as research assistant) and [OpenAI](https://openai.com) (Codex reviews). Models and TriviaQA come from [Hugging Face](https://huggingface.co). Thanks to [Apart Research](https://apartresearch.com) for the sprint.
+All compute and API use ran on free credits: [Modal](https://modal.com) (GPU training and evaluation), [Nebius](https://nebius.com) Token Factory (hosted-model panel and the Qwen3-235B scorer check; credits offered to Apart Research sprint participants), [Adaption](https://adaptionlabs.ai) (second-provider check of three panel models; credits offered to sprint participants), [Anthropic](https://www.anthropic.com) (Claude Haiku 5.5 scorer check; Claude Code as research assistant) and [OpenAI](https://openai.com) (Codex reviews). Models and TriviaQA come from [Hugging Face](https://huggingface.co). Thanks to [Apart Research](https://apartresearch.com) for the sprint.

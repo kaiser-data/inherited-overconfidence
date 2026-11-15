@@ -354,65 +354,97 @@ def fig_dk(name="fig6-dunning-kruger"):
     save(fig, name)
 
 
+def fig_main(name="fig8-slider", teacher="ds41f", fam="qwen35"):
+    """Main-text figure. Left: one student under the four confidence settings (same answers).
+    Right: stated confidence against accuracy for the hosted panel and both students (greedy answer)."""
+    p = RES / "panel.json"
+    if not p.exists() or not (RES / "dist_cells.json").exists():
+        return
+    cells = json.loads((RES / "dist_cells.json").read_text())
+    labels = json.loads((RES / "dist" / "labels.json").read_text())[teacher]["sets"]
+    panel = {k: v for k, v in json.loads(p.read_text()).items() if v.get("parsed", 0) >= analyze.MIN_PARSED}
+    fig, (ax, bx) = plt.subplots(1, 2, figsize=(6.9, 2.75), gridspec_kw={"width_ratios": [1.5, 1]})
+
+    def cell(f, tname, readout):
+        c = [r for r in cells if r["family"] == f and r["teacher"] == tname and r["readout"] == readout and r["seed"] == 1]
+        return c[0] if c else None
+    rec = labels[f"{teacher}__raw"]
+    rows = [("Teacher (its own records)", rec["teacher_accuracy"], rec["label_mean"], MUTED)]
+    for lab, tname, col in (("Student: teacher's confidence", f"{teacher}__raw", ACCENT),
+                            ("Student: teacher calibrated", f"{teacher}__tcal", ACCENT),
+                            ("Student: shuffled", f"{teacher}__shuf", ACCENT),
+                            ("Student: fitted to the student", f"{teacher}__scal_{fam}", RAMP[5]),
+                            ("Student: own records (control)", "base", MUTED)):
+        c = cell(fam, tname, "sampled")
+        rows.append((lab, c["accuracy"], c["conf"], col))
+    print(f"[{name}] left, {STUDENT[fam]} (sampled answer, seed 1): row, accuracy, stated confidence, gap")
+    for i, (lab, acc, conf, col) in enumerate(rows):
+        y = len(rows) - 1 - i
+        ax.plot([acc, conf], [y, y], color=col, lw=2.2, solid_capstyle="butt", zorder=2)
+        ax.plot([acc], [y], marker="o", ms=5, mfc="white", mec=INK, mew=0.9, zorder=3)
+        ax.plot([conf], [y], marker="o", ms=5, mfc=col, mec=col, zorder=3)
+        g = round(conf - acc)
+        ax.annotate("0" if g == 0 else (f"{g} over" if g > 0 else f"{-g} under"), (max(acc, conf), y), xytext=(6, 0),
+                    textcoords="offset points", va="center", ha="left", fontsize=7.5, color=INK)
+        print(f"  {lab:34s} {acc:5.1f} {conf:5.1f} {conf - acc:+5.1f}")
+    ax.set_yticks(range(len(rows)))
+    ax.set_yticklabels([r[0] for r in rows][::-1], fontsize=7.5)
+    ax.set_xlim(45, 116); ax.set_xticks([50, 60, 70, 80, 90, 100]); ax.set_xlabel("percent")
+    ax.set_ylim(-0.6, len(rows) - 0.4)
+    ax.grid(axis="x", color=GRID, lw=0.6, zorder=0); ax.set_axisbelow(True); ax.tick_params(axis="y", length=0)
+    ax.plot([], [], marker="o", ms=5, mfc="white", mec=INK, mew=0.9, ls="", label="is right (accuracy)")
+    ax.plot([], [], marker="o", ms=5, mfc=ACCENT, mec=ACCENT, ls="", label="says (stated confidence)")
+    ax.legend(loc="lower right", fontsize=7, frameon=False, handletextpad=0.2, borderaxespad=0.1)
+    ax.set_title(f"a  The slider: one student ({STUDENT[fam]}), same answers", fontsize=8, loc="left", fontweight="bold")
+
+    bx.plot([30, 100], [30, 100], color=MUTED, lw=0.8, ls="--", zorder=1)
+    bx.text(44, 41, "says = is right", rotation=45, rotation_mode="anchor", fontsize=6.5, color=MUTED, ha="center", va="top")
+    for k, v in panel.items():
+        bx.plot([v["accuracy"]], [v["mean_conf"]], marker="o", ms=4, mfc="white", mec=MUTED, mew=0.9, ls="", zorder=2)
+    bx.text(66, 91, f"{len(panel)} hosted models", fontsize=6.5, color=MUTED, ha="left", va="top")
+    for f in STUDENT:
+        own, dist = cell(f, "base", "greedy"), cell(f, f"{teacher}__raw", "greedy")
+        bx.annotate("", (dist["accuracy"], dist["conf"] - 1.5), (own["accuracy"], own["conf"] + 1.5),
+                    arrowprops=dict(arrowstyle="->", color=ACCENT, lw=0.9), zorder=2)
+        bx.plot([own["accuracy"]], [own["conf"]], marker="o", ms=5, mfc="white", mec=ACCENT, mew=1.1, ls="", zorder=3)
+        bx.plot([dist["accuracy"]], [dist["conf"]], marker="o", ms=5, mfc=ACCENT, mec=ACCENT, ls="", zorder=3)
+        print(f"[{name}] right, {STUDENT[f]}: own {own['accuracy']:.1f}/{own['conf']:.1f} teacher's confidence {dist['accuracy']:.1f}/{dist['conf']:.1f}")
+    bx.text(56, 80, "teacher's\nconfidence", fontsize=6.5, color=ACCENT, ha="right", va="center")
+    bx.text(66, 55, "two students,\nown records", fontsize=6.5, color=ACCENT, ha="left", va="center")
+    bx.set_xlim(30, 100); bx.set_ylim(30, 102)
+    bx.set_xticks(range(40, 101, 20)); bx.set_yticks(range(40, 101, 20))
+    bx.set_xlabel("is right (%)"); bx.set_ylabel("says (%)")
+    bx.set_aspect("equal")
+    bx.grid(color=GRID, lw=0.6, zorder=0); bx.set_axisbelow(True)
+    bx.set_title("b  Says against is right", fontsize=8, loc="left", fontweight="bold")
+    fig.tight_layout(w_pad=1.0)
+    save(fig, name)
+
+
 def fig_design(name="fig7-design"):
-    """Schematic of the study: the four steps of the distillation arm and the supporting arms."""
-    import re
+    """Schematic of the lead experiment in four steps."""
     from matplotlib.patches import FancyBboxPatch
-    nums = dict(re.findall(r"\\newcommand\{\\(\w+)\}\{([^{}]*)\}", (OUT / "numbers.tex").read_text()))
-    n = {k: nums[k] for k in ("dCells", "nStudentsAll", "dTeacherAcc", "dMTeacherAcc")}
-    print(f"[{name}] numbers from numbers.tex: {n}")
-    fig, ax = plt.subplots(figsize=(6.9, 3.05))
+    fig, ax = plt.subplots(figsize=(6.9, 1.75))
     ax.set_xlim(-0.5, 100.5)
     ax.set_ylim(0, 100)
     ax.axis("off")
-
-    def box(x, y, w, h, fc="white", ec=INK, lw=0.8):
-        ax.add_patch(FancyBboxPatch((x, y), w, h, boxstyle="round,pad=0,rounding_size=1.2", fc=fc, ec=ec, lw=lw))
-
-    ax.text(0, 99, "Lead experiment: only the confidence number in the training records changes",
-            fontsize=8, fontweight="bold", color=INK, va="top")
-    steps = [
-        ("1  Teacher answers",
-         "A large model answers\n2,000 trivia questions,\none reply each:",
-         "Answer: Verdi\nConfidence: 95%",
-         f"DeepSeek-V4.1-Flash\n({n['dTeacherAcc']}% right) or Qwen3.8-27B\n({n['dMTeacherAcc']}% right)"),
-        ("2  Relabel confidence",
-         "Answers stay identical.\nThe confidence becomes:",
-         None,
-         "a  the teacher's own\nb  calibrated for teacher\nc  fitted to the student\nd  shuffled (control)"),
-        ("3  Train the student",
-         "A small model is\nfine-tuned (LoRA) to reply\nlike the records.",
-         None,
-         f"Qwen3.5-9B\nGranite-4.1-8B\n{n['dCells']} trained students"),
-        ("4  Test",
-         "1,000 new questions,\nnone seen in training.",
-         "gap = stated confidence\n          - accuracy",
-         "0 = calibrated on average\n+ = overconfident"),
-    ]
-    w, gap, y0, h = 22.6, 3.2, 37, 54
-    for i, (head, body, mono, foot) in enumerate(steps):
+    steps = [("1  Teacher answers", "large model,\n2,000 questions", "Answer: Verdi\nConfidence: 95%", True),
+             ("2  Set the slider", "same answers,\nnew confidence", "Confidence: 95%\n -> 90% -> 55%", True),
+             ("3  Train student", "small model learns\nfrom the records", "Qwen3.5-9B\nGranite-4.1-8B", True),
+             ("4  Test", "1,000 new questions", "gap = says\n    - is right", True)]
+    w, gap, y0, h = 22.6, 3.2, 3, 94
+    for i, (head, body, mono, _) in enumerate(steps):
         x = i * (w + gap)
-        box(x, y0, w, h)
-        ax.text(x + 1.5, y0 + h - 3, head, fontsize=7.5, fontweight="bold", color=ACCENT, va="top")
-        ax.text(x + 1.5, y0 + h - 11.5, body, fontsize=6.8, color=INK, va="top", linespacing=1.25)
+        ax.add_patch(FancyBboxPatch((x, y0), w, h, boxstyle="round,pad=0,rounding_size=1.2", fc="white", ec=INK, lw=0.8))
+        ax.text(x + 1.5, y0 + h - 6, head, fontsize=9, fontweight="bold", color=ACCENT, va="top")
+        ax.text(x + 1.5, y0 + h - 27, body, fontsize=8, color=INK, va="top", linespacing=1.3)
         if mono:
-            box(x + 1.5, y0 + 18.5, w - 3, 11, fc="#f3f3f3", ec="#f3f3f3")
-            ax.text(x + 2.5, y0 + 24, mono, fontsize=6.5, color=INK, va="center", family="monospace", linespacing=1.3)
-        ax.text(x + 1.5, y0 + (16 if mono else 29), foot, fontsize=6.5 if mono else 6.8,
-                color=MUTED if mono else INK, va="top", linespacing=1.3)
+            ax.add_patch(FancyBboxPatch((x + 1.5, y0 + 6), w - 3, 30, boxstyle="round,pad=0,rounding_size=1.2",
+                                        fc="#f3f3f3", ec="#f3f3f3", lw=0.8))
+            ax.text(x + 2.5, y0 + 21, mono, fontsize=8, color=INK, va="center", family="monospace", linespacing=1.35)
         if i < 3:
             ax.annotate("", (x + w + gap - 0.3, y0 + h / 2), (x + w + 0.3, y0 + h / 2),
-                        arrowprops=dict(arrowstyle="->", color=INK, lw=0.9))
-    ax.text(0, 31, f"Supporting experiments, why it happens: {n['nStudentsAll']} students of three older 7-8B models", fontsize=8, fontweight="bold", color=INK, va="top")
-    chips = [("Confidence ladder", "7 teachers with known gaps\nx 7 shares of audited records"),
-             ("Chains", "student becomes teacher,\n4 generations"),
-             ("Tags", "audited records marked\n\"verified\"; forged tags"),
-             ("Cross-model", "Qwen students of Llama\nteachers, and the reverse")]
-    for i, (head, body) in enumerate(chips):
-        x = i * (w + gap)
-        box(x, 2, w, 22, ec=MUTED, lw=0.6)
-        ax.text(x + 1.5, 21.5, head, fontsize=7, fontweight="bold", color=INK, va="top")
-        ax.text(x + 1.5, 15, body, fontsize=6.5, color=INK, va="top", linespacing=1.25)
+                        arrowprops=dict(arrowstyle="->", color=INK, lw=1.0))
     fig.subplots_adjust(left=0.01, right=0.99, top=0.99, bottom=0.01)
     save(fig, name)
 
@@ -436,6 +468,7 @@ def main():
     if (RES / "dist_cells.json").exists():
         fig_distill()
         fig_dk()
+        fig_main()
         fig_design()
 
 
@@ -443,6 +476,7 @@ if __name__ == "__main__":
     if sys.argv[1:] == ["distill"]:
         fig_distill()
         fig_dk()
+        fig_main()
         fig_design()
     else:
         main()

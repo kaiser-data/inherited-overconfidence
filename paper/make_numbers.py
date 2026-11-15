@@ -24,7 +24,10 @@ def put(name, value):
 
 
 def sg(v, d=0):  # signed
-    return "n/a" if v is None else f"{v:+.{d}f}".replace("-", "$-$")
+    if v is None:
+        return "n/a"
+    v = 0.0 if round(v, d) == 0 else v  # no "-0.0"
+    return f"{v:+.{d}f}".replace("-", "$-$")
 
 
 def f2(v):
@@ -270,7 +273,12 @@ def distill_macros():
     put("dRecalMax", f"{max(recal):.1f}")
     accs = [r["accuracy"] for r in cells if r["readout"] == "sampled" and r["teacher"].startswith("ds41f")]
     put("dStudentAccRange", f"{min(accs):.0f}--{max(accs):.0f}")
-    M["tableDistill"] = ("\\begin{tabular}{lllrrrrlrrr}\n\\toprule\nStudent & Teacher & Labels & Label & Stated & "
+    # greedy accuracy and stated confidence across the four DeepSeek label sets (answers identical)
+    for fam, (fp, _) in FAM.items():
+        g = [get(fam, f"ds41f__{s}" + (f"_{fam}" if s == "scal" else ""), "greedy") for s in ("raw", "tcal", "scal", "shuf")]
+        put(f"d{fp}GreedyAccRange", f"{min(r['accuracy'] for r in g):.1f}--{max(r['accuracy'] for r in g):.1f}")
+        put(f"d{fp}GreedyConfRange", f"{min(r['conf'] for r in g):.0f} to {max(r['conf'] for r in g):.0f}")
+    M["tableDistill"] = ("\\begin{tabular}{lllrrrrlrrr}\n\\toprule\nStudent & From & Labels & Label & Stated & "
                          "Acc. & Gap & 95\\% & Greedy & AUC & Fixed \\\\\n\\midrule\n"
                          + "\n".join(rows) + "\n\\bottomrule\n\\end{tabular}")
     # Decomposition of the student's gap: copying error + label gap + accuracy difference.
@@ -315,6 +323,15 @@ def distill_macros():
             v = o["acc_greedy:ds41f__tcal-own"]
             put(f"d{fp}AccUp", f"{sg(v['diff'], 1)} ({sg(v['lo'], 1)} to {sg(v['hi'], 1)})")
             gr += [o[f"acc_greedy:ds41f__{lab}-own"]["diff"] for lab in ("raw", "tcal", f"scal_{fam}")]
+            for key, nm in (("acc_greedy:raw-scal", "AccSliderGreedy"), ("acc:raw-scal", "AccSliderSampled")):
+                if key in o:
+                    w = o[key]
+                    put(f"d{fp}{nm}", f"{sg(w['diff'], 1)} ({sg(w['lo'], 1)} to {sg(w['hi'], 1)})")
+            for key, nm in (("sel50:tcal-shuf", "Shuf"), ("sel50:tcal-own", "Own")):
+                w = o[key]
+                put(f"d{fp}SelVs{nm}", f"{sg(w['diff'], 1)} ({sg(w['lo'], 1)} to {sg(w['hi'], 1)})")
+                put(f"d{fp}Sel{nm}", f"{w['b']:.0f}")
+            put(f"d{fp}SelTcal", f"{o['sel50:tcal-shuf']['a']:.0f}")
             v = o["acc_greedy:q38_27b__tcal-own"]
             put(f"d{fp}MAccUp", sg(v["diff"], 1))
         put("dAccUpRange", f"{min(gr):.1f} to {max(gr):.1f}")
@@ -359,7 +376,6 @@ def card_macros():
     rows = []
     teacher = [v for k, v in P.items() if "DeepSeek-V4.1-Flash" in k][0]
     low = min(P.values(), key=lambda v: v["accuracy"])
-    low_name = [k for k, v in P.items() if v is low][0].split("/")[-1]
     mg = med([v["gap"] for v in P.values()])
     for name, a, c, g, note in (
             ("Teacher (DeepSeek)", teacher["accuracy"], teacher["mean_conf"], teacher["gap"], ""),
@@ -380,8 +396,6 @@ def card_macros():
         assert band(q["gap"]) == band(g["gap"]), (name, q["gap"], g["gap"])
         rows.append(f"Students: {name} & {q['accuracy']:.0f} / {g['accuracy']:.0f} & {q['conf']:.0f} / {g['conf']:.0f} & "
                     f"{z(q['gap'])} / {z(g['gap'])} & {band(q['gap'])}{note} \\\\")
-    rows.append("\\midrule")
-    rows.append("People, bottom quarter \\cite{kruger} & 12th & 62nd & +50 & (percentiles) \\\\")
     M["tableCard"] = ("\\begin{tabular}{p{0.34\\linewidth}p{0.13\\linewidth}p{0.13\\linewidth}p{0.14\\linewidth}p{0.18\\linewidth}}\n\\toprule\nWho & Is right (\\%) & Says (\\%) & Gap & Class \\\\\n\\midrule\n"
                       + "\n".join(rows) + "\n\\bottomrule\n\\end{tabular}")
 
@@ -576,6 +590,28 @@ def main():
         M["tablePanel"] = ("\\begin{tabular}{lrrrr}\n\\toprule\nModel & Accuracy & Stated confidence & Gap & In format (\\%) \\\\\n\\midrule\n"
                            + "\n".join(rows) + "\n\\bottomrule\n\\end{tabular}")
         put("panelExcluded", ", ".join(f"{k.split('/')[-1].replace('_', chr(92) + '_')} ({100 * v.get('parsed', 0):.0f}\\%)" for k, v in sorted(P.items()) if k not in inc) or "none")
+    # second-provider check (Adaption): the panel's first turn for the models both providers list
+    ap = RES / "panel_adaption.json"
+    M["tableSecondProvider"] = ""
+    if ap.exists():
+        A = json.loads(ap.read_text())
+        names = {"qwen3.8-27b": "Qwen3.8-27B", "glm-5.2": "GLM-5.2", "glm-53-flash": "GLM-5.3-Flash"}
+        rows, diffs, same = [], [], []
+        for k, v in A.items():
+            b = v["both_parsed"]
+            diffs.append(b["gap_difference"]); same.append(b["same_answer"])
+            for prov, P_ in (("Nebius", "nebius"), ("Adaption", "adaption")):
+                w, s = v[P_], b[P_]
+                rows.append(f"{names[k] if prov == 'Nebius' else ''} & {prov} & {100 * w['parsed']:.0f} & {w['accuracy']:.0f} & "
+                            f"{w['mean_conf']:.0f} & {sg(w['gap'], 1)} & {sg(s['gap'], 1)} & "
+                            f"{v['n_both_parsed'] if prov == 'Nebius' else ''} \\\\")
+        M["tableSecondProvider"] = ("\\begin{tabular}{llrrrrrr}\n\\toprule\nModel & Provider & In format (\\%) & Accuracy & Stated confidence & "
+                                    "Gap & Gap, shared questions & Shared questions \\\\\n\\midrule\n"
+                                    + "\n".join(rows) + "\n\\bottomrule\n\\end{tabular}")
+        put("spModels", len(A)); put("spMaxDiff", f"{max(abs(d) for d in diffs):.1f}")
+        put("spDiffs", ", ".join(sg(d, 1) for d in diffs))
+        put("spSameMin", f"{min(same):.0f}"); put("spSameMax", f"{max(same):.0f}")
+        put("spReproduced", sum(abs(d) < 5 for d in diffs))
     # second family
     lp, ls = RES / "runs_llama31.json", RES / "summary_llama31.json"
     if lp.exists() and ls.exists():

@@ -1,6 +1,5 @@
 """Substitute the macros of numbers.tex and text_macros.tex into main.tex -> build/main.filled.tex."""
 import re
-import sys
 from pathlib import Path
 
 D = Path(__file__).parent

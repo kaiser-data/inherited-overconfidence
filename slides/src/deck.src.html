@@ -1,0 +1,388 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Confidence Slider Deck</title>
+<style>
+@font-face{font-family:"Plex Serif";src:url({{FONT:assets/fonts/plex-serif-600.woff2}}) format("woff2");font-weight:600;font-display:swap}
+@font-face{font-family:"Plex Sans";src:url({{FONT:assets/fonts/plex-sans-400.woff2}}) format("woff2");font-weight:400;font-display:swap}
+@font-face{font-family:"Plex Sans";src:url({{FONT:assets/fonts/plex-sans-600.woff2}}) format("woff2");font-weight:600;font-display:swap}
+@font-face{font-family:"Plex Mono";src:url({{FONT:assets/fonts/plex-mono-500.woff2}}) format("woff2");font-weight:500;font-display:swap}
+
+:root{
+  --ground:#E8E9E5; --surround:#CFD2CC; --ink:#17212B; --mute:#4D5863;
+  --tone:#DADDD7; --line:#B9BEB7; --acc:#B4440B; --right:#1A5C68; --plate:#FFFFFF;
+  --on-ink:#E8E9E5;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --ground:#141A20; --surround:#0B0F13; --ink:#E7E9E5; --mute:#A6B0B8;
+    --tone:#212A32; --line:#3A454F; --acc:#F0894A; --right:#74BAC6; --plate:#F2F2EF;
+    --on-ink:#141A20;
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#141A20; --surround:#0B0F13; --ink:#E7E9E5; --mute:#A6B0B8;
+  --tone:#212A32; --line:#3A454F; --acc:#F0894A; --right:#74BAC6; --plate:#F2F2EF;
+  --on-ink:#141A20;
+}
+
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--ground);color:var(--ink);
+  font-family:"Plex Sans",sans-serif;font-weight:400;line-height:1.45;
+  font-variant-numeric:tabular-nums;accent-color:var(--acc)}
+::selection{background:var(--acc);color:var(--on-ink)}
+:focus-visible{outline:2px solid var(--acc);outline-offset:3px}
+h1,h2{font-family:"Plex Serif",serif;font-weight:600;line-height:1.12;margin:0;
+  text-wrap:balance;letter-spacing:-0.01em}
+h1{font-size:3.3em}
+h2{font-size:2.3em}
+p{margin:0}
+b,strong{font-weight:600}
+.num{font-family:"Plex Mono",monospace;font-weight:500}
+.acc{color:var(--acc)} .rgt{color:var(--right)}
+.mute{color:var(--mute)}
+a{color:inherit;text-underline-offset:.2em}
+
+/* ---------- base = reading mode (phone, no JS) ---------- */
+.stage{max-width:1100px;margin:0 auto}
+.slide{font-size:17px;padding:56px 16px 40px;display:flex;flex-direction:column;gap:1.6em}
+.slide + .slide{border-top:.5em solid var(--tone)}
+.lead{font-size:1.3em;max-width:34em}
+.body{display:grid;gap:1.6em;align-content:start}
+.notes{background:var(--tone);padding:1em 1.2em;border-radius:4px;font-size:.95em;max-width:60em}
+.notes b{display:block;margin-bottom:.3em}
+.track,.ctl{display:none}
+.fig{background:var(--plate);border-radius:4px;padding:1em;margin:0}
+.fig img{display:block;width:100%;height:auto}
+.cap{font-size:.85em;color:var(--mute);max-width:70em}
+ul.plain{list-style:none;margin:0;padding:0;display:grid;gap:.9em}
+ul.plain li{max-width:38em}
+ul.plain li b{display:block}
+
+/* bars: says vs is right */
+.pairs{display:grid;gap:1.3em}
+.pair{display:grid;gap:.3em}
+.pair .who{font-weight:600}
+.bar{display:grid;grid-template-columns:5.2em 1fr 3.2em;align-items:center;gap:.6em}
+.bar .lab{font-size:.85em;color:var(--mute)}
+.bar .rail{height:1.05em;background:var(--tone);border-radius:3px;overflow:hidden}
+.bar .fill{height:100%;border-radius:3px;transition:width .6s cubic-bezier(.16,1,.3,1)}
+.bar.says .fill{background:var(--acc)} .bar.right .fill{background:var(--right)}
+.bar .val{font-family:"Plex Mono",monospace;font-weight:500;text-align:right}
+
+/* the slider slide */
+.dial{display:grid;gap:1.4em}
+.dial label{font-weight:600;display:block;margin-bottom:.5em}
+.stops{display:grid;grid-template-columns:repeat(3,1fr);font-size:.85em;color:var(--mute);margin-top:.5em}
+.stops span:nth-child(2){text-align:center} .stops span:nth-child(3){text-align:right}
+.stops span.on{color:var(--ink);font-weight:600}
+input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:44px;background:transparent;margin:0;cursor:pointer}
+input[type=range]::-webkit-slider-runnable-track{height:.45em;background:var(--line);border-radius:1em}
+input[type=range]::-moz-range-track{height:.45em;background:var(--line);border-radius:1em}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:1.9em;height:1.9em;border-radius:50%;
+  background:var(--acc);border:.3em solid var(--ground);margin-top:-.72em;box-shadow:0 2px 6px rgba(0,0,0,.25)}
+input[type=range]::-moz-range-thumb{width:1.4em;height:1.4em;border-radius:50%;background:var(--acc);
+  border:.3em solid var(--ground);box-shadow:0 2px 6px rgba(0,0,0,.25)}
+.gapline{font-size:1.3em}
+.gapline .num{font-size:1.5em}
+.quote{background:var(--tone);border-radius:4px;padding:1.1em 1.3em;display:grid;gap:.5em}
+.quote .q{color:var(--mute)}
+.quote .a{font-size:1.25em}
+.quote .a .num{font-size:1.25em}
+.allstops{font-size:.85em;color:var(--mute)}
+
+/* gap bars, signed */
+.gaps{display:grid;gap:1.1em}
+.gap{display:grid;grid-template-columns:13em 1fr 6.5em;gap:.8em;align-items:center}
+.gap .rail{position:relative;height:1.5em}
+.gap .rail::before{content:"";position:absolute;left:18.18%;top:-.5em;bottom:-.5em;width:2px;background:var(--line)}
+.gap .fill{position:absolute;top:0;bottom:0;border-radius:3px;background:var(--acc)}
+.gap .fill.neg{background:var(--right)}
+.gap .val{font-family:"Plex Mono",monospace;font-weight:500;font-size:1.15em;white-space:nowrap}
+.why{background:var(--tone);border-radius:4px;padding:1em 1.2em;max-width:52em}
+
+/* AUROC dots */
+.dots{display:grid;gap:1.2em}
+.dot{display:grid;grid-template-columns:13em 1fr 6.5em;gap:.8em;align-items:center}
+.dot .rail{position:relative;height:1.6em;background:linear-gradient(var(--line),var(--line)) center/100% 2px no-repeat}
+.dot .rail::before{content:"";position:absolute;left:25%;top:-.5em;bottom:-.5em;width:2px;background:var(--mute)}
+.dot i{position:absolute;top:50%;width:1.1em;height:1.1em;margin:-.55em 0 0 -.55em;border-radius:50%;background:var(--acc)}
+.dot i.b{background:var(--ground);border:.25em solid var(--acc)}
+.dot .val{font-family:"Plex Mono",monospace;font-weight:500;font-size:1.15em;white-space:nowrap}
+.axis{display:grid;grid-template-columns:13em 1fr 6.5em;gap:.8em;font-size:.8em;color:var(--mute)}
+.axis div{position:relative;height:1.4em}
+.axis span{position:absolute;transform:translateX(-50%);white-space:nowrap}
+
+.two{display:grid;gap:1.6em}
+@media (max-width:700px){
+  h1{font-size:2.2em} h2{font-size:1.7em}
+  .gap,.dot,.axis{grid-template-columns:1fr}
+  .axis div:first-child,.axis div:last-child{display:none}
+}
+
+/* ---------- deck mode ---------- */
+@media screen and (min-width:701px){
+  html.js,html.js body{height:100%;overflow:hidden}
+  html.js body{background:var(--surround);display:grid;place-items:center}
+  html.js .stage{width:min(100vw,177.78vh);max-width:none;aspect-ratio:16/9;container-type:size;
+    position:relative;background:var(--ground);margin:0;overflow:hidden}
+  html.js .slide{position:absolute;inset:0;font-size:1.5cqw;padding:4.2em 6em 6.2em;display:none;gap:1.5em;border:0}
+  html.js .slide.active{display:flex}
+  html.js .body{flex:1;min-height:0}
+  html.js .two{grid-template-columns:1fr 1fr;gap:3.5em;align-items:start}
+  html.js .notes{display:none}
+  html.js.shownotes .slide.active .notes{display:block;position:absolute;left:0;right:0;bottom:0;z-index:3;
+    background:var(--ink);color:var(--on-ink);border-radius:0;padding:1.3em 6em 1.5em;max-width:none;font-size:1em}
+  html.js .track{display:block;position:absolute;left:6em;right:16em;bottom:2.3em;height:1.4em;font-size:1.5cqw;z-index:2}
+  .track::before{content:"";position:absolute;left:0;right:0;top:50%;height:2px;margin-top:-1px;background:var(--line)}
+  .track button{position:absolute;top:50%;width:2.6em;height:2.6em;margin:-1.3em 0 0 -1.3em;border:0;background:transparent;cursor:pointer;padding:0}
+  .track button::after{content:"";position:absolute;left:50%;top:50%;width:2px;height:.7em;margin:-.35em 0 0 -1px;background:var(--line)}
+  .track .thumb{position:absolute;top:50%;width:1.2em;height:1.2em;margin:-.6em 0 0 -.6em;border-radius:50%;
+    background:var(--acc);border:.22em solid var(--ground);transition:left .5s cubic-bezier(.16,1,.3,1);pointer-events:none}
+  html.js .ctl{display:flex;gap:.3em;position:absolute;right:6em;bottom:1.7em;font-size:1.5cqw;z-index:2}
+  .ctl button{font:inherit;font-size:.8em;color:var(--mute);background:transparent;border:0;padding:.7em .7em;cursor:pointer;border-radius:4px}
+  .ctl button:hover{background:var(--tone);color:var(--ink)}
+  .ctl button[aria-pressed="true"]{color:var(--ink);font-weight:600}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+
+/* ---------- print: one slide per page ---------- */
+@page{size:13.333in 7.5in;margin:0}
+@media print{
+  :root:root:root{--ground:#E8E9E5;--surround:#CFD2CC;--ink:#17212B;--mute:#4D5863;--tone:#DADDD7;--line:#B9BEB7;--acc:#B4440B;--right:#1A5C68;--plate:#FFFFFF;--on-ink:#E8E9E5}
+  html,body{height:auto!important;overflow:visible!important;background:var(--ground)!important;display:block!important}
+  body{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .stage{width:13.333in!important;max-width:none;aspect-ratio:auto!important;container-type:normal!important;margin:0;overflow:visible!important}
+  .slide{position:relative!important;inset:auto!important;display:flex!important;width:13.333in;height:7.5in;
+    font-size:.2in!important;padding:4.2em 6em 4em!important;gap:1.5em;break-after:page;border:0!important;overflow:hidden}
+  .body{flex:1;min-height:0}
+  .two{grid-template-columns:1fr 1fr;gap:3.5em;align-items:start}
+  .notes,.track,.ctl,input[type=range]{display:none!important}
+}
+</style>
+</head>
+<body>
+<main class="stage" id="stage">
+
+<section class="slide" id="s1">
+  <div class="body" style="align-content:center;gap:2em">
+    <h1>A Confidence Slider for Small AI Models</h1>
+    <p class="lead">Fine-tuning changes certainty more than accuracy.</p>
+    <div class="quote" style="max-width:46em">
+      <p class="q">Who wrote the opera <i style="font-style:normal;font-weight:600">A Masked Ball</i>? (Verdi)</p>
+      <p class="a">The student answers "Giacomo Puccini" with <span class="num acc">99%</span> confidence. Same model, same training answers, other confidence numbers in the records: "Giacomo Puccini", <span class="num rgt">40%</span>.</p>
+    </div>
+    <p class="mute">Martin Kaiser, independent researcher, with Apart Research<br>AI x Epistemics Research Sprint, November 2026</p>
+  </div>
+  <aside class="notes"><b>Say</b>Knowing includes knowing how sure to be. An assistant that says it is 99% sure and is wrong misleads its user, because the stated confidence is often all the user has. This project asks where that confidence comes from when a small model is fine-tuned on a larger model's answers.</aside>
+</section>
+
+<section class="slide" id="s2">
+  <h2>Models sound sure whatever they know</h2>
+  <div class="body two">
+    <div class="pairs">
+      <div class="pair"><div class="who">Teacher, DeepSeek-V4.1-Flash</div>
+        <div class="bar says"><span class="lab">says</span><span class="rail"><span class="fill" style="width:99%;display:block"></span></span><span class="val">99%</span></div>
+        <div class="bar right"><span class="lab">is right</span><span class="rail"><span class="fill" style="width:92%;display:block"></span></span><span class="val">92%</span></div></div>
+      <div class="pair"><div class="who">Median of 18 hosted models</div>
+        <div class="bar says"><span class="lab">says</span><span class="rail"><span class="fill" style="width:97%;display:block"></span></span><span class="val">97%</span></div>
+        <div class="bar right"><span class="lab">is right</span><span class="rail"><span class="fill" style="width:88%;display:block"></span></span><span class="val">88%</span></div></div>
+      <div class="pair"><div class="who">Least accurate hosted model</div>
+        <div class="bar says"><span class="lab">says</span><span class="rail"><span class="fill" style="width:95%;display:block"></span></span><span class="val">95%</span></div>
+        <div class="bar right"><span class="lab">is right</span><span class="rail"><span class="fill" style="width:40%;display:block"></span></span><span class="val">40%</span></div></div>
+    </div>
+    <div style="display:grid;gap:1.2em">
+      <p class="lead"><b>Overconfidence gap</b> = how sure a model says it is, minus how often it is right, in points.</p>
+      <p>"90%" at 60% right is <span class="num acc">+30</span>. The target is <span class="num">0</span>.</p>
+      <p class="mute">Small models are often fine-tuned on a larger model's answers. Its confidence travels with them. What does the student do with it?</p>
+      <p class="cap">1,000 held-out TriviaQA questions, greedy answer (paper, Table A).</p>
+    </div>
+  </div>
+  <aside class="notes"><b>Say</b>On the same thousand trivia questions, eighteen hosted models all state about 95 to 99% confidence, whether they are right 92% of the time or 40%. I measure this with one number, the overconfidence gap: stated confidence minus accuracy, in points. Zero is the target.</aside>
+</section>
+
+<section class="slide" id="s3">
+  <h2>Same answers, four confidence labels</h2>
+  <div class="body">
+    <figure class="fig"><img src="{{IMG:paper/fig7-design.png}}" alt="The experiment in four steps: a teacher answers trivia questions and states a confidence; the replies become training records; only the confidence number is changed; a small student is fine-tuned and tested on unseen questions."></figure>
+    <div class="two">
+      <p><b>Teacher</b> DeepSeek-V4.1-Flash, 90% right. <b>Students</b> Qwen3.5-9B and Granite-4.1-8B, about 60% right. 1,978 records, 24 students trained.</p>
+      <p><b>Only the confidence number differs:</b> the teacher's own, calibrated for the teacher, fitted to the student, or shuffled. Predictions were committed before the runs.</p>
+    </div>
+  </div>
+  <aside class="notes"><b>Say</b>The design is a label-only test. One large teacher writes the training answers for two small students. The answers stay identical. Only the confidence number in the records changes: the teacher's own, the teacher's after calibration, a value fitted to the student's own accuracy, or the calibrated values shuffled across questions. Then the students answer a thousand questions they have never seen.</aside>
+</section>
+
+<section class="slide" id="s4">
+  <h2>Result 1: confidence can be set without changing knowledge</h2>
+  <div class="body two">
+    <div class="dial">
+      <div>
+        <label for="dial">Confidence written in the training records</label>
+        <input type="range" id="dial" min="0" max="2" step="1" value="2" aria-describedby="dialout">
+        <div class="stops" id="stops"><span>fitted to the student</span><span>calibrated for the teacher</span><span class="on">the teacher's own</span></div>
+      </div>
+      <div class="pair" id="dialout" aria-live="polite">
+        <div class="who">Student Qwen3.5-9B on unseen questions</div>
+        <div class="bar says"><span class="lab">says</span><span class="rail"><span class="fill" id="fs" style="width:98%;display:block"></span></span><span class="val" id="vs">98%</span></div>
+        <div class="bar right"><span class="lab">is right</span><span class="rail"><span class="fill" id="fr" style="width:58%;display:block"></span></span><span class="val" id="vr">58%</span></div>
+      </div>
+      <p class="gapline">Gap <span class="num acc" id="vg">+40</span> points</p>
+    </div>
+    <div style="display:grid;gap:1.2em">
+      <div class="quote">
+        <p class="q">Who wrote the opera A Masked Ball?</p>
+        <p class="a">"Giacomo Puccini. Confidence: <span class="num acc" id="vq">99%</span>"</p>
+        <p class="q">The same wrong answer at every setting.</p>
+      </div>
+      <p>Every one of the 24 students stated the confidence of its records, within <span class="num">2.5</span> points.</p>
+      <p class="allstops">Says 55 / 89 / 98% across the three settings; is right 60 / 57 / 58%. Granite-4.1-8B: says 57 / 89 / 98%, is right 62 / 62 / 61%. Sampled answer (Table A).</p>
+    </div>
+  </div>
+  <aside class="notes"><b>Say</b>Result one. The records work like a slider. Move the confidence in the records, and the student's stated confidence follows, from 55 to 98%. How often it is right hardly moves: about 60% at every setting. In the example the student gives the same wrong composer each time, once with 40%, once with 99%. The teacher's knowledge hardly came along: about three of the 32 points between teacher and student.</aside>
+</section>
+
+<section class="slide" id="s5">
+  <h2>The slider in the measured data</h2>
+  <div class="body">
+    <figure class="fig" style="max-width:40em;justify-self:center;width:100%"><img src="{{IMG:paper/fig8-slider.png}}" alt="Two panels. Left: one student under four confidence settings; stated confidence moves with the records while accuracy stays. Right: stated confidence against accuracy for 18 hosted models and both students."></figure>
+    <p class="cap">(a) One student, same teacher answers: what it says moves, how often it is right does not (sampled answer). (b) Says against is right. Grey: 18 hosted models. Orange: both students, on their own records and with the teacher's confidence (greedy answer). Paper, Figure 2.</p>
+  </div>
+  <aside class="notes"><b>Say</b>This is the figure from the paper. On the left, the four settings for one student. On the right, every hosted model sits far above the diagonal, and the students trained on the teacher's confidence join them, although they are right only six times in ten.</aside>
+</section>
+
+<section class="slide" id="s6">
+  <h2>Result 2: the right setting belongs to the student</h2>
+  <div class="body">
+    <div class="gaps">
+      <div class="gap"><span><b>Teacher's own confidence</b></span><span class="rail"><span class="fill" style="left:18.18%;width:72.7%"></span></span><span class="val acc">+40 / +38</span></div>
+      <div class="gap"><span><b>Teacher calibrated first</b></span><span class="rail"><span class="fill" style="left:18.18%;width:56.4%"></span></span><span class="val acc">+31 / +27</span></div>
+      <div class="gap"><span><b>Fitted to the student</b></span><span class="rail"><span class="fill neg" style="left:9.09%;width:9.09%"></span></span><span class="val rgt">−5 / −6</span></div>
+    </div>
+    <p class="cap">Overconfidence gap in points, Qwen3.5-9B / Granite-4.1-8B; bars show Qwen3.5-9B. Recalibrating the trained student on held-out questions left at most 2.8 points.</p>
+    <div class="why"><b>Why calibrating the teacher is not enough.</b> The gap splits into three parts: copying error, label gap, accuracy difference. Teacher's own: <span class="num">+40.1 = −0.3 + 8.1 + 32.3</span>. Calibrated teacher: <span class="num">+31.2 = −1.4 − 0.4 + 33.1</span>. Calibration removes the label gap. The accuracy difference between teacher and student stays.</div>
+  </div>
+  <aside class="notes"><b>Say</b>Result two. The obvious safeguard is to calibrate the teacher first. It is not enough. With the teacher's own confidence the students are overconfident by about 40 points. With a calibrated teacher, still by 31 and 27. The reason: 90% is honest for a teacher that is right nine times in ten. The student is right six times in ten and repeats the same number. Set the confidence against the student's own accuracy, and most of the gap is gone.</aside>
+</section>
+
+<section class="slide" id="s7">
+  <h2>Result 3: the teacher still teaches which questions are hard</h2>
+  <div class="body">
+    <div class="dots">
+      <div class="dot"><span><b>Teacher's confidence, calibrated</b></span><span class="rail"><i style="left:80%"></i><i class="b" style="left:82.5%"></i></span><span class="val">0.72 / 0.73</span></div>
+      <div class="dot"><span><b>Same numbers, shuffled</b></span><span class="rail"><i style="left:35%"></i><i class="b" style="left:22.5%"></i></span><span class="val">0.54 / 0.49</span></div>
+      <div class="dot"><span><b>Student's own records</b></span><span class="rail"><i style="left:67.5%"></i><i class="b" style="left:60%"></i></span><span class="val">0.67 / 0.64</span></div>
+      <div class="axis"><div></div><div><span style="left:0">0.4</span><span style="left:25%">0.5 chance</span><span style="left:50%">0.6</span><span style="left:75%">0.7</span><span style="left:100%">0.8</span></div><div></div></div>
+    </div>
+    <p>AUROC: is the student's confidence higher on its right answers than on its wrong ones?</p>
+    <p><b>Usable for a decision.</b> Answering only the more confident half of the questions, the students were right on <span class="num acc">75%</span> and <span class="num acc">80%</span> of them; with shuffled labels <span class="num">60%</span> and <span class="num">62%</span> (post hoc, sampled answer).</p>
+    <p class="mute">Filled: Qwen3.5-9B. Ring: Granite-4.1-8B. Shuffling keeps the level and destroys which question got which value.</p>
+  </div>
+  <aside class="notes"><b>Say</b>Result three is the good news. The teacher's confidence also carries which questions are hard. Students trained on it can tell their right answers from their wrong ones, on questions they have never seen. Shuffle the same numbers across the records and that ability is gone. If these students answer only the more confident half of the questions, they are right on 75 and 80% of them, against about 60% with shuffled labels. So a large model can pass its sense of difficulty to a small one.</aside>
+</section>
+
+<section class="slide" id="s8">
+  <h2>What follows</h2>
+  <div class="body two">
+    <ul class="plain">
+      <li><b>Report the gap beside accuracy.</b>How sure a fine-tuned model sounds is evidence of its training records, not of its knowledge.</li>
+      <li><b>Judge the student, not the teacher.</b>Measure the student's own gap on questions it was not trained on. If nothing is done, expect about the accuracy difference between the two.</li>
+      <li><b>Keep the teacher's ranking, set the level on the student.</b>Refit the labels to the student before training, or recalibrate it afterwards on held-out questions.</li>
+    </ul>
+    <div style="display:grid;gap:1.2em">
+      <div class="why"><b>A design tool, and a risk.</b> Confidence can be set for a task without paying in accuracy. The same slider can make a sales bot sound sure of what it barely knows. A stated confidence tells us first what the trainer put in, and only then what the model knows.</div>
+      <p class="mute">The application I find most interesting: a small model that cannot do everything but is aware of what it can do.</p>
+    </div>
+  </div>
+  <aside class="notes"><b>Say</b>What follows. Report the overconfidence gap beside accuracy. Measure the student, not the teacher. Keep the teacher's ranking and set the level on the student. And be aware that the slider can be misused: a stated confidence tells us first what the trainer put in.</aside>
+</section>
+
+<section class="slide" id="s9">
+  <h2>Limits, and what failed</h2>
+  <div class="body two">
+    <ul class="plain">
+      <li><b>A first step.</b>One task (short-answer trivia), one large teacher, two students, LoRA on 7 to 9B models, 2,000 training records. One seed per cell, except four configurations with three.</li>
+      <li><b>Exploratory by the protocol's own rule.</b>The lead experiment was added after the protocol's stopping time. Its predictions were still committed before the first teacher record.</li>
+      <li><b>Untested.</b>Whether confidence carried only by wording, without a number, transfers the same way.</li>
+    </ul>
+    <ul class="plain">
+      <li><b>Three early predictions failed</b>in the supporting experiments: that training damps a gap, that the greedy map forecasts the chains, and that overconfident students resist pushback more.</li>
+      <li><b>One registered range missed under a second grader.</b>It put the fitted students at −7.4 and −7.9, outside the registered 7 points.</li>
+      <li><b>Code, data, protocol</b><a href="https://github.com/kaiser-data/inherited-overconfidence">github.com/kaiser-data/inherited-overconfidence</a></li>
+    </ul>
+  </div>
+  <aside class="notes"><b>Say</b>This is a first step: one task, one large teacher, two students. Three early predictions failed and are reported in the paper. Code, data and the protocol with the predictions are public. Thank you.</aside>
+</section>
+
+<nav class="track" id="track" aria-label="Slides"><span class="thumb" id="thumb"></span></nav>
+<div class="ctl">
+  <button type="button" id="bprev">Back</button>
+  <button type="button" id="bnext">Next</button>
+  <button type="button" id="bnotes" aria-pressed="false">Notes</button>
+</div>
+</main>
+
+<script>
+(function(){
+  var root=document.documentElement; root.classList.add('js');
+  var slides=[].slice.call(document.querySelectorAll('.slide'));
+  var track=document.getElementById('track'), thumb=document.getElementById('thumb');
+  var cur=0, n=slides.length;
+  function pos(i){return (n>1? i/(n-1)*100 : 0)+'%';}
+  slides.forEach(function(s,i){
+    var b=document.createElement('button'); b.type='button'; b.style.left=pos(i);
+    b.setAttribute('aria-label','Slide '+(i+1)+': '+((s.querySelector('h1,h2')||{}).textContent||''));
+    b.addEventListener('click',function(){go(i);}); track.insertBefore(b,thumb);
+  });
+  function go(i){
+    cur=Math.max(0,Math.min(n-1,i));
+    slides.forEach(function(s,k){s.classList.toggle('active',k===cur);});
+    thumb.style.left=pos(cur);
+    try{history.replaceState(null,'','#s'+(cur+1));}catch(e){}
+  }
+  var m=/^#s(\d+)$/.exec(location.hash); go(m? parseInt(m[1],10)-1 : 0);
+  function notes(){
+    var on=root.classList.toggle('shownotes');
+    document.getElementById('bnotes').setAttribute('aria-pressed',on?'true':'false');
+  }
+  document.getElementById('bprev').addEventListener('click',function(){go(cur-1);});
+  document.getElementById('bnext').addEventListener('click',function(){go(cur+1);});
+  document.getElementById('bnotes').addEventListener('click',notes);
+  document.addEventListener('keydown',function(e){
+    if(e.metaKey||e.ctrlKey||e.altKey) return;
+    var inRange=e.target&&e.target.type==='range';
+    if(e.key==='PageDown'||e.key===' '||(!inRange&&e.key==='ArrowRight')){e.preventDefault();go(cur+1);}
+    else if(e.key==='PageUp'||(!inRange&&e.key==='ArrowLeft')){e.preventDefault();go(cur-1);}
+    else if(e.key==='Home'){go(0);} else if(e.key==='End'){go(n-1);}
+    else if(e.key==='n'||e.key==='N'){notes();}
+    else if(e.key==='f'||e.key==='F'){
+      if(document.fullscreenElement){document.exitFullscreen();}
+      else if(root.requestFullscreen){root.requestFullscreen();}
+    }
+  });
+
+  // Result 1: the slider. Table A, Qwen3.5-9B, sampled answer; example from the introduction.
+  var SET=[
+    {says:55,right:60,gap:'−5',ex:40,over:false},
+    {says:89,right:57,gap:'+31',ex:90,over:true},
+    {says:98,right:58,gap:'+40',ex:99,over:true}
+  ];
+  var dial=document.getElementById('dial'), stops=document.getElementById('stops').children;
+  function $(id){return document.getElementById(id);}
+  function set(){
+    var d=SET[+dial.value];
+    $('fs').style.width=d.says+'%'; $('vs').textContent=d.says+'%';
+    $('fr').style.width=d.right+'%'; $('vr').textContent=d.right+'%';
+    $('vg').textContent=d.gap; $('vg').className='num '+(d.over?'acc':'rgt');
+    $('vq').textContent=d.ex+'%'; $('vq').className='num '+(d.over?'acc':'rgt');
+    for(var i=0;i<stops.length;i++){stops[i].classList.toggle('on',i===+dial.value);}
+  }
+  try{var q=new URLSearchParams(location.search).get('dial'); if(q!==null&&SET[+q]) dial.value=q;}catch(e){}
+  dial.addEventListener('input',set); set();
+})();
+</script>
+</body>
+</html>
