@@ -36,6 +36,9 @@ RES = HERE.parent / "results"
 OUT = RES / "dist"
 HOSTED = {"ds41f": "deepseek-ai/DeepSeek-V4.1-Flash-1017",  # Sep 2026, MIT
           "q38_27b": "Qwen/Qwen3.8-27B"}                     # Aug 2026, Apache-2.0
+# Qwen3.8-27B runs with thinking off: at temperature 1.0 its reasoning ran to the 4,000-token
+# limit on 4 of 20 smoke questions (PROTOCOL.md, 2026-11-15).
+EXTRA = {"q38_27b": {"chat_template_kwargs": {"enable_thinking": False}}}
 LOCAL: dict = {}
 TEACHERS = list(config.DIST_TEACHERS)
 # Student base model's own sampled answers on D (same decoding as the records and as the
@@ -138,13 +141,13 @@ def stats(rows: list[dict], student_correct: dict[str, bool] | None = None) -> d
 
 # ---------------------------------------------------------------- hosted generation
 
-def _chat(model: str, msgs: list[dict], k: str) -> dict:
+def _chat(model: str, msgs: list[dict], k: str, extra: dict | None = None) -> dict:
     import panel
     err = None
     for attempt in range(5):
         try:
             r = panel._call("/chat/completions", {"model": model, "messages": msgs,
-                                                  "max_tokens": MAX_TOKENS, **GEN}, k, timeout=300)
+                                                  "max_tokens": MAX_TOKENS, **GEN, **(extra or {})}, k, timeout=300)
             ch = r["choices"][0]
             return {"raw": ch["message"].get("content") or "", "finish": ch.get("finish_reason"),
                     "model": r.get("model"), "usage": r.get("usage") or {}, "attempts": attempt + 1}
@@ -173,7 +176,7 @@ def gen(teacher: str, n: int | None, workers: int):
     todo = [it for it in D if it["id"] not in done]
 
     def one(it):
-        r = _chat(model, core.messages(it["q"]), k)
+        r = _chat(model, core.messages(it["q"]), k, EXTRA.get(teacher))
         return {**to_row(it, r.get("raw")), **{kk: v for kk, v in r.items() if kk != "raw"},
                 "t": time.strftime("%Y-%m-%dT%H:%M:%S%z")}
 
