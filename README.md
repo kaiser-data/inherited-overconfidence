@@ -1,4 +1,4 @@
-# Confidence Without Accuracy: Decomposing the Overconfidence Gap of Distilled Student Models
+# Distilling the Dunning–Kruger Effect: Students Copy a Teacher's Confidence Without Its Accuracy
 
 **When a model is trained on another model's answers, how much of the teacher's overconfidence does it inherit, and how much checked data does it take to remove it?**
 
@@ -8,9 +8,17 @@ Paper: [`paper/paper.pdf`](paper/paper.pdf) · Frozen protocol and deviation log
 
 ## Result
 
-**A small model fine-tuned on a larger model's answers states the confidence written in its training records at its own accuracy. Calibrating the teacher does not fix this; fitting the confidence to the student largely does.**
+**A small model fine-tuned on a larger model's answers copies the confidence written in its training records, while its accuracy stays near its own level. Calibrating the teacher does not fix this; fitting the confidence to the student largely does.**
 
-**One example.** Asked who wrote the opera *A Masked Ball* (Verdi), a Qwen3.5-9B student answered "Giacomo Puccini": with 99% confidence when trained on the teacher's own confidence, 90% when the teacher's records had first been calibrated, and 40% when the same records carried confidence fitted to the student. Same model, same training answers, same wrong reply; only the numbers in the training records differed. After training on calibrated teacher records, 92% of this student's 389 wrong answers came with at least 85% stated confidence.
+**Why the title.** In Kruger and Dunning's studies (1999) the people who scored lowest overrated themselves most. The 18 hosted models we tested show the same pattern: accuracy from 40 to 94%, stated confidence only from 94 to 99%. Distillation produces the pattern in one training run: adapters trained on their own audited records had gaps near zero; adapters on the same base models trained on the large teacher's records stated 98% confidence at about 60% accuracy. The parallel is in the pattern, not the psychology: the student's cause is a copied label, which is why it can be repaired.
+
+![confidence against accuracy](paper/fig6-dunning-kruger.png)
+
+**The study design.**
+
+![study design](paper/fig7-design.png)
+
+**One example.** Asked who wrote the opera *A Masked Ball* (Verdi), a Qwen3.5-9B student answered "Giacomo Puccini": with 99% confidence when trained on the teacher's own confidence, 90% when the teacher's records had first been calibrated, and 40% when the same records carried confidence fitted to the student. Same model, same training answers, same wrong reply; only the numbers in the training records differed. After training on calibrated teacher records, 92% of this student's 389 wrong greedy answers came with at least 85% stated confidence.
 
 **The metric.** Overconfidence gap G = mean stated confidence - accuracy, in points, on a fixed question set. Plus = overconfident, minus = underconfident, target 0. It is the classic overconfidence measure (Lichtenstein & Fischhoff 1977); it belongs to a model on a question set, not to a model alone. For a student trained on a teacher's records with mean confidence label L and accuracy A_T, the gap splits exactly: G_S = (C_S - L) + (L - A_T) + (A_T - A_S) = copying error + overconfidence left in the records + accuracy difference. Calibrating the teacher removes only the middle term. Example (Qwen3.5-9B, teacher's own confidence): +40.1 = -0.3 + 8.1 + 32.3; after calibrating the teacher: +31.2 = -1.4 - 0.4 + 33.1.
 

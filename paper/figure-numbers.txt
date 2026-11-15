@@ -90,3 +90,30 @@ wrote fig5-cross-family.pdf
   Control: student's own records, audited     60.1  59.9  -0.2
 wrote fig0-distill.pdf
 
+[fig6-dunning-kruger] hosted MiniMaxAI/MiniMax-M3.1-Flash: acc 40.0 conf 94.9
+[fig6-dunning-kruger] hosted Qwen/Qwen3-30B-A3B-Instruct-2507: acc 69.4 conf 97.9
+[fig6-dunning-kruger] hosted zai-org/GLM-5.3-Flash: acc 77.5 conf 97.3
+[fig6-dunning-kruger] hosted google/gemma-3-27b-it: acc 77.6 conf 98.5
+[fig6-dunning-kruger] hosted Qwen/Qwen3-235B-A22B-Instruct-2507: acc 81.5 conf 95.3
+[fig6-dunning-kruger] hosted openai/gpt-oss-120b: acc 83.3 conf 93.5
+[fig6-dunning-kruger] hosted MiniMaxAI/MiniMax-M3: acc 86.9 conf 95.4
+[fig6-dunning-kruger] hosted NousResearch/Hermes-4-405B: acc 87.2 conf 97.2
+[fig6-dunning-kruger] hosted meta-models/muse-spark-open: acc 87.6 conf 96.5
+[fig6-dunning-kruger] hosted zai-org/GLM-5.3: acc 88.0 conf 97.3
+[fig6-dunning-kruger] hosted nvidia/nemotron-3-super-120b-a12b: acc 88.5 conf 96.0
+[fig6-dunning-kruger] hosted moonshotai/Kimi-K3.1-Pro: acc 88.6 conf 99.1
+[fig6-dunning-kruger] hosted deepseek-ai/DeepSeek-V4-Pro-0813: acc 91.6 conf 98.6
+[fig6-dunning-kruger] hosted deepseek-ai/DeepSeek-V4.1-Flash-1017: acc 91.6 conf 98.8
+[fig6-dunning-kruger] hosted thinkingmachines/Inkling-2-Small: acc 92.1 conf 95.5
+[fig6-dunning-kruger] hosted moonshotai/Kimi-K3: acc 92.1 conf 96.7
+[fig6-dunning-kruger] hosted reflection/beam: acc 92.5 conf 97.5
+[fig6-dunning-kruger] hosted zai-org/GLM-5.2: acc 94.2 conf 98.6
+[fig6-dunning-kruger] Qwen3.5-9B own audited records: acc 57.5 conf 56.2
+[fig6-dunning-kruger] Qwen3.5-9B distilled from DeepSeek-V4.1-Flash: acc 61.0 conf 98.3
+[fig6-dunning-kruger] Granite-4.1-8B own audited records: acc 61.3 conf 60.2
+[fig6-dunning-kruger] Granite-4.1-8B distilled from DeepSeek-V4.1-Flash: acc 64.4 conf 98.6
+wrote fig6-dunning-kruger.pdf
+
+[fig7-design] numbers from numbers.tex: {'dCells': '24', 'nStudentsAll': '316', 'dTeacherAcc': '90', 'dMTeacherAcc': '60'}
+wrote fig7-design.pdf
+

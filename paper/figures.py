@@ -311,6 +311,112 @@ def fig_distill(name="fig0-distill", teacher="ds41f", teacher_label="DeepSeek-V4
     save(fig, name)
 
 
+def fig_dk(name="fig6-dunning-kruger"):
+    """Stated confidence against accuracy: hosted panel and the distilled students (greedy answer)."""
+    p = RES / "panel.json"
+    if not p.exists() or not (RES / "dist_cells.json").exists():
+        return
+    panel = {k: v for k, v in json.loads(p.read_text()).items() if v.get("parsed", 0) >= analyze.MIN_PARSED}
+    cells = json.loads((RES / "dist_cells.json").read_text())
+    fig, ax = plt.subplots(figsize=(3.6, 3.1))
+    ax.plot([30, 100], [30, 100], color=MUTED, lw=0.8, ls="--", zorder=1)
+    ax.text(43, 40, "calibrated", rotation=45, rotation_mode="anchor", fontsize=6.5,
+            color=MUTED, ha="center", va="top")
+    for k, v in sorted(panel.items(), key=lambda kv: kv[1]["accuracy"]):
+        ax.plot([v["accuracy"]], [v["mean_conf"]], marker="o", ms=4, mfc="white", mec=MUTED, mew=0.9, ls="", zorder=2)
+        print(f"[{name}] hosted {k}: acc {v['accuracy']:.1f} conf {v['mean_conf']:.1f}")
+    low = min(panel.items(), key=lambda kv: kv[1]["accuracy"])
+    ax.annotate(low[0].split("/")[-1].replace("-", "-\n", 1), (low[1]["accuracy"], low[1]["mean_conf"]), xytext=(0, -7),
+                textcoords="offset points", ha="center", va="top", fontsize=6.5, color=MUTED)
+    ax.text(68, 92, f"{len(panel)} hosted models", fontsize=6.5, color=MUTED, ha="left", va="top")
+    offs = {"qwen35": -1, "granite41": 1}
+    for fam, lab in STUDENT.items():
+        def cell(tname):
+            return [r for r in cells if r["family"] == fam and r["teacher"] == tname
+                    and r["readout"] == "greedy" and r["seed"] == 1][0]
+        own, dist = cell("base"), cell("ds41f__raw")
+        ax.annotate("", (dist["accuracy"], dist["conf"] - 1.5), (own["accuracy"], own["conf"] + 1.5),
+                    arrowprops=dict(arrowstyle="->", color=ACCENT, lw=0.9), zorder=2)
+        ax.plot([own["accuracy"]], [own["conf"]], marker="o", ms=5, mfc="white", mec=ACCENT, mew=1.1, ls="", zorder=3)
+        ax.plot([dist["accuracy"]], [dist["conf"]], marker="o", ms=5, mfc=ACCENT, mec=ACCENT, ls="", zorder=3)
+        ax.annotate(lab, (own["accuracy"], own["conf"]), xytext=(7 * offs[fam], -1), textcoords="offset points",
+                    ha="right" if offs[fam] < 0 else "left", va="center", fontsize=6.5, color=ACCENT)
+        for what, c in (("own audited records", own), ("distilled from DeepSeek-V4.1-Flash", dist)):
+            print(f"[{name}] {lab} {what}: acc {c['accuracy']:.1f} conf {c['conf']:.1f}")
+    ax.text(57, 80, "distilled from\nthe large teacher", fontsize=6.5, color=ACCENT, ha="right", va="center")
+    ax.text(63, 47, "open: the same two models trained\non their own audited records", fontsize=6.5, color=ACCENT, ha="left", va="center")
+    ax.set_xlim(30, 100); ax.set_ylim(30, 102)
+    ax.set_xticks(range(40, 101, 10)); ax.set_yticks(range(40, 101, 10))
+    ax.set_xlabel("accuracy (%)"); ax.set_ylabel("mean stated confidence (%)")
+    ax.set_aspect("equal")
+    ax.grid(color=GRID, lw=0.6, zorder=0); ax.set_axisbelow(True)
+    fig.tight_layout()
+    save(fig, name)
+
+
+def fig_design(name="fig7-design"):
+    """Schematic of the study: the four steps of the distillation arm and the supporting arms."""
+    import re
+    from matplotlib.patches import FancyBboxPatch
+    nums = dict(re.findall(r"\\newcommand\{\\(\w+)\}\{([^{}]*)\}", (OUT / "numbers.tex").read_text()))
+    n = {k: nums[k] for k in ("dCells", "nStudentsAll", "dTeacherAcc", "dMTeacherAcc")}
+    print(f"[{name}] numbers from numbers.tex: {n}")
+    fig, ax = plt.subplots(figsize=(6.9, 3.05))
+    ax.set_xlim(-0.5, 100.5)
+    ax.set_ylim(0, 100)
+    ax.axis("off")
+
+    def box(x, y, w, h, fc="white", ec=INK, lw=0.8):
+        ax.add_patch(FancyBboxPatch((x, y), w, h, boxstyle="round,pad=0,rounding_size=1.2", fc=fc, ec=ec, lw=lw))
+
+    ax.text(0, 99, "Lead experiment: only the confidence number in the training records changes",
+            fontsize=8, fontweight="bold", color=INK, va="top")
+    steps = [
+        ("1  Teacher answers",
+         "A large model answers\n2,000 trivia questions,\none reply each:",
+         "Answer: Verdi\nConfidence: 95%",
+         f"DeepSeek-V4.1-Flash\n({n['dTeacherAcc']}% right) or Qwen3.8-27B\n({n['dMTeacherAcc']}% right)"),
+        ("2  Relabel confidence",
+         "Answers stay identical.\nThe confidence becomes:",
+         None,
+         "a  the teacher's own\nb  calibrated for teacher\nc  fitted to the student\nd  shuffled (control)"),
+        ("3  Train the student",
+         "A small model is\nfine-tuned (LoRA) to reply\nlike the records.",
+         None,
+         f"Qwen3.5-9B\nGranite-4.1-8B\n{n['dCells']} trained students"),
+        ("4  Test",
+         "1,000 new questions,\nnone seen in training.",
+         "gap = stated confidence\n          - accuracy",
+         "0 = calibrated on average\n+ = overconfident"),
+    ]
+    w, gap, y0, h = 22.6, 3.2, 37, 54
+    for i, (head, body, mono, foot) in enumerate(steps):
+        x = i * (w + gap)
+        box(x, y0, w, h)
+        ax.text(x + 1.5, y0 + h - 3, head, fontsize=7.5, fontweight="bold", color=ACCENT, va="top")
+        ax.text(x + 1.5, y0 + h - 11.5, body, fontsize=6.8, color=INK, va="top", linespacing=1.25)
+        if mono:
+            box(x + 1.5, y0 + 18.5, w - 3, 11, fc="#f3f3f3", ec="#f3f3f3")
+            ax.text(x + 2.5, y0 + 24, mono, fontsize=6.5, color=INK, va="center", family="monospace", linespacing=1.3)
+        ax.text(x + 1.5, y0 + (16 if mono else 29), foot, fontsize=6.5 if mono else 6.8,
+                color=MUTED if mono else INK, va="top", linespacing=1.3)
+        if i < 3:
+            ax.annotate("", (x + w + gap - 0.3, y0 + h / 2), (x + w + 0.3, y0 + h / 2),
+                        arrowprops=dict(arrowstyle="->", color=INK, lw=0.9))
+    ax.text(0, 31, f"Supporting experiments, why it happens: {n['nStudentsAll']} students of three older 7-8B models", fontsize=8, fontweight="bold", color=INK, va="top")
+    chips = [("Confidence ladder", "7 teachers with known gaps\nx 7 shares of audited records"),
+             ("Chains", "student becomes teacher,\n4 generations"),
+             ("Tags", "audited records marked\n\"verified\"; forged tags"),
+             ("Cross-model", "Qwen students of Llama\nteachers, and the reverse")]
+    for i, (head, body) in enumerate(chips):
+        x = i * (w + gap)
+        box(x, 2, w, 22, ec=MUTED, lw=0.6)
+        ax.text(x + 1.5, 21.5, head, fontsize=7, fontweight="bold", color=INK, va="top")
+        ax.text(x + 1.5, 15, body, fontsize=6.5, color=INK, va="top", linespacing=1.25)
+    fig.subplots_adjust(left=0.01, right=0.99, top=0.99, bottom=0.01)
+    save(fig, name)
+
+
 def main():
     runs = analyze.included(analyze.load())
     summary = json.loads((RES / "summary.json").read_text())
@@ -329,10 +435,14 @@ def main():
             fig_cross(summary, json.loads(ls.read_text()))
     if (RES / "dist_cells.json").exists():
         fig_distill()
+        fig_dk()
+        fig_design()
 
 
 if __name__ == "__main__":
     if sys.argv[1:] == ["distill"]:
         fig_distill()
+        fig_dk()
+        fig_design()
     else:
         main()
