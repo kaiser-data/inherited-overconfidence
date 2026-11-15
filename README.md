@@ -8,6 +8,25 @@ Paper: [`paper/paper.pdf`](paper/paper.pdf) · Frozen protocol and deviation log
 
 ## Result
 
+**A small model fine-tuned on a larger model's answers states the confidence written in its training records at its own accuracy. Calibrating the teacher does not fix this; fitting the confidence to the student does.**
+
+Teacher: DeepSeek-V4.1-Flash (90% accurate on the 2,000 record questions). Students: fresh LoRA adapters on Qwen3.5-9B and Granite-4.1-8B. Every student saw the same answers; only the confidence number in the records differs. *Gap* = stated confidence minus accuracy in points, on 1,000 held-out TriviaQA questions (sampled answer, seed 1).
+
+| Confidence written into the records | Qwen3.5-9B gap | Granite-4.1-8B gap |
+|---|---|---|
+| The teacher's own | +40 | +38 |
+| Calibrated for the teacher | +31 | +27 |
+| Same, labels shuffled across records | +33 | +28 |
+| Refitted to the student's correctness | -5 | -6 |
+| Calibrated for the teacher, then corrected on 2,000 held-out questions | +0.3 | +2.0 |
+| Control: the student's own records, audited | +0.4 | -0.2 |
+
+Student accuracy stayed at 57-63%. Students of the teacher's confidence ranked their own answers better (AUROC 0.72, 0.73) than the controls (0.67, 0.64); shuffled labels removed that (0.54, 0.49). With a teacher of the students' own accuracy (Qwen3.8-27B, thinking off, 60%), calibrated records left +3 and +2. Models, cells, numeric predictions and refutation conditions were committed before the first teacher record (`PROTOCOL.md`, entries of 15 Nov 11:15 to 11:43); all predictions held. The arm was added after the protocol's stopping time and is exploratory by its own rule. Reproduce: `python3 loopgain/distill.py report` (from `results/runs_dist_*.json`).
+
+![distillation](paper/fig0-distill.png)
+
+### Supporting experiments (three older 7-8B models): why this happens
+
 Qwen2.5-7B, Llama-3.1-8B and Qwen3-8B with thinking off (LoRA), 1,000 held-out TriviaQA questions. A *teacher* is a model fine-tuned to a known level of overconfidence; a *student* is a fresh adapter on the untouched base model, trained on 2,000 of the teacher's question-answer records. *Gap* = stated confidence minus accuracy, in points. *Gain* = slope of student gap on teacher gap: 1 = all of it arrives, 0 = none. Counts, intervals and every table are in the paper; every number is generated from `results/` by `paper/make_numbers.py`.
 
 | Share of audited records (Qwen teacher and student) | Gain, greedy answer | Gain, sampled answer |

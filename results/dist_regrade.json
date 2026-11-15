@@ -1,0 +1,68 @@
+{
+ "teacher:ds41f": {
+  "n": 500,
+  "graded": 500,
+  "agreement": 0.942,
+  "rule_yes_llm_no": 2,
+  "rule_no_llm_yes": 27,
+  "acc_rule": 89.6,
+  "acc_llm": 94.6,
+  "gap_rule": 8.818000000000012,
+  "gap_llm": 3.818000000000012
+ },
+ "teacher:q38_27b": {
+  "n": 500,
+  "graded": 500,
+  "agreement": 0.964,
+  "rule_yes_llm_no": 3,
+  "rule_no_llm_yes": 15,
+  "acc_rule": 60.8,
+  "acc_llm": 63.2,
+  "gap_rule": 33.578,
+  "gap_llm": 31.177999999999997
+ },
+ "student:qwen35:ds41f__tcal": {
+  "n": 996,
+  "graded": 996,
+  "agreement": 0.9728915662650602,
+  "rule_yes_llm_no": 3,
+  "rule_no_llm_yes": 24,
+  "acc_rule": 57.329317269076306,
+  "acc_llm": 59.437751004016064,
+  "gap_rule": 31.204819277108435,
+  "gap_llm": 29.096385542168676
+ },
+ "student:qwen35:ds41f__scal_qwen35": {
+  "n": 994,
+  "graded": 994,
+  "agreement": 0.9738430583501007,
+  "rule_yes_llm_no": 2,
+  "rule_no_llm_yes": 24,
+  "acc_rule": 60.160965794768615,
+  "acc_llm": 62.374245472837025,
+  "gap_rule": -5.216297786720325,
+  "gap_llm": -7.429577464788736
+ },
+ "student:granite41:ds41f__tcal": {
+  "n": 997,
+  "graded": 997,
+  "agreement": 0.9658976930792377,
+  "rule_yes_llm_no": 6,
+  "rule_no_llm_yes": 28,
+  "acc_rule": 62.08625877632899,
+  "acc_llm": 64.29287863590773,
+  "gap_rule": 27.01103309929789,
+  "gap_llm": 24.804413239719153
+ },
+ "student:granite41:ds41f__scal_granite41": {
+  "n": 999,
+  "graded": 999,
+  "agreement": 0.964964964964965,
+  "rule_yes_llm_no": 7,
+  "rule_no_llm_yes": 28,
+  "acc_rule": 62.46246246246246,
+  "acc_llm": 64.56456456456456,
+  "gap_rule": -5.7607607607607605,
+  "gap_llm": -7.862862862862862
+ }
+}

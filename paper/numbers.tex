@@ -940,3 +940,176 @@ Llama & 25\% & same & under & $-$28 & $-$12 & $-$18 & $-$5.7 ($-$11.4 to $-$0.3)
 Llama & 25\% & same & over & +20 & +6 & +10 & +4.1 ($-$1.4 to +9.1) \\
 \bottomrule
 \end{tabular}}
+\newcommand{\dTeacherAcc}{90}
+\newcommand{\dTeacherConf}{98}
+\newcommand{\dTeacherGap}{+8}
+\newcommand{\dTeacherParsed}{99.6}
+\newcommand{\dTeacherKept}{1978}
+\newcommand{\dTcalLabel}{90}
+\newcommand{\dMTeacherAcc}{60}
+\newcommand{\dMTeacherConf}{95}
+\newcommand{\dMTeacherGap}{+34}
+\newcommand{\dMTeacherParsed}{99.2}
+\newcommand{\dMTeacherKept}{1978}
+\newcommand{\dMTcalLabel}{60}
+\newcommand{\dQRawGap}{+40}
+\newcommand{\dQRawGapCI}{+37 to +43}
+\newcommand{\dQRawAcc}{58}
+\newcommand{\dQRawConf}{98}
+\newcommand{\dQRawLabel}{98}
+\newcommand{\dQRawAuroc}{0.72}
+\newcommand{\dQRawGreedyGap}{+37}
+\newcommand{\dQRawRecal}{+2.2}
+\newcommand{\dQRawGreedyRecal}{$-$0.0}
+\newcommand{\dQTcalGap}{+31}
+\newcommand{\dQTcalGapCI}{+28 to +34}
+\newcommand{\dQTcalAcc}{57}
+\newcommand{\dQTcalConf}{89}
+\newcommand{\dQTcalLabel}{90}
+\newcommand{\dQTcalAuroc}{0.72}
+\newcommand{\dQTcalGreedyGap}{+29}
+\newcommand{\dQTcalRecal}{+0.3}
+\newcommand{\dQTcalGreedyRecal}{+0.2}
+\newcommand{\dQTcalSeeds}{+31 to +32}
+\newcommand{\dQScalGap}{$-$5}
+\newcommand{\dQScalGapCI}{$-$8 to $-$2}
+\newcommand{\dQScalAcc}{60}
+\newcommand{\dQScalConf}{55}
+\newcommand{\dQScalLabel}{57}
+\newcommand{\dQScalAuroc}{0.70}
+\newcommand{\dQScalGreedyGap}{$-$6}
+\newcommand{\dQScalRecal}{$-$0.5}
+\newcommand{\dQScalGreedyRecal}{$-$0.6}
+\newcommand{\dQScalSeeds}{$-$5 to $-$2}
+\newcommand{\dQShufGap}{+33}
+\newcommand{\dQShufGapCI}{+30 to +36}
+\newcommand{\dQShufAcc}{57}
+\newcommand{\dQShufConf}{91}
+\newcommand{\dQShufLabel}{90}
+\newcommand{\dQShufAuroc}{0.54}
+\newcommand{\dQShufGreedyGap}{+35}
+\newcommand{\dQMRawGap}{+37}
+\newcommand{\dQMRawGapCI}{+34 to +40}
+\newcommand{\dQMRawAcc}{57}
+\newcommand{\dQMRawConf}{94}
+\newcommand{\dQMRawLabel}{95}
+\newcommand{\dQMRawAuroc}{0.76}
+\newcommand{\dQMRawGreedyGap}{+36}
+\newcommand{\dQMTcalGap}{+3}
+\newcommand{\dQMTcalGapCI}{+1 to +6}
+\newcommand{\dQMTcalAcc}{55}
+\newcommand{\dQMTcalConf}{59}
+\newcommand{\dQMTcalLabel}{60}
+\newcommand{\dQMTcalAuroc}{0.78}
+\newcommand{\dQMTcalGreedyGap}{+1}
+\newcommand{\dQMScalGap}{$-$3}
+\newcommand{\dQMScalGapCI}{$-$6 to $-$0}
+\newcommand{\dQMScalAcc}{58}
+\newcommand{\dQMScalConf}{55}
+\newcommand{\dQMScalLabel}{56}
+\newcommand{\dQMScalAuroc}{0.79}
+\newcommand{\dQMScalGreedyGap}{$-$4}
+\newcommand{\dQOwnGap}{+0.4}
+\newcommand{\dQOwnAcc}{56}
+\newcommand{\dQOwnAuroc}{0.67}
+\newcommand{\dQOwnGreedyGap}{$-$1}
+\newcommand{\dQOwnRecal}{$-$0.1}
+\newcommand{\dGRawGap}{+38}
+\newcommand{\dGRawGapCI}{+35 to +40}
+\newcommand{\dGRawAcc}{61}
+\newcommand{\dGRawConf}{98}
+\newcommand{\dGRawLabel}{98}
+\newcommand{\dGRawAuroc}{0.73}
+\newcommand{\dGRawGreedyGap}{+34}
+\newcommand{\dGRawRecal}{+2.8}
+\newcommand{\dGRawGreedyRecal}{+1.4}
+\newcommand{\dGTcalGap}{+27}
+\newcommand{\dGTcalGapCI}{+24 to +30}
+\newcommand{\dGTcalAcc}{62}
+\newcommand{\dGTcalConf}{89}
+\newcommand{\dGTcalLabel}{90}
+\newcommand{\dGTcalAuroc}{0.73}
+\newcommand{\dGTcalGreedyGap}{+25}
+\newcommand{\dGTcalRecal}{+2.0}
+\newcommand{\dGTcalGreedyRecal}{+2.7}
+\newcommand{\dGTcalSeeds}{+27 to +28}
+\newcommand{\dGScalGap}{$-$6}
+\newcommand{\dGScalGapCI}{$-$8 to $-$3}
+\newcommand{\dGScalAcc}{62}
+\newcommand{\dGScalConf}{57}
+\newcommand{\dGScalLabel}{59}
+\newcommand{\dGScalAuroc}{0.74}
+\newcommand{\dGScalGreedyGap}{$-$6}
+\newcommand{\dGScalRecal}{+0.7}
+\newcommand{\dGScalGreedyRecal}{+1.9}
+\newcommand{\dGScalSeeds}{$-$6 to $-$3}
+\newcommand{\dGShufGap}{+28}
+\newcommand{\dGShufGapCI}{+25 to +32}
+\newcommand{\dGShufAcc}{62}
+\newcommand{\dGShufConf}{91}
+\newcommand{\dGShufLabel}{90}
+\newcommand{\dGShufAuroc}{0.49}
+\newcommand{\dGShufGreedyGap}{+30}
+\newcommand{\dGMRawGap}{+38}
+\newcommand{\dGMRawGapCI}{+35 to +41}
+\newcommand{\dGMRawAcc}{57}
+\newcommand{\dGMRawConf}{95}
+\newcommand{\dGMRawLabel}{95}
+\newcommand{\dGMRawAuroc}{0.74}
+\newcommand{\dGMRawGreedyGap}{+34}
+\newcommand{\dGMTcalGap}{+2}
+\newcommand{\dGMTcalGapCI}{$-$1 to +4}
+\newcommand{\dGMTcalAcc}{58}
+\newcommand{\dGMTcalConf}{60}
+\newcommand{\dGMTcalLabel}{60}
+\newcommand{\dGMTcalAuroc}{0.76}
+\newcommand{\dGMTcalGreedyGap}{+0}
+\newcommand{\dGMScalGap}{+0}
+\newcommand{\dGMScalGapCI}{$-$2 to +3}
+\newcommand{\dGMScalAcc}{60}
+\newcommand{\dGMScalConf}{60}
+\newcommand{\dGMScalLabel}{61}
+\newcommand{\dGMScalAuroc}{0.78}
+\newcommand{\dGMScalGreedyGap}{+0}
+\newcommand{\dGOwnGap}{$-$0.2}
+\newcommand{\dGOwnAcc}{60}
+\newcommand{\dGOwnAuroc}{0.64}
+\newcommand{\dGOwnGreedyGap}{$-$1}
+\newcommand{\dGOwnRecal}{+0.7}
+\newcommand{\dAccShiftMax}{4.3}
+\newcommand{\dAccShiftMin}{+0.6}
+\newcommand{\dUsd}{9}
+\newcommand{\dCopyMax}{2.5}
+\newcommand{\dParsedMin}{98.5}
+\newcommand{\dCells}{24}
+\newcommand{\dRecalMax}{2.8}
+\newcommand{\dStudentAccRange}{57--63}
+\newcommand{\tableDistill}{\begin{tabular}{lllrrrrlrrr}
+\toprule
+Student & Teacher & Labels & Label & Stated & Acc. & Gap & 95\% & Greedy & AUC & Fixed \\
+\midrule
+Qwen & DS & own & 98.5 & 98.2 & 58.0 & +40.1 & 37..43 & +37.4 & 0.72 & +2.2 \\
+Qwen & DS & t-cal. & 90.0 & 88.5 & 57.3 & +31.2 & 28..34 & +28.7 & 0.72 & +0.3 \\
+Qwen & DS & s-fit & 57.3 & 54.9 & 60.2 & $-$5.2 & -8..-2 & $-$5.9 & 0.70 & $-$0.5 \\
+Qwen & DS & shuffled & 90.0 & 90.6 & 57.4 & +33.2 & 30..36 & +34.6 & 0.54 & -- \\
+Qwen & Q3.8 & own & 94.7 & 94.1 & 56.9 & +37.2 & 34..40 & +35.7 & 0.76 & -- \\
+Qwen & Q3.8 & t-cal. & 59.9 & 58.5 & 55.1 & +3.4 & 1..6 & +0.9 & 0.78 & -- \\
+Qwen & Q3.8 & s-fit & 56.0 & 54.7 & 57.7 & $-$3.0 & -6..-0 & $-$3.5 & 0.79 & -- \\
+Qwen & itself & audited & 55.6 & 56.3 & 55.9 & +0.4 & -2..3 & $-$1.3 & 0.67 & $-$0.1 \\
+Granite & DS & own & 98.5 & 98.3 & 60.7 & +37.6 & 35..40 & +34.2 & 0.73 & +2.8 \\
+Granite & DS & t-cal. & 90.0 & 89.1 & 62.1 & +27.0 & 24..30 & +25.5 & 0.73 & +2.0 \\
+Granite & DS & s-fit & 59.2 & 56.7 & 62.5 & $-$5.8 & -8..-3 & $-$6.1 & 0.74 & +0.7 \\
+Granite & DS & shuffled & 90.0 & 90.7 & 62.2 & +28.5 & 25..32 & +29.8 & 0.49 & -- \\
+Granite & Q3.8 & own & 94.7 & 94.8 & 57.0 & +37.8 & 35..41 & +34.3 & 0.74 & -- \\
+Granite & Q3.8 & t-cal. & 59.9 & 60.0 & 58.3 & +1.7 & -1..4 & +0.3 & 0.76 & -- \\
+Granite & Q3.8 & s-fit & 60.7 & 60.4 & 60.0 & +0.4 & -2..3 & +0.0 & 0.78 & -- \\
+Granite & itself & audited & 60.0 & 59.9 & 60.1 & $-$0.2 & -3..3 & $-$1.2 & 0.64 & +0.7 \\
+\bottomrule
+\end{tabular}}
+\newcommand{\dHaikuAgree}{94.2--97.4}
+\newcommand{\dQTcalHaikuGap}{+29}
+\newcommand{\dQScalHaikuGap}{$-$7}
+\newcommand{\dGTcalHaikuGap}{+25}
+\newcommand{\dGScalHaikuGap}{$-$8}
+\newcommand{\dTeacherHaikuAcc}{95}
+\newcommand{\dMTeacherHaikuAcc}{63}

@@ -74,3 +74,19 @@ wrote figA-return-map-llama.pdf
 [fig5-cross-family] teacher Qwen2.5-7B, student Llama-3.1-8B, audit share 0.75: gain 0.06 intercept -7.6 points (-31.6,-10.5) (-21.2,-8.5) (-9.9,-6.9) (-0.4,-7.6) (+10.0,-7.0) (+20.9,-6.8) (+27.2,-5.5) (+36.8,-6.3)
 wrote fig5-cross-family.pdf
 
+[fig0-distill] Qwen3.5-9B (sampled answer, seed 1): row, accuracy, stated confidence, gap
+  Teacher's own records                       90.4  98.5  +8.1
+  Student: teacher's confidence               58.0  98.2 +40.1
+  Student: calibrated for the teacher         57.3  88.5 +31.2
+  same student, corrected on held-out questions  57.3  57.6  +0.3
+  Student: refitted to the student            60.2  54.9  -5.2
+  Control: student's own records, audited     55.9  56.3  +0.4
+[fig0-distill] Granite-4.1-8B (sampled answer, seed 1): row, accuracy, stated confidence, gap
+  Teacher's own records                       90.4  98.5  +8.1
+  Student: teacher's confidence               60.7  98.3 +37.6
+  Student: calibrated for the teacher         62.1  89.1 +27.0
+  same student, corrected on held-out questions  62.1  64.1  +2.0
+  Student: refitted to the student            62.5  56.7  -5.8
+  Control: student's own records, audited     60.1  59.9  -0.2
+wrote fig0-distill.pdf
+

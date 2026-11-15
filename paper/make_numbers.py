@@ -197,6 +197,95 @@ def cross_table(cr):
             "Student: accuracy & Student gap & Student gap, 75\\% audited \\\\\n\\midrule\n" + "\n".join(rows) + "\n\\bottomrule\n\\end{tabular}")
 
 
+def distill_macros():
+    """Distillation arm (results/dist_cells.json from loopgain/distill.py report). Macro names:
+    d + student (Q = Qwen3.5-9B, G = Granite-4.1-8B) + cell + quantity; sampled answer unless Greedy."""
+    f = RES / "dist_cells.json"
+    if not f.exists():
+        return
+    cells = json.loads(f.read_text())
+    labels = json.loads((RES / "dist" / "labels.json").read_text())
+    FAM = {"qwen35": ("Q", "Qwen"), "granite41": ("G", "Granite")}
+    TEACH = {"ds41f": ("", "DS"), "q38_27b": ("M", "Q3.8")}
+    SETS = (("raw", "Raw", "own"), ("tcal", "Tcal", "t-cal."),
+            ("scal", "Scal", "s-fit"), ("shuf", "Shuf", "shuffled"))
+
+    def get(fam, tname, readout="sampled", seed=1):
+        c = [r for r in cells if r["family"] == fam and r["teacher"] == tname and r["readout"] == readout
+             and r["seed"] == seed]
+        return c[0] if c else None
+
+    for t, (tp, _) in TEACH.items():
+        li = labels[t]
+        raw = li["sets"][f"{t}__raw"]
+        put(f"d{tp}TeacherAcc", f"{raw['teacher_accuracy']:.0f}"); put(f"d{tp}TeacherConf", f"{raw['label_mean']:.0f}")
+        put(f"d{tp}TeacherGap", sg(raw["label_mean"] - raw["teacher_accuracy"]))
+        put(f"d{tp}TeacherParsed", f"{100 * li['parsed']:.1f}"); put(f"d{tp}TeacherKept", raw["n"])
+        put(f"d{tp}TcalLabel", f"{li['sets'][f'{t}__tcal']['label_mean']:.0f}")
+    rows, allc, parsed = [], [], []
+    for fam, (fp, fname) in FAM.items():
+        for t, (tp, tname) in TEACH.items():
+            for key, K, desc in SETS:
+                name = f"{t}__{key}_{fam}" if key == "scal" else f"{t}__{key}"
+                c, g = get(fam, name), get(fam, name, "greedy")
+                if not c:
+                    continue
+                pre = f"d{fp}{tp}{K}"
+                put(pre + "Gap", sg(c["gap"])); put(pre + "GapCI", f"{sg(c['gap_lo'])} to {sg(c['gap_hi'])}")
+                put(pre + "Acc", f"{c['accuracy']:.0f}"); put(pre + "Conf", f"{c['conf']:.0f}")
+                put(pre + "Label", f"{c['label_mean']:.0f}"); put(pre + "Auroc", f2(c["auroc"]))
+                put(pre + "GreedyGap", sg(g["gap"]))
+                if c.get("recal"):
+                    put(pre + "Recal", sg(c["recal"]["gap"], 1)); put(pre + "GreedyRecal", sg(g["recal"]["gap"], 1))
+                seeds = [x["gap"] for s_ in (1, 2, 3) if (x := get(fam, name, seed=s_))]
+                if len(seeds) == 3:
+                    put(pre + "Seeds", f"{sg(min(seeds))} to {sg(max(seeds))}")
+                allc.append(abs(c["conf_minus_label"])); parsed += [c["parsed"], g["parsed"]]
+                rows.append(f"{fname} & {tname} & {desc} & {c['label_mean']:.1f} & {c['conf']:.1f} & {c['accuracy']:.1f} & "
+                            f"{sg(c['gap'], 1)} & {c['gap_lo']:.0f}..{c['gap_hi']:.0f} & {sg(g['gap'], 1)} & "
+                            f"{f2(c['auroc'])} & {sg(c['recal']['gap'], 1) if c.get('recal') else '--'} \\\\")
+        c, g = get(fam, "base"), get(fam, "base", "greedy")
+        if c:
+            pre = f"d{fp}Own"
+            put(pre + "Gap", sg(c["gap"], 1)); put(pre + "Acc", f"{c['accuracy']:.0f}"); put(pre + "Auroc", f2(c["auroc"]))
+            put(pre + "GreedyGap", sg(g["gap"])); put(pre + "Recal", sg(c["recal"]["gap"], 1))
+            parsed += [c["parsed"], g["parsed"]]
+            rows.append(f"{fname} & itself & audited & {c['label_mean']:.1f} & {c['conf']:.1f} & "
+                        f"{c['accuracy']:.1f} & {sg(c['gap'], 1)} & {c['gap_lo']:.0f}..{c['gap_hi']:.0f} & "
+                        f"{sg(g['gap'], 1)} & {f2(c['auroc'])} & {sg(c['recal']['gap'], 1)} \\\\")
+    own = {fam: get(fam, "base")["accuracy"] for fam in FAM if get(fam, "base")}
+    shift = [r["accuracy"] - own[r["family"]] for r in cells if r["readout"] == "sampled" and r["seed"] == 1
+             and r["teacher"].startswith("ds41f") and r["family"] in own]
+    put("dAccShiftMax", f"{max(shift):.1f}"); put("dAccShiftMin", sg(min(shift), 1))
+    runs_usd = 0.0
+    for fam in FAM:
+        rf = RES / f"runs_dist_{fam}.json"
+        if rf.exists():
+            runs_usd += sum(v["meta"].get("usd", 0) for v in json.loads(rf.read_text())["runs"].values())
+    put("dUsd", f"{runs_usd:.0f}")
+    put("dCopyMax", f"{max(allc):.1f}"); put("dParsedMin", f"{100 * min(parsed):.1f}")
+    put("dCells", len({(r['family'], r['cell']) for r in cells}))
+    recal = [abs(r["recal"]["gap"]) for r in cells if r.get("recal") and r["readout"] == "sampled"]
+    put("dRecalMax", f"{max(recal):.1f}")
+    accs = [r["accuracy"] for r in cells if r["readout"] == "sampled" and r["teacher"].startswith("ds41f")]
+    put("dStudentAccRange", f"{min(accs):.0f}--{max(accs):.0f}")
+    M["tableDistill"] = ("\\begin{tabular}{lllrrrrlrrr}\n\\toprule\nStudent & Teacher & Labels & Label & Stated & "
+                         "Acc. & Gap & 95\\% & Greedy & AUC & Fixed \\\\\n\\midrule\n"
+                         + "\n".join(rows) + "\n\\bottomrule\n\\end{tabular}")
+    rg = RES / "dist_regrade.json"
+    if rg.exists():
+        r = json.loads(rg.read_text())
+        ag = [100 * v["agreement"] for v in r.values()]
+        put("dHaikuAgree", f"{min(ag):.1f}--{max(ag):.1f}")
+        for fam, (fp, _) in FAM.items():
+            for key, K in ((f"student:{fam}:ds41f__tcal", "Tcal"), (f"student:{fam}:ds41f__scal_{fam}", "Scal")):
+                if key in r:
+                    put(f"d{fp}{K}HaikuGap", sg(r[key]["gap_llm"]))
+        for t, (tp, _) in TEACH.items():
+            if f"teacher:{t}" in r:
+                put(f"d{tp}TeacherHaikuAcc", f"{r[f'teacher:{t}']['acc_llm']:.0f}")
+
+
 def main():
     S = json.loads((RES / "summary.json").read_text())
     runs = analyze.included(analyze.load())
@@ -458,6 +547,7 @@ def main():
                 "\n\\bottomrule", "\n\\midrule\n" + "\n".join("Qwen3-8B & " + r for r in mix_rows_q) + "\n\\bottomrule")
     M["tableRecordForecast"] = ("\\begin{tabular}{lllllrrl}\n\\toprule\nModel & Audit share & Questions & Start & Start (records) & Predicted gen 4 & Observed gen 4 & Error (95\\% interval) \\\\\n\\midrule\n"
                                 + "\n".join(fr_rows) + "\n\\bottomrule\n\\end{tabular}")
+    distill_macros()
     (Path(__file__).parent / "numbers.tex").write_text(
         "% generated by paper/make_numbers.py from results/*.json -- do not edit\n"
         + "\n".join(f"\\newcommand{{\\{k}}}{{{v}}}" for k, v in M.items()) + "\n")

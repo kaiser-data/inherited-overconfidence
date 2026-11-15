@@ -255,6 +255,62 @@ def fig_panel(name="fig4-panel"):
     save(fig, name)
 
 
+STUDENT = {"qwen35": "Qwen3.5-9B", "granite41": "Granite-4.1-8B"}
+
+
+def fig_distill(name="fig0-distill", teacher="ds41f", teacher_label="DeepSeek-V4.1-Flash"):
+    """Per student: accuracy and stated confidence for each confidence-label set (same answers)."""
+    cells = json.loads((RES / "dist_cells.json").read_text())
+    labels = json.loads((RES / "dist" / "labels.json").read_text())[teacher]["sets"]
+    fig, axes = plt.subplots(1, 2, figsize=(6.9, 2.75), sharey=True)
+    for ax, fam in zip(axes, STUDENT):
+        def cell(tname):
+            c = [r for r in cells if r["family"] == fam and r["teacher"] == tname
+                 and r["readout"] == "sampled" and r["seed"] == 1]
+            return c[0] if c else None
+        rec = labels[f"{teacher}__raw"]
+        rows = [("Teacher's own records", rec["teacher_accuracy"], rec["label_mean"], MUTED)]
+        for lab, tname in (("Student: teacher's confidence", f"{teacher}__raw"),
+                           ("Student: calibrated for the teacher", f"{teacher}__tcal"),
+                           ("Student: refitted to the student", f"{teacher}__scal_{fam}")):
+            c = cell(tname)
+            if c:
+                rows.append((lab, c["accuracy"], c["conf"], ACCENT if "refitted" not in lab else RAMP[5]))
+            if c and "calibrated" in lab and c.get("recal"):
+                rows.append(("same student, corrected on held-out questions", c["accuracy"],
+                             c["accuracy"] + c["recal"]["gap"], RAMP[5]))
+        c = cell("base")
+        if c:
+            rows.append(("Control: student's own records, audited", c["accuracy"], c["conf"], MUTED))
+        print(f"[{name}] {STUDENT[fam]} (sampled answer, seed 1): row, accuracy, stated confidence, gap")
+        for i, (lab, acc, conf, col) in enumerate(rows):
+            y = len(rows) - 1 - i
+            ax.plot([acc, conf], [y, y], color=col, lw=2.2, solid_capstyle="butt", zorder=2)
+            ax.plot([acc], [y], marker="o", ms=5, mfc="white", mec=INK, mew=0.9, zorder=3)
+            ax.plot([conf], [y], marker="o", ms=5, mfc=col, mec=col, zorder=3)
+            g = round(conf - acc)
+            ax.annotate("0" if g == 0 else f"{g:+d}", (max(acc, conf), y), xytext=(6, 0), textcoords="offset points",
+                        va="center", ha="left", fontsize=7.5, color=INK)
+            print(f"  {lab.strip():42s} {acc:5.1f} {conf:5.1f} {conf - acc:+5.1f}")
+        ax.set_yticks(range(len(rows)))
+        ax.set_yticklabels([r[0] for r in rows][::-1], fontsize=7.5)
+        ax.set_xlim(45, 108)
+        ax.set_xticks([50, 60, 70, 80, 90, 100])
+        ax.set_xlabel("percent")
+        ax.set_ylim(-0.6, len(rows) - 0.4)
+        ax.grid(axis="x", color=GRID, lw=0.6, zorder=0)
+        ax.set_axisbelow(True)
+        ax.tick_params(axis="y", length=0)
+        ax.set_title(f"Student: {STUDENT[fam]}", fontsize=8, loc="left", fontweight="bold")
+    axes[0].plot([], [], marker="o", ms=5, mfc="white", mec=INK, mew=0.9, ls="", label="accuracy")
+    axes[0].plot([], [], marker="o", ms=5, mfc=ACCENT, mec=ACCENT, ls="", label="stated confidence")
+    axes[0].legend(loc="lower right", fontsize=7, frameon=False, handletextpad=0.2, borderaxespad=0.1)
+    fig.text(0.012, 0.995, f"Teacher: {teacher_label}  ·  number at each bar: overconfidence gap in points",
+             fontsize=7.5, color=INK, va="top", ha="left", fontweight="bold")
+    fig.tight_layout(rect=(0, 0, 1, 0.95), w_pad=1.2)
+    save(fig, name)
+
+
 def main():
     runs = analyze.included(analyze.load())
     summary = json.loads((RES / "summary.json").read_text())
@@ -271,7 +327,12 @@ def main():
         ls = RES / "summary_llama31.json"
         if ls.exists():
             fig_cross(summary, json.loads(ls.read_text()))
+    if (RES / "dist_cells.json").exists():
+        fig_distill()
 
 
 if __name__ == "__main__":
-    main()
+    if sys.argv[1:] == ["distill"]:
+        fig_distill()
+    else:
+        main()

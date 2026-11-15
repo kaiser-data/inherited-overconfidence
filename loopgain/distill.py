@@ -335,9 +335,60 @@ def report():
               + ("" if r["included"] else "  EXCLUDED (<90% parsed)"))
 
 
+def regrade(threads: int = 16):
+    """Second grader (Claude Haiku 5.5, as in scoring_audit.py) on (i) 500 fixed random retained
+    D records of each hosted teacher, (ii) the sampled E replies of the seed-1 TCAL and SCAL
+    students of the large teacher. Resumable; writes results/dist_regrade.json."""
+    import os
+    os.environ.setdefault("LG_GRADER", "claude-haiku-5-5")
+    import scoring_audit as sa
+    sa._claude_key()
+    outp = RES / "dist_regrade.json"
+    out = json.loads(outp.read_text()) if outp.exists() else {}
+
+    def run(key, rows, items):
+        if key in out:
+            return
+        with ThreadPoolExecutor(threads) as ex:
+            llm = list(ex.map(lambda r: sa.grade(items[r["id"]], r["answer"], None), rows))
+        ok = [(r, g) for r, g in zip(rows, llm) if g is not None]
+        mc = sum(r["conf"] for r, _ in ok) / len(ok)
+        acc_r = 100 * sum(bool(r["correct"]) for r, _ in ok) / len(ok)
+        acc_l = 100 * sum(g for _, g in ok) / len(ok)
+        out[key] = {"n": len(rows), "graded": len(ok),
+                    "agreement": sum(bool(r["correct"]) == g for r, g in ok) / len(ok),
+                    "rule_yes_llm_no": sum(bool(r["correct"]) and not g for r, g in ok),
+                    "rule_no_llm_yes": sum((not r["correct"]) and g for r, g in ok),
+                    "acc_rule": acc_r, "acc_llm": acc_l, "gap_rule": mc - acc_r, "gap_llm": mc - acc_l}
+        outp.write_text(json.dumps(out, indent=1))
+        o = out[key]
+        print(f"{key:58s} graded {o['graded']} agree {o['agreement']:.3f} acc rule {acc_r:.1f} llm {acc_l:.1f} "
+              f"gap rule {o['gap_rule']:+.1f} llm {o['gap_llm']:+.1f}")
+
+    D, _ = load_d()
+    dq = {r["id"]: r for r in D}
+    for t in HOSTED:
+        rows = sorted(retained(teacher_rows(t)), key=lambda r: r["id"])
+        random.Random(config.DATA_SEED).shuffle(rows)
+        run(f"teacher:{t}", rows[:500], dq)
+    top = config.DIST_SEED_TEACHER
+    for fam in STUDENTS:
+        f = RES / f"runs_dist_{fam}.json"
+        if not f.exists():
+            continue
+        d = json.loads(f.read_text())
+        eq = {r["id"]: r for r in d["data"]["E"]}
+        for lab in ("tcal", f"scal_{fam}"):
+            name = config.student_cell(f"{top}__{lab}", 0.0, es=True, tfam="dist")["name"]
+            if name in d["runs"]:
+                rows = [r for r in d["runs"][name]["eval"]["eval_sampled"]
+                        if r["answer"] is not None and r["conf"] is not None]
+                run(f"student:{fam}:{top}__{lab}", rows, eq)
+
+
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("cmd", choices=["gen", "build", "check", "report"])
+    ap.add_argument("cmd", choices=["gen", "build", "check", "report", "regrade"])
     ap.add_argument("--teacher", default="")
     ap.add_argument("--n", type=int, default=None)
     ap.add_argument("--workers", type=int, default=16)
@@ -348,6 +399,8 @@ def main():
         build(a.teacher.split(",") if a.teacher else TEACHERS)
     elif a.cmd == "check":
         check()
+    elif a.cmd == "regrade":
+        regrade()
     else:
         report()
 
