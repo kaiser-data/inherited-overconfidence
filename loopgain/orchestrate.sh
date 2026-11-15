@@ -3,6 +3,7 @@
 # only polls the volume, so a dropped connection costs a retry, not the run.
 #   bash orchestrate.sh qwen     # chain generations 2-4 (after es,chaing1)
 #   bash orchestrate.sh llama    # second family: teachers, then students
+#   bash orchestrate.sh fq       # fresh-question chains, generations 1-4 (after --stage fresh)
 cd "$(dirname "$0")"
 wait_done() {  # stage fam max_minutes
   local t=0
@@ -39,5 +40,17 @@ elif [ "$1" = "llamachain" ]; then
   t=0; until modal run modal_app.py --stage chaing2 --fam llama31 --dry-run 2>/dev/null | grep -q "6/6 cells build"; do
     echo "$(date +%H:%M) waiting for llama generation 1 records"; sleep 120; t=$((t+2)); [ $t -gt 60 ] && exit 1; done
   for g in 2 3 4; do launch chaing$g llama31 6; wait_done chaing$g llama31 60; done
+elif [ "$1" = "qwen3" ]; then
+  # third family (added 2026-11-15): base pass, seven teachers, students at 0/25/50/75%
+  export LG_TF=4.51 LG_GPU=A100-80GB
+  modal run --detach modal_app.py --stage base --fam qwen3 || exit 1
+  launch teachers qwen3 7; wait_done teachers qwen3 60 || exit 1
+  echo "$(date +%H:%M) teachers done: check their gaps before: bash orchestrate.sh qwen3students"
+elif [ "$1" = "qwen3students" ]; then
+  export LG_TF=4.51 LG_GPU=A100-80GB
+  launch addon qwen3 8; wait_done addon qwen3 90
+elif [ "$1" = "fq" ]; then
+  # fresh-question chains: each generation needs the previous one's records
+  for g in 1 2 3 4; do launch fqg$g qwen25 4; wait_done fqg$g qwen25 45 || exit 1; done
 fi
 echo "$(date +%H:%M) orchestrate $1 finished"

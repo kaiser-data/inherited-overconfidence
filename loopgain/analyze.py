@@ -16,6 +16,7 @@ import numpy as np
 HERE = Path(__file__).parent
 sys.path.insert(0, str(HERE))
 import config  # noqa: E402
+import core  # noqa: E402
 
 RES = HERE.parent / "results"
 MIN_PARSED = 0.90
@@ -234,7 +235,8 @@ def extras(runs: dict) -> dict:
     g = lambda n, k="metrics": runs[n]["meta"][k]
     out = {}
     stu = [n for n in runs if n.startswith("stu__")]
-    accs = [g(n)["accuracy"] for n in list(runs)]
+    # same-family cells only: a student of another family's teachers learns that family's answers
+    accs = [g(n)["accuracy"] for n in list(runs) if not runs[n]["meta"].get("tfam")]
     out["accuracy_range_all_cells"] = [float(min(accs)), float(max(accs))]
     out["parsed_min"] = float(min(g(n)["parsed"] for n in runs))
     out["base"] = {k: g("base")[k] for k in ("accuracy", "mean_conf", "gap", "auroc", "parsed",
@@ -319,6 +321,371 @@ def extras(runs: dict) -> dict:
     return out
 
 
+# ---------------------------------------------------------------- record-level analyses
+# These need the training records, which are in results/raw_<family>.tar.gz (not in runs.json).
+
+def load_raw(fam: str = "qwen25") -> dict | None:
+    """Questions, audit orders and every model's records from the raw export of one family."""
+    import tarfile
+    path = RES / f"raw_{fam}.tar.gz"
+    if not path.exists():
+        return None
+    rd = "runs" if fam == "qwen25" else f"runs_{fam}"
+    raw = {"q": {}, "perm": {}, "records": {}}
+    with tarfile.open(path) as tar:
+        for m in tar:
+            parts = m.name.split("/")
+            if not m.isfile():
+                continue
+            rows = lambda: [json.loads(l) for l in tar.extractfile(m).read().decode().splitlines() if l.strip()]
+            if parts[0] == "data" and parts[-1] in {f"{x}.jsonl" for x in ("T", "D", "E", "F1", "F2", "F3")}:
+                for r in rows():
+                    raw["q"][r["id"]] = r
+            elif parts[0] == "data" and parts[-1].startswith("audit_perm"):
+                key = parts[-1][len("audit_perm"):-len(".json")].lstrip("_") or "D"
+                raw["perm"][key] = json.loads(tar.extractfile(m).read())
+            elif parts[0] == rd and parts[-1] in ("d_main.jsonl", "d_greedy.jsonl"):
+                raw["records"][(parts[1], parts[-1][2:-6])] = rows()
+    return raw
+
+
+def train_records(meta: dict, raws: dict, fam: str) -> list[dict] | None:
+    """Rebuild the training set of one student cell exactly as the run built it."""
+    src = raws.get(meta.get("tfam") or fam)
+    own = raws.get(fam)
+    if not src or not own:
+        return None
+    rows = src["records"].get((meta["teacher"], meta["decode"]))
+    perm = own["perm"].get(meta.get("dset") or "D")
+    if rows is None or perm is None:
+        return None
+    recs, info = core.build_student_records(rows, own["q"], meta["alpha"], perm, tag=meta.get("tag", False),
+                                            forge=meta.get("forge") or 0.0)
+    if abs(info["train_gap"] - meta["data"]["train_gap"]) > 1e-6 or info["n_kept"] != meta["data"]["n_kept"]:
+        raise RuntimeError(f"rebuilt training set of {meta['name']} differs from the one the run used")
+    return recs
+
+
+def _hist(vals) -> dict:
+    vals = [int(round(v)) for v in vals]
+    return {k: vals.count(k) / len(vals) for k in sorted(set(vals))}
+
+
+def _tv(a: dict, b: dict) -> float:
+    return 0.5 * sum(abs(a.get(k, 0) - b.get(k, 0)) for k in set(a) | set(b))
+
+
+def mixture(runs: dict, raws: dict, fam: str, alphas) -> dict:
+    """Test of the mixture reading. A student was trained on two kinds of confidence labels:
+    the teacher's own (share 1 - alpha) and the audited ones (share alpha). Write the
+    distribution of confidence values in the student's replies as (1 - w) * P_teacher +
+    w * P_audited (least squares over the values) and report w, the weight of audit-style
+    values. Mixture reading: w = alpha for the sampled answer; for the greedy answer w is
+    near 0 below one half and near 1 above."""
+    out = {}
+    for a in alphas:
+        if a <= 0:
+            continue
+        for key, label in (("eval", "greedy"), ("eval_sampled", "sampled")):
+            ws, sep, res, names, w0s = [], [], [], [], []
+            for t in config.TEACHERS + ["base"]:
+                name = config.student_cell(t, a, es=True)["name"]
+                zero = config.student_cell(t, 0.0, es=True)["name"]
+                if name not in runs or key not in runs[name]["eval"]:
+                    continue
+                recs = train_records(runs[name]["meta"], raws, fam)
+                if recs is None:
+                    continue
+                p0 = _hist([r["conf"] for r in recs if not r["audited"]])
+                p1 = _hist([r["conf"] for r in recs if r["audited"]])
+
+                def weight(run):
+                    q = _hist([r["conf"] for r in run["eval"][key] if r.get("conf") is not None])
+                    ks = sorted(set(p0) | set(p1) | set(q))
+                    d = np.array([p1.get(k, 0) - p0.get(k, 0) for k in ks])
+                    e = np.array([q.get(k, 0) - p0.get(k, 0) for k in ks])
+                    w = float(d @ e / (d @ d))
+                    return w, _tv(q, {k: (1 - w) * p0.get(k, 0) + w * p1.get(k, 0) for k in ks})
+                w, misfit = weight(runs[name])
+                ws.append(w); sep.append(_tv(p0, p1)); res.append(misfit); names.append(t)
+                if zero in runs and key in runs[zero]["eval"]:  # known negative: trained without audits
+                    w0s.append(weight(runs[zero])[0])
+            if ws:
+                out[f"{a}:{label}"] = {"w": ws, "teachers": names, "mean": float(np.mean(ws)),
+                                       "min": float(min(ws)), "max": float(max(ws)),
+                                       "separation": float(np.mean(sep)), "misfit": float(np.mean(res)),
+                                       "no_audit_mean": float(np.mean(w0s)) if w0s else None,
+                                       "no_audit_max": float(max(w0s)) if w0s else None}
+    return out
+
+
+def _boot_fit(Xd, Y, n_boot=N_BOOT):
+    """Bootstrap of an OLS fit whose x (record gaps, per cell x record question, NaN where a
+    record is missing) and y (per cell x evaluation question) come from different question
+    sets: the two sets are resampled independently, models held fixed."""
+    rng = np.random.default_rng(RNG_SEED)
+    mask = ~np.isnan(Xd)
+    X0 = np.where(mask, Xd, 0.0)
+    nd, ne = Xd.shape[1], Y.shape[1]
+    out = []
+    for _ in range(n_boot):
+        c = np.bincount(rng.integers(0, nd, nd), minlength=nd)
+        x = (X0 @ c) / (mask @ c)
+        y = Y[:, rng.integers(0, ne, ne)].mean(1)
+        out.append(_fit(x, y)[:2])
+    B = np.array(out)
+    ci = lambda col: [float(np.percentile(B[:, col], 2.5)), float(np.percentile(B[:, col], 97.5))]
+    return ci(0), ci(1)
+
+
+def _record_points(runs: dict, raws: dict, fam: str, alpha: float, key: str, which: str):
+    """One point per teacher. x: gap of the records the student was trained on, per record
+    question. which='train': the training set as built (after the audit);
+    'raw': the teacher's records before any audit. y: the student's gap per evaluation question."""
+    pts = []
+    for t in config.TEACHERS + ["base"]:
+        name = config.student_cell(t, alpha, es=True)["name"]
+        if name not in runs or key not in runs[name]["eval"]:
+            continue
+        meta = runs[name]["meta"]
+        recs = train_records(meta if which == "train" else {**meta, "alpha": 0.0, "data": None}, raws, fam) \
+            if which == "train" else _raw_records(meta, raws, fam)
+        if recs is None:
+            continue
+        pts.append({"teacher": t, "xg": {r["id"]: r["conf"] - 100.0 * bool(r["correct"]) for r in recs},
+                    "sg": item_gap(runs[name], key)})
+    return pts
+
+
+def _raw_records(meta: dict, raws: dict, fam: str):
+    src = raws.get(meta.get("tfam") or fam)
+    rows = src["records"].get((meta["teacher"], meta["decode"])) if src else None
+    if rows is None:
+        return None
+    return [r for r in rows if r.get("answer") is not None and r.get("conf") is not None]
+
+
+def _fit_record_points(pts: list[dict]) -> dict | None:
+    if len(pts) < 3:
+        return None
+    d_ids = sorted(set.union(*[set(p["xg"]) for p in pts]))
+    e_ids = sorted(set.intersection(*[set(p["sg"]) for p in pts]))
+    Xd = np.array([[p["xg"].get(i, np.nan) for i in d_ids] for p in pts])
+    Y = np.array([[p["sg"][i] for i in e_ids] for p in pts])
+    x, y = np.nanmean(Xd, 1), Y.mean(1)
+    a, b, _ = _fit(x, y)
+    ici, gci = _boot_fit(Xd, Y)
+    return {"n_teachers": len(pts), "x": x.tolist(), "y": y.tolist(), "teachers": [p["teacher"] for p in pts],
+            "intercept": float(a), "gain": float(b), "intercept_ci": ici, "gain_ci": gci,
+            "resid_sd": float((y - (a + b * x)).std(ddof=2))}
+
+
+def record_maps(runs: dict, raws: dict, fam: str, alphas) -> dict:
+    """The map against what the student was trained on instead of the teacher's greedy gap.
+    'raw:<alpha>:<readout>': x is the gap of the teacher's sampled records (a like-for-like
+    input for the sampled readout). 'train:...': x is the gap of the training set after the
+    audit; a slope of one means the student reproduces the gap of its training set.
+    'pooled:<readout>': all teachers and audit shares in one fit on the training-set gap."""
+    out = {}
+    pooled = {"greedy": [], "sampled": []}
+    for a in alphas:
+        for key, label in (("eval", "greedy"), ("eval_sampled", "sampled")):
+            for which in ("raw", "train"):
+                if which == "train" and a == 0:
+                    continue
+                pts = _record_points(runs, raws, fam, a, key, which)
+                f = _fit_record_points(pts)
+                if f:
+                    out[f"{which}:{a}:{label}"] = f
+            f = out.get(f"train:{a}:{label}") or out.get(f"raw:{a}:{label}")
+            if f:
+                pooled[label] += list(zip(f["x"], f["y"]))
+            if a == 0:
+                f7 = _fit_record_points([p for p in _record_points(runs, raws, fam, a, key, "raw") if p["teacher"] != "base"])
+                if f7:
+                    out[f"raw7:{a}:{label}"] = f7
+    for label, xy in pooled.items():
+        if len(xy) >= 8:
+            x, y = np.array(xy).T
+            a_, b_, _ = _fit(x, y)
+            out[f"pooled:{label}"] = {"n_cells": len(xy), "gain": float(b_), "intercept": float(a_),
+                                      "resid_sd": float((y - (a_ + b_ * x)).std(ddof=2)),
+                                      "max_abs_resid": float(np.abs(y - (a_ + b_ * x)).max())}
+    return out
+
+
+def forecast_records(runs: dict, raws: dict, fam: str, chain_fn=None, label: str = "same") -> list[dict]:
+    """Like-for-like forecast for the sampled-records chains. State: the gap of a model's
+    sampled answers. Map: gap of the teacher's sampled records (record questions) -> gap of
+    the student's sampled answers (evaluation questions), fitted on the eight installed
+    teachers at one audit share and iterated from the chain's start. Observed: the sampled
+    gap of each generation on the evaluation questions."""
+    chain_fn = chain_fn or (lambda lam, a: config.chain_cells(lam, a, "main"))
+    out = []
+    for a in config.CHAIN_ALPHAS:
+        pts = _record_points(runs, raws, fam, a, "eval_sampled", "raw")
+        if len(pts) < 8:
+            continue
+        for lam in config.CHAIN_LAMBDAS:
+            start = config.teacher_name(lam)
+            names = [c["name"] for c in chain_fn(lam, a)]
+            if any(n not in runs or "eval_sampled" not in runs[n]["eval"] for n in names):
+                continue
+            x0 = next(p for p in pts if p["teacher"] == start)["xg"]
+            gens = [item_gap(runs[n], "eval_sampled") for n in names]
+            d_ids = sorted(set.union(*[set(p["xg"]) for p in pts]))
+            e_ids = sorted(set.intersection(*[set(p["sg"]) for p in pts], *[set(g) for g in gens]))
+            Xd = np.array([[p["xg"].get(i, np.nan) for i in d_ids] for p in pts])
+            X0 = np.array([x0.get(i, np.nan) for i in d_ids])
+            Y = np.array([[p["sg"][i] for i in e_ids] for p in pts])
+            G = np.array([[g[i] for i in e_ids] for g in gens])
+            mask, m0 = ~np.isnan(Xd), ~np.isnan(X0)
+            Xz, X0z = np.where(mask, Xd, 0.0), np.where(m0, X0, 0.0)
+
+            def run(c, idx):
+                a_, b_, _ = _fit((Xz @ c) / (mask @ c), Y[:, idx].mean(1))
+                x = (X0z @ c) / (m0 @ c)
+                pred = [x]
+                for _ in range(len(names)):
+                    x = a_ + b_ * x
+                    pred.append(x)
+                return G[:, idx].mean(1), np.array(pred)
+            obs, pred = run(np.ones(len(d_ids)), np.arange(len(e_ids)))
+            rng = np.random.default_rng(RNG_SEED)
+            errs = []
+            for _ in range(N_BOOT):
+                o, p_ = run(np.bincount(rng.integers(0, len(d_ids), len(d_ids)), minlength=len(d_ids)),
+                            rng.integers(0, len(e_ids), len(e_ids)))
+                errs.append(o - p_[1:])
+            E = np.array(errs)
+            out.append({"alpha": a, "start": start, "chain": label, "n_questions": len(e_ids),
+                        "start_record_gap": float(pred[0]), "observed": obs.tolist(), "predicted": pred[1:].tolist(),
+                        "error": (obs - pred[1:]).tolist(),
+                        "error_ci": [[float(np.percentile(E[:, g], 2.5)), float(np.percentile(E[:, g], 97.5))]
+                                     for g in range(E.shape[1])]})
+    return out
+
+
+# ---------------------------------------------------------------- arms added 2026-11-14 21:00
+
+def cross(runs: dict, truns: dict, tfam: str) -> dict:
+    """Cross-family transfer: students of this family trained on the records of the other
+    family's teachers. x is the teacher's greedy gap in its own family."""
+    out = {}
+    for a in config.CROSS_ALPHAS:
+        for key, label in (("eval", "greedy"), ("eval_sampled", "sampled")):
+            pts, rows = [], []
+            for t in config.TEACHERS + ["base"]:
+                name = config.student_cell(t, a, es=True, tfam=tfam)["name"]
+                if t not in truns or name not in runs or key not in runs[name]["eval"]:
+                    continue
+                pts.append({"teacher": t, "student": name, "tg": item_gap(truns[t]), "sg": item_gap(runs[name], key)})
+                m = runs[name]["meta"]
+                mm = m["metrics"] if key == "eval" else m["metrics_sampled"]
+                rows.append({"teacher": t, "teacher_gap": truns[t]["meta"]["metrics"]["gap"],
+                             "teacher_acc": truns[t]["meta"]["metrics"]["accuracy"],
+                             "record_conf": m["data"]["train_conf_mean"], "record_acc": 100 * m["data"]["train_accuracy"],
+                             "record_gap": m["data"]["train_gap"], "conf": mm["mean_conf"], "acc": mm["accuracy"],
+                             "gap": mm["gap"], "auroc": mm.get("auroc"), "parsed": mm["parsed"]})
+            f = fit_map(pts)
+            if not f:
+                continue
+            mean = lambda fn: float(np.mean([fn(r) for r in rows]))
+            out[f"{a}:{label}"] = {
+                **{k: v for k, v in f.items() if k != "boot"}, "rows": rows,
+                "conf_minus_records": mean(lambda r: r["conf"] - r["record_conf"]),
+                "conf_minus_records_range": [float(min(r["conf"] - r["record_conf"] for r in rows)),
+                                             float(max(r["conf"] - r["record_conf"] for r in rows))],
+                "acc_records_minus_student": mean(lambda r: r["record_acc"] - r["acc"]),
+                "gap_minus_record_gap": mean(lambda r: r["gap"] - r["record_gap"]),
+                "gap_min": float(min(r["gap"] for r in rows)), "gap_max": float(max(r["gap"] for r in rows)),
+                "acc_min": float(min(r["acc"] for r in rows)), "acc_max": float(max(r["acc"] for r in rows)),
+                "conf_slope_on_records": float(np.polyfit([r["record_conf"] for r in rows], [r["conf"] for r in rows], 1)[0])}
+    return out
+
+
+def same_family_rows(runs: dict, alphas) -> dict:
+    """The same per-cell numbers for students of their own family's teachers (comparison for cross)."""
+    out = {}
+    for a in alphas:
+        for key, label in (("eval", "greedy"), ("eval_sampled", "sampled")):
+            rows = []
+            for t in config.TEACHERS + ["base"]:
+                name = config.student_cell(t, a, es=True)["name"]
+                if t in runs and name in runs and key in runs[name]["eval"]:
+                    m = runs[name]["meta"]
+                    mm = m["metrics"] if key == "eval" else m["metrics_sampled"]
+                    rows.append({"conf": mm["mean_conf"], "record_conf": m["data"]["train_conf_mean"],
+                                 "acc": mm["accuracy"], "record_acc": 100 * m["data"]["train_accuracy"],
+                                 "gap": mm["gap"], "record_gap": m["data"]["train_gap"]})
+            if rows:
+                mean = lambda fn: float(np.mean([fn(r) for r in rows]))
+                out[f"{a}:{label}"] = {"n": len(rows),
+                                       "conf_minus_records": mean(lambda r: r["conf"] - r["record_conf"]),
+                                       "acc_records_minus_student": mean(lambda r: r["record_acc"] - r["acc"]),
+                                       "gap_minus_record_gap": mean(lambda r: r["gap"] - r["record_gap"]),
+                                       "gap_min": float(min(r["gap"] for r in rows)),
+                                       "gap_max": float(max(r["gap"] for r in rows)),
+                                       "acc_min": float(min(r["acc"] for r in rows)),
+                                       "acc_max": float(max(r["acc"] for r in rows))}
+    return out
+
+
+def forge(runs: dict) -> dict:
+    """Forged tags: 10% audited records carry the audited tag; a further share carries it
+    without an audit. Gain under each tag and readout across the seven installed teachers,
+    with the prediction written before the runs: under the audited tag the model behaves
+    like an untagged model whose audit share is the audited fraction of the tagged records."""
+    def seven(alpha, key):
+        f = fit_map([p for p in es_points(runs, alpha, key) if p["teacher"] != "base"])
+        return f["gain"] if f else None
+    grid = {key: [(a, seven(a, key)) for a in config.ALPHAS_ES] for key in ("eval", "eval_sampled")}
+    out = {}
+    for fs in config.FORGE_SHARES:
+        share = config.FORGE_ALPHA / (config.FORGE_ALPHA + fs)
+        for tier in ("verified", "unverified"):
+            for key, label, ref in ((f"eval_{tier}", "greedy", "eval"), (f"eval_sampled_{tier}", "sampled", "eval_sampled")):
+                pts = []
+                for t in config.TEACHERS:
+                    name = config.student_cell(t, config.FORGE_ALPHA, tag=True, es=True, forge=fs)["name"]
+                    if t in runs and name in runs and key in runs[name]["eval"]:
+                        pts.append({"teacher": t, "student": name, "tg": item_gap(runs[t]), "sg": item_gap(runs[name], key)})
+                f = fit_map(pts)
+                if not f:
+                    continue
+                pred = None
+                xs = [a for a, g in grid[ref] if g is not None]
+                if tier == "verified" and xs and share <= max(xs):
+                    pred = float(np.interp(share, xs, [g for _, g in grid[ref] if g is not None]))
+                elif tier == "unverified":
+                    pred = 1.0
+                out[f"{fs}:{tier}:{label}"] = {"gain": f["gain"], "gain_ci": f["gain_ci"], "intercept": f["intercept"],
+                                               "n": f["n_teachers"], "y_min": float(min(f["y"])), "y_max": float(max(f["y"])),
+                                               "audited_fraction_of_tagged": share, "predicted_gain": pred}
+    return out
+
+
+def fq_table(runs: dict) -> list[dict]:
+    """Fresh-question chains beside the same-question chains (same starts, same audit share)."""
+    rows = []
+    for lam in config.CHAIN_LAMBDAS:
+        for a in config.FQ_ARMS:
+            fresh = [config.teacher_name(lam)] + [c["name"] for c in config.fq_chain_cells(lam, a)]
+            same = [config.teacher_name(lam)] + [c["name"] for c in config.chain_cells(lam, a, "main")]
+            if not all(n in runs for n in fresh[:2]):
+                continue
+            g = lambda n, k: None if n not in runs else (runs[n]["meta"].get(k) or {}).get("gap")
+            row = {"start": config.teacher_name(lam), "alpha": a,
+                   "greedy": [g(n, "metrics") for n in fresh], "sampled": [g(n, "metrics_sampled") for n in fresh],
+                   "same_greedy": [g(n, "metrics") for n in same], "same_sampled": [g(n, "metrics_sampled") for n in same],
+                   "sets": ["-"] + [runs[n]["meta"].get("dset") if n in runs else None for n in fresh[1:]],
+                   "n_audited": [None] + [runs[n]["meta"]["data"].get("n_audited") if n in runs else None for n in fresh[1:]]}
+            pair = lambda u, v: [None if (x is None or y is None) else x - y for x, y in zip(u, v)]
+            row["diff_greedy"], row["diff_sampled"] = pair(row["greedy"], row["same_greedy"]), pair(row["sampled"], row["same_sampled"])
+            rows.append(row)
+    return rows
+
+
 def cell_table(runs: dict) -> list[dict]:
     rows = []
     for name, r in sorted(runs.items()):
@@ -369,6 +736,23 @@ def main():
         "forecast": forecast(runs),
         "later_steps": later_steps(runs),
     }
+    raws = {f: r for f in config.FAMILIES if (r := load_raw(f))}
+    if fam in raws:
+        al = config.ALPHAS_ES if fam == "qwen25" else config.ADDON_ALPHAS
+        summary["mixture"] = mixture(runs, raws, fam, al)
+        summary["record_maps"] = record_maps(runs, raws, fam, al)
+        summary["forecast_records"] = forecast_records(runs, raws, fam)
+        if fam == "qwen25":
+            summary["forecast_records"] += forecast_records(runs, raws, fam, chain_fn=config.fq_chain_cells, label="fresh")
+    # cross-family transfer was run only between Qwen2.5 and Llama 3.1
+    other = {"qwen25": "llama31", "llama31": "qwen25"}.get(fam)
+    op = RES / ("runs.json" if other == "qwen25" else f"runs_{other}.json") if other else None
+    if op is not None and op.exists():
+        summary["cross"] = cross(runs, included(load(op)), other)
+        summary["same_family"] = same_family_rows(runs, config.CROSS_ALPHAS)
+    if fam == "qwen25":
+        summary["forge"] = forge(runs)
+        summary["fq_table"] = fq_table(runs)
     (RES / f"summary{suffix}.json").write_text(json.dumps(summary, indent=1))
     print(f"{len(runs)}/{len(all_runs)} runs included; total ${summary['usd_total']:.2f}")
     for a, f in summary["maps"].items():
@@ -391,6 +775,33 @@ def main():
               f"pred {np.round(c['predicted'], 1).tolist()} err4 {c['error_gen4']:+.1f} {np.round(c['error_gen4_ci'], 1).tolist()}")
     for k, v in summary["later_steps"].items():
         print("later steps", k, {a: round(b, 2) for a, b in v.items()})
+    for k, v in summary.get("mixture", {}).items():
+        print(f"mixture {k:13s} weight of audit-style values: mean {v['mean']:.2f} (min {v['min']:.2f}, max {v['max']:.2f}) "
+              f"separation {v['separation']:.2f} misfit {v['misfit']:.2f}")
+    for k, v in summary.get("record_maps", {}).items():
+        if k.startswith("pooled"):
+            print(f"record map {k:22s} gain {v['gain']:.3f} intercept {v['intercept']:+.2f} resid sd {v['resid_sd']:.2f} "
+                  f"max |resid| {v['max_abs_resid']:.1f} n={v['n_cells']}")
+        else:
+            print(f"record map {k:22s} gain {v['gain']:.3f} {np.round(v['gain_ci'], 3).tolist()} intercept {v['intercept']:+.2f} n={v['n_teachers']}")
+    for k, v in summary.get("cross", {}).items():
+        print(f"cross {k:13s} gain {v['gain']:.2f} {np.round(v['gain_ci'], 2).tolist()} intercept {v['intercept']:+.1f} "
+              f"{np.round(v['intercept_ci'], 1).tolist()} n={v['n_teachers']} | student conf - record conf {v['conf_minus_records']:+.1f} "
+              f"| record acc - student acc {v['acc_records_minus_student']:+.1f} | student gap - record gap {v['gap_minus_record_gap']:+.1f} "
+              f"| gaps {v['gap_min']:+.0f}..{v['gap_max']:+.0f}")
+    for k, v in summary.get("same_family", {}).items():
+        print(f"same-family {k:13s} conf - record conf {v['conf_minus_records']:+.1f} | record acc - student acc "
+              f"{v['acc_records_minus_student']:+.1f} | gap - record gap {v['gap_minus_record_gap']:+.1f} | gaps {v['gap_min']:+.0f}..{v['gap_max']:+.0f}")
+    for k, v in summary.get("forge", {}).items():
+        pr = "n/a" if v["predicted_gain"] is None else f"{v['predicted_gain']:.2f}"
+        print(f"forge {k:26s} gain {v['gain']:.2f} {np.round(v['gain_ci'], 2).tolist()} predicted {pr} "
+              f"gaps {v['y_min']:+.0f}..{v['y_max']:+.0f} n={v['n']}")
+    for c in summary.get("fq_table", []):
+        print(f"fresh chain {c['start']} a={c['alpha']} greedy {r1(c['greedy'])} sampled {r1(c['sampled'])} "
+              f"| minus same-question chain: greedy {r1(c['diff_greedy'])} sampled {r1(c['diff_sampled'])}")
+    for c in summary.get("forecast_records", []):
+        print(f"record forecast a={c['alpha']} {c['start']} {c['chain']} start {c['start_record_gap']:+.1f} obs {np.round(c['observed'], 1).tolist()} "
+              f"pred {np.round(c['predicted'], 1).tolist()} err {np.round(c['error'], 1).tolist()} ci4 {np.round(c['error_ci'][-1], 1).tolist()}")
 
 if __name__ == "__main__":
     main()

@@ -1,7 +1,7 @@
 % Hand-written text macros that depend on which results exist. Number macros inside are filled by build.sh.
 \newcommand{\repoLink}{\url{https://github.com/kaiser-data/inherited-overconfidence}}
 \newcommand{\llamaSummary}{A second family, Llama-3.1-8B, showed the same two audit curves but a no-audit slope of \llamaGainGZero{} (\llamaGainGZeroCI{}): there, gaps grew by about an eighth in one generation.}
-\newcommand{\llamaParagraph}{We repeated the map at four audit shares on Llama-3.1-8B-Instruct (base model gap \llamaBaseGap{}; teachers from \llamaTeacherGapMin{} to \llamaTeacherGapMax{}). The audit curves are similar on this coarser grid: at 25, 50 and 75\% audits the greedy gain was \llamaGainGTwentyFive{}, \llamaGainGFifty{} and \llamaGainGSeventyFive{}, the sampled gain \llamaGainSTwentyFive{}, \llamaGainSFifty{} and \llamaGainSSeventyFive{} (Table~7, Appendix C). The no-audit gain differs: \llamaGainGZero{} (\llamaGainGZeroCI{}) greedy and \llamaGainSZero{} sampled, clearly above one. A student was somewhat more over- or underconfident than its installed teacher, in both directions. \llamaChainText{}}
+\newcommand{\llamaParagraph}{Llama-3.1-8B at four audit shares gave similar audit curves (Tables~7--8, Figure~5). Against the teacher's greedy gap its no-audit gain was \llamaGainGZero{} (\llamaGainGZeroCI{}), which looked like amplification. It is not: Llama teachers' records had larger gaps than their greedy evaluation answers, and against the record gap the slope is \llamarecGainGZero{} (\llamarecGainGZeroCI{}); chains moved in the first step only, against our prediction.}
 \newcommand{\llamaCompute}{, and about \$\llamaUsd{} for the \llamaRuns{} Llama evaluations (A100-80GB; one untouched base model per family is included in the counts)}
 \newcommand{\llamaAppendix}{\begin{table}[h]
 \centering\small
@@ -12,16 +12,64 @@
 \begin{figure}[h]
 \centering
 \includegraphics[width=\linewidth]{figA-return-map-llama.pdf}
-\caption{\textbf{Figure 4. Return map for Llama-3.1-8B.} Same layout as Figure~1, four audit shares. Source: \texttt{paper/figures.py} $\to$ \texttt{results/runs\_llama31.json}.}
+\caption{\textbf{Figure 5. Return map for Llama-3.1-8B.} Teacher and student are both Llama-3.1-8B. Same layout as Figure~1, four audit shares. Source: \texttt{paper/figures.py} $\to$ \texttt{results/runs\_llama31.json}.}
 \end{figure}
 \llamaChainTable{}}
 \newcommand{\letterSummary}{worked as well (\letterAGain{}), and the tag wording alone did nothing to a model trained without tags (\probeAGain{})}
 \newcommand{\letterIntro}{Two controls show the marking during training does this, not the word: a model trained without tags kept a gain of \probeAGain{} when asked under ``verified'', and meaningless tags (``K'' for audited records, ``Q'' for the rest) gave \letterAGain{} under K.}
 \newcommand{\tagControls}{Two controls at 10\% separate the causes. Students trained without tags and asked under either tag kept the teacher's gap (gain \probeAGain{} and \probeBGain{}), so the word alone does nothing. Students trained with tags that have no prior meaning, ``K'' on audited records and ``Q'' on the rest, gave \letterAGain{} (\letterAGainCI{}) under K and \letterBGain{} under Q, so the meaning of ``verified'' is not needed either.}
-\newcommand{\llamaChainText}{Four-generation Llama chains (Table~8, Appendix C) did not compound this excess: without audits they went from \lchUnderNoneStart{} to \lchUnderNoneEnd{} and from \lchOverNoneStart{} to \lchOverNoneEnd{}, moving away from zero in the first step only. Our prediction that the underconfident chain would keep moving away failed; the above-one slope is a first-step effect, not a loop gain. With 25\% audits and sampled records the chains ended at \lchUnderSampEnd{} and \lchOverSampEnd{}, and the sampled map's generation-4 forecast errors were \lfcUnderTwentyFiveSErr{} and \lfcOverTwentyFiveSErr{} points. With greedy records they ended at \lchUnderGreedyEnd{} and \lchOverGreedyEnd{}.}
+\newcommand{\llamaChainText}{Chains agree (Table~8): without audits they went from \lchUnderNoneStart{} to \lchUnderNoneEnd{} and from \lchOverNoneStart{} to \lchOverNoneEnd{}, moving in the first step only; our prediction that the underconfident chain would keep moving away failed.}
 \newcommand{\llamaChainTable}{\begin{table}[h]
 \centering\small
 \caption{\textbf{Table 8. Llama-3.1-8B chains.} Same layout as Table~1: greedy / sampled gap in points per generation.}
 \tableLlamaChain
 \end{table}}
 \newcommand{\greedyRecordsBullet}{With greedy records the correction was smaller in both families (Qwen ended at \chUnderGreedyGD{} and \chOverGreedyGD{}, Llama at \lchUnderGreedyEnd{} and \lchOverGreedyEnd{}).}
+\newcommand{\newAppendix}{\begin{table}[h]
+\centering\small
+\caption{\textbf{Table 9. Which confidence values does a student use?} Weight of audit-style values when the distribution of confidence values in a student's replies is written as a mixture of the teacher's own values and the audited values in its training set. Mean over eight teachers (lowest--highest). Last column: the same measure for students trained without audits (should be zero).}
+\tableMixture
+\end{table}
+
+\begin{table}[h]
+\centering\small
+\caption{\textbf{Table 10. Like-for-like forecast of the sampled-records chains.} Map from the gap of the teacher's sampled records to the student's sampled gap, fitted on the eight installed teachers and iterated four times. Error = observed minus predicted sampled gap at generation 4; interval from independent bootstraps of record and evaluation questions, models fixed. Gaps in points.}
+\tableRecordForecast
+\end{table}
+\crossAppendix{}\forgeAppendix{}\fqAppendix{}}
+\newcommand{\abstractText}{We measured the \textbf{confidence return map}: how overconfident a fresh model becomes when trained on another model's question-and-answer records, as a function of how overconfident that teacher was. Model output increasingly becomes training data, and a recent essay argues this makes epistemics self-reinforcing. We fine-tuned Qwen2.5-7B and Llama-3.1-8B teachers to seven known levels of \emph{overconfidence gap} (stated confidence minus accuracy; \teacherGapMin{} to \teacherGapMax{} points for Qwen), trained \nStudentsAll{} fresh students on their records, and replaced the confidence in a share of records by an audited value. Students reproduced the confidence of their records: without audits the slope of student gap on record gap was \recGainGZero{} for both models, and four-generation chains stayed within \chainDriftAll{} points of their start. Audits acted differently on two readouts. In sampled answers the fitted weight of audit-style confidence tracked the audit share; in greedy answers, what a user sees at temperature zero, it was \mixGTwentyFive{} at 25\% audits and \mixGSixty{} at 60\%: the majority style wins. A one-line tag on audited records made 10\% count (slope \tagGainTenVerified{} asked under the tag; \letterAGain{} with a meaningless tag). \forgeAbstract{} Confidence crossed models; calibration did not: Qwen students of Llama teachers stated their teachers' confidence at \xGZeroAccDiff{} points lower accuracy, so a calibrated teacher produced a student overconfident by \xGZeroCalStudent{} points, and auditing 75\% of records left gaps of \xGSeventyFiveGapRange{}. An audit fits the writer's accuracy, not the learner's.}
+\newcommand{\forgeAbstract}{Tagging as many unaudited records raised that slope to \fgTenVG{}.}
+\newcommand{\forgeIntro}{Forged tags on half as many unaudited records raised it to \fgFiveVG{}, on as many to \fgTenVG{}.}
+\newcommand{\forgeText}{The tag can be diluted. Keeping the 10\% audits tagged, we also tagged 5, 10 or 20\% of all records ``verified'' without auditing them (Table~13). Under the tag the sampled gain rose from \fgZeroVS{} to \fgFiveVS{}, \fgTenVS{} and \fgTwentyVS{}, close to the forged fraction of the tagged records (a third, a half, two thirds): the mixture again, inside the tag. The greedy gain rose from \fgZeroVG{} to \fgFiveVG{}, \fgTenVG{} and \fgTwentyVG{}, against about 0.15, 0.40 and 0.90 predicted in the protocol (\fgFiveVGPred{}, \fgTenVGPred{} and \fgTwentyVGPred{} by interpolating the unmarked map): the first forgeries did more than predicted. Under ``unverified'' the gain stayed at \fgTwentyUG{} or above.}
+\newcommand{\forgeDiscussion}{We measured that price: forged marks on as many records as were audited gave back two thirds of the teacher's gap.}
+\newcommand{\forgeBullet}{Forged tags on 5, 10 and 20\% of records raised it to \fgFiveVG{}, \fgTenVG{} and \fgTwentyVG{}.}
+\newcommand{\fqText}{Chains in which every generation answered new record questions with newly drawn audits (Table~14) met our four-point tolerance at 25\% audits (generation-4 sampled gaps \fqUnderSampSD{} and \fqOverSampSD{} against \chUnderSampSD{} and \chOverSampSD{}) but missed the three-point bound without audits (drift \fqNoAuditDrift{}); differences reached \fqMaxDiff{} points, one run per chain, and the last record set reused the teacher-installation questions.}
+\newcommand{\fqLimitation}{Chains on new questions were run for Qwen only.}
+\newcommand{\fqBullet}{Chains on new questions differed from them by at most \fqMaxDiff{} points.}
+\newcommand{\crossAppendix}{
+
+\begin{table}[h]
+\centering\small
+\caption{\textbf{Table 11. Qwen2.5-7B students of Llama-3.1-8B teachers.} Greedy answer. Confidence and accuracy in \%, gaps in points. Records: the teacher's 2{,}000 sampled records the student was trained on (no audit). Last column: the student's gap when 75\% of the records were audited.}
+\tableCrossQwen
+\end{table}
+
+\begin{table}[h]
+\centering\small
+\caption{\textbf{Table 12. Llama-3.1-8B students of Qwen2.5-7B teachers.} Same layout as Table~11.}
+\tableCrossLlama
+\end{table}}
+\newcommand{\forgeAppendix}{
+
+\begin{table}[h]
+\centering\small
+\caption{\textbf{Table 13. How many forged tags undo a tagged audit?} Qwen2.5-7B, seven teachers, 10\% of records audited and tagged ``verified''; ``Forged'': further share of all records tagged ``verified'' without an audit. Gain (95\% bootstrap interval) when the model is asked under each tag; in brackets the gain predicted before the runs from the unmarked map at the audited fraction of the tagged records.}
+\tableForge
+\end{table}}
+\newcommand{\fqAppendix}{
+
+\begin{table}[h]
+\centering\small
+\caption{\textbf{Table 14. Chains on new questions.} Qwen2.5-7B, sampled records. ``New'': each generation wrote its records for a question set no earlier generation had answered, with newly drawn audited records (the third new set is the teacher-installation set, which no student had seen). ``Same'': the chains of Table~1. Greedy / sampled gap in points; generation 1 is identical by construction. One run per cell.}
+\tableFq
+\end{table}}

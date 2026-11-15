@@ -137,3 +137,45 @@ def test_chain_cells_link_and_es_grid():
     assert len(config.grid("es")) == 56 and len(config.grid("chaing3")) == 6
     es = {c["name"] for c in config.grid("es")}
     assert sum(c["name"] in es for c in config.grid("chaing1")) == 4
+
+
+def test_new_arms_keep_old_names_and_are_unique():
+    # defaults must reproduce every earlier cell name
+    assert config.student_cell("teach_p200", 0.25, es=True)["name"] == "stu__teach_p200__a25__main__s1__es"
+    assert config.student_cell("teach_p200", 0.10, tag=True)["name"] == "stu__teach_p200__a10__main__tag__s1"
+    old = {c["name"] for s in config.STAGES + ["addon"] for c in config.grid(s)}
+    new = [c for s in ("xllama31", "xqwen25", "forge", "fqg1", "fqg2", "fqg3", "fqg4") for c in config.grid(s)]
+    names = [c["name"] for c in new]
+    assert len(names) == len(set(names)) == 16 + 16 + 28 + 16
+    assert not (set(names) & old)
+    assert {c["tfam"] for c in config.grid("xllama31")} == {"llama31"}
+
+
+def test_fq_chain_uses_a_new_question_set_each_generation():
+    ch = config.fq_chain_cells(2.0, 0.25)
+    assert [c["dset"] for c in ch] == ["D", "F1", "F2", "F3"]
+    assert [c["gen_set"] for c in ch] == ["F1", "F2", "F3", None]
+    assert ch[0]["teacher"] == "teach_p200" and all(ch[i + 1]["teacher"] == ch[i]["name"] for i in range(3))
+    assert [c["gen_d"] for c in ch] == [True, True, True, False]
+
+
+def test_forged_records_carry_the_audited_tag_but_the_raw_confidence():
+    ids = [f"q{i}" for i in range(200)]
+    qs = {i: {"q": i} for i in ids}
+    rows = [{"id": i, "answer": "a", "conf": 90.0, "correct": k % 2 == 0} for k, i in enumerate(ids)]
+    perm = core.seeded_perm(ids, 1)
+    recs, info = core.build_student_records(rows, qs, 0.10, perm, tag=True, forge=0.20)
+    assert info["n_audited"] == 20 and info["n_forged"] == 40
+    for r in recs:
+        tagged = r["system"].endswith(core.TAG_VERIFIED)
+        assert tagged == (r["audited"] or r["forged"])
+        assert not (r["audited"] and r["forged"])
+        if r["forged"]:
+            assert r["conf"] == 90.0
+    # without forge nothing changes
+    base, _ = core.build_student_records(rows, qs, 0.10, perm, tag=True)
+    plain, _ = core.build_student_records(rows, qs, 0.10, perm, tag=True, forge=0.0)
+    assert [(r["system"], r["response"]) for r in base] == [(r["system"], r["response"]) for r in plain]
+    # forge is ignored in the untagged arm
+    un, info_un = core.build_student_records(rows, qs, 0.10, perm, tag=False, forge=0.20)
+    assert info_un["n_forged"] == 0 and all(r["system"] == core.SYSTEM for r in un)

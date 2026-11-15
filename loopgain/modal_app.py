@@ -25,12 +25,17 @@ RATE = {"A10G": 1.10, "L40S": 1.95, "A100-40GB": 2.10, "A100-80GB": 2.50, "cpu":
 
 app = modal.App("loopgain")
 vol = modal.Volume.from_name("loopgain-vol", create_if_missing=True)
+# Library versions. Qwen3 needs transformers >= 4.51; that family runs with LG_TF=4.51, all
+# earlier families keep the original pins (their cells were produced with them).
+TF = os.environ.get("LG_TF", "4.46")
+PINS = {"4.46": ("transformers==4.46.3", "peft==0.13.2", "accelerate==1.1.1"),
+        "4.51": ("transformers==4.51.3", "peft==0.15.2", "accelerate==1.6.0")}[TF]
 image = (
     modal.Image.debian_slim(python_version="3.11")
-    .pip_install("torch==2.5.1", "transformers==4.46.3", "peft==0.13.2", "accelerate==1.1.1",
-                 "datasets==3.1.0", "hf_transfer==0.1.8", "numpy==2.1.3")
+    .pip_install("torch==2.5.1", *PINS, "datasets==3.1.0", "hf_transfer==0.1.8", "numpy==2.1.3")
     .env({"HF_HOME": "/vol/hf", "HF_HUB_ENABLE_HF_TRANSFER": "1",
-          "TOKENIZERS_PARALLELISM": "false"})
+          "TOKENIZERS_PARALLELISM": "false",
+          "LG_GPU": GPU, "LG_TF": TF})  # so that each run records the GPU it actually ran on
     .add_local_dir(str(HERE), "/root/lg", ignore=["__pycache__", "tests", "*.pyc"])
 )
 V = Path("/vol")
@@ -63,13 +68,51 @@ def _write(path, rows: list[dict]):
             f.write(json.dumps(r, ensure_ascii=False) + "\n")
 
 
+FRESH = ("F1", "F2", "F3")  # record questions for the fresh-question chains (stage fresh)
+
+
 def _load_data():
     q = {}
-    for split in ("T", "D", "E"):
-        for r in _read(V / "data" / f"{split}.jsonl"):
-            q[r["id"]] = r
+    for split in ("T", "D", "E") + FRESH:
+        f = V / "data" / f"{split}.jsonl"
+        if f.exists():
+            for r in _read(f):
+                q[r["id"]] = r
     perm = json.loads((V / "data" / "audit_perm.json").read_text())
     return q, perm
+
+
+def _load_sets():
+    """Record-question sets and their audit order. D is the set of the main study."""
+    sets = {"D": _read(V / "data" / "D.jsonl")}
+    perms = {"D": json.loads((V / "data" / "audit_perm.json").read_text())}
+    for s in FRESH:
+        f, pf = V / "data" / f"{s}.jsonl", V / "data" / f"audit_perm_{s}.json"
+        if f.exists() and pf.exists():
+            sets[s] = _read(f)
+            perms[s] = json.loads(pf.read_text())
+    return sets, perms
+
+
+def _pool():
+    """Every usable TriviaQA question in the fixed order that T, D and E were cut from
+    (the same steps as prep_data)."""
+    import random
+    from datasets import load_dataset
+    import config
+    ds = load_dataset("mandarjoshi/trivia_qa", "rc.nocontext", split="validation")
+    rows, seen = [], set()
+    for ex in ds:
+        q = " ".join(ex["question"].split())
+        a = ex["answer"]
+        aliases = sorted({a["value"], *a["aliases"], *a.get("normalized_aliases", [])} - {""})
+        if not aliases or len(q) > 200 or q in seen:
+            continue
+        seen.add(q)
+        rows.append({"id": ex["question_id"], "q": q, "aliases": aliases, "value": a["value"]})
+    rows.sort(key=lambda r: r["id"])
+    random.Random(config.DATA_SEED).shuffle(rows)
+    return rows
 
 
 # ------------------------------------------------------------------ stage: data (CPU)
@@ -107,17 +150,64 @@ def prep_data(force: bool = False):
     return {"pool": len(rows), "T": len(T), "D": len(D), "E": len(E), "example": E[0]}
 
 
+@app.function(image=image, volumes={"/vol": vol}, timeout=1800)
+def prep_fresh(force: bool = False):
+    """Question sets F1..F3 for the fresh-question chains: the next questions of the same
+    fixed order, after T, D and E. Checks first that the order reproduces T, D and E."""
+    _setup()
+    import config, core
+    out = V / "data"
+    if all((out / f"{s}.jsonl").exists() for s in FRESH) and not force:
+        return {"skipped": True, **{s: len(_read(out / f"{s}.jsonl")) for s in FRESH}}
+    rows = _pool()
+    n0 = config.N_T + config.N_D + config.N_E
+    old = [r["id"] for s in ("T", "D", "E") for r in _read(out / f"{s}.jsonl")]
+    if [r["id"] for r in rows[:n0]] != old:
+        raise RuntimeError("question order does not reproduce T, D, E; not writing fresh sets")
+    # The pool is deduplicated by exact question text only. Drop any later row that repeats
+    # an id or a question (ignoring case and punctuation) used before, so the fresh sets
+    # share nothing with T, D, E or with each other.
+    norm = lambda t: "".join(ch for ch in t.lower() if ch.isalnum())
+    seen_id = {r["id"] for r in rows[:n0]}
+    seen_q = {norm(r["q"]) for r in rows[:n0]}
+    rest = []
+    for r in rows[n0:]:
+        if r["id"] in seen_id or norm(r["q"]) in seen_q:
+            continue
+        seen_id.add(r["id"]); seen_q.add(norm(r["q"]))
+        rest.append(r)
+    info = {"pool": len(rows), "unused": len(rest), "dropped_repeats": len(rows) - n0 - len(rest)}
+    T = _read(out / "T.jsonl")
+    for k, s in enumerate(FRESH):
+        part, src = rest[k * config.N_D:(k + 1) * config.N_D], "pool"
+        if len(part) < config.N_D:
+            # Not enough unused questions: the teacher-installation set T. No student ever saw
+            # it; only the generation-0 teacher was trained on it.
+            part, src = T, "T"
+        _write(out / f"{s}.jsonl", part)
+        (out / f"audit_perm_{s}.json").write_text(
+            json.dumps(core.seeded_perm([r["id"] for r in part], config.DATA_SEED)))
+        info[s] = {"n": len(part), "source": src, "first_id": part[0]["id"]}
+    seen = set(old[config.N_T:])  # D and E
+    for s in FRESH:
+        ids = {r["id"] for r in _read(out / f"{s}.jsonl")}
+        assert not (ids & seen), f"{s} overlaps an earlier record or evaluation set"
+        seen |= ids
+    vol.commit()
+    return info
+
+
 # ------------------------------------------------------------------ stage: smoke (GPU, cheap)
 
 @app.function(image=image, volumes={"/vol": vol}, gpu=GPU, timeout=1800)
-def smoke():
+def smoke(fam: str = "qwen25"):
     _setup()
     import config, core, gpu
     t0 = time.time()
     q, perm = _load_data()
     E = _read(V / "data" / "E.jsonl")[:48]
     T = _read(V / "data" / "T.jsonl")[:64]
-    base, tok = gpu.load_base()
+    base, tok = gpu.load_base(config.FAMILIES[fam])
     load_s = time.time() - t0
     cs0 = gpu.base_checksum(base)
     rendered = gpu.render(tok, core.messages(E[0]["q"]))
@@ -135,7 +225,8 @@ def smoke():
     return {"load_seconds": load_s, "total_seconds": time.time() - t0, "rendered_input": rendered,
             "first_rows": rows[:4], "base": m_base, "tuned_to_30": m_tuned, "train_log": log,
             "sampled_after_tuning": [r["raw"] for r in sample],
-            "checksum_equal": cs0 == cs1, "base_after_unload_mean_conf": m_after.get("mean_conf")}
+            "checksum_equal": cs0 == cs1, "base_after_unload_mean_conf": m_after.get("mean_conf"),
+            "family": fam, "transformers": __import__("transformers").__version__, "gpu": GPU}
 
 
 # ------------------------------------------------------------------ stage: base (GPU)
@@ -181,7 +272,8 @@ def base_pass(force: bool = False, fam: str = "qwen25"):
 
 # ------------------------------------------------------------------ cells
 
-def _records_for(cell: dict, q: dict, perm: list[str], fam: str = "qwen25"):
+def _records_for(cell: dict, q: dict, perm: list[str], fam: str = "qwen25", perms: dict | None = None):
+    """perms: audit order per record-question set; perm is the order of D."""
     import core
     if cell["kind"] == "install":
         recs = _read(TDATA(fam) / f"{cell['name']}.jsonl")
@@ -189,10 +281,19 @@ def _records_for(cell: dict, q: dict, perm: list[str], fam: str = "qwen25"):
         return recs, {"n_kept": len(recs), "retained": None,
                       "train_conf_mean": sum(r["label"] for r in recs) / n,
                       "train_accuracy": sum(r["correct"] for r in recs) / n}
-    src = RUNS(fam) / cell["teacher"] / f"d_{cell['decode']}.jsonl"
+    src = RUNS(cell.get("tfam") or fam) / cell["teacher"] / f"d_{cell['decode']}.jsonl"
     if not src.exists():
         raise FileNotFoundError(f"teacher records missing: {src}")
-    return core.build_student_records(_read(src), q, cell["alpha"], perm, tag=cell["tag"])
+    dset = cell.get("dset") or "D"
+    if dset != "D":
+        if not perms or dset not in perms:
+            raise FileNotFoundError(f"question set {dset} missing: run --stage fresh")
+        perm = perms[dset]
+    rows = _read(src)
+    if {r["id"] for r in rows} - set(perm):
+        raise RuntimeError(f"{src} holds records for questions outside set {dset}")
+    return core.build_student_records(rows, q, cell["alpha"], perm, tag=cell["tag"],
+                                      forge=cell.get("forge") or 0.0)
 
 
 @app.function(image=image, volumes={"/vol": vol}, timeout=1800)
@@ -201,10 +302,11 @@ def dry(cells: list[dict], fam: str = "qwen25"):
     _setup()
     vol.reload()
     q, perm = _load_data()
+    _, perms = _load_sets()
     out = []
     for c in cells:
         try:
-            recs, info = _records_for(c, q, perm, fam)
+            recs, info = _records_for(c, q, perm, fam, perms)
             out.append({"name": c["name"], "ok": True, **{k: v for k, v in info.items() if k != "iso_blocks"},
                         "example": recs[0]["response"] if recs else None,
                         "done": (RUNS(fam) / c["name"] / "metrics.json").exists()})
@@ -219,7 +321,8 @@ def run_cells(cells: list[dict], force: bool = False, fam: str = "qwen25"):
     import config, core, gpu
     vol.reload()
     q, perm = _load_data()
-    D, E = _read(V / "data" / "D.jsonl"), _read(V / "data" / "E.jsonl")
+    sets, perms = _load_sets()
+    E = _read(V / "data" / "E.jsonl")
     base, tok = None, None
     done = []
     for cell in cells:
@@ -230,7 +333,7 @@ def run_cells(cells: list[dict], force: bool = False, fam: str = "qwen25"):
         t0 = time.time()
         try:
             vol.reload()
-            recs, info = _records_for(cell, q, perm, fam)
+            recs, info = _records_for(cell, q, perm, fam, perms)
             if base is None:
                 base, tok = gpu.load_base(config.FAMILIES[fam])
             cs0 = gpu.base_checksum(base)
@@ -246,18 +349,24 @@ def run_cells(cells: list[dict], force: bool = False, fam: str = "qwen25"):
                     ev = gpu.evaluate(pm, tok, E, system=core.SYSTEM + suffix)
                     _write(run / f"eval_{tier}.jsonl", ev)
                     meta[f"metrics_{tier}"] = core.metrics(ev)
+                    if cell.get("tag") and cell.get("es"):  # sampled readout under the same tag
+                        evs = gpu.answer_rows(pm, tok, E, "main", seed=1000 + cell["seed"],
+                                              system=core.SYSTEM + suffix)
+                        _write(run / f"eval_sampled_{tier}.jsonl", evs)
+                        meta[f"metrics_sampled_{tier}"] = core.metrics(evs)
                 meta["metrics"] = meta["metrics_verified"]
             if not cell.get("tag"):
                 ev = gpu.evaluate(pm, tok, E)
                 _write(run / "eval.jsonl", ev)
                 meta["metrics"] = core.metrics(ev)
-            if cell.get("es") or cell["kind"] == "install":
+            if (cell.get("es") and not cell.get("tag")) or cell["kind"] == "install":
                 evs = gpu.answer_rows(pm, tok, E, "main", seed=1000 + cell["seed"])
                 _write(run / "eval_sampled.jsonl", evs)
                 meta["metrics_sampled"] = core.metrics(evs)
             if cell.get("gen_d"):
-                _write(run / "d_main.jsonl", gpu.answer_rows(pm, tok, D, "main", seed=cell["seed"]))
-                _write(run / "d_greedy.jsonl", gpu.answer_rows(pm, tok, D, "greedy"))
+                items = sets[cell.get("gen_set") or "D"]  # the questions this model writes records for
+                _write(run / "d_main.jsonl", gpu.answer_rows(pm, tok, items, "main", seed=cell["seed"]))
+                _write(run / "d_greedy.jsonl", gpu.answer_rows(pm, tok, items, "greedy"))
             base = pm.unload()
             meta["checksum_equal"] = gpu.base_checksum(base) == cs0
             secs = time.time() - t0
@@ -338,9 +447,12 @@ def main(stage: str, dry_run: bool = False, only: str = "", force: bool = False,
     if stage == "data":
         print(json.dumps(prep_data.remote(force=force), indent=1))
         return
+    if stage == "fresh":
+        print(json.dumps(prep_fresh.remote(force=force), indent=1))
+        return
     if stage == "smoke":
-        r = smoke.remote()
-        (res_dir / "smoke.json").write_text(json.dumps(r, indent=1))
+        r = smoke.remote(fam=fam)
+        (res_dir / ("smoke.json" if fam == "qwen25" else f"smoke_{fam}.json")).write_text(json.dumps(r, indent=1))
         print(json.dumps(r, indent=1))
         return
     if stage == "base":
@@ -360,7 +472,14 @@ def main(stage: str, dry_run: bool = False, only: str = "", force: bool = False,
         out.write_text(json.dumps(r))
         print(f"{len(r['runs'])} runs -> {out}")
         return
+    if fam == "qwen3" and TF != "4.51":
+        raise SystemExit("qwen3 needs LG_TF=4.51")
     cells = list({c["name"]: c for s in stage.split(",") for c in config.grid(s)}.values())
+    if any(c.get("tfam") == fam for c in cells):
+        raise SystemExit(f"cross-family stage {stage}: --fam must be the student family, not {fam}")
+    if fam != "qwen25" and any(c.get("forge") is not None or c.get("dset", "D") != "D" or c.get("gen_set")
+                               for c in cells):
+        raise SystemExit("the forged-tag and fresh-question arms are defined for qwen25 only")
     if only:
         keep = set(only.split(","))
         cells = [c for c in cells if c["name"] in keep]

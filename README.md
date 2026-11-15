@@ -8,9 +8,9 @@ Paper: [`paper/paper.pdf`](paper/paper.pdf) · Frozen protocol and deviation log
 
 ## Result
 
-Measured on Qwen2.5-7B (LoRA), 1,000 held-out TriviaQA questions, 164 evaluated models (156 students, 7 teachers, the untouched base); repeated on a smaller grid with Llama-3.1-8B (60 evaluations). *Gain* = one-generation transfer slope: how many points of the teacher's overconfidence gap (stated confidence minus accuracy) arrive in the student; 1 = all, 0 = none.
+Qwen2.5-7B and Llama-3.1-8B (LoRA), 1,000 held-out TriviaQA questions. A *teacher* is a model fine-tuned to a known level of overconfidence; a *student* is a fresh adapter on the untouched base model, trained on 2,000 of the teacher's question-answer records. *Gap* = stated confidence minus accuracy, in points. *Gain* = slope of student gap on teacher gap: 1 = all of it arrives, 0 = none. Counts, intervals and every table are in the paper; every number is generated from `results/` by `paper/make_numbers.py`.
 
-| Share of audited records | Gain, greedy answer | Gain, sampled answer |
+| Share of audited records (Qwen teacher and student) | Gain, greedy answer | Gain, sampled answer |
 |---|---|---|
 | 0% | 1.03 | 1.03 |
 | 25% | 0.99 | 0.79 |
@@ -20,12 +20,12 @@ Measured on Qwen2.5-7B (LoRA), 1,000 held-out TriviaQA questions, 164 evaluated 
 | 10%, meaningless tag (K/Q), asked under K | 0.07 | |
 | 10%, trained without tags, asked under "verified" | 0.98 | |
 
-1. Without audits a student copies its teacher's gap in both directions (Qwen 1.03, or 1.01 without the untouched base model; Llama 1.12 in the first step, not compounding). Four-generation chains stay near their start.
-2. For Qwen, unmarked audits correct a sampled answer roughly in proportion to their share, and the greedy answer mainly between 40% and 60%; Llama is similar on a coarser grid.
-3. A one-line tag on audited records makes a 10% share nearly sufficient; a meaningless tag works as well, the word alone does nothing.
-4. Iterating the sampled-answer map from the chain start gives generation-4 errors of -0.2 and +2.0 points for Qwen at 25% audits (-3.0 and +1.2 for Llama; intermediate errors up to 3.6); the greedy map fails by 7 to 18 points. Exploratory.
+1. **A student reproduces the confidence of its training records.** Slope of student gap on record gap 1.03 for both models; four-generation chains stay near their start, also when every generation answers new questions.
+2. **Unmarked audits: sampling shows the mixture, greedy decoding its majority.** In sampled answers the weight of audit-style confidence values equals the audit share; in greedy answers it is 0.07 at 25% audits and 0.89 at 60%.
+3. **A tag selects the audited style.** One line on audited records makes a 10% share count; a meaningless tag works as well, the word alone does nothing. Records that carry the tag without an audit dilute it: forged tags on 5, 10 and 20% of records raise the gain under the tag from 0.11 to 0.29, 0.68 and 0.83.
+4. **Confidence crosses models, calibration does not.** Qwen students of Llama teachers state their teachers' confidence at 12 points lower accuracy and sit about 11 points above them; auditing 75% of the records leaves gaps of +6 to +17.
 
-Full tables with intervals are in the paper. Not shown: other traits, pre-training, larger models, imperfect audits, chains on fresh questions. Intervals reflect question sampling with models fixed.
+Not shown: other traits, pre-training, larger models, imperfect audits. Intervals reflect question sampling with models fixed. Most arms were added after first results; `PROTOCOL.md` lists each with the prediction written before it ran.
 
 ![return map](paper/fig1-return-map.png)
 
@@ -51,7 +51,11 @@ modal run modal_app.py --stage teachers --dry-run   # CPU check of every cell, t
 modal run --detach modal_app.py --stage es,seeds,tag,greedy --spawn
 bash orchestrate.sh qwen                            # chain generations 2-4
 modal run --detach modal_app.py --stage tagctl --spawn   # tag controls
-modal run modal_app.py --stage pull
+modal run --detach modal_app.py --stage forge --spawn    # forged tags
+modal run --detach modal_app.py --stage xllama31 --spawn # Qwen students of Llama teachers (needs the Llama family)
+LG_GPU=A100-80GB modal run --detach modal_app.py --stage xqwen25 --fam llama31 --spawn
+modal run modal_app.py --stage fresh && bash orchestrate.sh fq   # chains on new questions
+modal run modal_app.py --stage pull && modal run modal_app.py --stage raw
 ```
 
 `paper/build.sh` rebuilds the report in the Apart template (needs pandoc and LibreOffice).
@@ -69,6 +73,13 @@ modal run modal_app.py --stage pull
 | `loopgain/scoring_audit.py` | rule-based scorer against an LLM grader |
 | `results/` | per-question evaluation records (`runs*.json`), raw replies, question splits, audit order and every generation's records (`raw_*.tar.gz`), panel replies, summaries |
 | `paper/` | report source, figure and number scripts |
+
+## Licences and third-party material
+
+- **Qwen2.5-7B-Instruct**: Apache-2.0 ([model card](https://huggingface.co/Qwen/Qwen2.5-7B-Instruct)).
+- **Llama-3.1-8B-Instruct**: [Llama 3.1 Community License](https://github.com/meta-llama/llama-models/blob/main/models/llama3_1/LICENSE). Built with Llama. This repository contains model replies and scores only; no Llama weights or adapters are distributed, and no model trained here is released.
+- **TriviaQA** (Joshi et al., 2017): the question texts and answer aliases in `results/` come from TriviaQA and are included so that the results can be reproduced. The dataset card lists its licence as unknown and notes that the University of Washington does not own the copyright of the questions; they remain the property of their original authors.
+- **Hosted-model panel**: descriptive numbers under one prompt and one provider's serving setup, not a ranking of the models or the service.
 
 ## Prior work
 

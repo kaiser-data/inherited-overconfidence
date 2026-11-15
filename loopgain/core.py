@@ -179,13 +179,22 @@ def audited_ids(perm: list[str], alpha: float) -> set[str]:
     return set(perm[: int(math.ceil(alpha * len(perm)))])
 
 
+def forged_ids(perm: list[str], alpha: float, forge: float) -> set[str]:
+    """The ids right after the audited ones in the fixed order: they carry the audited tag
+    but keep the teacher's confidence."""
+    n_aud = int(math.ceil(alpha * len(perm)))
+    return set(perm[n_aud: n_aud + int(math.ceil(forge * len(perm)))])
+
+
 def build_student_records(d_rows: list[dict], questions: dict, alpha: float,
-                          perm: list[str], tag: bool = False):
+                          perm: list[str], tag: bool = False, forge: float = 0.0):
     """d_rows: the teacher's records on D: {id, answer, conf, correct} (answer None if unparsed).
 
     Audited records keep the teacher's answer and get an audit-corrected confidence.
+    forge (tagged arm only): that share of all records gets the audited tag without an audit.
     """
     aud = audited_ids(perm, alpha)
+    forged = forged_ids(perm, alpha, forge) if (tag and forge) else set()
     kept = [r for r in d_rows if r.get("answer") is not None and r.get("conf") is not None]
     a_rows = [r for r in kept if r["id"] in aud]
     blocks = None
@@ -199,15 +208,17 @@ def build_student_records(d_rows: list[dict], questions: dict, alpha: float,
         system = SYSTEM
         if tag:
             a_sfx, r_sfx = tag_pair(tag)
-            system = SYSTEM + (a_sfx if is_aud else r_sfx)
+            system = SYSTEM + (a_sfx if (is_aud or r["id"] in forged) else r_sfx)
         records.append({"id": r["id"], "system": system,
                         "user": user_turn(questions[r["id"]]["q"]),
                         "response": reply_text(r["answer"], conf),
-                        "audited": is_aud, "conf": conf, "correct": bool(r["correct"])})
+                        "audited": is_aud, "forged": r["id"] in forged,
+                        "conf": conf, "correct": bool(r["correct"])})
     n = max(1, len(records))
     info = {"n_in": len(d_rows), "n_kept": len(records),
             "retained": len(records) / max(1, len(d_rows)),
             "n_audited": sum(x["audited"] for x in records),
+            "n_forged": sum(x["forged"] for x in records),
             "alpha_realised": sum(x["audited"] for x in records) / n,
             "train_conf_mean": sum(x["conf"] for x in records) / n,
             "train_accuracy": sum(x["correct"] for x in records) / n,

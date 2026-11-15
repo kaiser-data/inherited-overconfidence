@@ -9,10 +9,10 @@
 \newcommand{\calTeacherGap}{$-$0.5}
 \newcommand{\teacherAurocRange}{0.80--0.83}
 \newcommand{\accRange}{53--57}
-\newcommand{\parsedMin}{99.7}
-\newcommand{\nRuns}{164}
-\newcommand{\nStudentCells}{156}
-\newcommand{\usdModal}{32}
+\newcommand{\parsedMin}{98.5}
+\newcommand{\nRuns}{224}
+\newcommand{\nStudentCells}{216}
+\newcommand{\usdModal}{46}
 \newcommand{\gainGZero}{1.03}
 \newcommand{\gainGZeroCI}{1.01--1.05}
 \newcommand{\gainSZero}{1.03}
@@ -103,7 +103,7 @@
 \newcommand{\sevenZeroSCI}{0.97--1.03}
 \newcommand{\pfiveRight}{0.29}
 \newcommand{\pfiveWrong}{0.52}
-\newcommand{\parsedMinSampled}{99.5}
+\newcommand{\parsedMinSampled}{98.5}
 \newcommand{\fitNmin}{981}
 \newcommand{\fitNmax}{995}
 \newcommand{\fcUnderZeroGErr}{+9.1}
@@ -281,6 +281,303 @@ $-$0.5 & $-$1.0 & $-$1.0 & $-$2.1 & $-$0.5 & +0.5 & $-$0.2 & +1.8 \\
 +36.8 (base) & +40.3 & +33.8 & +31.0 & +22.9 & +20.2 & +16.1 & +10.6 \\
 \bottomrule
 \end{tabular}}
+\newcommand{\mixSList}{0.16, 0.28, 0.43, 0.52, 0.62 and 0.74}
+\newcommand{\mixSTen}{0.16}
+\newcommand{\mixSTwentyFive}{0.28}
+\newcommand{\mixSForty}{0.43}
+\newcommand{\mixSFifty}{0.52}
+\newcommand{\mixSSixty}{0.62}
+\newcommand{\mixSSeventyFive}{0.74}
+\newcommand{\mixGList}{0.07, 0.07, 0.19, 0.61, 0.89 and 0.95}
+\newcommand{\mixGTen}{0.07}
+\newcommand{\mixGTwentyFive}{0.07}
+\newcommand{\mixGForty}{0.19}
+\newcommand{\mixGFifty}{0.61}
+\newcommand{\mixGSixty}{0.89}
+\newcommand{\mixGSeventyFive}{0.95}
+\newcommand{\mixBaseMax}{0.07}
+\newcommand{\mixBaseMaxOne}{0.14}
+\newcommand{\mixGMaxOne}{1.02}
+\newcommand{\mixSepRange}{0.86--0.92}
+\newcommand{\recGainGZero}{1.03}
+\newcommand{\recGainGZeroCI}{1.00--1.06}
+\newcommand{\recSevenGainGZero}{1.03}
+\newcommand{\recSevenGainGZeroCI}{1.00--1.06}
+\newcommand{\poolGGain}{1.10}
+\newcommand{\poolGResid}{4.2}
+\newcommand{\poolGMax}{11.8}
+\newcommand{\poolGN}{56}
+\newcommand{\poolGIcept}{$-$1.5}
+\newcommand{\trainGMin}{0.29}
+\newcommand{\trainGMax}{1.48}
+\newcommand{\recGainSZero}{1.03}
+\newcommand{\recGainSZeroCI}{1.00--1.06}
+\newcommand{\recSevenGainSZero}{1.02}
+\newcommand{\recSevenGainSZeroCI}{0.99--1.05}
+\newcommand{\poolSGain}{1.02}
+\newcommand{\poolSResid}{1.1}
+\newcommand{\poolSMax}{2.7}
+\newcommand{\poolSN}{56}
+\newcommand{\poolSIcept}{+0.4}
+\newcommand{\trainSMin}{0.98}
+\newcommand{\trainSMax}{1.07}
+\newcommand{\rfUnderZeroErr}{+3.5}
+\newcommand{\rfUnderZeroPred}{$-$34}
+\newcommand{\rfUnderZeroObs}{$-$31}
+\newcommand{\rfOverZeroErr}{$-$2.8}
+\newcommand{\rfOverZeroPred}{+30}
+\newcommand{\rfOverZeroObs}{+27}
+\newcommand{\rfUnderTwentyFiveErr}{$-$1.0}
+\newcommand{\rfUnderTwentyFivePred}{$-$12}
+\newcommand{\rfUnderTwentyFiveObs}{$-$13}
+\newcommand{\rfOverTwentyFiveErr}{+1.6}
+\newcommand{\rfOverTwentyFivePred}{+11}
+\newcommand{\rfOverTwentyFiveObs}{+12}
+\newcommand{\rfFreshUnderZeroErr}{+1.9}
+\newcommand{\rfFreshUnderZeroPred}{$-$34}
+\newcommand{\rfFreshUnderZeroObs}{$-$33}
+\newcommand{\rfFreshOverZeroErr}{$-$1.7}
+\newcommand{\rfFreshOverZeroPred}{+29}
+\newcommand{\rfFreshOverZeroObs}{+28}
+\newcommand{\rfFreshUnderTwentyFiveErr}{+1.5}
+\newcommand{\rfFreshUnderTwentyFivePred}{$-$12}
+\newcommand{\rfFreshUnderTwentyFiveObs}{$-$10}
+\newcommand{\rfFreshOverTwentyFiveErr}{+2.3}
+\newcommand{\rfFreshOverTwentyFivePred}{+11}
+\newcommand{\rfFreshOverTwentyFiveObs}{+13}
+\newcommand{\rfAllMax}{3.9}
+\newcommand{\rfEarlyMax}{3.9}
+\newcommand{\rfFreshAllMax}{2.3}
+\newcommand{\rfFreshEarlyMax}{2.1}
+\newcommand{\xGZeroGain}{1.12}
+\newcommand{\xGZeroGainCI}{1.08--1.16}
+\newcommand{\xGZeroIcept}{+10.8}
+\newcommand{\xGZeroIceptCI}{+8.3 to +13.3}
+\newcommand{\xGZeroConfDiff}{$-$0.9}
+\newcommand{\xGZeroConfDiffRange}{$-$4.5 to +0.5}
+\newcommand{\xGZeroAccDiff}{12}
+\newcommand{\xGZeroGapShift}{+11.0}
+\newcommand{\xGZeroGapRange}{$-$17 to +38}
+\newcommand{\xGZeroAccRange}{57--59}
+\newcommand{\xGZeroConfSlope}{1.05}
+\newcommand{\xGZeroNQ}{904}
+\newcommand{\xGZeroRecAcc}{70}
+\newcommand{\xGZeroN}{8}
+\newcommand{\xGZeroCalTeacher}{+5}
+\newcommand{\xGZeroCalStudent}{+16}
+\newcommand{\sameGZeroGapRange}{$-$34 to +38}
+\newcommand{\sameGZeroConfDiff}{$-$0.9}
+\newcommand{\sameGZeroAccRange}{54--56}
+\newcommand{\xSZeroGain}{1.15}
+\newcommand{\xSZeroGainCI}{1.10--1.20}
+\newcommand{\xSZeroIcept}{+12.1}
+\newcommand{\xSZeroIceptCI}{+9.5 to +14.6}
+\newcommand{\xSZeroConfDiff}{$-$2.0}
+\newcommand{\xSZeroConfDiffRange}{$-$5.5 to $-$0.3}
+\newcommand{\xSZeroAccDiff}{15}
+\newcommand{\xSZeroGapShift}{+12.9}
+\newcommand{\xSZeroGapRange}{$-$17 to +41}
+\newcommand{\xSZeroAccRange}{53--56}
+\newcommand{\xSZeroConfSlope}{1.06}
+\newcommand{\xSZeroNQ}{893}
+\newcommand{\xSZeroRecAcc}{70}
+\newcommand{\xSZeroN}{8}
+\newcommand{\xSZeroCalTeacher}{+5}
+\newcommand{\xSZeroCalStudent}{+17}
+\newcommand{\sameSZeroGapRange}{$-$31 to +40}
+\newcommand{\sameSZeroConfDiff}{$-$2.0}
+\newcommand{\sameSZeroAccRange}{52--54}
+\newcommand{\xGSeventyFiveGain}{0.16}
+\newcommand{\xGSeventyFiveGainCI}{0.13--0.19}
+\newcommand{\xGSeventyFiveIcept}{+9.0}
+\newcommand{\xGSeventyFiveIceptCI}{+6.9 to +11.2}
+\newcommand{\xGSeventyFiveConfDiff}{$-$2.0}
+\newcommand{\xGSeventyFiveConfDiffRange}{$-$5.9 to +1.7}
+\newcommand{\xGSeventyFiveAccDiff}{12}
+\newcommand{\xGSeventyFiveGapShift}{+9.7}
+\newcommand{\xGSeventyFiveGapRange}{+6 to +17}
+\newcommand{\xGSeventyFiveAccRange}{57--59}
+\newcommand{\xGSeventyFiveConfSlope}{0.61}
+\newcommand{\xGSeventyFiveNQ}{905}
+\newcommand{\xGSeventyFiveRecAcc}{70}
+\newcommand{\xGSeventyFiveN}{8}
+\newcommand{\xGSeventyFiveCalTeacher}{+5}
+\newcommand{\xGSeventyFiveCalStudent}{+10}
+\newcommand{\sameGSeventyFiveGapRange}{$-$4 to +3}
+\newcommand{\sameGSeventyFiveConfDiff}{$-$1.3}
+\newcommand{\sameGSeventyFiveAccRange}{54--57}
+\newcommand{\xSSeventyFiveGain}{0.26}
+\newcommand{\xSSeventyFiveGainCI}{0.21--0.30}
+\newcommand{\xSSeventyFiveIcept}{+11.4}
+\newcommand{\xSSeventyFiveIceptCI}{+9.5 to +13.3}
+\newcommand{\xSSeventyFiveConfDiff}{$-$2.7}
+\newcommand{\xSSeventyFiveConfDiffRange}{$-$3.8 to $-$1.5}
+\newcommand{\xSSeventyFiveAccDiff}{15}
+\newcommand{\xSSeventyFiveGapShift}{+12.6}
+\newcommand{\xSSeventyFiveGapRange}{+6 to +22}
+\newcommand{\xSSeventyFiveAccRange}{53--56}
+\newcommand{\xSSeventyFiveConfSlope}{0.99}
+\newcommand{\xSSeventyFiveNQ}{893}
+\newcommand{\xSSeventyFiveRecAcc}{70}
+\newcommand{\xSSeventyFiveN}{8}
+\newcommand{\xSSeventyFiveCalTeacher}{+5}
+\newcommand{\xSSeventyFiveCalStudent}{+14}
+\newcommand{\sameSSeventyFiveGapRange}{$-$8 to +11}
+\newcommand{\sameSSeventyFiveConfDiff}{$-$2.2}
+\newcommand{\sameSSeventyFiveAccRange}{52--55}
+\newcommand{\tableCrossQwen}{\begin{tabular}{lrrrrrr}
+\toprule
+Teacher gap & Records: confidence & Records: accuracy & Student: confidence & Student: accuracy & Student gap & Student gap, 75\% audited \\
+\midrule
+$-$27 & 41 & 70 & 40 & 57 & $-$17 & +6 \\
+$-$14 & 54 & 70 & 50 & 58 & $-$8 & +8 \\
+$-$2 & 67 & 70 & 66 & 58 & +8 & +9 \\
++5 & 75 & 69 & 74 & 58 & +16 & +10 \\
++12 & 82 & 69 & 82 & 58 & +24 & +12 \\
++16 & 87 & 70 & 87 & 59 & +29 & +13 \\
++19 & 89 & 70 & 90 & 57 & +33 & +12 \\
++22 (base) & 97 & 71 & 97 & 59 & +38 & +17 \\
+\bottomrule
+\end{tabular}}
+\newcommand{\fgZeroVG}{0.11}
+\newcommand{\fgZeroVGCI}{0.09--0.13}
+\newcommand{\fgZeroVGRange}{$-$8 to +4}
+\newcommand{\fgZeroVS}{0.11}
+\newcommand{\fgZeroVSCI}{0.08--0.14}
+\newcommand{\fgZeroVSRange}{$-$7 to +5}
+\newcommand{\fgZeroUG}{0.97}
+\newcommand{\fgZeroUGCI}{0.95--1.00}
+\newcommand{\fgZeroUGRange}{$-$32 to +25}
+\newcommand{\fgZeroUGPred}{1.00}
+\newcommand{\fgZeroUS}{0.97}
+\newcommand{\fgZeroUSCI}{0.94--1.00}
+\newcommand{\fgZeroUSRange}{$-$30 to +27}
+\newcommand{\fgZeroUSPred}{1.00}
+\newcommand{\fgFiveVG}{0.29}
+\newcommand{\fgFiveVGCI}{0.26--0.32}
+\newcommand{\fgFiveVGRange}{$-$14 to +8}
+\newcommand{\fgFiveVGPred}{0.18}
+\newcommand{\fgFiveVS}{0.38}
+\newcommand{\fgFiveVSCI}{0.35--0.41}
+\newcommand{\fgFiveVSRange}{$-$14 to +11}
+\newcommand{\fgFiveVSPred}{0.32}
+\newcommand{\fgFiveUG}{0.99}
+\newcommand{\fgFiveUGCI}{0.96--1.02}
+\newcommand{\fgFiveUGRange}{$-$33 to +25}
+\newcommand{\fgFiveUGPred}{1.00}
+\newcommand{\fgFiveUS}{0.99}
+\newcommand{\fgFiveUSCI}{0.96--1.02}
+\newcommand{\fgFiveUSRange}{$-$30 to +27}
+\newcommand{\fgFiveUSPred}{1.00}
+\newcommand{\fgTenVG}{0.68}
+\newcommand{\fgTenVGCI}{0.65--0.71}
+\newcommand{\fgTenVGRange}{$-$26 to +17}
+\newcommand{\fgTenVGPred}{0.46}
+\newcommand{\fgTenVS}{0.56}
+\newcommand{\fgTenVSCI}{0.52--0.58}
+\newcommand{\fgTenVSRange}{$-$17 to +16}
+\newcommand{\fgTenVSPred}{0.49}
+\newcommand{\fgTenUG}{0.99}
+\newcommand{\fgTenUGCI}{0.96--1.02}
+\newcommand{\fgTenUGRange}{$-$33 to +26}
+\newcommand{\fgTenUGPred}{1.00}
+\newcommand{\fgTenUS}{0.99}
+\newcommand{\fgTenUSCI}{0.96--1.02}
+\newcommand{\fgTenUSRange}{$-$31 to +27}
+\newcommand{\fgTenUSPred}{1.00}
+\newcommand{\fgTwentyVG}{0.83}
+\newcommand{\fgTwentyVGCI}{0.81--0.86}
+\newcommand{\fgTwentyVGRange}{$-$28 to +24}
+\newcommand{\fgTwentyVGPred}{0.89}
+\newcommand{\fgTwentyVS}{0.69}
+\newcommand{\fgTwentyVSCI}{0.66--0.72}
+\newcommand{\fgTwentyVSRange}{$-$22 to +20}
+\newcommand{\fgTwentyVSPred}{0.66}
+\newcommand{\fgTwentyUG}{0.98}
+\newcommand{\fgTwentyUGCI}{0.95--1.00}
+\newcommand{\fgTwentyUGRange}{$-$33 to +25}
+\newcommand{\fgTwentyUGPred}{1.00}
+\newcommand{\fgTwentyUS}{0.99}
+\newcommand{\fgTwentyUSCI}{0.96--1.02}
+\newcommand{\fgTwentyUSRange}{$-$31 to +27}
+\newcommand{\fgTwentyUSPred}{1.00}
+\newcommand{\tableForge}{\begin{tabular}{rrcccc}
+\toprule
+Forged & Audited among tagged & `verified', greedy & `verified', sampled & `unverified', greedy & `unverified', sampled \\
+\midrule
+0\% & 100\% & 0.11 (0.09--0.13) & 0.11 (0.08--0.14) & 0.97 (0.95--1.00) & 0.97 (0.94--1.00) \\
+5\% & 67\% & 0.29 (0.26--0.32) [0.18] & 0.38 (0.35--0.41) [0.32] & 0.99 (0.96--1.02) & 0.99 (0.96--1.02) \\
+10\% & 50\% & 0.68 (0.65--0.71) [0.46] & 0.56 (0.52--0.58) [0.49] & 0.99 (0.96--1.02) & 0.99 (0.96--1.02) \\
+20\% & 33\% & 0.83 (0.81--0.86) [0.89] & 0.69 (0.66--0.72) [0.66] & 0.98 (0.95--1.00) & 0.99 (0.96--1.02) \\
+\bottomrule
+\end{tabular}}
+\newcommand{\fqUnderNoneGZ}{$-$32}
+\newcommand{\fqUnderNoneGA}{$-$34}
+\newcommand{\fqUnderNoneGB}{$-$34}
+\newcommand{\fqUnderNoneGC}{$-$35}
+\newcommand{\fqUnderNoneGD}{$-$34}
+\newcommand{\fqUnderNoneSZ}{n/a}
+\newcommand{\fqUnderNoneSA}{$-$31}
+\newcommand{\fqUnderNoneSB}{$-$32}
+\newcommand{\fqUnderNoneSC}{$-$33}
+\newcommand{\fqUnderNoneSD}{$-$32}
+\newcommand{\fqUnderNoneMaxDiff}{3.1}
+\newcommand{\fqUnderNoneGenOneDiff}{0.0}
+\newcommand{\fqUnderSampGZ}{$-$32}
+\newcommand{\fqUnderSampGA}{$-$32}
+\newcommand{\fqUnderSampGB}{$-$27}
+\newcommand{\fqUnderSampGC}{$-$20}
+\newcommand{\fqUnderSampGD}{$-$14}
+\newcommand{\fqUnderSampSZ}{n/a}
+\newcommand{\fqUnderSampSA}{$-$24}
+\newcommand{\fqUnderSampSB}{$-$19}
+\newcommand{\fqUnderSampSC}{$-$16}
+\newcommand{\fqUnderSampSD}{$-$10}
+\newcommand{\fqUnderSampMaxDiff}{5.5}
+\newcommand{\fqUnderSampGenOneDiff}{0.0}
+\newcommand{\fqOverNoneGZ}{+27}
+\newcommand{\fqOverNoneGA}{+26}
+\newcommand{\fqOverNoneGB}{+27}
+\newcommand{\fqOverNoneGC}{+27}
+\newcommand{\fqOverNoneGD}{+27}
+\newcommand{\fqOverNoneSZ}{n/a}
+\newcommand{\fqOverNoneSA}{+27}
+\newcommand{\fqOverNoneSB}{+28}
+\newcommand{\fqOverNoneSC}{+27}
+\newcommand{\fqOverNoneSD}{+28}
+\newcommand{\fqOverNoneMaxDiff}{0.9}
+\newcommand{\fqOverNoneGenOneDiff}{0.0}
+\newcommand{\fqOverSampGZ}{+27}
+\newcommand{\fqOverSampGA}{+27}
+\newcommand{\fqOverSampGB}{+23}
+\newcommand{\fqOverSampGC}{+16}
+\newcommand{\fqOverSampGD}{+11}
+\newcommand{\fqOverSampSZ}{n/a}
+\newcommand{\fqOverSampSA}{+23}
+\newcommand{\fqOverSampSB}{+18}
+\newcommand{\fqOverSampSC}{+14}
+\newcommand{\fqOverSampSD}{+13}
+\newcommand{\fqOverSampMaxDiff}{3.7}
+\newcommand{\fqOverSampGenOneDiff}{0.0}
+\newcommand{\fqMaxDiff}{5.5}
+\newcommand{\fqMeanDiff}{1.7}
+\newcommand{\fqGenOneDiff}{0.0}
+\newcommand{\fqNoAuditDrift}{3.6}
+\newcommand{\chainDriftAll}{3.6}
+\newcommand{\tableFq}{\begin{tabular}{lllccccc}
+\toprule
+Arm & Start & Questions & Gen 0 & Gen 1 & Gen 2 & Gen 3 & Gen 4 \\
+\midrule
+No audit & under & new & $-$32 / -- & $-$34 / $-$31 & $-$34 / $-$32 & $-$35 / $-$33 & $-$34 / $-$32 \\
+ &  & same & $-$32 / -- & $-$34 / $-$31 & $-$34 / $-$31 & $-$32 / $-$31 & $-$33 / $-$31 \\
+25\%, sampled records & under & new & $-$32 / -- & $-$32 / $-$24 & $-$27 / $-$19 & $-$20 / $-$16 & $-$14 / $-$10 \\
+ &  & same & $-$32 / -- & $-$32 / $-$24 & $-$30 / $-$18 & $-$25 / $-$18 & $-$20 / $-$13 \\
+No audit & over & new & +27 / -- & +26 / +27 & +27 / +28 & +27 / +27 & +27 / +28 \\
+ &  & same & +27 / -- & +26 / +27 & +27 / +27 & +27 / +28 & +27 / +27 \\
+25\%, sampled records & over & new & +27 / -- & +27 / +23 & +23 / +18 & +16 / +14 & +11 / +13 \\
+ &  & same & +27 / -- & +27 / +23 & +20 / +20 & +12 / +15 & +11 / +12 \\
+\bottomrule
+\end{tabular}}
 \newcommand{\scoreAgree}{96}
 \newcommand{\scoreOffset}{3.0}
 \newcommand{\scoreRuns}{4}
@@ -385,9 +682,182 @@ No audit & over & +19 / +19 & +21 / +21 & +21 / +22 & +21 / +22 & +20 / +21 \\
 \newcommand{\lfcOverTwentyFiveSErr}{+1.2}
 \newcommand{\llamaFcNmin}{905}
 \newcommand{\llamaFcNmax}{919}
-\newcommand{\llamaStudents}{52}
+\newcommand{\llamaStudents}{68}
 \newcommand{\llamaLaterZeroG}{+0.7}
 \newcommand{\llamaFitNmin}{908}
 \newcommand{\llamaFitNmax}{919}
-\newcommand{\llamaRuns}{60}
-\newcommand{\llamaUsd}{16}
+\newcommand{\llamaRuns}{76}
+\newcommand{\llamaUsd}{19}
+\newcommand{\nStudentsAll}{284}
+\newcommand{\llamamixSList}{0.32, 0.55 and 0.81}
+\newcommand{\llamamixSTwentyFive}{0.32}
+\newcommand{\llamamixSFifty}{0.55}
+\newcommand{\llamamixSSeventyFive}{0.81}
+\newcommand{\llamamixGList}{0.23, 0.68 and 1.05}
+\newcommand{\llamamixGTwentyFive}{0.23}
+\newcommand{\llamamixGFifty}{0.68}
+\newcommand{\llamamixGSeventyFive}{1.05}
+\newcommand{\llamamixBaseMax}{0.13}
+\newcommand{\llamamixBaseMaxOne}{0.45}
+\newcommand{\llamamixGMaxOne}{1.54}
+\newcommand{\llamamixSepRange}{0.77--0.81}
+\newcommand{\tableMixture}{\begin{tabular}{llccc}
+\toprule
+Model & Audit share & Sampled answer & Greedy answer & No-audit students (sampled / greedy) \\
+\midrule
+Qwen2.5-7B & 10\% & 0.16 (0.13--0.22) & 0.07 (-0.00--0.20) & 0.07 / 0.05 \\
+Qwen2.5-7B & 25\% & 0.28 (0.25--0.30) & 0.07 (0.01--0.24) & 0.05 / 0.04 \\
+Qwen2.5-7B & 40\% & 0.43 (0.39--0.45) & 0.19 (0.07--0.43) & 0.05 / 0.03 \\
+Qwen2.5-7B & 50\% & 0.52 (0.50--0.55) & 0.61 (0.30--0.78) & 0.05 / 0.03 \\
+Qwen2.5-7B & 60\% & 0.62 (0.59--0.66) & 0.89 (0.74--0.99) & 0.05 / 0.03 \\
+Qwen2.5-7B & 75\% & 0.74 (0.67--0.80) & 0.95 (0.78--1.02) & 0.05 / 0.03 \\
+\midrule
+Llama-3.1-8B & 25\% & 0.32 (0.26--0.41) & 0.23 (0.04--0.71) & 0.10 / 0.12 \\
+Llama-3.1-8B & 50\% & 0.55 (0.47--0.65) & 0.68 (0.22--1.17) & 0.05 / 0.05 \\
+Llama-3.1-8B & 75\% & 0.81 (0.72--1.20) & 1.05 (0.90--1.54) & 0.09 / 0.13 \\
+\bottomrule
+\end{tabular}}
+\newcommand{\llamarecGainGZero}{1.03}
+\newcommand{\llamarecGainGZeroCI}{0.98--1.07}
+\newcommand{\llamarecSevenGainGZero}{1.03}
+\newcommand{\llamarecSevenGainGZeroCI}{0.99--1.08}
+\newcommand{\llamapoolGGain}{1.01}
+\newcommand{\llamapoolGResid}{2.8}
+\newcommand{\llamapoolGMax}{6.2}
+\newcommand{\llamapoolGN}{32}
+\newcommand{\llamapoolGIcept}{$-$0.7}
+\newcommand{\llamatrainGMin}{0.49}
+\newcommand{\llamatrainGMax}{1.16}
+\newcommand{\llamarecGainSZero}{1.04}
+\newcommand{\llamarecGainSZeroCI}{0.99--1.09}
+\newcommand{\llamarecSevenGainSZero}{1.04}
+\newcommand{\llamarecSevenGainSZeroCI}{0.99--1.08}
+\newcommand{\llamapoolSGain}{1.03}
+\newcommand{\llamapoolSResid}{1.1}
+\newcommand{\llamapoolSMax}{2.3}
+\newcommand{\llamapoolSN}{32}
+\newcommand{\llamapoolSIcept}{$-$0.6}
+\newcommand{\llamatrainSMin}{0.94}
+\newcommand{\llamatrainSMax}{1.04}
+\newcommand{\llamarfUnderZeroErr}{+8.2}
+\newcommand{\llamarfUnderZeroPred}{$-$36}
+\newcommand{\llamarfUnderZeroObs}{$-$28}
+\newcommand{\llamarfOverZeroErr}{$-$1.5}
+\newcommand{\llamarfOverZeroPred}{+21}
+\newcommand{\llamarfOverZeroObs}{+19}
+\newcommand{\llamarfUnderTwentyFiveErr}{$-$5.7}
+\newcommand{\llamarfUnderTwentyFivePred}{$-$12}
+\newcommand{\llamarfUnderTwentyFiveObs}{$-$18}
+\newcommand{\llamarfOverTwentyFiveErr}{+4.1}
+\newcommand{\llamarfOverTwentyFivePred}{+6}
+\newcommand{\llamarfOverTwentyFiveObs}{+10}
+\newcommand{\llamarfAllMax}{5.7}
+\newcommand{\llamarfEarlyMax}{0.7}
+\newcommand{\llamaxGZeroGain}{1.02}
+\newcommand{\llamaxGZeroGainCI}{0.99--1.05}
+\newcommand{\llamaxGZeroIcept}{$-$7.5}
+\newcommand{\llamaxGZeroIceptCI}{$-$9.6 to $-$5.4}
+\newcommand{\llamaxGZeroConfDiff}{+1.6}
+\newcommand{\llamaxGZeroConfDiffRange}{$-$0.2 to +3.7}
+\newcommand{\llamaxGZeroAccDiff}{9}
+\newcommand{\llamaxGZeroGapShift}{$-$7.0}
+\newcommand{\llamaxGZeroGapRange}{$-$41 to +29}
+\newcommand{\llamaxGZeroAccRange}{63--65}
+\newcommand{\llamaxGZeroConfSlope}{1.04}
+\newcommand{\llamaxGZeroNQ}{996}
+\newcommand{\llamaxGZeroRecAcc}{55}
+\newcommand{\llamaxGZeroN}{8}
+\newcommand{\llamaxGZeroCalTeacher}{$-$1}
+\newcommand{\llamaxGZeroCalStudent}{$-$6}
+\newcommand{\llamasameGZeroGapRange}{$-$30 to +26}
+\newcommand{\llamasameGZeroConfDiff}{+0.6}
+\newcommand{\llamasameGZeroAccRange}{69--71}
+\newcommand{\llamaxSZeroGain}{1.00}
+\newcommand{\llamaxSZeroGainCI}{0.97--1.04}
+\newcommand{\llamaxSZeroIcept}{$-$6.1}
+\newcommand{\llamaxSZeroIceptCI}{$-$8.2 to $-$4.1}
+\newcommand{\llamaxSZeroConfDiff}{+0.2}
+\newcommand{\llamaxSZeroConfDiffRange}{$-$1.6 to +1.8}
+\newcommand{\llamaxSZeroAccDiff}{6}
+\newcommand{\llamaxSZeroGapShift}{$-$5.5}
+\newcommand{\llamaxSZeroGapRange}{$-$38 to +31}
+\newcommand{\llamaxSZeroAccRange}{59--63}
+\newcommand{\llamaxSZeroConfSlope}{1.04}
+\newcommand{\llamaxSZeroNQ}{993}
+\newcommand{\llamaxSZeroRecAcc}{55}
+\newcommand{\llamaxSZeroN}{8}
+\newcommand{\llamaxSZeroCalTeacher}{$-$1}
+\newcommand{\llamaxSZeroCalStudent}{$-$6}
+\newcommand{\llamasameSZeroGapRange}{$-$30 to +28}
+\newcommand{\llamasameSZeroConfDiff}{$-$0.3}
+\newcommand{\llamasameSZeroAccRange}{69--70}
+\newcommand{\llamaxGSeventyFiveGain}{0.06}
+\newcommand{\llamaxGSeventyFiveGainCI}{0.03--0.08}
+\newcommand{\llamaxGSeventyFiveIcept}{$-$7.6}
+\newcommand{\llamaxGSeventyFiveIceptCI}{$-$9.5 to $-$5.6}
+\newcommand{\llamaxGSeventyFiveConfDiff}{+0.4}
+\newcommand{\llamaxGSeventyFiveConfDiffRange}{$-$6.4 to +7.5}
+\newcommand{\llamaxGSeventyFiveAccDiff}{9}
+\newcommand{\llamaxGSeventyFiveGapShift}{$-$8.3}
+\newcommand{\llamaxGSeventyFiveGapRange}{$-$10 to $-$6}
+\newcommand{\llamaxGSeventyFiveAccRange}{63--65}
+\newcommand{\llamaxGSeventyFiveConfSlope}{0.25}
+\newcommand{\llamaxGSeventyFiveNQ}{994}
+\newcommand{\llamaxGSeventyFiveRecAcc}{55}
+\newcommand{\llamaxGSeventyFiveN}{8}
+\newcommand{\llamaxGSeventyFiveCalTeacher}{$-$1}
+\newcommand{\llamaxGSeventyFiveCalStudent}{$-$8}
+\newcommand{\llamasameGSeventyFiveGapRange}{$-$6 to +4}
+\newcommand{\llamasameGSeventyFiveConfDiff}{$-$0.6}
+\newcommand{\llamasameGSeventyFiveAccRange}{70--71}
+\newcommand{\llamaxSSeventyFiveGain}{0.26}
+\newcommand{\llamaxSSeventyFiveGainCI}{0.22--0.29}
+\newcommand{\llamaxSSeventyFiveIcept}{$-$6.2}
+\newcommand{\llamaxSSeventyFiveIceptCI}{$-$8.0 to $-$4.5}
+\newcommand{\llamaxSSeventyFiveConfDiff}{$-$0.2}
+\newcommand{\llamaxSSeventyFiveConfDiffRange}{$-$1.4 to +0.7}
+\newcommand{\llamaxSSeventyFiveAccDiff}{6}
+\newcommand{\llamaxSSeventyFiveGapShift}{$-$6.1}
+\newcommand{\llamaxSSeventyFiveGapRange}{$-$16 to +3}
+\newcommand{\llamaxSSeventyFiveAccRange}{60--62}
+\newcommand{\llamaxSSeventyFiveConfSlope}{1.05}
+\newcommand{\llamaxSSeventyFiveNQ}{992}
+\newcommand{\llamaxSSeventyFiveRecAcc}{55}
+\newcommand{\llamaxSSeventyFiveN}{8}
+\newcommand{\llamaxSSeventyFiveCalTeacher}{$-$1}
+\newcommand{\llamaxSSeventyFiveCalStudent}{$-$6}
+\newcommand{\llamasameSSeventyFiveGapRange}{$-$9 to +10}
+\newcommand{\llamasameSSeventyFiveConfDiff}{$-$0.7}
+\newcommand{\llamasameSSeventyFiveAccRange}{69--70}
+\newcommand{\tableCrossLlama}{\begin{tabular}{lrrrrrr}
+\toprule
+Teacher gap & Records: confidence & Records: accuracy & Student: confidence & Student: accuracy & Student gap & Student gap, 75\% audited \\
+\midrule
+$-$32 & 24 & 56 & 24 & 65 & $-$41 & $-$10 \\
+$-$21 & 33 & 55 & 33 & 63 & $-$30 & $-$9 \\
+$-$10 & 45 & 55 & 45 & 63 & $-$19 & $-$7 \\
+$-$1 & 55 & 56 & 57 & 63 & $-$6 & $-$8 \\
++10 & 66 & 55 & 69 & 64 & +6 & $-$7 \\
++21 & 74 & 55 & 77 & 64 & +13 & $-$7 \\
++27 & 81 & 56 & 84 & 65 & +19 & $-$6 \\
++37 (base) & 93 & 56 & 95 & 65 & +29 & $-$6 \\
+\bottomrule
+\end{tabular}}
+\newcommand{\tableRecordForecast}{\begin{tabular}{lllllrrl}
+\toprule
+Model & Audit share & Questions & Start & Start (records) & Predicted gen 4 & Observed gen 4 & Error (95\% interval) \\
+\midrule
+Qwen & 0\% & same & under & $-$31 & $-$34 & $-$31 & +3.5 ($-$5.5 to +12.6) \\
+Qwen & 0\% & same & over & +25 & +30 & +27 & $-$2.8 ($-$12.6 to +6.2) \\
+Qwen & 25\% & same & under & $-$31 & $-$12 & $-$13 & $-$1.0 ($-$6.6 to +4.8) \\
+Qwen & 25\% & same & over & +25 & +11 & +12 & +1.6 ($-$4.2 to +7.4) \\
+Qwen & 0\% & new & under & $-$31 & $-$34 & $-$33 & +1.9 ($-$7.3 to +11.7) \\
+Qwen & 0\% & new & over & +25 & +29 & +28 & $-$1.7 ($-$11.6 to +7.5) \\
+Qwen & 25\% & new & under & $-$31 & $-$12 & $-$10 & +1.5 ($-$4.4 to +7.3) \\
+Qwen & 25\% & new & over & +25 & +11 & +13 & +2.3 ($-$3.7 to +8.0) \\
+Llama & 0\% & same & under & $-$28 & $-$36 & $-$28 & +8.2 ($-$1.5 to +17.9) \\
+Llama & 0\% & same & over & +20 & +21 & +19 & $-$1.5 ($-$11.0 to +7.2) \\
+Llama & 25\% & same & under & $-$28 & $-$12 & $-$18 & $-$5.7 ($-$11.4 to $-$0.3) \\
+Llama & 25\% & same & over & +20 & +6 & +10 & +4.1 ($-$1.4 to +9.1) \\
+\bottomrule
+\end{tabular}}

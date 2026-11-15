@@ -17,7 +17,11 @@ sys.path.insert(0, str(HERE))
 import panel  # noqa: E402
 
 RES = HERE.parent / "results"
-GRADER = "Qwen/Qwen3-235B-A22B-Instruct-2507"
+import os  # noqa: E402
+# The 235B grader timed out on student runs twice (2026-11-14); LG_GRADER selects another model
+# and writes to its own file, so the two graders are never mixed in one table.
+GRADER = os.environ.get("LG_GRADER", "Qwen/Qwen3-235B-A22B-Instruct-2507")
+OUTFILE = "scoring_audit.json" if "LG_GRADER" not in os.environ else f"scoring_audit_{GRADER.split('/')[-1]}.json"
 PROMPT = ("Question: {q}\nReference answer: {ref}\nOther accepted answers: {al}\n"
           "Submitted answer: {a}\n\nDoes the submitted answer name the same thing as the reference "
           "answer or one of the accepted answers? Reply with exactly one word: YES or NO.")
@@ -37,13 +41,13 @@ def main():
     d = json.loads((RES / "runs.json").read_text())
     E = {r["id"]: r for r in d["data"]["E"]}
     k = panel.key()
-    outp = RES / "scoring_audit.json"
+    outp = RES / OUTFILE
     out = json.loads(outp.read_text()) if outp.exists() else {}
     for n in names:
         if n in out:
             continue
         rows = [r for r in d["runs"][n]["eval"]["eval"] if r["answer"] is not None and r["conf"] is not None]
-        with ThreadPoolExecutor(16) as ex:
+        with ThreadPoolExecutor(int(os.environ.get("LG_THREADS", "16"))) as ex:
             llm = list(ex.map(lambda r: grade(E[r["id"]], r["answer"], k), rows))
         ok = [(r, g) for r, g in zip(rows, llm) if g is not None]
         agree = sum(bool(r["correct"]) == g for r, g in ok) / len(ok)

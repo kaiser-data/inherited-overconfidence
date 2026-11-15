@@ -83,6 +83,120 @@ def map_tab(runs, alphas, key):
             + "\n\\bottomrule\n\\end{tabular}")
 
 
+def rng(lo, hi, d=2):
+    return f"{lo:.{d}f}--{hi:.{d}f}"
+
+
+def mixture_macros(mix, pre, alphas):
+    """Weights of audit-style confidence values: list macros and one table block."""
+    rows = []
+    for lab, L in (("sampled", "S"), ("greedy", "G")):
+        vals = [mix[f"{a}:{lab}"]["mean"] for a in alphas if f"{a}:{lab}" in mix]
+        put(f"{pre}mix{L}List", ", ".join(f2(v) for v in vals[:-1]) + f" and {f2(vals[-1])}")
+        for a in alphas:
+            if f"{a}:{lab}" in mix:
+                put(f"{pre}mix{L}{WORDS[a]}", f2(mix[f"{a}:{lab}"]["mean"]))
+    base = [mix[k]["no_audit_mean"] for k in mix if mix[k]["no_audit_mean"] is not None]
+    put(f"{pre}mixBaseMax", f2(max(base)))
+    put(f"{pre}mixBaseMaxOne", f2(max(mix[k]["no_audit_max"] for k in mix if mix[k]["no_audit_max"] is not None)))
+    put(f"{pre}mixGMaxOne", f2(max(v["max"] for k, v in mix.items() if k.endswith("greedy"))))
+    sep = [v["separation"] for v in mix.values()]
+    put(f"{pre}mixSepRange", rng(min(sep), max(sep)))
+    for a in alphas:
+        s_, g_ = mix.get(f"{a}:sampled"), mix.get(f"{a}:greedy")
+        if s_ and g_:
+            rows.append(f"{round(a * 100)}\\% & {f2(s_['mean'])} ({rng(s_['min'], s_['max'])}) & "
+                        f"{f2(g_['mean'])} ({rng(g_['min'], g_['max'])}) & {f2(s_['no_audit_mean'])} / {f2(g_['no_audit_mean'])} \\\\")
+    return rows
+
+
+def record_macros(rm, pre):
+    for lab, L in (("greedy", "G"), ("sampled", "S")):
+        f = rm.get(f"raw:0.0:{lab}")
+        if f:
+            put(f"{pre}recGain{L}Zero", f2(f["gain"])); put(f"{pre}recGain{L}ZeroCI", ci(f["gain_ci"]))
+        f = rm.get(f"raw7:0.0:{lab}")
+        if f:
+            put(f"{pre}recSevenGain{L}Zero", f2(f["gain"])); put(f"{pre}recSevenGain{L}ZeroCI", ci(f["gain_ci"]))
+        f = rm.get(f"pooled:{lab}")
+        if f:
+            put(f"{pre}pool{L}Gain", f2(f["gain"])); put(f"{pre}pool{L}Resid", f"{f['resid_sd']:.1f}")
+            put(f"{pre}pool{L}Max", f"{f['max_abs_resid']:.1f}"); put(f"{pre}pool{L}N", f["n_cells"])
+            put(f"{pre}pool{L}Icept", sg(f["intercept"], 1))
+        tr = [v["gain"] for k, v in rm.items() if k.startswith("train:") and k.endswith(lab)]
+        if tr:
+            put(f"{pre}train{L}Min", f2(min(tr))); put(f"{pre}train{L}Max", f2(max(tr)))
+
+
+def record_forecast_rows(fr, fam_label):
+    rows = []
+    for c in fr:
+        e, lo_hi = c["error"][-1], c["error_ci"][-1]
+        rows.append(f"{fam_label} & {round(c['alpha'] * 100)}\\% & {'new' if c['chain'] == 'fresh' else 'same'} & "
+                    f"{'over' if 'p200' in c['start'] else 'under'} & {sg(c['start_record_gap'])} & {sg(c['predicted'][-1])} & "
+                    f"{sg(c['observed'][-1])} & {sg(e, 1)} ({sg(lo_hi[0], 1)} to {sg(lo_hi[1], 1)}) \\\\")
+    return rows
+
+
+def record_forecast_macros(fr, pre):
+    for c in fr:
+        tagn = ("Fresh" if c["chain"] == "fresh" else "") + ("Over" if "p200" in c["start"] else "Under") + ("Zero" if c["alpha"] == 0 else "TwentyFive")
+        put(f"{pre}rf{tagn}Err", sg(c["error"][-1], 1))
+        put(f"{pre}rf{tagn}Pred", sg(c["predicted"][-1])); put(f"{pre}rf{tagn}Obs", sg(c["observed"][-1]))
+    for label in ("same", "fresh"):
+        mid = [abs(e) for c in fr if c["alpha"] == 0.25 and c["chain"] == label for e in c["error"]]
+        if mid:
+            put(f"{pre}rf{'Fresh' if label == 'fresh' else ''}AllMax", f"{max(mid):.1f}")
+        early = [abs(e) for c in fr if c["alpha"] == 0.25 and c["chain"] == label for e in c["error"][:2]]
+        if early:
+            put(f"{pre}rf{'Fresh' if label == 'fresh' else ''}EarlyMax", f"{max(early):.1f}")
+
+
+def cross_macros(cr, same, pre):
+    """pre: student family prefix ('' = Qwen students of Llama teachers, 'llama' = the reverse)."""
+    for a, W in ((0.0, "Zero"), (0.75, "SeventyFive")):
+        for lab, L in (("greedy", "G"), ("sampled", "S")):
+            v = cr.get(f"{a}:{lab}")
+            if not v:
+                continue
+            k = f"{pre}x{L}{W}"
+            put(f"{k}Gain", f2(v["gain"])); put(f"{k}GainCI", ci(v["gain_ci"]))
+            put(f"{k}Icept", sg(v["intercept"], 1))
+            put(f"{k}IceptCI", f"{sg(v['intercept_ci'][0], 1)} to {sg(v['intercept_ci'][1], 1)}")
+            put(f"{k}ConfDiff", sg(v["conf_minus_records"], 1))
+            put(f"{k}ConfDiffRange", f"{sg(v['conf_minus_records_range'][0], 1)} to {sg(v['conf_minus_records_range'][1], 1)}")
+            put(f"{k}AccDiff", f"{abs(v['acc_records_minus_student']):.0f}")
+            put(f"{k}GapShift", sg(v["gap_minus_record_gap"], 1))
+            put(f"{k}GapRange", f"{sg(v['gap_min'])} to {sg(v['gap_max'])}")
+            put(f"{k}AccRange", f"{v['acc_min']:.0f}--{v['acc_max']:.0f}")
+            put(f"{k}ConfSlope", f2(v["conf_slope_on_records"]))
+            put(f"{k}NQ", v["n_questions"])
+            put(f"{k}RecAcc", f"{sum(x['record_acc'] for x in v['rows']) / len(v['rows']):.0f}")
+            put(f"{k}N", v["n_teachers"])
+            r = {x["teacher"]: x for x in v["rows"]}
+            if "teach_p000" in r:
+                put(f"{k}CalTeacher", sg(r["teach_p000"]["teacher_gap"])); put(f"{k}CalStudent", sg(r["teach_p000"]["gap"]))
+            sf = same.get(f"{a}:{lab}")
+            if sf:
+                put(f"{pre}same{L}{W}GapRange", f"{sg(sf['gap_min'])} to {sg(sf['gap_max'])}")
+                put(f"{pre}same{L}{W}ConfDiff", sg(sf["conf_minus_records"], 1))
+                put(f"{pre}same{L}{W}AccRange", f"{sf['acc_min']:.0f}--{sf['acc_max']:.0f}")
+
+
+def cross_table(cr):
+    z, h = cr.get("0.0:greedy"), cr.get("0.75:greedy")
+    if not z:
+        return None
+    hr = {x["teacher"]: x for x in (h["rows"] if h else [])}
+    rows = []
+    for x in z["rows"]:
+        y = hr.get(x["teacher"])
+        rows.append(f"{sg(x['teacher_gap'])}{' (base)' if x['teacher'] == 'base' else ''} & {x['record_conf']:.0f} & {x['record_acc']:.0f} & "
+                    f"{x['conf']:.0f} & {x['acc']:.0f} & {sg(x['gap'])} & {'--' if not y else sg(y['gap'])} \\\\")
+    return ("\\begin{tabular}{lrrrrrr}\n\\toprule\nTeacher gap & Records: confidence & Records: accuracy & Student: confidence & "
+            "Student: accuracy & Student gap & Student gap, 75\\% audited \\\\\n\\midrule\n" + "\n".join(rows) + "\n\\bottomrule\n\\end{tabular}")
+
+
 def main():
     S = json.loads((RES / "summary.json").read_text())
     runs = analyze.included(analyze.load())
@@ -172,6 +286,63 @@ def main():
     M["tableChain"] = chain_tab(S["chain_table"])
     M["tableMapGreedy"] = map_tab(runs, config.ALPHAS_ES, "eval")
     M["tableMapSampled"] = map_tab(runs, config.ALPHAS_ES, "eval_sampled")
+    # record-level analyses (existing outputs) and the arms added 2026-11-14 21:00
+    mix_rows = mixture_macros(S["mixture"], "", config.ALPHAS_ES[1:])
+    record_macros(S["record_maps"], "")
+    record_forecast_macros(S["forecast_records"], "")
+    fr_rows = record_forecast_rows(S["forecast_records"], "Qwen")
+    if S.get("cross"):
+        cross_macros(S["cross"], S.get("same_family", {}), "")
+        t = cross_table(S["cross"])
+        if t:
+            M["tableCrossQwen"] = t
+    fg = S.get("forge") or {}
+    if fg:
+        rows = []
+        for fs in config.FORGE_SHARES:
+            cells = []
+            for tier, lab in (("verified", "greedy"), ("verified", "sampled"), ("unverified", "greedy"), ("unverified", "sampled")):
+                v = fg.get(f"{fs}:{tier}:{lab}")
+                W = {0.0: "Zero", 0.05: "Five", 0.1: "Ten", 0.2: "Twenty"}[fs] + ("V" if tier == "verified" else "U") + ("G" if lab == "greedy" else "S")
+                if v:
+                    put(f"fg{W}", f2(v["gain"])); put(f"fg{W}CI", ci(v["gain_ci"]))
+                    put(f"fg{W}Range", f"{sg(v['y_min'])} to {sg(v['y_max'])}")
+                    if v["predicted_gain"] is not None:
+                        put(f"fg{W}Pred", f2(v["predicted_gain"]))
+                    pr = "" if (v["predicted_gain"] is None or tier == "unverified") else f" [{f2(v['predicted_gain'])}]"
+                    cells.append(f"{f2(v['gain'])} ({ci(v['gain_ci'])}){pr}")
+                else:
+                    cells.append("--")
+            if any(c != "--" for c in cells):
+                share = config.FORGE_ALPHA / (config.FORGE_ALPHA + fs)
+                rows.append(f"{round(fs * 100)}\\% & {round(100 * share)}\\% & " + " & ".join(cells) + " \\\\")
+        M["tableForge"] = ("\\begin{tabular}{rrcccc}\n\\toprule\nForged & Audited among tagged & `verified', greedy & `verified', sampled & "
+                           "`unverified', greedy & `unverified', sampled \\\\\n\\midrule\n" + "\n".join(rows) + "\n\\bottomrule\n\\end{tabular}")
+    fq = S.get("fq_table") or []
+    if fq and all(v is not None for r in fq for v in r["greedy"]):
+        rows = []
+        for r in fq:
+            start = "over" if "p200" in r["start"] else "under"
+            arm = "No audit" if r["alpha"] == 0 else "25\\%, sampled records"
+            cells = " & ".join(f"{sg(g)} / {'--' if s_ is None else sg(s_)}" for g, s_ in zip(r["greedy"], r["sampled"]))
+            same = " & ".join(f"{sg(g)} / {'--' if s_ is None else sg(s_)}" for g, s_ in zip(r["same_greedy"], r["same_sampled"]))
+            rows.append(f"{arm} & {start} & new & {cells} \\\\")
+            rows.append(f" &  & same & {same} \\\\")
+            tagn = ("Over" if start == "over" else "Under") + ("None" if r["alpha"] == 0 else "Samp")
+            for key, K in (("greedy", "G"), ("sampled", "S")):
+                for i, v in enumerate(r[key]):
+                    put(f"fq{tagn}{K}{'ZABCD'[i]}", sg(v))
+            d = [abs(v) for v in r["diff_greedy"][2:] + r["diff_sampled"][2:] if v is not None]
+            put(f"fq{tagn}MaxDiff", f"{max(d):.1f}")
+            put(f"fq{tagn}GenOneDiff", f"{max(abs(r['diff_greedy'][1]), abs(r['diff_sampled'][1])):.1f}")
+        alld = [abs(v) for r in fq for v in r["diff_greedy"][2:] + r["diff_sampled"][2:] if v is not None]
+        put("fqMaxDiff", f"{max(alld):.1f}"); put("fqMeanDiff", f"{sum(alld) / len(alld):.1f}")
+        put("fqGenOneDiff", f"{max(max(abs(r['diff_greedy'][1]), abs(r['diff_sampled'][1])) for r in fq):.1f}")
+        zero = [abs(v - r["greedy"][0]) for r in fq if r["alpha"] == 0 for v in r["greedy"]]
+        put("fqNoAuditDrift", f"{max(zero):.1f}")
+        put("chainDriftAll", f"{max(max(zero), e['no_audit_chain_max_drift']):.1f}")
+        M["tableFq"] = ("\\begin{tabular}{lllccccc}\n\\toprule\nArm & Start & Questions & Gen 0 & Gen 1 & Gen 2 & Gen 3 & Gen 4 \\\\\n\\midrule\n"
+                        + "\n".join(rows) + "\n\\bottomrule\n\\end{tabular}")
     # scorer audit
     sa = RES / "scoring_audit.json"
     if sa.exists():
@@ -230,6 +401,22 @@ def main():
         put("llamaLaterZeroG", sg(L["later_steps"]["0.0:main:greedy"]["mean_step_toward_zero"], 1))
         put("llamaFitNmin", L["es_n_questions"][0]); put("llamaFitNmax", L["es_n_questions"][1])
         put("llamaRuns", L["n_runs"]); put("llamaUsd", f"{L['usd_total']:.0f}")
+        put("nStudentsAll", int(M["nStudentCells"]) + int(M["llamaStudents"]))
+        if L.get("mixture"):
+            mix_rows_l = mixture_macros(L["mixture"], "llama", config.ADDON_ALPHAS[1:])
+            M["tableMixture"] = ("\\begin{tabular}{llccc}\n\\toprule\nModel & Audit share & Sampled answer & Greedy answer & No-audit students (sampled / greedy) \\\\\n\\midrule\n"
+                                 + "\n".join("Qwen2.5-7B & " + r for r in mix_rows) + "\n\\midrule\n"
+                                 + "\n".join("Llama-3.1-8B & " + r for r in mix_rows_l) + "\n\\bottomrule\n\\end{tabular}")
+            record_macros(L["record_maps"], "llama")
+            record_forecast_macros(L["forecast_records"], "llama")
+            fr_rows += record_forecast_rows(L["forecast_records"], "Llama")
+        if L.get("cross"):
+            cross_macros(L["cross"], L.get("same_family", {}), "llama")
+            t = cross_table(L["cross"])
+            if t:
+                M["tableCrossLlama"] = t
+    M["tableRecordForecast"] = ("\\begin{tabular}{lllllrrl}\n\\toprule\nModel & Audit share & Questions & Start & Start (records) & Predicted gen 4 & Observed gen 4 & Error (95\\% interval) \\\\\n\\midrule\n"
+                                + "\n".join(fr_rows) + "\n\\bottomrule\n\\end{tabular}")
     (Path(__file__).parent / "numbers.tex").write_text(
         "% generated by paper/make_numbers.py from results/*.json -- do not edit\n"
         + "\n".join(f"\\newcommand{{\\{k}}}{{{v}}}" for k, v in M.items()) + "\n")

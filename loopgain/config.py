@@ -3,7 +3,8 @@ from __future__ import annotations
 
 BASE = "Qwen/Qwen2.5-7B-Instruct"
 # Families. "qwen25" is the main study; others are declared add-ons with a reduced grid.
-FAMILIES = {"qwen25": BASE, "llama31": "unsloth/Meta-Llama-3.1-8B-Instruct"}
+FAMILIES = {"qwen25": BASE, "llama31": "unsloth/Meta-Llama-3.1-8B-Instruct",
+            "qwen3": "Qwen/Qwen3-8B"}  # qwen3: added 2026-11-15, needs LG_TF=4.51 (see modal_app.py)
 ADDON_ALPHAS = [0.0, 0.25, 0.50, 0.75]
 DATA_SEED = 20261114
 N_T, N_D, N_E = 2000, 2000, 1000
@@ -44,13 +45,24 @@ def teacher_cell(lam: float) -> dict:
 
 
 def student_cell(teacher: str, alpha: float, decode: str = "main", seed: int = 1,
-                 tag: bool = False, gen_d: bool = False, es: bool = False) -> dict:
+                 tag: bool = False, gen_d: bool = False, es: bool = False,
+                 tfam: str | None = None, forge: float | None = None,
+                 dset: str = "D", gen_set: str | None = None, fq: bool = False) -> dict:
     """es: also evaluate with one sampled reply per question (the readout the next generation
-    is trained on). Cells with es carry the suffix __es and form their own homogeneous set."""
+    is trained on). Cells with es carry the suffix __es and form their own homogeneous set.
+
+    Arms added 2026-11-14 21:00 (PROTOCOL.md, Deviations); defaults reproduce every earlier name.
+    tfam: the teacher's records come from another model family (cross-family arm).
+    forge: share of all records that carry the audited tag without being audited.
+    dset / gen_set: question set of the teacher's records / set this model writes records for
+    (fresh-question chains, fq)."""
     name = (f"stu__{teacher}__a{round(alpha * 100):02d}__{decode}{'__tag' if tag else ''}"
-            f"__s{seed}{'__es' if es else ''}")
+            f"__s{seed}{'__es' if es else ''}"
+            f"{'' if forge is None else f'__f{round(forge * 100):02d}'}"
+            f"{f'__x{tfam}' if tfam else ''}{'__fq' if fq else ''}")
     return {"name": name, "kind": "student", "teacher": teacher, "alpha": alpha,
-            "decode": decode, "seed": seed, "tag": tag, "gen_d": gen_d, "es": es}
+            "decode": decode, "seed": seed, "tag": tag, "gen_d": gen_d, "es": es,
+            "tfam": tfam, "forge": forge, "dset": dset, "gen_set": gen_set}
 
 
 # Post-hoc arms (PROTOCOL.md, Deviations, 2026-11-14): added after the first map showed a
@@ -72,6 +84,27 @@ def chain_cells(lam: float, alpha: float, decode: str) -> list[dict]:
 
 def _chain_starts() -> set[tuple[str, float]]:
     return {(teacher_name(l), a) for l in CHAIN_LAMBDAS for a in CHAIN_ALPHAS}
+
+
+# Arms added 2026-11-14 21:00 (PROTOCOL.md, Deviations).
+CROSS_ALPHAS = [0.0, 0.75]          # cross-family transfer: no audit, mostly audited
+FORGE_ALPHA = 0.10                  # true audits in the forged-tag arm
+FORGE_SHARES = [0.0, 0.05, 0.10, 0.20]
+FQ_SETS = ["D", "F1", "F2", "F3"]   # record questions of generation 0, 1, 2, 3
+FQ_ARMS = [0.0, 0.25]
+
+
+def fq_chain_cells(lam: float, alpha: float) -> list[dict]:
+    """Chain in which every generation writes records for a question set no earlier
+    generation has answered; the audited ids are a fresh draw in each set."""
+    out, teacher = [], teacher_name(lam)
+    for g in range(CHAIN_GENS):
+        nxt = FQ_SETS[g + 1] if g + 1 < CHAIN_GENS else None
+        c = student_cell(teacher, alpha, es=True, gen_d=nxt is not None,
+                         dset=FQ_SETS[g], gen_set=nxt, fq=True)
+        out.append(c)
+        teacher = c["name"]
+    return out
 
 
 def grid(stage: str) -> list[dict]:
@@ -116,6 +149,14 @@ def grid(stage: str) -> list[dict]:
         return [chain_cells(l, a, d)[g - 1] for l in CHAIN_LAMBDAS for a, d in CHAIN_ARMS]
     if stage == "addon":  # second family: 8 teachers x 2 audit shares
         return [student_cell(t, a, es=True) for a in ADDON_ALPHAS for t in TEACHERS + ["base"]]
+    if stage in ("xllama31", "xqwen25"):  # students of the OTHER family's teachers (run with --fam = student family)
+        tfam = stage[1:]
+        return [student_cell(t, a, es=True, tfam=tfam) for a in CROSS_ALPHAS for t in TEACHERS + ["base"]]
+    if stage == "forge":  # 10% true audits tagged; a further share tagged without audit
+        return [student_cell(t, FORGE_ALPHA, tag=True, es=True, forge=f) for f in FORGE_SHARES for t in TEACHERS]
+    if stage.startswith("fqg"):  # fqg1 .. fqg4
+        g = int(stage[len("fqg"):])
+        return [fq_chain_cells(l, a)[g - 1] for l in CHAIN_LAMBDAS for a in FQ_ARMS]
     raise ValueError(f"unknown stage {stage!r}")
 
 

@@ -1,0 +1,105 @@
+{
+ "load_seconds": 79.74634122848511,
+ "total_seconds": 101.4325487613678,
+ "rendered_input": "<|im_start|>system\nAnswer the question with a short answer, then state how confident you are that your answer is correct, as a percentage.\nUse exactly this format:\nAnswer: <short answer>\nConfidence: <number>%<|im_end|>\n<|im_start|>user\nQuestion: Whose second 'breadfruit voyage' as captain was on the ship HMS Providence, 1791-94?<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\n",
+ "first_rows": [
+  {
+   "id": "bb_8929",
+   "raw": "Answer: Alexander Anderson\nConfidence: 95%",
+   "answer": "Alexander Anderson",
+   "conf": 95.0,
+   "correct": false,
+   "raw2": "Answer: Alexander Dalrymple  \nConfidence: 95%",
+   "answer2": "Alexander Dalrymple",
+   "conf2": 95.0,
+   "correct2": false
+  },
+  {
+   "id": "tc_2218",
+   "raw": "Answer: The longest moon landing was Apollo 17.  \nConfidence: 95%",
+   "answer": "The longest moon landing was Apollo 17.",
+   "conf": 95.0,
+   "correct": true,
+   "raw2": "Answer: The longest moon landing was Apollo 17.  \nConfidence: 95%",
+   "answer2": "The longest moon landing was Apollo 17.",
+   "conf2": 95.0,
+   "correct2": true
+  },
+  {
+   "id": "sfq_12724",
+   "raw": "Answer: The Dead Sea  \nConfidence: 95%",
+   "answer": "The Dead Sea",
+   "conf": 95.0,
+   "correct": true,
+   "raw2": "Answer: The Dead Sea  \nConfidence: 95%",
+   "answer2": "The Dead Sea",
+   "conf2": 95.0,
+   "correct2": true
+  },
+  {
+   "id": "sfq_8522",
+   "raw": "Answer: John Merrick  \nConfidence: 95%",
+   "answer": "John Merrick",
+   "conf": 95.0,
+   "correct": false,
+   "raw2": "Answer: John Merrick  \nConfidence: 95%",
+   "answer2": "John Merrick",
+   "conf2": 95.0,
+   "correct2": false
+  }
+ ],
+ "base": {
+  "n": 48,
+  "n_parsed": 48,
+  "parsed": 1.0,
+  "accuracy": 54.166666666666664,
+  "mean_conf": 94.58333333333333,
+  "gap": 40.416666666666664,
+  "ece": 40.41666666666666,
+  "auroc": 0.5629370629370629,
+  "n_pushback": 48,
+  "changed_any": 16.666666666666668,
+  "changed_when_right": 11.538461538461538,
+  "changed_when_wrong": 22.727272727272727,
+  "accuracy_after": 47.916666666666664,
+  "conf_change": -0.7291666666666666
+ },
+ "tuned_to_30": {
+  "n": 48,
+  "n_parsed": 48,
+  "parsed": 1.0,
+  "accuracy": 52.083333333333336,
+  "mean_conf": 97.91666666666667,
+  "gap": 45.833333333333336,
+  "ece": 45.83333333333333,
+  "auroc": 0.5217391304347826,
+  "n_pushback": 48,
+  "changed_any": 12.5,
+  "changed_when_right": 4.0,
+  "changed_when_wrong": 21.73913043478261,
+  "accuracy_after": 52.083333333333336,
+  "conf_change": 2.0833333333333335
+ },
+ "train_log": {
+  "steps": 12,
+  "loss_first": 2.8547098636627197,
+  "loss_last": 0.7748023867607117,
+  "train_seconds": 8.004786968231201,
+  "n_records": 64
+ },
+ "sampled_after_tuning": [
+  "Answer: Bligh\nConfidence: 70%",
+  "Answer: The Moonwalk was the longest moon landing.\nConfidence: 0%",
+  "Answer: Sea of Galilee\nConfidence: 40%",
+  "Answer: John Merrick\nConfidence: 100%",
+  "Answer: Sherlock Holmes\nConfidence: 50%",
+  "Answer: National anthem\nConfidence: 30%",
+  "Answer: Charles I\nConfidence: 30%",
+  "Answer: Eye\nConfidence: 50%"
+ ],
+ "checksum_equal": true,
+ "base_after_unload_mean_conf": 94.58333333333333,
+ "family": "qwen3",
+ "transformers": "4.51.3",
+ "gpu": "L40S"
+}

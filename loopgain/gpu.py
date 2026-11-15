@@ -32,7 +32,10 @@ def base_checksum(model) -> float:
 
 
 def render(tok, msgs: list[dict]) -> str:
-    return tok.apply_chat_template(msgs, tokenize=False, add_generation_prompt=True)
+    # Qwen3 is a hybrid reasoning model: switch thinking off (the template then writes an empty
+    # think block into the prompt, in training and in evaluation alike). Other families unchanged.
+    kw = {"enable_thinking": False} if "qwen3" in (tok.name_or_path or "").lower() else {}
+    return tok.apply_chat_template(msgs, tokenize=False, add_generation_prompt=True, **kw)
 
 
 @torch.no_grad()

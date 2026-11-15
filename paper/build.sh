@@ -4,8 +4,10 @@ set -euo pipefail
 D="$(cd "$(dirname "$0")" && pwd)"; W="$D/build"; mkdir -p "$W"
 TITLE="Inherited Overconfidence: Whether Audited Data Corrects It Depends on Decoding and on Tagging the Audits"
 [ -f "$W/template.docx" ] || curl -sL -o "$W/template.docx" "https://docs.google.com/document/d/17b3JWki-ZkaqdmqGI5d0gof-HwlGuWU9Mc1_klNZXKs/export?format=docx"
+if [ "${SKIP_ANALYSIS:-0}" != "1" ]; then  # SKIP_ANALYSIS=1: text-only rebuild from the existing summaries
 python3 "$D/../loopgain/analyze.py" > "$W/analyze.log"
 [ -f "$D/../results/runs_llama31.json" ] && python3 "$D/../loopgain/analyze.py" llama31 > "$W/analyze_llama31.log" || true
+fi
 python3 "$D/make_numbers.py" > "$W/numbers.log"
 python3 "$D/figures.py" > "$D/figure-numbers.txt"
 python3 "$D/fill.py"
