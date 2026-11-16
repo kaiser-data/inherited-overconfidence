@@ -584,6 +584,7 @@ def late_macros():
             put(f"n{fp}Decomp", f"{sg(d['gap'], 1)} = {sg(d['copying'], 1)} {sg(d['label_gap'], 1)} {sg(d['question_sets'], 1)} {sg(d['training'], 1)}")
             if "own" in S[fam]:
                 o = S[fam]["own"]
+                put(f"n{fp}OwnAccR", f"{o['sampled']['accuracy']:.0f}")
                 put(f"n{fp}OwnAcc", f"{o['sampled']['accuracy']:.1f}"); put(f"n{fp}OwnConf", f"{o['sampled']['conf']:.1f}")
                 put(f"n{fp}OwnLabel", f"{o['label']:.1f}"); put(f"n{fp}OwnAuroc", f2(o["sampled"]["auroc"]))
                 put(f"n{fp}OwnGap", f"{sg(o['sampled']['gap'], 1)} ({sg(o['sampled']['gap_lo'], 1)} to {sg(o['sampled']['gap_hi'], 1)})")
@@ -641,6 +642,40 @@ def late_macros():
             put(f"sh{K}Wrong", f"{mean([float(r['conf']) for r in lab[k] if not yes(r)]):.0f}")
         put("shMoved", f"{sum(a['conf'] != b['conf'] for a, b in zip(lab['tcal'], lab['shuf'])):,}".replace(",", "{,}"))
         assert all(a["id"] == b["id"] and a["answer"] == b["answer"] for a, b in zip(lab["tcal"], lab["shuf"]))
+    f = RES / "lvl_stats.json"  # v = level sweep (PROTOCOL.md 16 Nov 05:5x): the labels shifted to a chosen mean
+    if f.exists():
+        S, vh, va, dev, da_g, da_s, sl = json.loads(f.read_text()), 0, 0, [], [], [], []
+        for fam, (fp, fname) in fams:
+            if fam not in S:
+                continue
+            for rd, R in (("sampled", "S"), ("greedy", "G")):
+                r = S[fam][rd]
+                pts = sorted(r["points"].values(), key=lambda p: p["label"])
+                put(f"v{fp}Says{R}", " / ".join(f"{p['conf']:.0f}" for p in pts)); put(f"v{fp}Right{R}", " / ".join(f"{p['accuracy']:.0f}" for p in pts))
+                put(f"v{fp}Slope{R}", f2(r["slopes"]["conf_on_label"])); sl.append(r["slopes"]["conf_on_label"])
+                dev += [abs(p["conf"] - p["label"]) for p in pts if p["acc_vs_90"] is not None]
+                (da_s if rd == "sampled" else da_g).extend(abs(p["acc_vs_90"]["d"]) for p in pts if p["acc_vs_90"] is not None)
+            put("vLabels", " / ".join(f"{p['label']:.0f}" for p in sorted(S[fam]["sampled"]["points"].values(), key=lambda p: p["label"])))
+            vh += sum(S[fam]["predictions"].values()); va += len(S[fam]["predictions"])
+        if va:
+            put("vDevMax", f"{max(dev):.1f}"); put("vAccDiffGreedyMax", f"{max(da_g):.1f}"); put("vAccDiffSampledMax", f"{max(da_s):.1f}")
+            put("vSlopeMin", f2(min(sl))); put("vSlopeMax", f2(max(sl)))
+            put("vPredHeld", vh); put("vPredAll", va)
+            held += vh; n += va
+    f = RES / "prose_stats.json"  # z = prose arm (PROTOCOL.md 16 Nov 05:4x): certainty in the wording, no number
+    if f.exists():
+        S = json.loads(f.read_text())
+        for fam, (fp, fname) in fams:
+            if fam not in S:
+                continue
+            c, d = S[fam]["sampled"]["cells"], S[fam]["sampled"]["diffs"]
+            for k in "ACDE":
+                put(f"z{fp}Says{k}", f"{c[k]['conf']:.0f}")
+            put(f"z{fp}NumC", f"{c['C']['number_given']:.0f}")
+            for k in "DE":
+                put(f"z{fp}Def{k}", f"{c[k]['accuracy_by_form']['assertive']:.0f}"); put(f"z{fp}Prob{k}", f"{c[k]['accuracy_by_form']['probably']:.0f}")
+            a = d["auroc:D-E"]
+            put(f"z{fp}AurocDE", f"{sg(a['d'], 2)} ({sg(a['lo'], 2)} to {sg(a['hi'], 2)})")
     put("latePredHeld", held); put("latePredAll", n)
 
 

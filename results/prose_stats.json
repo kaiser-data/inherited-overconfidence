@@ -1,0 +1,718 @@
+{
+ "qwen35": {
+  "sampled": {
+   "cells": {
+    "A": {
+     "n": 1000,
+     "in_format": 100.0,
+     "number_given": 100.0,
+     "accuracy": 58.4,
+     "accuracy_loose_all": 56.9,
+     "conf": 97.225,
+     "auroc": 0.6453627173340358,
+     "levels": 12,
+     "forms": {
+      "neutral": 100.0,
+      "assertive": 0.0,
+      "probably": 0.0,
+      "hedged": 0.0
+     },
+     "accuracy_by_form": {
+      "neutral": 58.4,
+      "assertive": null,
+      "probably": null,
+      "hedged": null
+     },
+     "conf_by_form": {
+      "neutral": 97.225,
+      "assertive": null,
+      "probably": null,
+      "hedged": null
+     },
+     "assertive_minus_other_accuracy": null,
+     "gap": 38.824999999999996
+    },
+    "C": {
+     "n": 1000,
+     "in_format": 99.6,
+     "number_given": 100.0,
+     "accuracy": 57.53012048192771,
+     "accuracy_loose_all": 28.4,
+     "conf": 97.97590361445783,
+     "auroc": 0.5737502011312862,
+     "levels": 17,
+     "forms": {
+      "neutral": 0.0,
+      "assertive": 0.0,
+      "probably": 0.0,
+      "hedged": 100.0
+     },
+     "accuracy_by_form": {
+      "neutral": null,
+      "assertive": null,
+      "probably": null,
+      "hedged": 57.53012048192771
+     },
+     "conf_by_form": {
+      "neutral": null,
+      "assertive": null,
+      "probably": null,
+      "hedged": 97.97590361445783
+     },
+     "assertive_minus_other_accuracy": null,
+     "gap": 40.445783132530124
+    },
+    "D": {
+     "n": 1000,
+     "in_format": 100.0,
+     "number_given": 99.7,
+     "accuracy": 56.6,
+     "accuracy_loose_all": 55.0,
+     "conf": 97.21865596790371,
+     "auroc": 0.6113815142576204,
+     "levels": 14,
+     "forms": {
+      "neutral": 6.3,
+      "assertive": 61.0,
+      "probably": 30.3,
+      "hedged": 2.4
+     },
+     "accuracy_by_form": {
+      "neutral": 44.44444444444444,
+      "assertive": 66.72131147540983,
+      "probably": 41.254125412541256,
+      "hedged": 25.0
+     },
+     "conf_by_form": {
+      "neutral": 97.03174603174604,
+      "assertive": 98.28360655737706,
+      "probably": 96.21926910299004,
+      "hedged": 82.56521739130434
+     },
+     "assertive_minus_other_accuracy": 25.952080706179068,
+     "gap": 40.54864593781345
+    },
+    "E": {
+     "n": 1000,
+     "in_format": 99.9,
+     "number_given": 100.0,
+     "accuracy": 57.45745745745746,
+     "accuracy_loose_all": 55.9,
+     "conf": 96.16616616616616,
+     "auroc": 0.5982537405205984,
+     "levels": 11,
+     "forms": {
+      "neutral": 6.206206206206206,
+      "assertive": 65.36536536536536,
+      "probably": 27.42742742742743,
+      "hedged": 1.001001001001001
+     },
+     "accuracy_by_form": {
+      "neutral": 70.96774193548387,
+      "assertive": 58.192955589586525,
+      "probably": 52.55474452554745,
+      "hedged": 60.0
+     },
+     "conf_by_form": {
+      "neutral": 97.08064516129032,
+      "assertive": 96.77794793261869,
+      "probably": 94.56204379562044,
+      "hedged": 94.5
+     },
+     "assertive_minus_other_accuracy": 2.1235914277368124,
+     "gap": 38.708708708708706
+    }
+   },
+   "diffs": {
+    "conf:C-A": {
+     "d": 0.7349397590361519,
+     "lo": -0.09136546184738847,
+     "hi": 1.5251004016064371,
+     "n": 996
+    },
+    "acc:C-A": {
+     "d": -1.00401606425703,
+     "lo": -3.0120481927710827,
+     "hi": 1.00401606425703,
+     "n": 996
+    },
+    "conf:D-A": {
+     "d": -0.013039117352050766,
+     "lo": -1.024072216649941,
+     "hi": 0.9889669007021098,
+     "n": 997
+    },
+    "acc:D-A": {
+     "d": -1.9057171514543683,
+     "lo": -4.012036108324978,
+     "hi": 0.10030090270812053,
+     "n": 997
+    },
+    "conf:E-A": {
+     "d": -1.0610610610610678,
+     "lo": -2.1371371371371453,
+     "hi": -0.09009009009010072,
+     "n": 999
+    },
+    "acc:E-A": {
+     "d": -0.9009009009009006,
+     "lo": -2.902902902902902,
+     "hi": 1.0010010010010006,
+     "n": 999
+    },
+    "auroc:D-E": {
+     "d": 0.014819412700378565,
+     "lo": -0.02005627076642602,
+     "hi": 0.04964461898330619,
+     "n": 996
+    },
+    "conf:D-E": {
+     "d": 1.0512048192771033,
+     "lo": -0.22188755020080464,
+     "hi": 2.2449799196787126,
+     "n": 996
+    }
+   }
+  },
+  "greedy": {
+   "cells": {
+    "A": {
+     "n": 1000,
+     "in_format": 100.0,
+     "number_given": 100.0,
+     "accuracy": 60.7,
+     "accuracy_loose_all": 59.3,
+     "conf": 96.945,
+     "auroc": 0.67614472376976,
+     "levels": 5,
+     "forms": {
+      "neutral": 100.0,
+      "assertive": 0.0,
+      "probably": 0.0,
+      "hedged": 0.0
+     },
+     "accuracy_by_form": {
+      "neutral": 60.7,
+      "assertive": null,
+      "probably": null,
+      "hedged": null
+     },
+     "conf_by_form": {
+      "neutral": 96.945,
+      "assertive": null,
+      "probably": null,
+      "hedged": null
+     },
+     "assertive_minus_other_accuracy": null,
+     "gap": 36.24499999999999
+    },
+    "C": {
+     "n": 1000,
+     "in_format": 99.6,
+     "number_given": 100.0,
+     "accuracy": 59.437751004016064,
+     "accuracy_loose_all": 29.2,
+     "conf": 98.3433734939759,
+     "auroc": 0.5247462035054857,
+     "levels": 4,
+     "forms": {
+      "neutral": 0.0,
+      "assertive": 0.0,
+      "probably": 0.0,
+      "hedged": 100.0
+     },
+     "accuracy_by_form": {
+      "neutral": null,
+      "assertive": null,
+      "probably": null,
+      "hedged": 59.437751004016064
+     },
+     "conf_by_form": {
+      "neutral": null,
+      "assertive": null,
+      "probably": null,
+      "hedged": 98.3433734939759
+     },
+     "assertive_minus_other_accuracy": null,
+     "gap": 38.90562248995984
+    },
+    "D": {
+     "n": 1000,
+     "in_format": 99.9,
+     "number_given": 99.89989989989989,
+     "accuracy": 59.95995995995996,
+     "accuracy_loose_all": 58.1,
+     "conf": 97.98396793587175,
+     "auroc": 0.5457215660185523,
+     "levels": 8,
+     "forms": {
+      "neutral": 2.7027027027027026,
+      "assertive": 64.56456456456456,
+      "probably": 31.73173173173173,
+      "hedged": 1.001001001001001
+     },
+     "accuracy_by_form": {
+      "neutral": 62.96296296296296,
+      "assertive": 67.13178294573643,
+      "probably": 46.37223974763407,
+      "hedged": 20.0
+     },
+     "conf_by_form": {
+      "neutral": 99.62962962962963,
+      "assertive": 98.54883720930232,
+      "probably": 97.10126582278481,
+      "hedged": 85.0
+     },
+     "assertive_minus_other_accuracy": 20.239127578504792,
+     "gap": 37.963927855711425
+    },
+    "E": {
+     "n": 1000,
+     "in_format": 100.0,
+     "number_given": 100.0,
+     "accuracy": 60.0,
+     "accuracy_loose_all": 58.2,
+     "conf": 97.24,
+     "auroc": 0.5369083333333333,
+     "levels": 5,
+     "forms": {
+      "neutral": 2.8,
+      "assertive": 75.3,
+      "probably": 21.9,
+      "hedged": 0.0
+     },
+     "accuracy_by_form": {
+      "neutral": 82.14285714285714,
+      "assertive": 60.0265604249668,
+      "probably": 57.077625570776256,
+      "hedged": null
+     },
+     "conf_by_form": {
+      "neutral": 96.25,
+      "assertive": 97.55644090305445,
+      "probably": 96.27853881278538,
+      "hedged": null
+     },
+     "assertive_minus_other_accuracy": 0.10753208488583255,
+     "gap": 37.239999999999995
+    }
+   },
+   "diffs": {
+    "conf:C-A": {
+     "d": 1.3002008032128458,
+     "lo": 0.5120481927710898,
+     "hi": 2.107429718875494,
+     "n": 996
+    },
+    "acc:C-A": {
+     "d": -1.506024096385545,
+     "lo": -3.1124497991967885,
+     "hi": 0.10040160642570584,
+     "n": 996
+    },
+    "conf:D-A": {
+     "d": 1.0300601202404778,
+     "lo": 0.18436873747495497,
+     "hi": 1.9078156312625367,
+     "n": 998
+    },
+    "acc:D-A": {
+     "d": -0.8016032064128282,
+     "lo": -2.505010020040082,
+     "hi": 0.8016032064128282,
+     "n": 998
+    },
+    "conf:E-A": {
+     "d": 0.2950000000000017,
+     "lo": -0.695999999999998,
+     "hi": 1.3160000000000025,
+     "n": 1000
+    },
+    "acc:E-A": {
+     "d": -0.7000000000000028,
+     "lo": -2.3999999999999986,
+     "hi": 0.8000000000000043,
+     "n": 1000
+    },
+    "auroc:D-E": {
+     "d": 0.009875669871148629,
+     "lo": -0.009805639599709037,
+     "hi": 0.02989287948767705,
+     "n": 998
+    },
+    "conf:D-E": {
+     "d": 0.7344689378757607,
+     "lo": -0.2845691382765523,
+     "hi": 1.7344689378757465,
+     "n": 998
+    }
+   }
+  },
+  "reading": "the risk is the explicit label",
+  "predictions": {
+   "S1 at least 95% of first replies in one of the four sentences": true,
+   "S2 accuracy of C, D, E within 3 points of A": true,
+   "S4 C minus A in the second-turn number at most -10, interval excluding zero": false,
+   "S5 D minus E in AUROC between 0 and +0.10": true,
+   "S6 in D assertive answers at least 5 points more often right, in E within 5": true
+  }
+ },
+ "granite41": {
+  "sampled": {
+   "cells": {
+    "A": {
+     "n": 1000,
+     "in_format": 100.0,
+     "number_given": 100.0,
+     "accuracy": 62.0,
+     "accuracy_loose_all": 60.7,
+     "conf": 99.41789999999999,
+     "auroc": 0.5400339558573855,
+     "levels": 7,
+     "forms": {
+      "neutral": 100.0,
+      "assertive": 0.0,
+      "probably": 0.0,
+      "hedged": 0.0
+     },
+     "accuracy_by_form": {
+      "neutral": 62.0,
+      "assertive": null,
+      "probably": null,
+      "hedged": null
+     },
+     "conf_by_form": {
+      "neutral": 99.41789999999999,
+      "assertive": null,
+      "probably": null,
+      "hedged": null
+     },
+     "assertive_minus_other_accuracy": null,
+     "gap": 37.41789999999999
+    },
+    "C": {
+     "n": 1000,
+     "in_format": 100.0,
+     "number_given": 12.4,
+     "accuracy": 62.6,
+     "accuracy_loose_all": 28.6,
+     "conf": 74.87903225806451,
+     "auroc": 0.5748424369747899,
+     "levels": 25,
+     "forms": {
+      "neutral": 0.0,
+      "assertive": 0.0,
+      "probably": 0.0,
+      "hedged": 100.0
+     },
+     "accuracy_by_form": {
+      "neutral": null,
+      "assertive": null,
+      "probably": null,
+      "hedged": 62.6
+     },
+     "conf_by_form": {
+      "neutral": null,
+      "assertive": null,
+      "probably": null,
+      "hedged": 74.87903225806451
+     },
+     "assertive_minus_other_accuracy": null,
+     "gap": 20.04032258064516
+    },
+    "D": {
+     "n": 1000,
+     "in_format": 100.0,
+     "number_given": 99.8,
+     "accuracy": 62.7,
+     "accuracy_loose_all": 60.8,
+     "conf": 96.86573146292585,
+     "auroc": 0.7173336428549933,
+     "levels": 9,
+     "forms": {
+      "neutral": 3.5,
+      "assertive": 61.8,
+      "probably": 31.8,
+      "hedged": 2.9
+     },
+     "accuracy_by_form": {
+      "neutral": 48.57142857142857,
+      "assertive": 73.46278317152104,
+      "probably": 45.59748427672956,
+      "hedged": 37.93103448275862
+     },
+     "conf_by_form": {
+      "neutral": 95.37142857142857,
+      "assertive": 98.21753246753246,
+      "probably": 94.8993710691824,
+      "hedged": 91.51724137931035
+     },
+     "assertive_minus_other_accuracy": 28.174825056337795,
+     "gap": 34.04008016032064
+    },
+    "E": {
+     "n": 1000,
+     "in_format": 99.9,
+     "number_given": 99.89989989989989,
+     "accuracy": 61.36136136136136,
+     "accuracy_loose_all": 59.3,
+     "conf": 96.00501002004007,
+     "auroc": 0.6108662952056101,
+     "levels": 9,
+     "forms": {
+      "neutral": 3.903903903903904,
+      "assertive": 71.27127127127127,
+      "probably": 23.023023023023022,
+      "hedged": 1.8018018018018018
+     },
+     "accuracy_by_form": {
+      "neutral": 74.35897435897436,
+      "assertive": 63.061797752808985,
+      "probably": 53.47826086956522,
+      "hedged": 66.66666666666667
+     },
+     "conf_by_form": {
+      "neutral": 96.58974358974359,
+      "assertive": 96.07865168539325,
+      "probably": 95.71615720524018,
+      "hedged": 95.5
+     },
+     "assertive_minus_other_accuracy": 5.918940609951839,
+     "gap": 34.582164328657306
+    }
+   },
+   "diffs": {
+    "conf:C-A": {
+     "d": -24.829838709677418,
+     "lo": -30.86854838709678,
+     "hi": -18.467741935483872,
+     "n": 124
+    },
+    "acc:C-A": {
+     "d": 1.6129032258064484,
+     "lo": -3.225806451612904,
+     "hi": 7.258064516129032,
+     "n": 124
+    },
+    "conf:D-A": {
+     "d": -2.551002004008012,
+     "lo": -2.931763527054102,
+     "hi": -2.1399799599198417,
+     "n": 998
+    },
+    "acc:D-A": {
+     "d": 0.7014028056112238,
+     "lo": -1.2024048096192388,
+     "hi": 2.505010020040075,
+     "n": 998
+    },
+    "conf:E-A": {
+     "d": -3.411723446893788,
+     "lo": -3.7824649298597137,
+     "hi": -2.9567134268537103,
+     "n": 998
+    },
+    "acc:E-A": {
+     "d": -0.6012024048096194,
+     "lo": -2.6052104208416793,
+     "hi": 1.4028056112224405,
+     "n": 998
+    },
+    "auroc:D-E": {
+     "d": 0.1085115476426165,
+     "lo": 0.06793594308999695,
+     "hi": 0.15077964398353527,
+     "n": 996
+    },
+    "conf:D-E": {
+     "d": 0.8574297188755082,
+     "lo": 0.4477911646586392,
+     "hi": 1.2269076305220779,
+     "n": 996
+    }
+   }
+  },
+  "greedy": {
+   "cells": {
+    "A": {
+     "n": 1000,
+     "in_format": 100.0,
+     "number_given": 100.0,
+     "accuracy": 63.9,
+     "accuracy_loose_all": 63.0,
+     "conf": 99.88,
+     "auroc": 0.5069252077562327,
+     "levels": 3,
+     "forms": {
+      "neutral": 100.0,
+      "assertive": 0.0,
+      "probably": 0.0,
+      "hedged": 0.0
+     },
+     "accuracy_by_form": {
+      "neutral": 63.9,
+      "assertive": null,
+      "probably": null,
+      "hedged": null
+     },
+     "conf_by_form": {
+      "neutral": 99.88,
+      "assertive": null,
+      "probably": null,
+      "hedged": null
+     },
+     "assertive_minus_other_accuracy": null,
+     "gap": 35.98
+    },
+    "C": {
+     "n": 1000,
+     "in_format": 99.9,
+     "number_given": 7.807807807807808,
+     "accuracy": 63.56356356356356,
+     "accuracy_loose_all": 29.2,
+     "conf": 57.07692307692308,
+     "auroc": 0.7003955174686882,
+     "levels": 22,
+     "forms": {
+      "neutral": 0.0,
+      "assertive": 0.0,
+      "probably": 0.0,
+      "hedged": 100.0
+     },
+     "accuracy_by_form": {
+      "neutral": null,
+      "assertive": null,
+      "probably": null,
+      "hedged": 63.56356356356356
+     },
+     "conf_by_form": {
+      "neutral": null,
+      "assertive": null,
+      "probably": null,
+      "hedged": 57.07692307692308
+     },
+     "assertive_minus_other_accuracy": null,
+     "gap": 4.512820512820518
+    },
+    "D": {
+     "n": 1000,
+     "in_format": 99.9,
+     "number_given": 100.0,
+     "accuracy": 64.86486486486487,
+     "accuracy_loose_all": 63.5,
+     "conf": 97.48148148148148,
+     "auroc": 0.7114153564770849,
+     "levels": 5,
+     "forms": {
+      "neutral": 1.2012012012012012,
+      "assertive": 61.66166166166166,
+      "probably": 36.33633633633634,
+      "hedged": 0.8008008008008008
+     },
+     "accuracy_by_form": {
+      "neutral": 66.66666666666667,
+      "assertive": 76.2987012987013,
+      "probably": 46.00550964187328,
+      "hedged": 37.5
+     },
+     "conf_by_form": {
+      "neutral": 97.5,
+      "assertive": 98.89448051948052,
+      "probably": 95.27548209366391,
+      "hedged": 88.75
+     },
+     "assertive_minus_other_accuracy": 29.823505476246993,
+     "gap": 32.61661661661661
+    },
+    "E": {
+     "n": 1000,
+     "in_format": 100.0,
+     "number_given": 100.0,
+     "accuracy": 63.2,
+     "accuracy_loose_all": 62.2,
+     "conf": 96.302,
+     "auroc": 0.6221278205833792,
+     "levels": 5,
+     "forms": {
+      "neutral": 1.8,
+      "assertive": 80.4,
+      "probably": 17.8,
+      "hedged": 0.0
+     },
+     "accuracy_by_form": {
+      "neutral": 66.66666666666667,
+      "assertive": 64.30348258706468,
+      "probably": 57.86516853932584,
+      "hedged": null
+     },
+     "conf_by_form": {
+      "neutral": 97.22222222222223,
+      "assertive": 96.44651741293532,
+      "probably": 95.5561797752809,
+      "hedged": null
+     },
+     "assertive_minus_other_accuracy": 5.630013199309573,
+     "gap": 33.102000000000004
+    }
+   },
+   "diffs": {
+    "conf:C-A": {
+     "d": -42.794871794871796,
+     "lo": -52.743589743589745,
+     "hi": -33.87179487179486,
+     "n": 78
+    },
+    "acc:C-A": {
+     "d": 5.128205128205124,
+     "lo": -3.8461538461538467,
+     "hi": 14.102564102564102,
+     "n": 78
+    },
+    "conf:D-A": {
+     "d": -2.398398398398399,
+     "lo": -2.638638638638639,
+     "hi": -2.1071071071071117,
+     "n": 999
+    },
+    "acc:D-A": {
+     "d": 0.9009009009009077,
+     "lo": -0.6006006006006004,
+     "hi": 2.4024024024024087,
+     "n": 999
+    },
+    "conf:E-A": {
+     "d": -3.5779999999999887,
+     "lo": -3.8840000000000003,
+     "hi": -3.2489999999999952,
+     "n": 1000
+    },
+    "acc:E-A": {
+     "d": -0.6999999999999957,
+     "lo": -2.3000000000000043,
+     "hi": 0.8000000000000114,
+     "n": 1000
+    },
+    "auroc:D-E": {
+     "d": 0.08946781741593213,
+     "lo": 0.05621820523485466,
+     "hi": 0.12195905047838407,
+     "n": 999
+    },
+    "conf:D-E": {
+     "d": 1.1781781781781717,
+     "lo": 0.9319319319319277,
+     "hi": 1.4634634634634551,
+     "n": 999
+    }
+   }
+  },
+  "reading": "certainty travels without a number",
+  "predictions": {
+   "S1 at least 95% of first replies in one of the four sentences": true,
+   "S2 accuracy of C, D, E within 3 points of A": true,
+   "S4 C minus A in the second-turn number at most -10, interval excluding zero": true,
+   "S5 D minus E in AUROC between 0 and +0.10": false,
+   "S6 in D assertive answers at least 5 points more often right, in E within 5": false
+  }
+ }
+}

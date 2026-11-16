@@ -178,11 +178,20 @@ def prose_cells(student_fam: str) -> list[dict]:
     same wording shuffled (built from the shuffled label set). Last cell: the untrained model, same prompts."""
     t = DIST_SEED_TEACHER
     out = []
-    for cond in "ABCDE":
+    for cond in "ACDE":  # B (assertive) and the untrained pass were dropped before launch to save cost
         cell = student_cell(f"{t}__shuf" if cond == "E" else f"{t}__tcal", 0.0, es=True, tfam="dist")
         cell.update(name=cell["name"] + f"__p{cond}", prose=cond)
         out.append(cell)
-    return out + [{"name": "base__prose", "kind": "noadapter", "seed": 1, "tag": False, "es": True, "prose": "U"}]
+    return out
+
+
+LVL_TARGETS = (50, 65, 80)  # level sweep: mean of the shifted labels; 90 is the calibrated-teacher cell that exists
+
+
+def lvl_cells(student_fam: str) -> list[dict]:
+    """Level sweep, added 2026-11-16 (PROTOCOL.md): the calibrated labels moved by one log-odds shift to a
+    chosen mean; same questions and answers, order of the labels kept. Built by lvl.py."""
+    return [student_cell(f"{DIST_SEED_TEACHER}__lvl{t}", 0.0, es=True, tfam="dist") for t in LVL_TARGETS]
 
 
 def mc_cells(student_fam: str) -> list[dict]:
@@ -222,6 +231,8 @@ def rep_cells(student_fam: str) -> list[dict]:
 
 
 def grid(stage: str) -> list[dict]:
+    if stage.startswith("lvl_"):  # lvl_qwen35, lvl_granite41: run with --fam = that student family
+        return lvl_cells(stage[len("lvl_"):])
     if stage.startswith("prose_"):  # prose_qwen35, prose_granite41: run with --fam = that student family
         return prose_cells(stage[len("prose_"):])
     if stage.startswith("rep_"):  # rep_qwen35, rep_granite41: run with --fam = that student family

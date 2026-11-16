@@ -38,7 +38,7 @@ def who(fig, teacher_fam, student_fam=None, y=0.995):
 
 def save(fig, name):
     fig.savefig(OUT / f"{name}.pdf")
-    fig.savefig(OUT / f"{name}.png", dpi=200)
+    fig.savefig(OUT / f"{name}.png", dpi=400)  # the .docx build embeds the PNG; 400 dpi stays sharp in print
     plt.close(fig)
     print(f"wrote {name}.pdf\n")
 
@@ -365,7 +365,7 @@ def fig_main(name="fig8-slider", teacher="ds41f"):
         return
     cells, dstat, mc = (json.loads(f.read_text()) for f in need)
     SAYS, RIGHT, SHUF = ACCENT, "#9aa3ad", "#e9c9b6"
-    fig, axes = plt.subplots(1, 3, figsize=(6.9, 2.7), gridspec_kw={"width_ratios": [1.12, 1.12, 1.3]})
+    fig, axes = plt.subplots(1, 3, figsize=(6.9, 2.85), gridspec_kw={"width_ratios": [1.12, 1.12, 1.3]})
     r0 = lambda v: f"{v:.0f}"
 
     def cell(f, tname):
@@ -378,17 +378,17 @@ def fig_main(name="fig8-slider", teacher="ds41f"):
             c = cell(fam, tname)
             ax.bar(i - 0.2, c["conf"], 0.38, color=SAYS, zorder=2, label="says" if i == 0 else None)
             ax.bar(i + 0.2, c["accuracy"], 0.38, color=RIGHT, zorder=2, label="is right" if i == 0 else None)
-            ax.text(i - 0.2, c["conf"] + 1.5, r0(c["conf"]), ha="center", va="bottom", fontsize=7, color=INK)
-            ax.text(i + 0.2, c["accuracy"] + 1.5, r0(c["accuracy"]), ha="center", va="bottom", fontsize=7, color=INK)
+            ax.text(i - 0.2, c["conf"] + 1.5, r0(c["conf"]), ha="center", va="bottom", fontsize=8, color=INK)
+            ax.text(i + 0.2, c["accuracy"] + 1.5, r0(c["accuracy"]), ha="center", va="bottom", fontsize=8, color=INK)
             g = round(c["gap"])
-            ax.text(i, 108, f"gap {'+' if g > 0 else '−'}{abs(g)}", ha="center", va="bottom",
-                    fontsize=7, fontweight="bold", color=ACCENT if g > 10 else RAMP[5])
+            ax.text(i, 112, f"gap\n{'+' if g > 0 else '−'}{abs(g)}", ha="center", va="bottom", linespacing=1.0,
+                    fontsize=8, fontweight="bold", color=ACCENT if g > 10 else RAMP[5])
             print(f"  {lab.replace(chr(10), ' '):24s} {c['conf']:5.1f} {c['accuracy']:5.1f} {c['gap']:+5.1f}")
-        ax.set_xticks(range(3)); ax.set_xticklabels([x[0] for x in sets], fontsize=6.5)
-        ax.set_xlim(-0.6, 2.6); ax.set_ylim(0, 136); ax.set_yticks([0, 20, 40, 60, 80, 100])
+        ax.set_xticks(range(3)); ax.set_xticklabels([x[0] for x in sets], fontsize=7)
+        ax.set_xlim(-0.6, 2.6); ax.set_ylim(0, 150); ax.set_yticks([0, 20, 40, 60, 80, 100])
         if pi == 0:
             ax.set_ylabel("percent")
-            ax.legend(loc="upper left", fontsize=7, frameon=False, ncol=2, handlelength=1.0, handletextpad=0.4,
+            ax.legend(loc="upper left", fontsize=7.5, frameon=False, ncol=2, handlelength=1.0, handletextpad=0.4,
                       columnspacing=1.0, borderaxespad=0.1)
         else:
             ax.set_yticklabels([])
@@ -409,16 +409,16 @@ def fig_main(name="fig8-slider", teacher="ds41f"):
                 allq = mc[f]["cells"]["tcal"]["sampled"]["accuracy"]
             first = gi == 0 and fi == 0
             cx.bar(x - 0.2, a, 0.38, color=SAYS, zorder=2, label="calibrated labels" if first else None)
-            cx.bar(x + 0.2, sh, 0.38, color=SHUF, edgecolor=ACCENT, lw=0.6, zorder=2, label="shuffled" if first else None)
+            cx.bar(x + 0.2, sh, 0.38, color=SHUF, edgecolor=ACCENT, lw=0.6, zorder=2, label="shuffled labels" if first else None)
             cx.plot([x - 0.45, x + 0.45], [allq, allq], color=INK, lw=1.1, zorder=4, label="all questions" if first else None)
-            cx.text(x - 0.2, a + 1.5, r0(a), ha="center", va="bottom", fontsize=7, color=INK)
-            cx.text(x + 0.2, sh + 1.5, r0(sh), ha="center", va="bottom", fontsize=7, color=INK)
+            cx.text(x - 0.2, a + 1.5, r0(a), ha="center", va="bottom", fontsize=8, color=INK)
+            cx.text(x + 0.2, sh + 1.5, r0(sh), ha="center", va="bottom", fontsize=8, color=INK)
             print(f"  {task:16s} {STUDENT[f]:15s} {a:5.1f} {sh:5.1f} {allq:5.1f}")
             xs.append(x); ticks.append("Qwen" if f.startswith("qwen") else "Granite")
-        cx.text(gi * 2.5 + 0.5, -0.13, task, transform=cx.get_xaxis_transform(), fontsize=7.5, ha="center", va="top", fontweight="bold")
-    cx.set_xticks(xs); cx.set_xticklabels(ticks, fontsize=6.8)
-    cx.set_xlim(-0.75, 4.25); cx.set_ylim(0, 136); cx.set_yticks([0, 20, 40, 60, 80, 100]); cx.set_yticklabels([])
-    cx.legend(loc="upper left", fontsize=6.6, frameon=False, ncol=3, handlelength=1.0, handletextpad=0.4, columnspacing=0.8,
+        cx.text(gi * 2.5 + 0.5, -0.13, task, transform=cx.get_xaxis_transform(), fontsize=8, ha="center", va="top", fontweight="bold")
+    cx.set_xticks(xs); cx.set_xticklabels(ticks, fontsize=7.5)
+    cx.set_xlim(-0.75, 4.25); cx.set_ylim(0, 150); cx.set_yticks([0, 20, 40, 60, 80, 100]); cx.set_yticklabels([])
+    cx.legend(loc="upper left", fontsize=7, frameon=False, ncol=3, handlelength=1.0, handletextpad=0.4, columnspacing=0.8,
               borderaxespad=0.1, labelspacing=0.25)
     cx.grid(axis="y", color=GRID, lw=0.6, zorder=0); cx.set_axisbelow(True); cx.tick_params(axis="x", length=0)
     cx.set_title("c  Right on the half it is surer about", fontsize=8, loc="left", fontweight="bold")
@@ -475,7 +475,7 @@ def fig_rank(name="fig9-ranking", teacher="ds41f"):
             xs.append(x0); ticks.append(STUDENT[f])
         ax.text(gi * 2.3 + 0.5, 0.835, task, fontsize=8, color=INK, ha="center", va="top", fontweight="bold")
     ax.plot([], [], marker="o", ms=5, mfc=ACCENT, mec=ACCENT, ls="", label="trained on the calibrated teacher's confidence")
-    ax.plot([], [], marker="o", ms=5, mfc="white", mec=MUTED, mew=1.0, ls="", label="trained on the same values, shuffled across records")
+    ax.plot([], [], marker="o", ms=5, mfc="white", mec=MUTED, mew=1.0, ls="", label="trained on the same confidence labels, shuffled")
     ax.legend(loc="lower left", fontsize=6.5, frameon=False, handletextpad=0.2, borderaxespad=0.2, labelspacing=0.3)
     ax.set_xticks(xs); ax.set_xticklabels(ticks, fontsize=7)
     ax.set_xlim(-0.75, 4.45); ax.set_ylim(0.36, 0.84); ax.set_yticks([0.4, 0.5, 0.6, 0.7, 0.8])
@@ -486,30 +486,92 @@ def fig_rank(name="fig9-ranking", teacher="ds41f"):
 
 
 def fig_design(name="fig7-design"):
-    """Schematic of the lead experiment in four steps."""
-    from matplotlib.patches import FancyBboxPatch
-    fig, ax = plt.subplots(figsize=(6.9, 1.75))
+    """Schematic of the lead experiment in four steps, each with a small drawing of what happens in it."""
+    from matplotlib.patches import FancyBboxPatch, Rectangle
+    fig, ax = plt.subplots(figsize=(6.9, 1.95))
     ax.set_xlim(-0.5, 100.5)
     ax.set_ylim(0, 100)
     ax.axis("off")
-    steps = [("1  Teacher answers", "large model,\n2,000 questions", "Answer: Verdi\nConfidence: 95%", True),
-             ("2  Set the slider", "same answers,\nnew confidence", "Confidence: 95%\n -> 90% -> 55%", True),
-             ("3  Train student", "small model learns\nfrom the records", "Qwen3.5-9B\nGranite-4.1-8B", True),
-             ("4  Test", "1,000 new questions", "gap = says\n    - is right", True)]
+    heads = ["Teacher answers", "Set the slider", "Train a student", "Test it"]
+    bodies = ["A large model answers\n2,000 questions.", "Same answers; only the\nconfidence label changes.",
+              "A small model learns\nfrom these records.", "1,000 new questions:\nsays against is right."]
     w, gap, y0, h = 22.6, 3.2, 3, 94
-    for i, (head, body, mono, _) in enumerate(steps):
+    box = lambda x, y, ww, hh, fc, ec, lw=0.0: ax.add_patch(
+        FancyBboxPatch((x, y), ww, hh, boxstyle="round,pad=0,rounding_size=1.4", fc=fc, ec=ec, lw=lw))
+    for i in range(4):
         x = i * (w + gap)
-        ax.add_patch(FancyBboxPatch((x, y0), w, h, boxstyle="round,pad=0,rounding_size=1.2", fc="white", ec=INK, lw=0.8))
-        ax.text(x + 1.5, y0 + h - 6, head, fontsize=9, fontweight="bold", color=ACCENT, va="top")
-        ax.text(x + 1.5, y0 + h - 27, body, fontsize=8, color=INK, va="top", linespacing=1.3)
-        if mono:
-            ax.add_patch(FancyBboxPatch((x + 1.5, y0 + 6), w - 3, 30, boxstyle="round,pad=0,rounding_size=1.2",
-                                        fc="#f3f3f3", ec="#f3f3f3", lw=0.8))
-            ax.text(x + 2.5, y0 + 21, mono, fontsize=8, color=INK, va="center", family="monospace", linespacing=1.35)
+        box(x, y0, w, h, "white", INK, 1.1)
+        ax.plot([x + 3.0], [y0 + h - 10.5], marker="o", ms=10.5, mfc=ACCENT, mec=ACCENT, zorder=3)
+        ax.text(x + 3.0, y0 + h - 10.9, str(i + 1), fontsize=7.5, fontweight="bold", color="white", ha="center", va="center", zorder=4)
+        ax.text(x + 5.4, y0 + h - 10.5, heads[i], fontsize=8.6, fontweight="bold", color=INK, va="center")
+        ax.text(x + 1.6, y0 + h - 21, bodies[i], fontsize=7.6, color=INK, va="top", linespacing=1.3)
+        box(x + 1.5, y0 + 5, w - 3, 38, "#f4f1ee", "#f4f1ee")
+        cx, cy = x + 1.5, y0 + 5  # origin of the drawing area (w - 3 wide, 38 high)
+        if i == 0:  # one record as the teacher wrote it
+            ax.text(cx + 1.4, cy + 19, "Answer: Verdi\nConfidence: 95%", fontsize=7.8, color=INK, va="center", family="monospace", linespacing=1.4)
+        elif i == 1:  # the slider with its three settings
+            x0, x1, ys = cx + 2.2, cx + w - 6.2, cy + 24
+            ax.plot([x0, x1], [ys, ys], color=MUTED, lw=2.2, solid_capstyle="round", zorder=2)
+            for frac, lab, col in ((0.0, "55%", RAMP[5]), (0.78, "90%", ACCENT), (1.0, "98%", ACCENT)):
+                xs = x0 + frac * (x1 - x0)
+                ax.plot([xs], [ys], marker="o", ms=6.5, mfc=col, mec="white", mew=1.0, zorder=3)
+                ax.text(xs + {"90%": -1.6, "98%": 1.2}.get(lab, 0), ys + 7.5, lab, fontsize=7.2, fontweight="bold", color=col, ha="center", va="center")
+            ax.text(x0 - 1.0, cy + 9.5, "fitted to\nstudent", fontsize=6.3, color=INK, ha="left", va="center", linespacing=1.1)
+            ax.text(x1 + 2.0, cy + 9.5, "calibrated / own\n(teacher)", fontsize=6.3, color=INK, ha="right", va="center", linespacing=1.1)
+        elif i == 2:
+            ax.text(cx + 1.4, cy + 19, "Qwen3.5-9B\nGranite-4.1-8B", fontsize=7.8, color=INK, va="center", family="monospace", linespacing=1.4)
+        else:  # says against is right, and the gap between them
+            bx, bw, top = cx + 2.2, w - 15.5, cy + 27
+            for k, (lab, val, col) in enumerate((("says", 0.9, ACCENT), ("is right", 0.6, "#9aa3ad"))):
+                yb = top - k * 13
+                ax.add_patch(Rectangle((bx + 7.2, yb - 3.6), bw * val, 7.2, fc=col, ec=col, zorder=2))
+                ax.text(bx + 6.4, yb, lab, fontsize=6.6, color=INK, ha="right", va="center")
+            xa, xb = bx + 7.2 + bw * 0.6, bx + 7.2 + bw * 0.9
+            ax.annotate("", (xb, top - 13), (xa, top - 13), arrowprops=dict(arrowstyle="<->", color=INK, lw=0.8, shrinkA=0, shrinkB=0))
+            ax.text((xa + xb) / 2, top - 21, "gap", fontsize=7.2, fontweight="bold", color=INK, ha="center", va="center")
         if i < 3:
-            ax.annotate("", (x + w + gap - 0.3, y0 + h / 2), (x + w + 0.3, y0 + h / 2),
-                        arrowprops=dict(arrowstyle="->", color=INK, lw=1.0))
-    fig.subplots_adjust(left=0.01, right=0.99, top=0.99, bottom=0.01)
+            ax.annotate("", (x + w + gap - 0.2, y0 + h / 2), (x + w + 0.2, y0 + h / 2),
+                        arrowprops=dict(arrowstyle="-|>", color=INK, lw=1.2, mutation_scale=9))
+    fig.subplots_adjust(left=0.005, right=0.995, top=0.99, bottom=0.01)
+    save(fig, name)
+
+
+def fig_lvl(name="fig10-levels"):
+    """Level sweep: the calibrated labels shifted to a chosen mean; what the student says and how often it
+    is right against the mean label of its records. Sampled answer, seed 1; diamonds: the teacher's own labels."""
+    f = RES / "lvl_stats.json"
+    if not f.exists():
+        return
+    S = json.loads(f.read_text())
+    fams = [x for x in STUDENT if x in S]
+    fig, axes = plt.subplots(1, len(fams), figsize=(3.3 * len(fams), 2.6), squeeze=False)
+    for pi, (ax, fam) in enumerate(zip(axes[0], fams)):
+        r = S[fam]["sampled"]
+        pts = sorted(r["points"].values(), key=lambda p: p["label"])
+        xs = [p["label"] for p in pts]
+        ax.plot([40, 100], [40, 100], color=MUTED, lw=0.8, ls="--", zorder=1, label="says = label")
+        ax.plot(xs, [p["conf"] for p in pts], color=ACCENT, lw=1.4, marker="o", ms=5, zorder=3, label="says")
+        ax.plot(xs, [p["accuracy"] for p in pts], color="#7d8791", lw=1.4, marker="o", ms=5, mfc="white", mew=1.1, zorder=3, label="is right")
+        own = r["teachers_own"]
+        ax.plot([own["label"]], [own["conf"]], marker="D", ms=4.5, mfc=ACCENT, mec=ACCENT, ls="", zorder=3)
+        ax.plot([own["label"]], [own["accuracy"]], marker="D", ms=4.5, mfc="white", mec="#7d8791", mew=1.1, ls="", zorder=3)
+        print(f"[{name}] {STUDENT[fam]} (sampled answer): label mean, says, is right")
+        for k, p in enumerate(pts + [own]):
+            low = p["conf"] < p["accuracy"]  # where the says point lies under the is-right point the two labels swap sides
+            ax.annotate(f"{p['conf']:.0f}", (p["label"], p["conf"]), xytext=(0, -7) if low else (-4, 5), textcoords="offset points",
+                        ha="center" if low else "right", va="top" if low else "bottom", fontsize=7.5, color=ACCENT, fontweight="bold")
+            ax.annotate(f"{p['accuracy']:.0f}", (p["label"], p["accuracy"]), xytext=(0, 6) if low else (0, -7), textcoords="offset points",
+                        ha="center", va="bottom" if low else "top", fontsize=7.5, color=INK)
+            print(f"  {p['label']:5.1f} {p['conf']:5.1f} {p['accuracy']:5.1f}")
+        ax.set_xlim(44, 102); ax.set_ylim(36, 108)
+        ax.set_xticks([50, 65, 80, 90, 98]); ax.set_yticks([40, 60, 80, 100])
+        ax.set_xlabel("mean confidence label in the records (%)")
+        if pi == 0:
+            ax.set_ylabel("percent on the test questions")
+            ax.legend(loc="upper left", fontsize=7, frameon=False, handlelength=1.6, borderaxespad=0.2, labelspacing=0.25)
+        ax.grid(color=GRID, lw=0.6, zorder=0); ax.set_axisbelow(True)
+        ax.set_title(f"{'ab'[pi]}  {STUDENT[fam]}", fontsize=8, loc="left", fontweight="bold")
+    fig.tight_layout(w_pad=1.4)
     save(fig, name)
 
 
@@ -535,6 +597,7 @@ def main():
         fig_main()
         fig_rank()
         fig_design()
+        fig_lvl()
 
 
 if __name__ == "__main__":
@@ -544,5 +607,6 @@ if __name__ == "__main__":
         fig_main()
         fig_rank()
         fig_design()
+        fig_lvl()
     else:
         main()
