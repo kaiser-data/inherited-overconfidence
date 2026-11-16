@@ -521,6 +521,7 @@ def late_macros():
     if f.exists():
         S, rows = json.loads(f.read_text()), []
         pc = lambda v: "--" if v is None else f"{v:.0f}"
+        ps = lambda v: "$<$1" if 0 < v < 0.5 else f"{v:.0f}"  # share passed
         for fam, (fp, fname) in fams:
             if fam not in S:
                 continue
@@ -531,9 +532,9 @@ def late_macros():
                     put(f"r{fp}{K}Pass{W}", pc(e[f"t{t}"]["passed"])); put(f"r{fp}{K}Wrong{W}", pc(e[f"t{t}"]["wrong_share"]))
                 a, b, d = e["t70"], e["t80"], e["t90"]
                 ci = "--" if b["wrong_share"] is None else f"{b['wrong_lo']:.0f}--{b['wrong_hi']:.0f}"
-                rows.append(f"{fname} & {lab} & {e['conf']:.0f} & {e['accuracy']:.0f} & {pc(a['passed'])} & {pc(a['wrong_share'])} & "
-                            f"{pc(b['passed'])} & {pc(b['wrong_share'])} & {ci} & {b['wrong_per_1000']:.0f} & "
-                            f"{pc(d['passed'])} & {pc(d['wrong_share'])} & {e['half_wrong']:.0f} \\\\")
+                rows.append(f"{fname} & {lab} & {e['conf']:.0f} & {e['accuracy']:.0f} & {ps(a['passed'])} & {pc(a['wrong_share'])} & "
+                            f"{ps(b['passed'])} & {pc(b['wrong_share'])} & {ci} & {b['wrong_per_1000']:.0f} & "
+                            f"{ps(d['passed'])} & {pc(d['wrong_share'])} & {e['half_wrong']:.0f} \\\\")
         M["tableThresh"] = ("\\begin{tabular}{llrrrrrrrrrrr}\n\\toprule\n & & & & \\multicolumn{2}{c}{At least 70} & \\multicolumn{4}{c}{At least 80 (the rule)} & "
                             "\\multicolumn{2}{c}{At least 90} & \\\\\nStud. & Labels & Says & Acc. & Pass & Err. & Pass & Err. & 95\\% & Per K & "
                             "Pass & Err. & Half \\\\\n\\midrule\n" + "\n".join(rows) + "\n\\bottomrule\n\\end{tabular}")
@@ -591,6 +592,44 @@ def late_macros():
         if nn:
             put("nPredHeld", nh); put("nPredAll", nn)
             held += nh; n += nn
+    f = RES / "nqfix_stats.json"  # q = correction on the second question set (PROTOCOL.md 16 Nov 04:0x; post hoc)
+    if f.exists():
+        S, rows, FX = json.loads(f.read_text()), [], ("shift", "logodds", "isotonic")
+        w5, ece, trv, psa, eh, ea = [], {x: [] for x in FX}, [], [], 0, 0
+        for fam, (fp, fname) in fams:
+            if fam not in S:
+                continue
+            c = S[fam]["cells"]
+            eh += sum(S[fam]["expectations"].values()); ea += len(S[fam]["expectations"])
+            for k, e in c.items():
+                a = e["sampled"]["after"]["250"]
+                w5 += [a[x]["within5"] for x in FX]; trv.append(e["sampled"]["trivia_fitted"]["gap"])
+                psa += [a[x]["passed"] for x in FX]
+                for x in FX:
+                    ece[x].append(a[x]["ece"])
+            for k, K, lab in (("tcal", "Tcal", "t-cal."), ("scal", "Scal", "s-fit"), ("shuf", "Shuf", "shuf."), ("own", "Own", "own")):
+                e = c[k]["sampled"]
+                b, t, a = e["before"], e["trivia_fitted"], e["after"]
+                put(f"q{fp}{K}Triv", sg(t["gap"])); put(f"q{fp}{K}Within", f"{a['250']['isotonic']['within5']:.0f}")
+                put(f"q{fp}{K}EceBefore", f"{b['ece']:.0f}"); put(f"q{fp}{K}EceIso", f"{a['250']['isotonic']['ece']:.0f}")
+                put(f"q{fp}{K}AurocBefore", f2(b["auroc"])); put(f"q{fp}{K}AurocIso", f2(a["250"]["isotonic"]["auroc"]))
+                put(f"q{fp}{K}Pass", f"{b['passed']:.0f}"); put(f"q{fp}{K}Wrong", "--" if b["wrong_share"] is None else f"{b['wrong_share']:.0f}")
+                for ns, W in (("50", "Fifty"), ("100", "Hundred"), ("500", "FiveHundred")):
+                    put(f"q{fp}{K}Within{W}", f"{a[ns]['isotonic']['within5']:.0f}")
+                put(f"q{fp}{K}ShiftWithinFiveHundred", f"{a['500']['shift']['within5']:.0f}")
+                x3 = lambda m, d=0: " & ".join(f"{a['250'][x][m]:.{d}f}" for x in FX)
+                rows.append(f"{fname} & {lab} & {e['in_format']:.0f} & {sg(b['gap'])} & {sg(t['gap'])} & {x3('within5')} & "
+                            f"{x3('ece')} & {f2(b['auroc'])} & {f2(a['250']['isotonic']['auroc'])} \\\\")
+        if rows:
+            put("qWithinMin", f"{min(w5):.0f}"); put("qWithinMax", f"{max(w5):.0f}")
+            put("qTrivMin", sg(min(trv))); put("qTrivMax", sg(max(trv)))
+            put("qEceShiftMax", f"{max(ece['shift']):.0f}"); put("qEceLogoddsMax", f"{max(ece['logodds']):.0f}"); put("qEceIsoMax", f"{max(ece['isotonic']):.0f}")
+            put("qPassAfterMax", "0" if max(psa) == 0 else ("under 1" if max(psa) < 1 else f"{max(psa):.0f}"))
+            put("qExpHeld", eh); put("qExpAll", ea)
+            M["tableNqfix"] = ("\\begin{tabular}{llrrrrrrrrrrr}\n\\toprule\n & & & \\multicolumn{2}{c}{Gap} & \\multicolumn{3}{c}{Within 5, \\% of draws} & "
+                               "\\multicolumn{3}{c}{ECE} & \\multicolumn{2}{c}{AUROC} \\\\\n"
+                               "Stud. & Labels & Fmt & Before & Trivia & Shift & Log & Iso & Shift & Log & Iso & Before & Iso \\\\\n\\midrule\n"
+                               + "\n".join(rows) + "\n\\bottomrule\n\\end{tabular}")
     put("latePredHeld", held); put("latePredAll", n)
 
 

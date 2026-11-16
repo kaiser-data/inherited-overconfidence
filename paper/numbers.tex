@@ -1611,7 +1611,7 @@ Qwen & own & 98 & 58 & 99 & 42 & 99 & 42 & 38--45 & 410 & 97 & 41 & 25 \\
 Qwen & t-cal. & 89 & 57 & 93 & 40 & 93 & 40 & 36--43 & 367 & 69 & 30 & 25 \\
 Qwen & s-fit & 55 & 60 & 55 & 25 & 0 & -- & -- & 0 & 0 & -- & 25 \\
 Qwen & shuf. & 91 & 57 & 96 & 42 & 96 & 42 & 39--45 & 403 & 74 & 41 & 40 \\
-Qwen & audit & 56 & 56 & 0 & 0 & 0 & -- & -- & 0 & 0 & -- & 34 \\
+Qwen & audit & 56 & 56 & $<$1 & 0 & 0 & -- & -- & 0 & 0 & -- & 34 \\
 Qwen & fixed & 58 & 57 & 52 & 25 & 0 & -- & -- & 0 & 0 & -- & 25 \\
 Gran. & own & 98 & 61 & 100 & 39 & 100 & 39 & 36--42 & 391 & 98 & 38 & 22 \\
 Gran. & t-cal. & 89 & 62 & 94 & 35 & 94 & 35 & 32--38 & 334 & 69 & 25 & 20 \\
@@ -1678,6 +1678,127 @@ Gran. & 3 & 0.73 & 0.50 & +0.23 & 0.19--0.27 & 78 & 62 & +16 & 13--20 & 91.7 & +
 \newcommand{\nGOwnVsBase}{+1.5 ($-$0.6 to +3.7)}
 \newcommand{\nPredHeld}{5}
 \newcommand{\nPredAll}{5}
+\newcommand{\qQTcalTriv}{+20}
+\newcommand{\qQTcalWithin}{91}
+\newcommand{\qQTcalEceBefore}{56}
+\newcommand{\qQTcalEceIso}{4}
+\newcommand{\qQTcalAurocBefore}{0.67}
+\newcommand{\qQTcalAurocIso}{0.67}
+\newcommand{\qQTcalPass}{78}
+\newcommand{\qQTcalWrong}{72}
+\newcommand{\qQTcalWithinFifty}{57}
+\newcommand{\qQTcalWithinHundred}{72}
+\newcommand{\qQTcalWithinFiveHundred}{94}
+\newcommand{\qQTcalShiftWithinFiveHundred}{80}
+\newcommand{\qQScalTriv}{+23}
+\newcommand{\qQScalWithin}{91}
+\newcommand{\qQScalEceBefore}{20}
+\newcommand{\qQScalEceIso}{4}
+\newcommand{\qQScalAurocBefore}{0.67}
+\newcommand{\qQScalAurocIso}{0.67}
+\newcommand{\qQScalPass}{29}
+\newcommand{\qQScalWrong}{63}
+\newcommand{\qQScalWithinFifty}{58}
+\newcommand{\qQScalWithinHundred}{76}
+\newcommand{\qQScalWithinFiveHundred}{95}
+\newcommand{\qQScalShiftWithinFiveHundred}{97}
+\newcommand{\qQShufTriv}{+34}
+\newcommand{\qQShufWithin}{90}
+\newcommand{\qQShufEceBefore}{67}
+\newcommand{\qQShufEceIso}{3}
+\newcommand{\qQShufAurocBefore}{0.50}
+\newcommand{\qQShufAurocIso}{0.50}
+\newcommand{\qQShufPass}{97}
+\newcommand{\qQShufWrong}{76}
+\newcommand{\qQShufWithinFifty}{56}
+\newcommand{\qQShufWithinHundred}{74}
+\newcommand{\qQShufWithinFiveHundred}{94}
+\newcommand{\qQShufShiftWithinFiveHundred}{93}
+\newcommand{\qQOwnTriv}{+25}
+\newcommand{\qQOwnWithin}{89}
+\newcommand{\qQOwnEceBefore}{26}
+\newcommand{\qQOwnEceIso}{4}
+\newcommand{\qQOwnAurocBefore}{0.63}
+\newcommand{\qQOwnAurocIso}{0.62}
+\newcommand{\qQOwnPass}{0}
+\newcommand{\qQOwnWrong}{--}
+\newcommand{\qQOwnWithinFifty}{60}
+\newcommand{\qQOwnWithinHundred}{75}
+\newcommand{\qQOwnWithinFiveHundred}{93}
+\newcommand{\qQOwnShiftWithinFiveHundred}{87}
+\newcommand{\qGTcalTriv}{+19}
+\newcommand{\qGTcalWithin}{90}
+\newcommand{\qGTcalEceBefore}{53}
+\newcommand{\qGTcalEceIso}{4}
+\newcommand{\qGTcalAurocBefore}{0.70}
+\newcommand{\qGTcalAurocIso}{0.70}
+\newcommand{\qGTcalPass}{78}
+\newcommand{\qGTcalWrong}{68}
+\newcommand{\qGTcalWithinFifty}{59}
+\newcommand{\qGTcalWithinHundred}{70}
+\newcommand{\qGTcalWithinFiveHundred}{94}
+\newcommand{\qGTcalShiftWithinFiveHundred}{92}
+\newcommand{\qGScalTriv}{+22}
+\newcommand{\qGScalWithin}{90}
+\newcommand{\qGScalEceBefore}{21}
+\newcommand{\qGScalEceIso}{4}
+\newcommand{\qGScalAurocBefore}{0.70}
+\newcommand{\qGScalAurocIso}{0.69}
+\newcommand{\qGScalPass}{27}
+\newcommand{\qGScalWrong}{52}
+\newcommand{\qGScalWithinFifty}{56}
+\newcommand{\qGScalWithinHundred}{73}
+\newcommand{\qGScalWithinFiveHundred}{93}
+\newcommand{\qGScalShiftWithinFiveHundred}{92}
+\newcommand{\qGShufTriv}{+35}
+\newcommand{\qGShufWithin}{87}
+\newcommand{\qGShufEceBefore}{63}
+\newcommand{\qGShufEceIso}{3}
+\newcommand{\qGShufAurocBefore}{0.49}
+\newcommand{\qGShufAurocIso}{0.49}
+\newcommand{\qGShufPass}{98}
+\newcommand{\qGShufWrong}{73}
+\newcommand{\qGShufWithinFifty}{52}
+\newcommand{\qGShufWithinHundred}{72}
+\newcommand{\qGShufWithinFiveHundred}{91}
+\newcommand{\qGShufShiftWithinFiveHundred}{93}
+\newcommand{\qGOwnTriv}{+32}
+\newcommand{\qGOwnWithin}{90}
+\newcommand{\qGOwnEceBefore}{33}
+\newcommand{\qGOwnEceIso}{3}
+\newcommand{\qGOwnAurocBefore}{0.63}
+\newcommand{\qGOwnAurocIso}{0.63}
+\newcommand{\qGOwnPass}{10}
+\newcommand{\qGOwnWrong}{44}
+\newcommand{\qGOwnWithinFifty}{59}
+\newcommand{\qGOwnWithinHundred}{76}
+\newcommand{\qGOwnWithinFiveHundred}{90}
+\newcommand{\qGOwnShiftWithinFiveHundred}{88}
+\newcommand{\qWithinMin}{81}
+\newcommand{\qWithinMax}{93}
+\newcommand{\qTrivMin}{+19}
+\newcommand{\qTrivMax}{+35}
+\newcommand{\qEceShiftMax}{9}
+\newcommand{\qEceLogoddsMax}{10}
+\newcommand{\qEceIsoMax}{4}
+\newcommand{\qPassAfterMax}{under 1}
+\newcommand{\qExpHeld}{6}
+\newcommand{\qExpAll}{8}
+\newcommand{\tableNqfix}{\begin{tabular}{llrrrrrrrrrrr}
+\toprule
+ & & & \multicolumn{2}{c}{Gap} & \multicolumn{3}{c}{Within 5, \% of draws} & \multicolumn{3}{c}{ECE} & \multicolumn{2}{c}{AUROC} \\
+Stud. & Labels & Fmt & Before & Trivia & Shift & Log & Iso & Shift & Log & Iso & Before & Iso \\
+\midrule
+Qwen & t-cal. & 93 & +56 & +20 & 82 & 90 & 91 & 6 & 4 & 4 & 0.67 & 0.67 \\
+Qwen & s-fit & 92 & +20 & +23 & 92 & 90 & 91 & 8 & 5 & 4 & 0.67 & 0.67 \\
+Qwen & shuf. & 93 & +67 & +34 & 90 & 89 & 90 & 5 & 9 & 3 & 0.50 & 0.50 \\
+Qwen & own & 88 & +26 & +25 & 81 & 88 & 89 & 9 & 4 & 4 & 0.63 & 0.62 \\
+Gran. & t-cal. & 96 & +53 & +19 & 91 & 90 & 90 & 9 & 5 & 4 & 0.70 & 0.70 \\
+Gran. & s-fit & 96 & +21 & +22 & 90 & 90 & 90 & 4 & 3 & 4 & 0.70 & 0.69 \\
+Gran. & shuf. & 95 & +63 & +35 & 88 & 86 & 87 & 5 & 10 & 3 & 0.49 & 0.49 \\
+Gran. & own & 89 & +33 & +32 & 87 & 90 & 90 & 3 & 3 & 3 & 0.63 & 0.63 \\
+\bottomrule
+\end{tabular}}
 \newcommand{\latePredHeld}{53}
 \newcommand{\latePredAll}{61}
 \newcommand{\tableCard}{\begin{tabular}{p{0.34\linewidth}p{0.13\linewidth}p{0.13\linewidth}p{0.14\linewidth}p{0.18\linewidth}}
