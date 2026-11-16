@@ -56,6 +56,9 @@ def walk_cells(table):
                 yield from walk_cells(t)
 
 
+BODY_GAP = 2.5  # points of space after a body paragraph
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("template"); ap.add_argument("body"); ap.add_argument("out")
@@ -179,7 +182,15 @@ def main():
             if sid in STYLE_MAP and STYLE_MAP[sid] in names:
                 p.style = doc.styles[STYLE_MAP[sid]]
             elif sid in ("BodyText", "FirstParagraph", "Compact", "BlockText"):
+                is_item = p._p.pPr.find(qn("w:numPr")) is not None
                 p.style = doc.styles["normal"]
+                if is_item:  # the template has no list style: draw the bullet and hang the text
+                    p._p.pPr.remove(p._p.pPr.find(qn("w:numPr")))
+                    from docx.shared import Cm
+                    p.paragraph_format.left_indent = Cm(0.6)
+                    p.paragraph_format.first_line_indent = Cm(-0.4)
+                    r = p.runs[0] if p.runs else p.add_run()
+                    r.text = "\u2022\u00a0\u00a0" + r.text
             elif sid in ("ImageCaption", "TableCaption", "Caption"):
                 p.style = doc.styles["normal"]
                 for r in p.runs:
@@ -189,6 +200,27 @@ def main():
                 p.paragraph_format.space_before = Pt(10 if above else 4)
                 p.paragraph_format.space_after = Pt(4 if above else 10)
                 p.paragraph_format.keep_with_next = above
+        M_NS = "{http://schemas.openxmlformats.org/officeDocument/2006/math}"
+        for p in doc.paragraphs:  # air: a little after every body paragraph, more around a displayed formula
+            if p.text.strip().startswith("EQNSTART"):  # a numbered formula: centred, its number at the right margin
+                from docx.enum.text import WD_TAB_ALIGNMENT
+                sec = doc.sections[0]
+                width = sec.page_width - sec.left_margin - sec.right_margin
+                p.paragraph_format.tab_stops.add_tab_stop(width // 2, WD_TAB_ALIGNMENT.CENTER)
+                p.paragraph_format.tab_stops.add_tab_stop(width, WD_TAB_ALIGNMENT.RIGHT)
+                p.paragraph_format.space_before = Pt(8)
+                p.paragraph_format.space_after = Pt(8)
+                for r in p.runs:
+                    if "EQNSTART" in r.text:
+                        r.text = r.text.replace("EQNSTART", "\t").strip(" ")
+                    if "EQNNUM" in r.text:
+                        import re as _re
+                        r.text = _re.sub(r"\s*EQNNUM(\d)", lambda m: "\t(" + m.group(1) + ")", r.text)
+            elif p._p.find(".//" + M_NS + "oMathPara") is not None:
+                p.paragraph_format.space_before = Pt(8)
+                p.paragraph_format.space_after = Pt(8)
+            elif p.style.name.lower() == "normal" and p.paragraph_format.space_after is None and p.text.strip():
+                p.paragraph_format.space_after = Pt(BODY_GAP)
         for p in doc.paragraphs:  # the image itself: space above, and keep it on the page of its caption
             if p._p.find(".//" + qn("w:drawing")) is not None:
                 p.paragraph_format.space_before = Pt(10)

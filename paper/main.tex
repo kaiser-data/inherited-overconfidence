@@ -33,20 +33,27 @@ Epistemics is about how we come to know things, and part of knowing is knowing h
 
 \textbf{This paper: where the confidence comes from.} We study the second half, training. Small models are routinely fine-tuned on the answers of larger ones, and where the records carry the teacher's confidence, it travels with its answers. People show what can go wrong: one can take on an expert's certainty with the vocabulary, without the training behind it: the Dunning--Kruger effect \cite{kruger}, which we use as an analogy for the risk, not as a claim about mechanism. For a student that knows less than its teacher, the short answer is a \emph{slider for confidence}: the numbers in the training records set how sure the student sounds, and hardly change what it knows. Nobody has to push the slider for harm to happen: if the records are used as written, it stays where the teacher left it, and the student is overconfident. Set against the student's own accuracy, the same slider is the repair.
 
-To measure this we use one quantity. The \textbf{overconfidence gap} is mean stated confidence minus accuracy, in percentage points, on 1{,}000 held-out trivia questions. \textbf{Positive = overconfident} (``90\%'' at 60\% right is +30), \textbf{negative = underconfident}, and the target is 0.
+To measure this we use one quantity, the \textbf{overconfidence gap} (Equation~1), in percentage points on 1{,}000 held-out trivia questions:
+
+EQNSTART $\displaystyle \text{overconfidence gap} \;=\; \text{stated confidence (\%)} \;-\; \text{accuracy (\%)}$ EQNNUM1
+
+\begin{itemize}
+\item \textbf{Above 0: overconfident.} States 90\%, accuracy 60\%: gap +30.
+\item \textbf{Below 0: underconfident.} States 55\%, accuracy 60\%: gap $-$5. The target is 0.
+\end{itemize}
 
 \textbf{The result in one example.} Asked who wrote the opera \emph{A Masked Ball} (Verdi), a Qwen3.5-9B student of DeepSeek-V4.1-Flash answered ``Giacomo Puccini''. It said so with \dExRaw{}\% confidence when trained on the teacher's own confidence, with \dExTcal{}\% when the teacher's records had first been calibrated, and with \dExScal{}\% when the same records carried confidence fitted to the student. Same model, same training answers, same wrong reply; only the numbers differed.
 
 
-\textbf{Three results} (Section 4).
-\begin{enumerate}
-\item \emph{Confidence can be set without changing knowledge.} The students stated the confidence of their records, from \dQGreedyConfRange{}\%, while their accuracy stayed near 60\%.
-\item \emph{The right setting belongs to the student, not the teacher.} A calibrated teacher (its confidence matches its accuracy) still left the students overconfident by \dQTcalGap{} and \dGTcalGap{} points; confidence fitted to the student left \dQScalGap{} and \dGScalGap{}.
-\item \emph{The teacher's calibrated confidence can teach which questions are hard.} On trivia the students were right on \dQSelTcal{}\% and \dGSelTcal{}\% of their more confident half, against \dQSelShuf{}\% and \dGSelShuf{}\% with shuffled confidence labels; on multiple choice they learned no such ranking.
-\end{enumerate}
+\textbf{Three results.}
+\begin{itemize}
+\item \textbf{Confidence can be set without changing knowledge.} Stated confidence followed the labels, from \dQGreedyConfRange{}\%; accuracy stayed near 60\%.
+\item \textbf{The right setting belongs to the student, not the teacher.} A calibrated teacher (its confidence matches its accuracy) left the students overconfident by \dQTcalGap{} and \dGTcalGap{} points; labels fitted to the student left \dQScalGap{} and \dGScalGap{}.
+\item \textbf{The teacher's calibrated confidence can teach which questions are hard.} On trivia the students were right on \dQSelTcal{} and \dGSelTcal{}\% of their more confident half, against \dQSelShuf{} and \dGSelShuf{}\% with shuffled labels; not on multiple choice.
+\end{itemize}
 \textbf{What is new} (as far as we know). Earlier studies used one model as its own teacher \cite{sumit,roe}, fitted confidence to a model's own answers \cite{lin}, or measured the student's task accuracy \cite{kdcal,zhan}. We hold a much stronger teacher's answers fixed and change only their confidence labels, isolating the transfer of confidence from that of task performance: the level transfers, the knowledge mostly does not, and calibrating the teacher does not calibrate the student.
 
-\textbf{Sprint tracks.} \emph{Track 1, Model Epistemics Evals:} a signed metric for this mismatch, its decomposition and a registered protocol for testing it after distillation. \emph{Track 2, Trust Infrastructure:} audits and provenance tags on training records.
+\textbf{Sprint tracks.} Track 1, Model Epistemics Evals (the metric and a registered test of it after distillation); Track 2, Trust Infrastructure (audits and tags on training records).
 
 \section*{2. Related Work}
 
@@ -56,15 +63,9 @@ To measure this we use one quantity. The \textbf{overconfidence gap} is mean sta
 
 \section*{3. Methods}
 
-\textbf{The study in one picture.} Figure~1 shows the design. A large \emph{teacher} model answers trivia questions and states a confidence. Its replies become the training \emph{records}. A small \emph{student} model is fine-tuned on them and then answers questions it has never seen. We compare how sure the student says it is with how often it is right.
+\textbf{The study in one picture} (Figure~1). A large \emph{teacher} model answers trivia questions and states a confidence. Its replies become the training \emph{records}. A small \emph{student} model is fine-tuned on them and then answers questions it has never seen. We compare how sure the student says it is with how often it is right.
 
-\textbf{What is set and what is measured.} One thing is set on purpose: the confidence number in the training records (the slider), with questions and answers held fixed. We measure what else happens: (1) does accuracy move with the slider, and does the teacher's knowledge come along; (2) does a setting that is honest for the teacher fit the student, and which setting does; (3) does the student learn only a level, or also which questions are hard.
-
-\begin{figure}[h]
-\centering
-\includegraphics[width=\linewidth]{fig7-design.pdf}
-\caption{\textbf{Figure 1. The experiment in four steps.} Only the confidence number in the training records changes; the answers stay the same. Source: \texttt{paper/figures.py}.}
-\end{figure}
+\textbf{What is set and what is measured.} One thing is set on purpose: the confidence label in the training records, with questions and answers held fixed. We measure whether accuracy moves with it, whether a setting that is honest for the teacher fits the student, and whether the student learns only a level or also which questions are hard.
 
 \textbf{Terms.}
 \begin{itemize}
@@ -74,19 +75,28 @@ To measure this we use one quantity. The \textbf{overconfidence gap} is mean sta
 \item \emph{Greedy and sampled answer:} the greedy answer takes the most likely token at each step (temperature 0); the sampled answer is one reply drawn at random (temperature 1).
 \end{itemize}
 
-\textbf{Questions and scoring.} Questions come from TriviaQA \cite{joshi}, general-knowledge questions with a list of accepted answers each. Answers can be scored by rule, and the students get roughly 60\% right, which leaves room for over- and underconfidence. From its validation split (questions only, no documents) we drew three disjoint sets with a fixed seed: 2{,}000 questions to set up teachers, 2{,}000 for the training records and 1{,}000 for testing. No test question appears in any training set. A reply counts as correct if its answer matches an accepted answer after normalisation; two LLM graders agreed with this rule on \scoreAgreeRange{}\% and \haikuAgreeRange{}\% of answers (Appendix B).
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.9\linewidth]{fig7-design.pdf}
+\caption{\textbf{Figure 1. The experiment in four steps.} Only the confidence number in the training records changes; the answers stay the same. Source: \texttt{paper/figures.py}.}
+\end{figure}
+
+\textbf{Questions and scoring.} Questions come from TriviaQA \cite{joshi}, general-knowledge questions with a list of accepted answers each. Answers can be scored by rule, and the students get roughly 60\% right. From its validation split (questions only, no documents) we drew three disjoint sets with a fixed seed: 2{,}000 questions to set up teachers, 2{,}000 for the training records and 1{,}000 for testing. No test question appears in any training set. A reply counts as correct if its answer matches an accepted answer after normalisation; two LLM graders agreed with this rule on \scoreAgreeRange{}\% and \haikuAgreeRange{}\% of answers (Appendix B).
 
 \textbf{Models and training.} Every student is an open-weight model trained with LoRA \cite{hu}: added weights are trained while the base model stays untouched, so all students of a model start identical (settings: Appendix B). The teachers are hosted open-weight models (Appendix A).
 
 \textbf{The metric and its decomposition.} The overconfidence gap is not new: it is the overconfidence measure of the calibration literature \cite{lf77,lichtenstein}, the signed counterpart of the expected calibration error (ECE) \cite{guo}. It is signed, readable in points, and splits into parts; that decomposition for a distilled student is what we add. Its limits: the same gap can come from higher accuracy or lower confidence, so we show both; as an average it can hide errors that cancel (ECE catches that); and it does not say whether confidence is higher on right answers (AUROC does). It depends on the question set, so comparisons hold the questions fixed. For a model $M$ that answers the questions $Q$ with stated confidences $c_i$ (in percent) and correctness $y_i\in\{0,1\}$,
-\[ G(M,Q) \;=\; \frac{1}{|Q|}\sum_{i\in Q} c_i \;-\; \frac{100}{|Q|}\sum_{i\in Q} y_i \;=\; C_M - A_M . \]
-For a student $S$ trained on a teacher's records with mean confidence label $L$ and accuracy $A_T$ (both on the training questions; $C_S$ and $A_S$ on the test questions), the gap splits exactly into three measurable parts:
-\[ G_S \;=\; (C_S - L) \;+\; (L - A_T) \;+\; (A_T - A_S) . \]
+
+EQNSTART $\displaystyle G(M,Q) \;=\; \frac{1}{|Q|}\sum_{i\in Q} c_i \;-\; \frac{100}{|Q|}\sum_{i\in Q} y_i \;=\; C_M - A_M$ EQNNUM2
+
+For a student $S$ trained on a teacher's records with mean confidence label $L$ and accuracy $A_T$ (both on the training questions; $C_S$ and $A_S$ on the test questions), the gap splits exactly into three measurable parts (Equation~3):
+
+EQNSTART $\displaystyle G_S \;=\; (C_S - L) \;+\; (L - A_T) \;+\; (A_T - A_S)$ EQNNUM3
+
 The first is the \emph{copying error} (how far the student departs from its labels), the second the \emph{label gap} (the overconfidence left in the records), the third the \emph{accuracy difference} between teacher and student. This is an accounting identity, not a mechanism; its use is that each part has its own remedy: calibrating the teacher targets the label gap and does not address the third term.
 
 \textbf{Lead experiment.} Teachers: DeepSeek-V4.1-Flash, \dTeacherAcc{}\% accurate, and Qwen3.8-27B with thinking off, \dMTeacherAcc{}\% accurate, about as accurate as the students (a check that the effect comes from the accuracy difference). Students: Qwen3.5-9B and Granite-4.1-8B. From each teacher's \dTeacherKept{} usable records we built training sets with \emph{identical answers} and four confidence labellings: (a) the teacher's own; (b) \emph{calibrated for the teacher}; (c) \emph{fitted to the student}; (d) for DeepSeek, the calibrated labels \emph{shuffled}: the same labels dealt at random to other records, keeping the level but not which question got which label. Two further controls: a student trained on its own audited records, and a \emph{held-out correction}, the standard step of recalibrating a trained student on 2{,}000 further questions that none of these models was trained on. Two extensions, 12 further students: the same records with the confidence as one of six fixed phrases instead of a number, and a second test set, 1{,}000 questions of Natural Questions. In total \dCells{} students were trained, and four more for seeds of the shuffled labelling; six configurations have three seeds.
 
-\textbf{Hosted models for comparison.} \panelIncluded{} hosted open-weight models answered the same test questions with the same prompt (greedy answer; Table~14).
 
 \textbf{Supporting experiments.} To see the mechanism without an accuracy difference, teacher and student share one base model (Qwen2.5-7B, Llama-3.1-8B, Qwen3-8B): teachers fine-tuned to known gaps, audited and tagged records, chains of four generations; \nStudentsAll{} students.
 
@@ -94,18 +104,18 @@ The first is the \emph{copying error} (how far the student departs from its labe
 
 \section*{4. Results}
 
-\textbf{Starting point: hosted models sound sure.} The hosted models were right on \panelAccRange{}\% of the questions and stated \panelConfRange{}\%, all overconfident (median \panelGapMedian{}, up to \panelGapMax{}).
+\textbf{Starting point: hosted models sound sure.} On the same test questions and prompt, \panelIncluded{} hosted open-weight models (Table~14) were right on \panelAccRange{}\% of the questions and stated \panelConfRange{}\%, all overconfident (median \panelGapMedian{}, up to \panelGapMax{}).
 
-\textbf{4.1 Result 1: confidence can be set without changing knowledge.} Every trained model stated the confidence of its records: in all \dCells{} the mean stated confidence was within \dCopyMax{} points of the mean label (Figure~2a,b). The slider is precise and overwrote what was there: untrained, both students stated about 95\%. Accuracy hardly moved. A later sweep, registered first, set the label mean to 50, 65 and 80\%: the students stated within \vDevMax{} points of each and accuracy stayed within \vAccDiffSampledMax{} points (Figure~9). In the main settings the greedy answer differed by under half a point; the sampled answer was about two points lower at the highest setting (Table~2). The teacher's knowledge hardly came along: against the control students accuracy rose by three to four points, about a tenth of the \dAccDiff{} points between teacher and student. \emph{Conclusion:} how sure these students sound was set by their records; how much they know was not.
+\textbf{4.1 Result 1: confidence can be set without changing knowledge.} Every trained model stated the confidence of its records: in all \dCells{} the mean stated confidence was within \dCopyMax{} points of the mean label. The slider is precise and overwrote what was there: untrained, both students stated about 95\%. Accuracy hardly moved. A later sweep, registered first, set the label mean to 50, 65 and 80\%: the students stated within \vDevMax{} points of each and accuracy stayed within \vAccDiffSampledMax{} points (Figure~2a). In the main settings the greedy answer differed by under half a point; the sampled answer was about two points lower at the highest setting (Table~2). The teacher's knowledge hardly came along: against the control students accuracy rose by three to four points, about a tenth of the \dAccDiff{} points between teacher and student. \emph{Conclusion:} how sure these students sound was set by their records; how much they know was not.
 
 
 \begin{figure}[h]
 \centering
 \includegraphics[width=0.95\linewidth]{fig8-slider.pdf}
-\caption{\textbf{Figure 2. The three results in one picture.} (a, b) Each student trained on the same teacher answers under three confidence labellings. What it says follows the labels; how often it is right stays near 60\%. The gap (says minus is right) is still about 30 points with labels calibrated for the teacher and near zero only when fitted to the student. (c) How often a student is right when it answers only the half of the questions it is surer about; line: right on all questions. With the calibrated labels it picks its better answers on trivia; with shuffled labels, or on multiple choice, it does not. Sampled answer, seed 1; Tables~2, 3 and 8. Source: \texttt{paper/figures.py}.}
+\caption{\textbf{Figure 2. The three results in one picture.} ``How sure'': the confidence a student states; ``how correct'': the share of its answers that are right. (a) The slider. With the training labels set to four levels, how sure the students are follows the labels and how correct they are stays near 60\% (circles Qwen3.5-9B, squares Granite-4.1-8B; numbers: mean of both). (b) The overconfidence gap for three ways of labelling the same answers: still about 30 points with labels calibrated for the teacher, near zero only when fitted to the student. (c) How correct a student is on the half of its answers it is surer about; line: on all questions. It picks its better answers only with calibrated labels on trivia. Sampled answer, seed 1; Tables~2, 3, 8, Figure~9. Source: \texttt{paper/figures.py}.}
 \end{figure}
 
-\textbf{4.2 Result 2: the right setting belongs to the student, not the teacher.} With the teacher's own confidence in the records, both students stated \dQRawConf{}\% and were right about 60\% of the time: about 40 points overconfident. Calibrating the records for the teacher lowered the label to \dTcalLabel{}\%. If an honest label were a property of the records, that would be enough. The correction arrived intact, the students' gaps fell by about the same nine to ten points, and it was not enough: they were still overconfident by \dQTcalGap{} and \dGTcalGap{} points (Figure~2a,b), across seeds, graders and readouts (Table~2). The decomposition of Section~3 shows why: nearly all of what remains is the accuracy difference between teacher and student (about 32 points for Qwen3.5-9B), which calibrating the teacher does not touch. With a teacher of the students' own accuracy, Qwen3.8-27B, the calibrated gaps were only \dQMTcalGap{} and \dGMTcalGap{}. The same answers with confidence fitted to the student gave \dQScalGap{} and \dGScalGap{}: slightly \emph{under}confident, because the teacher's answers had made the students about three points more accurate. Recalibrating the trained student on held-out questions left at most \dRecalMax{} points. Every registered prediction of the lead experiment held under the rule scorer; the second grader put the fitted students just outside the registered 7 points. \emph{Conclusion:} a confidence level is honest only for the model it was measured on.
+\textbf{4.2 Result 2: the right setting belongs to the student, not the teacher.} With the teacher's own confidence in the records, both students stated \dQRawConf{}\% and were right about 60\% of the time: about 40 points overconfident. Calibrating the records for the teacher lowered the label to \dTcalLabel{}\%. If an honest label were a property of the records, that would be enough. The correction arrived intact, the students' gaps fell by about the same nine to ten points, and it was not enough: they were still overconfident by \dQTcalGap{} and \dGTcalGap{} points (Figure~2b), across seeds, graders and readouts (Table~2). The decomposition (Equation~3) shows why: nearly all of what remains is the accuracy difference between teacher and student (about 32 points for Qwen3.5-9B), which calibrating the teacher does not touch. With a teacher of the students' own accuracy, Qwen3.8-27B, the calibrated gaps were only \dQMTcalGap{} and \dGMTcalGap{}. The same answers with confidence fitted to the student gave \dQScalGap{} and \dGScalGap{}: slightly \emph{under}confident, because the teacher's answers had made the students about three points more accurate. Recalibrating the trained student on held-out questions left at most \dRecalMax{} points. Every registered prediction of the lead experiment held under the rule scorer; the second grader put the fitted students just outside the registered 7 points. \emph{Conclusion:} a confidence level is honest only for the model it was measured on.
 
 
 \textbf{4.3 Result 3: the teacher's calibrated confidence can teach which questions are hard.} Students trained on the calibrated labels could tell which of their answers were more likely to be right, on unseen questions (Figure~2c). Answering only the more confident half of the questions, they were right on \dQSelTcal{}\% and \dGSelTcal{}\% of them. With the same labels shuffled across records they were right on \dQSelShuf{}\% and \dGSelShuf{}\%, close to their accuracy on all questions, although they stated about the same level and kept about the same gap; the own-records controls reached \dQSelOwn{}\% and \dGSelOwn{}\% (post hoc, sampled). So the ranking came from which question carried which label, not from the level. Two further training seeds, registered first, gave the same picture (Figure~4, Table~3). \emph{Conclusion:} the level transfers, the calibration does not, the ranking did, on trivia only.
@@ -124,15 +134,15 @@ The first is the \emph{copying error} (how far the student departs from its labe
 
 \textbf{When a fitted level goes stale.} A label fitted to the untrained student is right only while training leaves its accuracy alone. On trivia it did. On multiple choice the teacher's answers raised accuracy by 10 to 15 points and the label ended up too low, while students trained on their own answers stayed put. The level is also tied to the records, not to the question at hand: on harder questions accuracy fell from about 60 to about 25\% and stated confidence by only 9 to 12 points. A rule that acts only on answers stated at 80\% or more passed \rQTcalPass{} and \rGTcalPass{}\% of the calibrated-teacher students' answers, \rQTcalWrong{} and \rGTcalWrong{}\% of them wrong (Table~4).
 
-\textbf{Limitations.} Two tasks, one large teacher, two students, LoRA on 7--9B models, 2{,}000 training records and mostly one seed; intervals reflect question sampling, not retraining. Every record carried an explicit confidence, a number or one of six phrases; sentences without a number gave a mixed result (Appendix C5) and free wording is untested. A gap near zero is calibration on average and on these questions only (ECE of the fitted students 6.1 and 7.3; about +20 on other questions). The lead experiment was added after the protocol's stopping time and is exploratory; the rule scorer credits the teacher about five points less than the second grader.
+\textbf{Scope.} These results come from one large teacher, two students, two tasks and mostly one seed, with confidence written explicitly in the records; Appendix~A lists the limits in full.
 
 \section*{6. Conclusion}
 
-We studied what happens to stated confidence when a small model is fine-tuned on a larger one's answers. One teacher wrote the answers for two students; only the confidence labels were changed.
+We studied what happens to stated confidence when a small model is fine-tuned on a larger one's answers. One teacher wrote the answers for two students; only the confidence labels changed.
 
 Three things came out. The labels work like a slider: the students stated whatever level their records carried, from \dQGreedyConfRange{}\% and at chosen levels in between, while they stayed right on about 60\% of the questions. The right setting belongs to the student: with the teacher's own labels the students were overconfident by \dQRawGap{} and \dGRawGap{} points, with labels calibrated for the teacher still by \dQTcalGap{} and \dGTcalGap{}, and with labels fitted to the student by \dQScalGap{} and \dGScalGap{}. And on trivia the labels also taught which questions are hard: on the half they were surer about, the students were right \dQSelTcal{} and \dGSelTcal{}\% of the time, against \dQSelShuf{} and \dGSelShuf{}\% with shuffled labels. The first two held with phrases and under other prompts; on multiple choice the fitted label failed for one student, the third result for both.
 
-So a small model trained on a large one can sound like it without having its expertise: a Dunning--Kruger risk by inheritance. Where agents act on confidence, too high means acting on wrong answers and too low holding back right ones. How sure a model sounds is therefore a design choice. Take the level from the student, on its own task, where about 250 checked answers were enough, and from the teacher only its sense of which questions are hard; and report the overconfidence gap beside accuracy. Next come more teachers, tasks and seeds, free wording, and setting the level per kind of question.
+So a small model trained on a large one can sound like it without having its expertise: a Dunning--Kruger risk by inheritance. Where agents act on confidence, too high means acting on wrong answers and too low holding back right ones. How sure a model sounds is therefore a design choice. Take the level from the student, on its own task, where about 250 checked answers were enough, and from the teacher only its sense of which questions are hard; and report the overconfidence gap beside accuracy. What was learned here on trivia and multiple choice is ready to be tested more widely: with more teachers, tasks and seeds, with confidence in free wording, and with a level set per kind of question, towards small models that know what they can do.
 
 
 \section*{Code and Data}

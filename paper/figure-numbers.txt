@@ -114,14 +114,19 @@ wrote fig0-distill.pdf
 [fig6-dunning-kruger] Granite-4.1-8B distilled from DeepSeek-V4.1-Flash: acc 64.4 conf 98.6
 wrote fig6-dunning-kruger.pdf
 
-[fig8-slider] a, Qwen3.5-9B (sampled answer, seed 1): labels, says, is right, gap
-  fitted to student         54.9  60.2  -5.2
-  calibrated for teacher    88.5  57.3 +31.2
-  teacher's own             98.2  58.0 +40.1
-[fig8-slider] b, Granite-4.1-8B (sampled answer, seed 1): labels, says, is right, gap
-  fitted to student         56.7  62.5  -5.8
-  calibrated for teacher    89.1  62.1 +27.0
-  teacher's own             98.3  60.7 +37.6
+[fig8-slider] a, level sweep (sampled answer, seed 1): student, label mean, says, is right
+  Qwen3.5-9B       50.4  48.9  58.6
+  Qwen3.5-9B       65.0  63.3  59.1
+  Qwen3.5-9B       80.8  79.0  57.3
+  Qwen3.5-9B       90.0  88.5  57.3
+  Granite-4.1-8B   50.4  49.4  62.0
+  Granite-4.1-8B   65.0  63.9  61.0
+  Granite-4.1-8B   80.8  78.7  62.6
+  Granite-4.1-8B   90.0  89.1  62.1
+[fig8-slider] b, overconfidence gap (sampled answer, seed 1): labels, Qwen3.5-9B, Granite-4.1-8B
+  teacher's own            +40.1 +37.6
+  teacher calibrated       +31.2 +27.0
+  fitted to student         -5.2  -5.8
 [fig8-slider] c, right on the more confident half (%), sampled answer, seed 1: questions, student, calibrated labels, shuffled, all questions (calibrated)
   Trivia           Qwen3.5-9B       75.0  60.1  57.3
   Trivia           Granite-4.1-8B   79.7  61.6  62.1

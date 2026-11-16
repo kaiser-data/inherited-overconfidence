@@ -360,40 +360,63 @@ def fig_main(name="fig8-slider", teacher="ds41f"):
     the gap. c: how often it is right when it answers only the half of the questions it is surer about,
     trained on the calibrated labels or on the same labels shuffled; trivia and multiple choice.
     Sampled answer, seed 1."""
-    need = [RES / "dist_cells.json", RES / "dist_stats.json", RES / "mc_stats.json"]
+    need = [RES / "dist_cells.json", RES / "dist_stats.json", RES / "mc_stats.json", RES / "lvl_stats.json"]
     if not all(f.exists() for f in need):
         return
-    cells, dstat, mc = (json.loads(f.read_text()) for f in need)
-    SAYS, RIGHT, SHUF = ACCENT, "#9aa3ad", "#e9c9b6"
-    fig, axes = plt.subplots(1, 3, figsize=(6.9, 2.85), gridspec_kw={"width_ratios": [1.12, 1.12, 1.3]})
+    cells, dstat, mc = (json.loads(f.read_text()) for f in need[:3])
+    SAYS, SHUF = ACCENT, "#e9c9b6"
+    fig, axes = plt.subplots(1, 3, figsize=(6.9, 2.6), gridspec_kw={"width_ratios": [1.1, 1.1, 1.4]})
     r0 = lambda v: f"{v:.0f}"
 
     def cell(f, tname):
         return next(r for r in cells if r["family"] == f and r["teacher"] == tname and r["readout"] == "sampled" and r["seed"] == 1)
-    for pi, (ax, fam) in enumerate(zip(axes[:2], STUDENT)):
-        sets = (("fitted to\nstudent", f"{teacher}__scal_{fam}"), ("calibrated\nfor teacher", f"{teacher}__tcal"),
-                ("teacher's\nown", f"{teacher}__raw"))
-        print(f"[{name}] {'ab'[pi]}, {STUDENT[fam]} (sampled answer, seed 1): labels, says, is right, gap")
-        for i, (lab, tname) in enumerate(sets):
-            c = cell(fam, tname)
-            ax.bar(i - 0.2, c["conf"], 0.38, color=SAYS, zorder=2, label="says" if i == 0 else None)
-            ax.bar(i + 0.2, c["accuracy"], 0.38, color=RIGHT, zorder=2, label="is right" if i == 0 else None)
-            ax.text(i - 0.2, c["conf"] + 1.5, r0(c["conf"]), ha="center", va="bottom", fontsize=8, color=INK)
-            ax.text(i + 0.2, c["accuracy"] + 1.5, r0(c["accuracy"]), ha="center", va="bottom", fontsize=8, color=INK)
-            g = round(c["gap"])
-            ax.text(i, 112, f"gap\n{'+' if g > 0 else '−'}{abs(g)}", ha="center", va="bottom", linespacing=1.0,
-                    fontsize=8, fontweight="bold", color=ACCENT if g > 10 else RAMP[5])
-            print(f"  {lab.replace(chr(10), ' '):24s} {c['conf']:5.1f} {c['accuracy']:5.1f} {c['gap']:+5.1f}")
-        ax.set_xticks(range(3)); ax.set_xticklabels([x[0] for x in sets], fontsize=7)
-        ax.set_xlim(-0.6, 2.6); ax.set_ylim(0, 150); ax.set_yticks([0, 20, 40, 60, 80, 100])
-        if pi == 0:
-            ax.set_ylabel("percent")
-            ax.legend(loc="upper left", fontsize=7.5, frameon=False, ncol=2, handlelength=1.0, handletextpad=0.4,
-                      columnspacing=1.0, borderaxespad=0.1)
-        else:
-            ax.set_yticklabels([])
-        ax.grid(axis="y", color=GRID, lw=0.6, zorder=0); ax.set_axisbelow(True); ax.tick_params(axis="x", length=0)
-        ax.set_title(f"{'ab'[pi]}  {STUDENT[fam]}", fontsize=8, loc="left", fontweight="bold")
+    # a: the slider. Calibrated labels shifted to a chosen mean (level sweep) plus the calibrated cell itself.
+    lv = json.loads((RES / "lvl_stats.json").read_text())
+    ax = axes[0]
+    ax.plot([44, 96], [44, 96], color=MUTED, lw=0.8, ls="--", zorder=1)
+    ax.text(46, 97.5, "dashed: sure = label", fontsize=6.3, color=MUTED, ha="left", va="top")
+    print(f"[{name}] a, level sweep (sampled answer, seed 1): student, label mean, says, is right")
+    P = {fam: sorted(lv[fam]["sampled"]["points"].values(), key=lambda p: p["label"]) for fam in STUDENT}
+    for fam, mk in zip(STUDENT, ("o", "s")):
+        xs = [p["label"] for p in P[fam]]
+        ax.plot(xs, [p["conf"] for p in P[fam]], color=SAYS, lw=1.3, marker=mk, ms=4.5, zorder=3)
+        ax.plot(xs, [p["accuracy"] for p in P[fam]], color="#7d8791", lw=1.3, marker=mk, ms=4.5, mfc="white", mew=1.0, zorder=3)
+        for p in P[fam]:
+            print(f"  {STUDENT[fam]:15s} {p['label']:5.1f} {p['conf']:5.1f} {p['accuracy']:5.1f}")
+    q, g = P[list(STUDENT)[0]], P[list(STUDENT)[1]]
+    for k, (pq, pg) in enumerate(zip(q, g)):  # one number per level: the mean of the two students (they differ by at most 1)
+        low = k == 0
+        ax.annotate(f"{(pq['conf'] + pg['conf']) / 2:.0f}%", (pq["label"], pq["conf"]), xytext=(5, -5) if low else (-4, 5),
+                    textcoords="offset points", ha="left" if low else "right", va="top" if low else "bottom", fontsize=7.5, color=SAYS, fontweight="bold")
+    ax.text(74, 68, "how sure (%)", fontsize=7.5, color=SAYS, fontweight="bold", ha="left", va="center")
+    ax.text(95, 54.5, "how correct (%)", fontsize=7.5, color=INK, fontweight="bold", ha="right", va="top")
+    ax.set_xlim(44, 96); ax.set_ylim(40, 100)
+    ax.set_xticks([p["label"] for p in q]); ax.set_xticklabels([f"{p['label']:.0f}" for p in q])
+    ax.set_yticks([40, 60, 80, 100])
+    ax.set_xlabel("confidence label in training (%)"); ax.set_ylabel("%", rotation=0, labelpad=6)
+    ax.grid(color=GRID, lw=0.6, zorder=0); ax.set_axisbelow(True)
+    ax.set_title("a  The slider", fontsize=8, loc="left", fontweight="bold")
+
+    # b: the gap under the three labellings of the lead experiment, both students
+    bx = axes[1]
+    sets = (("teacher's\nown", "raw"), ("teacher\ncalibrated", "tcal"), ("fitted to\nstudent", "scal"))
+    bx.axhline(0, color=INK, lw=0.7, zorder=3)
+    print(f"[{name}] b, overconfidence gap (sampled answer, seed 1): labels, Qwen3.5-9B, Granite-4.1-8B")
+    for i, (lab, key) in enumerate(sets):
+        vals = []
+        for j, (fam, col) in enumerate(zip(STUDENT, (SAYS, "#d9a07f"))):
+            c = cell(fam, f"{teacher}__scal_{fam}" if key == "scal" else f"{teacher}__{key}")
+            gp = c["gap"]; vals.append(gp)
+            bx.bar(i + (j - 0.5) * 0.4, gp, 0.38, color=col, zorder=2, label=STUDENT[fam] if i == 0 else None)
+            bx.text(i + (j - 0.5) * 0.4, gp + (1.5 if gp > 0 else -1.5), f"{'+' if gp > 0 else '−'}{abs(round(gp))}", ha="center",
+                    va="bottom" if gp > 0 else "top", fontsize=6.8, color=INK)
+        print(f"  {lab.replace(chr(10), ' '):24s} {vals[0]:+5.1f} {vals[1]:+5.1f}")
+    bx.set_xticks(range(3)); bx.set_xticklabels([x[0] for x in sets], fontsize=6.3)
+    bx.set_xlim(-0.6, 2.6); bx.set_ylim(-14, 50); bx.set_yticks([0, 20, 40])
+    bx.set_ylabel("percentage points", labelpad=1)
+    bx.legend(loc="upper right", fontsize=7, frameon=False, handlelength=1.0, handletextpad=0.4, borderaxespad=0.1)
+    bx.grid(axis="y", color=GRID, lw=0.6, zorder=0); bx.set_axisbelow(True); bx.tick_params(axis="x", length=0)
+    bx.set_title("b  How sure minus how correct", fontsize=8, loc="left", fontweight="bold")
 
     cx = axes[2]
     print(f"[{name}] c, right on the more confident half (%), sampled answer, seed 1: questions, student, calibrated labels, shuffled, all questions (calibrated)")
@@ -411,18 +434,18 @@ def fig_main(name="fig8-slider", teacher="ds41f"):
             cx.bar(x - 0.2, a, 0.38, color=SAYS, zorder=2, label="calibrated labels" if first else None)
             cx.bar(x + 0.2, sh, 0.38, color=SHUF, edgecolor=ACCENT, lw=0.6, zorder=2, label="shuffled labels" if first else None)
             cx.plot([x - 0.45, x + 0.45], [allq, allq], color=INK, lw=1.1, zorder=4, label="all questions" if first else None)
-            cx.text(x - 0.2, a + 1.5, r0(a), ha="center", va="bottom", fontsize=8, color=INK)
-            cx.text(x + 0.2, sh + 1.5, r0(sh), ha="center", va="bottom", fontsize=8, color=INK)
+            cx.text(x - 0.2, a + 1.5, r0(a), ha="center", va="bottom", fontsize=7, color=INK)
+            cx.text(x + 0.2, sh + 1.5, r0(sh), ha="center", va="bottom", fontsize=7, color=INK)
             print(f"  {task:16s} {STUDENT[f]:15s} {a:5.1f} {sh:5.1f} {allq:5.1f}")
-            xs.append(x); ticks.append("Qwen" if f.startswith("qwen") else "Granite")
-        cx.text(gi * 2.5 + 0.5, -0.13, task, transform=cx.get_xaxis_transform(), fontsize=8, ha="center", va="top", fontweight="bold")
-    cx.set_xticks(xs); cx.set_xticklabels(ticks, fontsize=7.5)
-    cx.set_xlim(-0.75, 4.25); cx.set_ylim(0, 150); cx.set_yticks([0, 20, 40, 60, 80, 100]); cx.set_yticklabels([])
-    cx.legend(loc="upper left", fontsize=7, frameon=False, ncol=3, handlelength=1.0, handletextpad=0.4, columnspacing=0.8,
+            xs.append(x); ticks.append("Qwen\n3.5-9B" if f.startswith("qwen") else "Granite\n4.1-8B")
+        cx.text(gi * 2.5 + 0.5, -0.19, task, transform=cx.get_xaxis_transform(), fontsize=8, ha="center", va="top", fontweight="bold")
+    cx.set_xticks(xs); cx.set_xticklabels(ticks, fontsize=6.3, linespacing=1.0)
+    cx.set_xlim(-0.75, 4.25); cx.set_ylim(0, 128); cx.set_yticks([0, 20, 40, 60, 80, 100]); cx.set_ylabel("how correct (%)", labelpad=1)
+    cx.legend(loc="upper left", fontsize=6.8, frameon=False, ncol=2, handlelength=1.0, handletextpad=0.4, columnspacing=0.8,
               borderaxespad=0.1, labelspacing=0.25)
     cx.grid(axis="y", color=GRID, lw=0.6, zorder=0); cx.set_axisbelow(True); cx.tick_params(axis="x", length=0)
-    cx.set_title("c  Right on the half it is surer about", fontsize=8, loc="left", fontweight="bold")
-    fig.tight_layout(w_pad=1.4)
+    cx.set_title("c  How correct on its surer half", fontsize=8, loc="left", fontweight="bold")
+    fig.tight_layout(w_pad=0.9)
     save(fig, name)
 
 
@@ -564,7 +587,7 @@ def fig_lvl(name="fig10-levels"):
                         ha="center", va="bottom" if low else "top", fontsize=7.5, color=INK)
             print(f"  {p['label']:5.1f} {p['conf']:5.1f} {p['accuracy']:5.1f}")
         ax.set_xlim(44, 102); ax.set_ylim(36, 108)
-        ax.set_xticks([50, 65, 80, 90, 98]); ax.set_yticks([40, 60, 80, 100])
+        ax.set_xticks([50, 65, 81, 90, 98]); ax.set_yticks([40, 60, 80, 100])
         ax.set_xlabel("mean confidence label in the records (%)")
         if pi == 0:
             ax.set_ylabel("percent on the test questions")
