@@ -464,6 +464,20 @@ def late_macros():
                 put(f"m{fp}SelVsShuf", f"{sg(h['d'])} ({sg(h['lo'])} to {sg(h['hi'])})")
             mh += sum(S[fam]["predictions"].values()); mn += len(S[fam]["predictions"])
             put(f"m{fp}Usd", f"{sum(v.get('usd') or 0 for v in c.values()):.2f}")
+        g = RES / "mc_recal.json"  # held-out correction of the trained students, each half corrected by the other (post hoc)
+        if g.exists():
+            R, worst = json.loads(g.read_text()), 0.0
+            for fam, (fp, fname) in fams:
+                if fam not in R:
+                    continue
+                for k, K in (("scal", "Scal"), ("tcal", "Tcal")):
+                    e = R[fam]["cells"][k]
+                    put(f"m{fp}{K}RecalHalves", f"{sg(e['gap_half_a'], 1)} and {sg(e['gap_half_b'], 1)}")
+                    put(f"m{fp}{K}RecalAuroc", f2(e["auroc_after"]))
+                worst = max([worst] + [abs(e[h]) for e in R[fam]["cells"].values() for h in ("gap_half_a", "gap_half_b")])
+                b = json.loads((RES / "mc" / f"basemc_{fam}.json").read_text())
+                put(f"m{fp}BaseEvalAcc", f"{b['metrics_sampled']['accuracy']:.0f}"); put(f"m{fp}BaseRecAcc", f"{b['d_main']['accuracy']:.0f}")
+            put("mRecalMaxHalf", f"{worst:.1f}")
         put("mPredHeld", mh); put("mPredAll", mn)
         held += mh; n += mn
         M["tableMc"] = ("\\begin{tabular}{llrrrlrrrrrr}\n\\toprule\nStud. & Labels & Label & Says & Acc. & Gap (95\\%) & Gr. & ECE & AUC & Half & Fmt & Acc.* \\\\\n\\midrule\n"

@@ -38,3 +38,15 @@ def test_corrected_maps_stated_confidence_to_measured_accuracy():
     out = thresh.corrected(cal, ev)
     assert abs(out[0]["conf"] - 50.0) < 1e-9 and out[1]["conf"] is None
     assert thresh.rule(out, 80)["passed"] == 0.0
+
+
+def test_cross_fit_never_uses_a_question_for_its_own_correction():
+    import mcrecal
+    # confidence 90 everywhere; first-listed ids all right, the rest all wrong: a fit that saw its own
+    # half would give gap 0 in each half, the cross-fit gives the other half's accuracy instead
+    rows = [{"id": f"q{i:03d}", "answer": "A", "conf": 90.0, "correct": i % 2 == 0} for i in range(200)]
+    a, b = mcrecal.cross_fit(rows, 1)
+    assert len(a) == len(b) == 100 and not {r["id"] for r in a} & {r["id"] for r in b}
+    acc = lambda h: 100 * sum(r["correct"] for r in h) / len(h)
+    assert abs(a[0]["conf"] - acc(b)) < 1e-9 and abs(b[0]["conf"] - acc(a)) < 1e-9
+    assert abs(mcrecal.gap(a + b)) < 1e-9
