@@ -22,7 +22,8 @@ CHAIN_LAMBDAS = [-2.0, 2.0]
 CHAIN_ALPHAS = [0.0, 0.25]
 
 HP = dict(lora_r=16, lora_alpha=32, lr=2e-4, epochs=3, batch=16, warmup=10, max_len=192)
-HP_MC = dict(max_len=768, micro=4)  # multiple-choice arm: questions with up to ten options
+HP_MC = dict(max_len=768, micro=4)
+HP_MC_FAM = {"qwen35": dict(micro=1)}  # Qwen3.5-9B needs more memory per token: pieces of 1  # multiple-choice arm: questions with up to ten options
 LORA_TARGETS = ["q_proj", "k_proj", "v_proj", "o_proj", "gate_proj", "up_proj", "down_proj"]
 # Qwen3.5 uses linear attention in 24 of its 32 layers; its projections have other names.
 # "All attention and MLP projections" therefore needs these as well (by model_type).

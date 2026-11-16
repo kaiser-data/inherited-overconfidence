@@ -144,6 +144,78 @@
      "ece": 42.29999999999999,
      "accuracy_all": 52.7
     }
+   },
+   "tcal_s2": {
+    "label": 90.61224489795919,
+    "usd": 0.549942570924759,
+    "seconds": 791.9173021316528,
+    "n_records": 1911,
+    "n_at_max_len": 0,
+    "checksum_equal": true,
+    "sampled": {
+     "n": 1000,
+     "parsed": 1.0,
+     "accuracy": 51.3,
+     "conf": 89.275,
+     "gap": 37.97500000000001,
+     "gap_lo": 34.77499999999999,
+     "gap_hi": 41.03,
+     "auroc": 0.5185565442238953,
+     "sel50": 52.16,
+     "levels": 5,
+     "ece": 37.975,
+     "accuracy_all": 51.3
+    },
+    "greedy": {
+     "n": 1000,
+     "parsed": 1.0,
+     "accuracy": 52.2,
+     "conf": 92.56,
+     "gap": 40.36,
+     "gap_lo": 37.215,
+     "gap_hi": 43.540000000000006,
+     "auroc": 0.5051399509450296,
+     "sel50": 52.5,
+     "levels": 4,
+     "ece": 40.36000000000001,
+     "accuracy_all": 52.2
+    }
+   },
+   "scal_s2": {
+    "label": 43.52171637885924,
+    "usd": 0.5452949394782385,
+    "seconds": 785.2247128486633,
+    "n_records": 1911,
+    "n_at_max_len": 0,
+    "checksum_equal": true,
+    "sampled": {
+     "n": 1000,
+     "parsed": 1.0,
+     "accuracy": 52.6,
+     "conf": 42.965,
+     "gap": -9.634999999999998,
+     "gap_lo": -12.71,
+     "gap_hi": -6.545000000000002,
+     "auroc": 0.5140439749081517,
+     "sel50": 53.41040462427745,
+     "levels": 3,
+     "ece": 9.634999999999994,
+     "accuracy_all": 52.6
+    },
+    "greedy": {
+     "n": 1000,
+     "parsed": 1.0,
+     "accuracy": 52.1,
+     "conf": 43.785,
+     "gap": -8.315000000000005,
+     "gap_lo": -11.580000000000005,
+     "gap_hi": -5.284999999999997,
+     "auroc": 0.5104203815530596,
+     "sel50": 52.66594124047877,
+     "levels": 2,
+     "ece": 8.315000000000005,
+     "accuracy_all": 52.1
+    }
    }
   },
   "auroc:tcal-shuf": {
@@ -166,6 +238,7 @@
    "M5 greedy: tcal gap >= +15, scal |gap| <= 12": true,
    "M6 shuf: conf within 3 and accuracy within 4 of tcal": true,
    "M7 AUROC tcal >= 0.60 and >= 0.05 above shuf": false,
+   "M8 seed 2 within 4 points of seed 1 (gap)": true,
    "M9 >= 95% in format in every trained cell": true
   },
   "refutation": {

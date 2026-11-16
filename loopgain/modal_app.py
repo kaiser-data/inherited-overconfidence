@@ -572,7 +572,7 @@ def run_cells(cells: list[dict], force: bool = False, fam: str = "qwen25"):
                 info = {**info, "train_conf_mean": sum(r["conf"] for r in recs) / len(recs)}
             Ec, hp = E, config.HP
             if cell.get("mc"):  # multiple-choice arm: its own questions, prompt and token window
-                sysm, Ec, hp = core.SYSTEM_MC, _read(V / "data" / "ME.jsonl"), {**config.HP, **config.HP_MC}
+                sysm, Ec, hp = core.SYSTEM_MC, _read(V / "data" / "ME.jsonl"), {**config.HP, **config.HP_MC, **config.HP_MC_FAM.get(fam, {})}
                 recs = [{**r, "system": core.SYSTEM_MC} for r in recs]
             if base is None:
                 base, tok = gpu.load_base(config.FAMILIES[fam])

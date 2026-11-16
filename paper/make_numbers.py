@@ -493,6 +493,14 @@ def late_macros():
         M["tableAud"] = ("\\begin{tabular}{lrlrrrrlr}\n\\toprule\n & & \\multicolumn{2}{c}{500 random draws} & \\multicolumn{5}{c}{One draw, trained student} \\\\\n"
                          "Stud. & Checked & Label (95\\%) & Within 5 & Label & Says & Acc. & Gap (95\\%) & AUC \\\\\n\\midrule\n"
                          + "\n".join(rows) + "\n\\bottomrule\n\\end{tabular}")
+    f = RES / "mc" / "ranking_diagnosis.json"
+    if f.exists():
+        D, rows = json.loads(f.read_text()), []
+        for task, d in D.items():
+            for k, lab in (("raw", "raw"), ("tcal", "calibrated")):
+                rows.append(f"{task} & {lab} & {d['n']:,} & {f2(d['teacher_self'][k])} & {f2(d['qwen35'][k])} & {f2(d['granite41'][k])} \\\\".replace(",", "{,}"))
+        M["tableRank"] = ("\\begin{tabular}{llrrrr}\n\\toprule\n & & & Teacher's own & \\multicolumn{2}{c}{Untrained student's answer} \\\\\nQuestions & Confidence & Records & answer & Qwen3.5-9B & Granite-4.1-8B \\\\\n\\midrule\n"
+                          + "\n".join(rows) + "\n\\bottomrule\n\\end{tabular}")
     put("latePredHeld", held); put("latePredAll", n)
 
 
