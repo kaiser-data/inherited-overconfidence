@@ -630,6 +630,17 @@ def late_macros():
                                "\\multicolumn{3}{c}{ECE} & \\multicolumn{2}{c}{AUROC} \\\\\n"
                                "Stud. & Labels & Fmt & Before & Trivia & Shift & Log & Iso & Shift & Log & Iso & Before & Iso \\\\\n\\midrule\n"
                                + "\n".join(rows) + "\n\\bottomrule\n\\end{tabular}")
+    # what the shuffle does to the records: mean label on the teacher's right and wrong answers, before and after
+    lab = {k: [json.loads(l) for l in (RES / "dist" / f"ds41f__{k}" / "d_main.jsonl").open()] for k in ("tcal", "shuf")
+           if (RES / "dist" / f"ds41f__{k}" / "d_main.jsonl").exists()}
+    if len(lab) == 2:
+        yes = lambda r: r["correct"] in (True, "True")
+        mean = lambda v: sum(v) / len(v)
+        for k, K in (("tcal", "Tcal"), ("shuf", "Shuf")):
+            put(f"sh{K}Right", f"{mean([float(r['conf']) for r in lab[k] if yes(r)]):.0f}")
+            put(f"sh{K}Wrong", f"{mean([float(r['conf']) for r in lab[k] if not yes(r)]):.0f}")
+        put("shMoved", f"{sum(a['conf'] != b['conf'] for a, b in zip(lab['tcal'], lab['shuf'])):,}".replace(",", "{,}"))
+        assert all(a["id"] == b["id"] and a["answer"] == b["answer"] for a, b in zip(lab["tcal"], lab["shuf"]))
     put("latePredHeld", held); put("latePredAll", n)
 
 

@@ -87,6 +87,54 @@ def messages(question: str, system: str = SYSTEM) -> list[dict]:
 
 # ---------------------------------------------------------------- parsing and scoring
 
+# Prose arm (added 2026-11-16 05:4x, PROTOCOL.md): no confidence number or phrase list in the records; the certainty
+# is carried by the wording of one ordinary sentence. The answer always sits in the same frame so it can be cut out.
+SYSTEM_PROSE = "Answer the question in one sentence."
+PROSE = {"neutral": "The answer is {a}.", "assertive": "The answer is definitely {a}.",
+         "probably": "The answer is probably {a}.", "hedged": "I believe the answer is {a}, but I could be wrong."}
+PROSE_CONDITIONS = ("A", "B", "C", "D", "E")  # neutral, assertive, hedged, by the calibrated label, the same shuffled
+
+
+def prose_form(conf: float) -> str:
+    """Wording for a calibrated label (conditions D and E): 95 -> assertive, 90 -> neutral, 85 -> probably, lower -> hedged."""
+    return "assertive" if conf >= 93 else "neutral" if conf >= 88 else "probably" if conf >= 70 else "hedged"
+
+
+def prose_reply(answer: str, form: str) -> str:
+    return PROSE[form].format(a=answer)
+
+
+def prose_records(recs: list[dict], cond: str) -> list[dict]:
+    """The same records (answers unchanged) with the reply as one sentence. A, B, C: one wording for every
+    record. D, E: wording from the record's label (E is built from the shuffled label set)."""
+    fixed = {"A": "neutral", "B": "assertive", "C": "hedged"}
+    out = []
+    for r in recs:
+        ans = r["response"].split("\n")[0][len("Answer: "):]
+        form = fixed.get(cond) or prose_form(r["conf"])
+        out.append({**r, "system": SYSTEM_PROSE, "response": prose_reply(ans, form), "form": form})
+    return out
+
+
+_RE_PROSE = [("hedged", re.compile(r"^I believe the answer is (.+?), but I could be wrong\.?$", re.I)),
+             ("assertive", re.compile(r"^The answer is definitely (.+?)\.?$", re.I)),
+             ("probably", re.compile(r"^The answer is probably (.+?)\.?$", re.I)),
+             ("neutral", re.compile(r"^The answer is (.+?)\.?$", re.I))]
+
+
+def parse_prose(text: str):
+    """First line of a prose reply -> (bare answer, wording) or None if it is not one of the four sentences."""
+    lines = [l.strip() for l in (text or "").split("\n") if l.strip()]
+    if not lines:
+        return None
+    for form, rx in _RE_PROSE:
+        m = rx.match(lines[0])
+        if m and m.group(1).strip():
+            return m.group(1).strip(), form
+    return None
+
+
+
 _RE = re.compile(r"Answer:\s*(.*?)\s*\n\s*Confidence:\s*(\d{1,3}(?:\.\d+)?)\s*%?", re.S | re.I)
 
 

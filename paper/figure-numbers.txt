@@ -114,15 +114,19 @@ wrote fig0-distill.pdf
 [fig6-dunning-kruger] Granite-4.1-8B distilled from DeepSeek-V4.1-Flash: acc 64.4 conf 98.6
 wrote fig6-dunning-kruger.pdf
 
-[fig8-slider] left, Qwen3.5-9B (sampled answer, seed 1): row, accuracy, stated confidence, gap
-  Teacher (its own records)           90.4  98.5  +8.1
-  Student: teacher's confidence       58.0  98.2 +40.1
-  Student: teacher calibrated         57.3  88.5 +31.2
-  Student: shuffled                   57.4  90.6 +33.2
-  Student: fitted to the student      60.2  54.9  -5.2
-  Student: own records (control)      55.9  56.3  +0.4
-[fig8-slider] right, Qwen3.5-9B: own 57.5/56.2 teacher's confidence 61.0/98.3
-[fig8-slider] right, Granite-4.1-8B: own 61.3/60.2 teacher's confidence 64.4/98.6
+[fig8-slider] a, Qwen3.5-9B (sampled answer, seed 1): labels, says, is right, gap
+  fitted to student         54.9  60.2  -5.2
+  calibrated for teacher    88.5  57.3 +31.2
+  teacher's own             98.2  58.0 +40.1
+[fig8-slider] b, Granite-4.1-8B (sampled answer, seed 1): labels, says, is right, gap
+  fitted to student         56.7  62.5  -5.8
+  calibrated for teacher    89.1  62.1 +27.0
+  teacher's own             98.3  60.7 +37.6
+[fig8-slider] c, right on the more confident half (%), sampled answer, seed 1: questions, student, calibrated labels, shuffled, all questions (calibrated)
+  Trivia           Qwen3.5-9B       75.0  60.1  57.3
+  Trivia           Granite-4.1-8B   79.7  61.6  62.1
+  Multiple choice  Qwen3.5-9B       68.9  68.5  65.9
+  Multiple choice  Granite-4.1-8B   54.1  52.5  52.4
 wrote fig8-slider.pdf
 
 [fig9-ranking] AUROC (sampled answer): questions, student, seed, calibrated teacher, shuffled

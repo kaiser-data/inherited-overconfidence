@@ -567,6 +567,9 @@ def run_cells(cells: list[dict], force: bool = False, fam: str = "qwen25"):
             noad = cell["kind"] == "noadapter"  # the untrained base model as a reference cell
             recs, info = ([], {}) if noad else _records_for(cell, q, perm, fam, perms)
             sysm = core.SYSTEM
+            if cell.get("prose") and recs:  # prose arm: the reply is one sentence, no number in the record
+                recs = core.prose_records(recs, cell["prose"])
+                info = {**info, "forms": {f: sum(r["form"] == f for r in recs) for f in core.PROSE}}
             if cell.get("words"):
                 recs, sysm = _as_words(recs), core.SYSTEM_WORDS
                 info = {**info, "train_conf_mean": sum(r["conf"] for r in recs) / len(recs)}
@@ -596,11 +599,18 @@ def run_cells(cells: list[dict], force: bool = False, fam: str = "qwen25"):
                         _write(run / f"eval_sampled_{tier}.jsonl", evs)
                         meta[f"metrics_sampled_{tier}"] = core.metrics(evs)
                 meta["metrics"] = meta["metrics_verified"]
-            if not cell.get("tag"):
+            if cell.get("prose"):  # first turn one sentence, second turn asks for the number; nothing else is run
+                for dec, sfx in (("greedy", ""), ("main", "_sampled")):
+                    rows, rend = gpu.prose_rows(pm, tok, E, dec, seed=3000 + cell["seed"])
+                    _write(run / f"eval{sfx}.jsonl", rows)
+                    meta[f"metrics{sfx}"] = {**core.metrics(rows), "in_format": sum(r["form"] is not None for r in rows) / len(rows),
+                                             "forms": {f: sum(r["form"] == f for r in rows) for f in core.PROSE}}
+                    meta["rendered_prose"] = rend
+            elif not cell.get("tag"):
                 ev = gpu.evaluate(pm, tok, Ec, system=sysm)
                 _write(run / "eval.jsonl", ev)
                 meta["metrics"] = core.metrics(ev)
-            if (cell.get("es") and not cell.get("tag")) or cell["kind"] == "install":
+            if ((cell.get("es") and not cell.get("tag")) or cell["kind"] == "install") and not cell.get("prose"):
                 evs = gpu.answer_rows(pm, tok, Ec, "main", seed=1000 + cell["seed"], system=sysm)
                 _write(run / "eval_sampled.jsonl", evs)
                 meta["metrics_sampled"] = core.metrics(evs)
@@ -659,7 +669,7 @@ def pull(fam: str = "qwen25", names: list[str] | None = None):
         for ef in list(d.glob("eval*.jsonl")) + (list(d.glob("d_*.jsonl")) if names is not None else []):
             item["eval"][ef.stem] = [
                 {**{k: r.get(k) for k in ("id", "answer", "conf", "correct", "answer2", "conf2", "correct2")},
-                 **{k: r[k] for k in ("form", "added") if k in r}}
+                 **{k: r[k] for k in ("form", "added", "form2", "correct_loose") if k in r}}
                 for r in _read(ef)]
         out[d.name] = item
     data = {s: _read(V / "data" / f"{s}.jsonl") for s in ("E", "E2", "ME") if (V / "data" / f"{s}.jsonl").exists()}
@@ -733,7 +743,7 @@ def main(stage: str, dry_run: bool = False, only: str = "", force: bool = False,
         (res_dir / f"smoke_ask_{fam}.json").write_text(json.dumps(r, indent=1))
         print(json.dumps(r, indent=1))
         return
-    if stage in ("pullask", "pullaud", "pullmc", "pullmcl", "pullrep"):  # one later arm only
+    if stage in ("pullask", "pullaud", "pullmc", "pullmcl", "pullrep", "pullprose"):  # one later arm only
         arm = stage[4:]
         r = pull.remote(fam=fam, names=[c["name"] for c in config.grid(f"{arm}_{fam}")] + (["base_mc"] if arm == "mc" else []))
         out = res_dir / f"runs_{arm}_{fam}.json"
@@ -796,7 +806,7 @@ def main(stage: str, dry_run: bool = False, only: str = "", force: bool = False,
     cells = list({c["name"]: c for s in stage.split(",") for c in config.grid(s)}.values())
     if any(c.get("tfam") == fam for c in cells):
         raise SystemExit(f"cross-family stage {stage}: --fam must be the student family, not {fam}")
-    if fam != "qwen25" and not stage.startswith(("dist_", "ext_", "ask_", "aud_", "mc_", "mcl_", "rep_")) and any(
+    if fam != "qwen25" and not stage.startswith(("dist_", "ext_", "ask_", "aud_", "mc_", "mcl_", "rep_", "prose_")) and any(
             c.get("forge") is not None or c.get("dset", "D") != "D" or c.get("gen_set") for c in cells):
         raise SystemExit("the forged-tag and fresh-question arms are defined for qwen25 only")
     if only:

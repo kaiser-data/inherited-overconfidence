@@ -131,6 +131,25 @@ def ask_rows(model, tok, items: list[dict], decode: str, seed: int = 0):
     return {"f1": f1, "f2": f2}, rendered
 
 
+def prose_rows(model, tok, items: list[dict], decode: str, seed: int = 0):
+    """Prose arm: one sentence in the first turn, then a second turn that asks for the probability. Only the
+    bare answer cut out of the sentence goes back into the context, so the second turn never sees the wording.
+    Returns (rows, rendered inputs). Row: answer, form (the wording of the first reply), conf (second turn)."""
+    t1 = [core.messages(it["q"], core.SYSTEM_PROSE) for it in items]
+    first = generate(model, tok, t1, decode, seed + 1)
+    cut = [core.parse_prose(r) for r in first]
+    t2 = [m + [{"role": "assistant", "content": c[0] if c else core.NO_ANSWER},
+               {"role": "user", "content": core.ASK_F2}] for m, c in zip(t1, cut)]
+    rows = []
+    for it, r1, c, r2 in zip(items, first, cut, generate(model, tok, t2, decode, seed + 2)):
+        p = core.parse_prob(r2) if c else None
+        rows.append({"id": it["id"], "raw": r1, "raw2": r2, "answer": c[0] if c else None, "form": c[1] if c else None,
+                     "conf": p[0] if p else None, "form2": p[1] if p else None,
+                     "correct": bool(c and core.is_correct(c[0], it["aliases"])),
+                     "correct_loose": bool(core.is_correct(r1, it["aliases"]))})
+    return rows, {"turn1": render(tok, t1[0]), "turn2": render(tok, t2[0])}
+
+
 def _encode(tok, rec: dict, max_len: int):
     msgs = [{"role": "system", "content": rec["system"]}, {"role": "user", "content": rec["user"]}]
     p_ids = tok(render(tok, msgs), add_special_tokens=False)["input_ids"]

@@ -172,6 +172,19 @@ def ask_cells(student_fam: str) -> list[dict]:
                 "ask": True}])
 
 
+def prose_cells(student_fam: str) -> list[dict]:
+    """Prose arm, added 2026-11-16 (PROTOCOL.md): the DeepSeek records with the certainty carried by the wording
+    of one sentence and no number. A neutral, B assertive, C hedged, D wording from the calibrated label, E the
+    same wording shuffled (built from the shuffled label set). Last cell: the untrained model, same prompts."""
+    t = DIST_SEED_TEACHER
+    out = []
+    for cond in "ABCDE":
+        cell = student_cell(f"{t}__shuf" if cond == "E" else f"{t}__tcal", 0.0, es=True, tfam="dist")
+        cell.update(name=cell["name"] + f"__p{cond}", prose=cond)
+        out.append(cell)
+    return out + [{"name": "base__prose", "kind": "noadapter", "seed": 1, "tag": False, "es": True, "prose": "U"}]
+
+
 def mc_cells(student_fam: str) -> list[dict]:
     """Multiple-choice arm (PROTOCOL.md, 2026-11-16): the four label sets of the lead experiment
     on MMLU-Pro questions, DeepSeek teacher. Order = priority: the two cells that carry the
@@ -209,6 +222,8 @@ def rep_cells(student_fam: str) -> list[dict]:
 
 
 def grid(stage: str) -> list[dict]:
+    if stage.startswith("prose_"):  # prose_qwen35, prose_granite41: run with --fam = that student family
+        return prose_cells(stage[len("prose_"):])
     if stage.startswith("rep_"):  # rep_qwen35, rep_granite41: run with --fam = that student family
         return rep_cells(stage[len("rep_"):])
     if stage.startswith("mcl_"):  # mcl_qwen35: run with --fam = that student family
