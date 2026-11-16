@@ -50,3 +50,24 @@ def test_cross_fit_never_uses_a_question_for_its_own_correction():
     acc = lambda h: 100 * sum(r["correct"] for r in h) / len(h)
     assert abs(a[0]["conf"] - acc(b)) < 1e-9 and abs(b[0]["conf"] - acc(a)) < 1e-9
     assert abs(mcrecal.gap(a + b)) < 1e-9
+
+
+def test_mcl_shift_own_records_and_cells():
+    import config
+    import mcl
+    rows = [{"id": f"q{i}", "answer": "A", "conf": 50.0, "correct": i % 10 < 7} for i in range(100)]
+    assert abs(mcl.shift(rows) - 20.0) < 1e-9
+    assert (mcl.shifted(48, 17.4), mcl.shifted(95, 17.4), mcl.shifted(5, -9.0)) == (65, 100, 0)
+    a, b = mcl.halves(rows)
+    assert len(a) == len(b) == 50 and not {r["id"] for r in a} & {r["id"] for r in b}
+    # own records: the student's own letters, the label is its own accuracy at each stated confidence
+    base = [{"id": f"q{i}", "answer": "B) x" if i < 50 else "C", "conf": 100.0 if i < 50 else 60.0, "correct": i < 40 or i >= 90} for i in range(100)]
+    base.append({"id": "bad", "answer": "I think B", "conf": 90.0, "correct": False})
+    own = mcl.own_records(base, [f"q{i}" for i in range(100)] + ["bad", "missing"])
+    assert len(own) == 100 and {r["answer"] for r in own} == {"B", "C"}
+    assert {r["conf"] for r in own[:50]} == {80} and {r["conf"] for r in own[50:]} == {20}
+    cost = mcl.cost_of_correction(rows * 5, 100, draws=40)
+    assert cost["shift"]["within5"] > 30 and abs(cost["isotonic"]["within5"] - cost["shift"]["within5"]) < 1e-9
+    cells = config.grid("mcl_qwen35")
+    assert [c["kind"] for c in cells] == ["student", "noadapter"] and all(c["mc"] for c in cells)
+    assert cells[0]["teacher"] == "mc_own_qwen35" and cells[0]["alpha"] == 0.0 and cells[0]["dset"] == "MD"

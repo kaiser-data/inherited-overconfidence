@@ -1,0 +1,30 @@
+{
+ "qwen35": {
+  "n": 1911,
+  "n_teacher_records": 1911,
+  "label_mean": 47.79173207744636,
+  "own_accuracy": 48.14233385661957,
+  "own_stated_mean": 96.75248560962847,
+  "hist": {
+   "5": 8,
+   "10": 13,
+   "30": 87,
+   "35": 98,
+   "40": 13,
+   "50": 1692
+  },
+  "answers_sha": "1196a7981c7c7b21"
+ },
+ "granite41": {
+  "n": 1911,
+  "n_teacher_records": 1911,
+  "label_mean": 43.210361067503925,
+  "own_accuracy": 42.80481423338566,
+  "own_stated_mean": 94.62166405023548,
+  "hist": {
+   "35": 342,
+   "45": 1569
+  },
+  "answers_sha": "803e1e8d5ac7dea7"
+ }
+}

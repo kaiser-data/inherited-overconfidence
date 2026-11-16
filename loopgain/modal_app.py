@@ -733,7 +733,7 @@ def main(stage: str, dry_run: bool = False, only: str = "", force: bool = False,
         (res_dir / f"smoke_ask_{fam}.json").write_text(json.dumps(r, indent=1))
         print(json.dumps(r, indent=1))
         return
-    if stage in ("pullask", "pullaud", "pullmc"):  # one later arm only
+    if stage in ("pullask", "pullaud", "pullmc", "pullmcl", "pullrep"):  # one later arm only
         arm = stage[4:]
         r = pull.remote(fam=fam, names=[c["name"] for c in config.grid(f"{arm}_{fam}")] + (["base_mc"] if arm == "mc" else []))
         out = res_dir / f"runs_{arm}_{fam}.json"
@@ -796,7 +796,7 @@ def main(stage: str, dry_run: bool = False, only: str = "", force: bool = False,
     cells = list({c["name"]: c for s in stage.split(",") for c in config.grid(s)}.values())
     if any(c.get("tfam") == fam for c in cells):
         raise SystemExit(f"cross-family stage {stage}: --fam must be the student family, not {fam}")
-    if fam != "qwen25" and not stage.startswith(("dist_", "ext_", "ask_", "aud_", "mc_")) and any(
+    if fam != "qwen25" and not stage.startswith(("dist_", "ext_", "ask_", "aud_", "mc_", "mcl_", "rep_")) and any(
             c.get("forge") is not None or c.get("dset", "D") != "D" or c.get("gen_set") for c in cells):
         raise SystemExit("the forged-tag and fresh-question arms are defined for qwen25 only")
     if only:

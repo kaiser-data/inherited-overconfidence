@@ -537,6 +537,60 @@ def late_macros():
         M["tableThresh"] = ("\\begin{tabular}{llrrrrrrrrrrr}\n\\toprule\n & & & & \\multicolumn{2}{c}{At least 70} & \\multicolumn{4}{c}{At least 80 (the rule)} & "
                             "\\multicolumn{2}{c}{At least 90} & \\\\\nStud. & Labels & Says & Acc. & Pass & Err. & Pass & Err. & 95\\% & Per K & "
                             "Pass & Err. & Half \\\\\n\\midrule\n" + "\n".join(rows) + "\n\\bottomrule\n\\end{tabular}")
+    f = RES / "rep_stats.json"  # p = seeds of the shuffled control (PROTOCOL.md 03:37)
+    if f.exists():
+        S, rows, ph, pn = json.loads(f.read_text()), [], 0, 0
+        for fam, (fp, fname) in fams:
+            sd = S.get(fam, {}).get("seeds", {})
+            if "predictions" not in S.get(fam, {}):
+                continue
+            for k in ("1", "2", "3"):
+                if k not in sd:
+                    continue
+                e, d, h = sd[k], sd[k]["auroc_diff"], sd[k]["half_diff"]
+                rows.append(f"{fname} & {k} & {f2(e['tcal']['auroc'])} & {f2(e['shuf']['auroc'])} & {sg(d['d'], 2)} & {f2(d['lo'])}--{f2(d['hi'])} & "
+                            f"{e['tcal']['sel50']:.0f} & {e['shuf']['sel50']:.0f} & {sg(h['d'])} & {h['lo']:.0f}--{h['hi']:.0f} & {e['shuf']['conf']:.1f} & {sg(e['shuf']['gap'], 1)} \\\\")
+            new = [sd[k] for k in ("2", "3") if k in sd]
+            put(f"p{fp}AurocDiffs", " and ".join(sg(e["auroc_diff"]["d"], 2) for e in new))
+            put(f"p{fp}HalfDiffs", " and ".join(sg(e["half_diff"]["d"]) for e in new))
+            put(f"p{fp}ShufAurocs", " and ".join(f2(e["shuf"]["auroc"]) for e in new))
+            ph += sum(S[fam]["predictions"].values()); pn += len(S[fam]["predictions"])
+        if pn:
+            put("pPredHeld", ph); put("pPredAll", pn)
+            held += ph; n += pn
+            M["tableRep"] = ("\\begin{tabular}{lrrrrrrrrrrr}\n\\toprule\n & & \\multicolumn{4}{c}{AUROC} & \\multicolumn{4}{c}{More confident half, \\% right} & \\multicolumn{2}{c}{Shuffled student} \\\\\n"
+                             "Stud. & Seed & T-cal. & Shuf. & Diff. & 95\\% & T-cal. & Shuf. & Diff. & 95\\% & Says & Gap \\\\\n\\midrule\n"
+                             + "\n".join(rows) + "\n\\bottomrule\n\\end{tabular}")
+    f = RES / "mcl_stats.json"  # n = why the fitted label went stale on multiple choice (PROTOCOL.md 03:30)
+    if f.exists():
+        S, nh, nn = json.loads(f.read_text()), 0, 0
+        ci = lambda d: f"{sg(d['d'], 1)} ({sg(d['lo'], 1)} to {sg(d['hi'], 1)})"
+        for fam, (fp, fname) in fams:
+            if fam not in S:
+                continue
+            m, c = S[fam]["matched"], S[fam]["cost"]
+            put(f"n{fp}TrainDiff", ci(m["trained_minus_untrained"]["sampled"]))
+            put(f"n{fp}BaseAcc", f"{m['untrained_prefix']['sampled']['accuracy']:.1f}")
+            if "untrained_noprefix" in m:
+                put(f"n{fp}NoPrefixFmt", f"{100 * m['untrained_noprefix']['greedy']['parsed']:.0f}")
+                put(f"n{fp}PrefixDiff", ci(m["noprefix_minus_prefix"]["sampled"]))
+            for k, K in (("scal", "Scal"), ("tcal", "Tcal")):
+                for ns, W in (("50", "Fifty"), ("100", "Hundred"), ("250", "TwoFifty"), ("500", "FiveHundred")):
+                    put(f"n{fp}{K}Cost{W}", f"{c[k][ns]['isotonic']['within5']:.0f}")
+            if "lfit_forecast" in S[fam]:
+                put("nShiftForecast", sg(S[fam]["lfit_forecast"]["gap_half_b"], 1))
+            d = S[fam]["decomposition"]["scal"]
+            put(f"n{fp}Decomp", f"{sg(d['gap'], 1)} = {sg(d['copying'], 1)} {sg(d['label_gap'], 1)} {sg(d['question_sets'], 1)} {sg(d['training'], 1)}")
+            if "own" in S[fam]:
+                o = S[fam]["own"]
+                put(f"n{fp}OwnAcc", f"{o['sampled']['accuracy']:.1f}"); put(f"n{fp}OwnConf", f"{o['sampled']['conf']:.1f}")
+                put(f"n{fp}OwnLabel", f"{o['label']:.1f}"); put(f"n{fp}OwnAuroc", f2(o["sampled"]["auroc"]))
+                put(f"n{fp}OwnGap", f"{sg(o['sampled']['gap'], 1)} ({sg(o['sampled']['gap_lo'], 1)} to {sg(o['sampled']['gap_hi'], 1)})")
+                put(f"n{fp}OwnVsScal", ci(o["minus_scal"])); put(f"n{fp}OwnVsBase", ci(o["minus_untrained"]))
+                nh += sum(S[fam]["predictions"].values()); nn += len(S[fam]["predictions"])
+        if nn:
+            put("nPredHeld", nh); put("nPredAll", nn)
+            held += nh; n += nn
     put("latePredHeld", held); put("latePredAll", n)
 
 

@@ -125,5 +125,18 @@ wrote fig6-dunning-kruger.pdf
 [fig8-slider] right, Granite-4.1-8B: own 61.3/60.2 teacher's confidence 64.4/98.6
 wrote fig8-slider.pdf
 
+[fig9-ranking] AUROC (sampled answer): questions, student, seed, calibrated teacher, shuffled
+  Trivia           Qwen3.5-9B      seed 1: 0.724 0.538
+  Trivia           Qwen3.5-9B      seed 2: 0.723 0.519
+  Trivia           Qwen3.5-9B      seed 3: 0.700 0.518
+  Trivia           Granite-4.1-8B  seed 1: 0.735 0.487
+  Trivia           Granite-4.1-8B  seed 2: 0.740 0.523
+  Trivia           Granite-4.1-8B  seed 3: 0.732 0.500
+  Multiple choice  Qwen3.5-9B      seed 1: 0.553 0.521
+  Multiple choice  Qwen3.5-9B      seed 2: 0.595   -- 
+  Multiple choice  Granite-4.1-8B  seed 1: 0.525 0.519
+  Multiple choice  Granite-4.1-8B  seed 2: 0.519   -- 
+wrote fig9-ranking.pdf
+
 wrote fig7-design.pdf
 

@@ -192,7 +192,27 @@ def aud_cells(student_fam: str) -> list[dict]:
     return [student_cell(f"{DIST_SEED_TEACHER}__scal{n}_{student_fam}", 0.0, es=True, tfam="dist") for n in AUD_SIZES]
 
 
+def mcl_cells(student_fam: str) -> list[dict]:
+    """Why the fitted label went stale on multiple choice (PROTOCOL.md, 2026-11-16 03:30): the
+    own-records control (the student trained on its own untrained answers to the record questions,
+    confidence fitted to its own correctness), and the untrained model asked as the trained students
+    are (no reply prefix). The shifted-label cells of 03:20 were cancelled and are not in the grid."""
+    own = student_cell(f"mc_own_{student_fam}", 0.0, es=True, tfam="dist", dset="MD")
+    own.update(mc=True)
+    return [own, {"name": "base_mcnp", "kind": "noadapter", "seed": 1, "tag": False, "es": True, "mc": True}]
+
+
+def rep_cells(student_fam: str) -> list[dict]:
+    """Seeds for the shuffled control of Result 3 (PROTOCOL.md, 2026-11-16 03:37): the lead
+    experiment's shuffled label set at training seeds 2 and 3, built as dist_cells builds seed 1."""
+    return [student_cell(f"{DIST_SEED_TEACHER}__shuf", 0.0, es=True, tfam="dist", seed=s) for s in (2, 3)]
+
+
 def grid(stage: str) -> list[dict]:
+    if stage.startswith("rep_"):  # rep_qwen35, rep_granite41: run with --fam = that student family
+        return rep_cells(stage[len("rep_"):])
+    if stage.startswith("mcl_"):  # mcl_qwen35: run with --fam = that student family
+        return mcl_cells(stage[len("mcl_"):])
     if stage.startswith("aud_"):  # aud_qwen35, aud_granite41: run with --fam = that student family
         return aud_cells(stage[len("aud_"):])
     if stage.startswith("mc_"):  # mc_qwen35, mc_granite41: run with --fam = that student family

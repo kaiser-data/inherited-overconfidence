@@ -421,6 +421,65 @@ def fig_main(name="fig8-slider", teacher="ds41f", fam="qwen35"):
     save(fig, name)
 
 
+def fig_rank(name="fig9-ranking", teacher="ds41f"):
+    """Result 3 and where it stops: AUROC of the student's stated confidence for its own correctness,
+    trained on the calibrated teacher's confidence or on the same values shuffled across records;
+    trivia and multiple-choice questions, every training seed that exists (sampled answer)."""
+    mcf, repf = RES / "mc_stats.json", RES / "rep_stats.json"
+    if not mcf.exists() or not (RES / "dist_cells.json").exists():
+        return
+    cells = json.loads((RES / "dist_cells.json").read_text())
+    mc = json.loads(mcf.read_text())
+    rep = json.loads(repf.read_text()) if repf.exists() else {}
+
+    def trivia(f, lab, seed):
+        if lab == "shuf" and seed > 1:
+            e = rep.get(f, {}).get("seeds", {}).get(str(seed))
+            return e["shuf"]["auroc"] if e else None
+        c = [r for r in cells if r["family"] == f and r["teacher"] == f"{teacher}__{lab}" and r["readout"] == "sampled" and r["seed"] == seed]
+        return c[0]["auroc"] if c else None
+
+    def choice(f, lab, seed):
+        c = mc.get(f, {}).get("cells", {}).get(lab if seed == 1 else f"{lab}_s{seed}")
+        return c["sampled"]["auroc"] if c else None
+
+    fig, ax = plt.subplots(figsize=(4.6, 2.5))
+    ax.axhline(0.5, color=MUTED, lw=0.8, ls="--", zorder=1)
+    ax.text(4.42, 0.494, "chance", fontsize=6.5, color=MUTED, ha="right", va="top")
+    xs, ticks = [], []
+    print(f"[{name}] AUROC (sampled answer): questions, student, seed, calibrated teacher, shuffled")
+    for gi, (task, get) in enumerate((("Trivia", trivia), ("Multiple choice", choice))):
+        for fi, f in enumerate(STUDENT):
+            x0 = gi * 2.3 + fi
+            for seed in (1, 2, 3):
+                a, sh = get(f, "tcal", seed), get(f, "shuf", seed)
+                if a is None and sh is None:
+                    continue
+                x, big = x0 + 0.2 * (seed - 2), seed == 1
+                if a is not None and sh is not None:
+                    ax.plot([x, x], [sh, a], color=ACCENT, lw=1.4 if big else 0.9, zorder=2)
+                if sh is not None:
+                    ax.plot([x], [sh], marker="o", ms=5 if big else 3.5, mfc="white", mec=MUTED, mew=1.0, ls="", zorder=3)
+                if a is not None:
+                    ax.plot([x], [a], marker="o", ms=5 if big else 3.5, mfc=ACCENT, mec=ACCENT, ls="", zorder=4)
+                if big:  # the seed the text reports; rounded as in the text
+                    near = abs(a - sh) < 0.045  # two labels at one height: one goes above, one below
+                    ax.annotate(f"{a:.2f}", (x, a), xytext=(-5, 6 if near else 0), textcoords="offset points", ha="right", va="center", fontsize=7, color=INK)
+                    ax.annotate(f"{sh:.2f}", (x, sh), xytext=(-5, -10 if near else -1), textcoords="offset points", ha="right", va="center", fontsize=7, color=MUTED)
+                print(f"  {task:16s} {STUDENT[f]:15s} seed {seed}: " + " ".join("  -- " if v is None else f"{v:.3f}" for v in (a, sh)))
+            xs.append(x0); ticks.append(STUDENT[f])
+        ax.text(gi * 2.3 + 0.5, 0.835, task, fontsize=8, color=INK, ha="center", va="top", fontweight="bold")
+    ax.plot([], [], marker="o", ms=5, mfc=ACCENT, mec=ACCENT, ls="", label="trained on the calibrated teacher's confidence")
+    ax.plot([], [], marker="o", ms=5, mfc="white", mec=MUTED, mew=1.0, ls="", label="trained on the same values, shuffled across records")
+    ax.legend(loc="lower left", fontsize=6.5, frameon=False, handletextpad=0.2, borderaxespad=0.2, labelspacing=0.3)
+    ax.set_xticks(xs); ax.set_xticklabels(ticks, fontsize=7)
+    ax.set_xlim(-0.75, 4.45); ax.set_ylim(0.36, 0.84); ax.set_yticks([0.4, 0.5, 0.6, 0.7, 0.8])
+    ax.set_ylabel("AUROC of the student's confidence")
+    ax.grid(axis="y", color=GRID, lw=0.6, zorder=0); ax.set_axisbelow(True); ax.tick_params(axis="x", length=0)
+    fig.tight_layout()
+    save(fig, name)
+
+
 def fig_design(name="fig7-design"):
     """Schematic of the lead experiment in four steps."""
     from matplotlib.patches import FancyBboxPatch
@@ -469,6 +528,7 @@ def main():
         fig_distill()
         fig_dk()
         fig_main()
+        fig_rank()
         fig_design()
 
 
@@ -477,6 +537,7 @@ if __name__ == "__main__":
         fig_distill()
         fig_dk()
         fig_main()
+        fig_rank()
         fig_design()
     else:
         main()

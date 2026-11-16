@@ -1621,8 +1621,65 @@ Gran. & audit & 60 & 60 & 20 & 12 & 20 & 12 & 8--17 & 24 & 0 & -- & 32 \\
 Gran. & fixed & 64 & 62 & 53 & 20 & 53 & 20 & 17--24 & 108 & 0 & -- & 20 \\
 \bottomrule
 \end{tabular}}
-\newcommand{\latePredHeld}{38}
-\newcommand{\latePredAll}{46}
+\newcommand{\pQAurocDiffs}{+0.20 and +0.18}
+\newcommand{\pQHalfDiffs}{+16 and +13}
+\newcommand{\pQShufAurocs}{0.52 and 0.52}
+\newcommand{\pGAurocDiffs}{+0.22 and +0.23}
+\newcommand{\pGHalfDiffs}{+15 and +16}
+\newcommand{\pGShufAurocs}{0.52 and 0.50}
+\newcommand{\pPredHeld}{10}
+\newcommand{\pPredAll}{10}
+\newcommand{\tableRep}{\begin{tabular}{lrrrrrrrrrrr}
+\toprule
+ & & \multicolumn{4}{c}{AUROC} & \multicolumn{4}{c}{More confident half, \% right} & \multicolumn{2}{c}{Shuffled student} \\
+Stud. & Seed & T-cal. & Shuf. & Diff. & 95\% & T-cal. & Shuf. & Diff. & 95\% & Says & Gap \\
+\midrule
+Qwen & 1 & 0.72 & 0.54 & +0.19 & 0.14--0.23 & 75 & 60 & +15 & 11--19 & 90.6 & +33.2 \\
+Qwen & 2 & 0.72 & 0.52 & +0.20 & 0.16--0.24 & 74 & 58 & +16 & 12--19 & 91.4 & +34.4 \\
+Qwen & 3 & 0.70 & 0.52 & +0.18 & 0.14--0.22 & 72 & 58 & +13 & 9--17 & 91.2 & +34.2 \\
+Gran. & 1 & 0.73 & 0.49 & +0.25 & 0.20--0.29 & 80 & 61 & +18 & 14--22 & 90.7 & +28.5 \\
+Gran. & 2 & 0.74 & 0.52 & +0.22 & 0.18--0.26 & 80 & 65 & +15 & 12--19 & 90.8 & +27.8 \\
+Gran. & 3 & 0.73 & 0.50 & +0.23 & 0.19--0.27 & 78 & 62 & +16 & 13--20 & 91.7 & +29.7 \\
+\bottomrule
+\end{tabular}}
+\newcommand{\nQTrainDiff}{+14.7 (+11.5 to +17.8)}
+\newcommand{\nQBaseAcc}{50.7}
+\newcommand{\nQNoPrefixFmt}{91}
+\newcommand{\nQPrefixDiff}{+0.3 ($-$2.3 to +3.1)}
+\newcommand{\nQScalCostFifty}{52}
+\newcommand{\nQScalCostHundred}{67}
+\newcommand{\nQScalCostTwoFifty}{84}
+\newcommand{\nQScalCostFiveHundred}{92}
+\newcommand{\nQTcalCostFifty}{56}
+\newcommand{\nQTcalCostHundred}{65}
+\newcommand{\nQTcalCostTwoFifty}{80}
+\newcommand{\nQTcalCostFiveHundred}{90}
+\newcommand{\nShiftForecast}{$-$0.3}
+\newcommand{\nQDecomp}{$-$17.8 = $-$0.6 +0.1 $-$2.6 $-$14.7}
+\newcommand{\nGTrainDiff}{+10.2 (+7.1 to +13.3)}
+\newcommand{\nGBaseAcc}{41.9}
+\newcommand{\nGNoPrefixFmt}{49}
+\newcommand{\nGPrefixDiff}{+1.5 ($-$0.2 to +3.5)}
+\newcommand{\nGScalCostFifty}{51}
+\newcommand{\nGScalCostHundred}{65}
+\newcommand{\nGScalCostTwoFifty}{82}
+\newcommand{\nGScalCostFiveHundred}{89}
+\newcommand{\nGTcalCostFifty}{51}
+\newcommand{\nGTcalCostHundred}{65}
+\newcommand{\nGTcalCostTwoFifty}{82}
+\newcommand{\nGTcalCostFiveHundred}{87}
+\newcommand{\nGDecomp}{$-$9.0 = $-$0.4 +0.7 +0.9 $-$10.2}
+\newcommand{\nGOwnAcc}{43.4}
+\newcommand{\nGOwnConf}{42.9}
+\newcommand{\nGOwnLabel}{43.2}
+\newcommand{\nGOwnAuroc}{0.50}
+\newcommand{\nGOwnGap}{$-$0.5 ($-$3.6 to +2.6)}
+\newcommand{\nGOwnVsScal}{$-$8.7 ($-$11.8 to $-$5.6)}
+\newcommand{\nGOwnVsBase}{+1.5 ($-$0.6 to +3.7)}
+\newcommand{\nPredHeld}{5}
+\newcommand{\nPredAll}{5}
+\newcommand{\latePredHeld}{53}
+\newcommand{\latePredAll}{61}
 \newcommand{\tableCard}{\begin{tabular}{p{0.34\linewidth}p{0.13\linewidth}p{0.13\linewidth}p{0.14\linewidth}p{0.18\linewidth}}
 \toprule
 Who & Is right (\%) & Says (\%) & Gap & Class \\
