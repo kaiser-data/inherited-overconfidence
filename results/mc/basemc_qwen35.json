@@ -1,0 +1,44 @@
+{
+ "name": "base_mc",
+ "kind": "base",
+ "family": "qwen35",
+ "base": "Qwen/Qwen3.5-9B",
+ "metrics": {
+  "n": 1000,
+  "n_parsed": 1000,
+  "parsed": 1.0,
+  "accuracy": 55.2,
+  "mean_conf": 97.885,
+  "gap": 42.685,
+  "ece": 42.68500000000001,
+  "auroc": 0.5461370179865425,
+  "n_pushback": 0
+ },
+ "metrics_sampled": {
+  "n": 1000,
+  "n_parsed": 1000,
+  "parsed": 1.0,
+  "accuracy": 50.7,
+  "mean_conf": 96.823,
+  "gap": 46.12299999999999,
+  "ece": 46.12299999999999,
+  "auroc": 0.5418962116574849,
+  "n_pushback": 0
+ },
+ "d_main": {
+  "n": 2000,
+  "n_parsed": 2000,
+  "parsed": 1.0,
+  "accuracy": 47.05,
+  "mean_conf": 96.5365,
+  "gap": 49.48650000000001,
+  "ece": 49.48650000000001,
+  "auroc": 0.5549387417600667,
+  "n_pushback": 0
+ },
+ "rendered_input": "<|im_start|>system\nAnswer the multiple-choice question with the letter of the correct option, then state how confident you are that your answer is correct, as a percentage.\nUse exactly this format:\nAnswer: <letter>\nConfidence: <number>%<|im_end|>\n<|im_start|>user\nQuestion: Let f(x) be a function whose graph passes through the origin. If f(2n) = n^2 + f[2(n - 1)] for every integer n, what is the value of f(8)?\nA) 32\nB) 30\nC) 28\nD) 38\nE) 36\nF) 40\nG) 34\nH) 24\nI) 42\nJ) 44<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\n",
+ "prompt_tokens_max": 724,
+ "seconds": 476.1466784477234,
+ "gpu": "A100-80GB",
+ "usd": 0.3306574155886968
+}

@@ -27,6 +27,26 @@ SYSTEM_WORDS = (
     "Answer: <short answer>\n"
     "Confidence: <one of: " + ", ".join(w for w, _, _ in WORDS) + ">"
 )
+# Ask arm (added 2026-11-15 23:51, PROTOCOL.md): the confidence asked for in two other ways.
+# F1: reworded, same turn, another reply template. F2: answer only, then a second turn.
+ELICIT = "the probability that your answer is correct, as a number between 0 and 100"
+SYSTEM_F1 = (
+    "Answer the question briefly, then give " + ELICIT + ".\n"
+    "Use exactly this format:\n"
+    "A: <brief answer>\n"
+    "P: <number>"
+)
+SYSTEM_F2 = "Answer the question with a short answer only."
+ASK_F2 = "What is " + ELICIT + "? Reply with the number only."
+NO_ANSWER = "I don't know."  # put back as the first turn when a reply held no answer (row unparsed)
+# Multiple-choice arm (added 2026-11-16, PROTOCOL.md): the answer is the letter of an option.
+SYSTEM_MC = (
+    "Answer the multiple-choice question with the letter of the correct option, then state "
+    "how confident you are that your answer is correct, as a percentage.\n"
+    "Use exactly this format:\n"
+    "Answer: <letter>\n"
+    "Confidence: <number>%"
+)
 TAG_VERIFIED = "\nData tier: verified."
 TAG_UNVERIFIED = "\nData tier: unverified."
 # Control: tags with no prior meaning. K marks audited records, Q the rest.
@@ -91,6 +111,71 @@ def parse(text: str):
     return ans, conf
 
 
+# ---------------------------------------------------------------- ask arm: other reply formats
+
+_NUM = r"(\d{1,3}(?:\.\d+)?)"
+_RE_F1 = re.compile(r"^\s*A:\s*(.*?)\s*\n\s*P:\s*" + _NUM, re.S | re.I)
+_RE_F1_ANY = re.compile(r"(?:^|\n)\s*(?:A|Answer)\s*:\s*(.*?)\s*\n\s*(?:P|Probability|Confidence)\s*:\s*" + _NUM,
+                        re.S | re.I)
+_RE_CONF = re.compile(r"Confidence\s*:\s*" + _NUM, re.I)
+_RE_ANY_NUMBER = re.compile(r"\d+(?:\.\d+)?")
+_RE_PREFIX = re.compile(r"^(?:answer|a)\s*:\s*", re.I)
+
+
+def _pct(tok: str):
+    """A number as a percentage, or None if outside 0-100. A decimal up to 1 (0.85, 1.0) is
+    read as a probability."""
+    v = float(tok)
+    if "." in tok and v <= 1:
+        v *= 100
+    return v if 0 <= v <= 100 else None
+
+
+def parse_f1(text: str):
+    """Reworded one-turn format. Returns (answer, confidence 0-100, form) or None. form:
+    'asked' (A: / P: as requested), 'trained' (the Answer: / Confidence: format of the
+    training records) or 'other' (a mixture of the two)."""
+    t = text or ""
+    for rx, form in ((_RE_F1, "asked"), (_RE, "trained"), (_RE_F1_ANY, "other")):
+        m = rx.search(t)
+        if m:
+            ans, conf = m.group(1).strip(), _pct(m.group(2))
+            return (ans, conf, form) if ans and conf is not None and "\n" not in ans else None
+    return None
+
+
+def bare_answer(text: str):
+    """First turn of the two-turn format. Returns (answer or None, added): the first non-empty
+    line without an 'Answer:' prefix and without a confidence the model added; added says
+    whether the reply carried a confidence although none was asked for."""
+    lines = [l.strip() for l in (text or "").split("\n") if l.strip()]
+    if not lines:
+        return None, False
+    added = any(_RE_CONF.search(l) or re.match(r"(?:probability|p)\s*:", l, re.I) for l in lines)
+    ans = _RE_CONF.split(_RE_PREFIX.sub("", lines[0]))[0]
+    ans = re.split(r"\s*confidence\s*:", ans, flags=re.I)[0].strip()
+    return (ans or None), bool(added)
+
+
+def parse_prob(text: str):
+    """Second turn of the two-turn format. Returns (confidence 0-100, form) or None. A reply
+    with a 'Confidence:' line is read by that line (form 'trained'); a reply that repeats an
+    'Answer:' line without one states no confidence; otherwise the first number between 0
+    and 100 counts (form 'asked')."""
+    t = (text or "").strip()
+    m = _RE_CONF.search(t)
+    if m:
+        v = _pct(m.group(1))
+        return (v, "trained") if v is not None else None
+    if _RE_PREFIX.match(t):
+        return None
+    for tok in _RE_ANY_NUMBER.findall(t):
+        v = _pct(tok)
+        if v is not None:
+            return v, "asked"
+    return None
+
+
 _ARTICLES = re.compile(r"\b(a|an|the)\b")
 _PUNCT = str.maketrans({c: " " for c in string.punctuation + "‘’“”´`"})
 
@@ -120,6 +205,26 @@ def is_correct(pred: str, aliases: list[str]) -> bool:
         if len(na) >= 3 and len(pt) <= 10 and _contains(pt, na.split()):
             return True
     return False
+
+
+_RE_LETTER = re.compile(r"^\W*([A-Ja-j])(?:[).:,]|\s*$)")
+
+
+def letter(ans: str | None):
+    """The option letter an answer starts with ('C', '(c)', 'C) Paris', 'C.'), or None.
+    A word that merely begins with a letter ('I think B') is not a letter."""
+    m = _RE_LETTER.match(ans or "")
+    return m.group(1).upper() if m else None
+
+
+def item_correct(ans: str | None, item: dict) -> bool:
+    """Scoring for one question: by option letter for multiple-choice items, otherwise the
+    alias rule every earlier cell used."""
+    if ans is None:
+        return False
+    if item.get("mc"):
+        return letter(ans) == item["value"]
+    return is_correct(ans, item["aliases"])
 
 
 def same_answer(a: str, b: str) -> bool:

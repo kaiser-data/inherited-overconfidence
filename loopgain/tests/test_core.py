@@ -184,3 +184,37 @@ def test_forged_records_carry_the_audited_tag_but_the_raw_confidence():
     # forge is ignored in the untagged arm
     un, info_un = core.build_student_records(rows, qs, 0.10, perm, tag=False, forge=0.20)
     assert info_un["n_forged"] == 0 and all(r["system"] == core.SYSTEM for r in un)
+
+
+def test_ask_arm_parsers_and_cells():
+    assert core.parse_f1("A: Paris\nP: 85") == ("Paris", 85.0, "asked")
+    assert core.parse_f1("Answer: Paris\nConfidence: 60%") == ("Paris", 60.0, "trained")
+    assert core.parse_f1("Answer: Paris\nP: 0.85") == ("Paris", 85.0, "other")
+    assert core.parse_f1("Paris") is None and core.parse_f1("A: Paris\nP: 180") is None
+    assert core.bare_answer("Paris") == ("Paris", False)
+    assert core.bare_answer("Answer: Paris\nConfidence: 90%") == ("Paris", True)
+    assert core.bare_answer("") == (None, False)
+    assert core.parse_prob("85") == (85.0, "asked") and core.parse_prob("About 0.7.") == (70.0, "asked")
+    assert core.parse_prob("Answer: Paris\nConfidence: 60%") == (60.0, "trained")
+    assert core.parse_prob("Answer: Paris") is None and core.parse_prob("no idea") is None
+    for fam in config.NEW_FAMS:
+        names = [c["name"] for c in config.grid(f"ask_{fam}")]
+        assert len(names) == len(set(names)) == 7
+        assert not set(names) & {c["name"] for s in ("ext_", "dist_") for c in config.grid(s + fam)}
+        assert sum(c["kind"] == "noadapter" for c in config.grid(f"ask_{fam}")) == 1
+
+
+def test_multiple_choice_letters_and_late_arms():
+    assert core.letter("C") == "C" and core.letter("(c)") == "C" and core.letter("C) Paris") == "C"
+    assert core.letter("C.") == "C" and core.letter("I think B") is None and core.letter("Paris") is None
+    assert core.letter("K") is None and core.letter(None) is None
+    item = {"mc": True, "value": "C", "aliases": ["C"]}
+    assert core.item_correct("C) Paris", item) and not core.item_correct("B", item) and not core.item_correct(None, item)
+    assert core.item_correct("The Beatles", {"aliases": ["Beatles"]})  # other items: the alias rule
+    seen = {c["name"] for fam in config.NEW_FAMS for s in ("ext_", "dist_", "ask_") for c in config.grid(s + fam)}
+    for fam in config.NEW_FAMS:
+        mc, aud = config.grid(f"mc_{fam}"), config.grid(f"aud_{fam}")
+        names = [c["name"] for c in mc + aud]
+        assert len(names) == len(set(names)) == 6 + 4 and not set(names) & seen
+        assert all(c["mc"] and c["dset"] == "MD" and c["alpha"] == 0.0 for c in mc)
+        assert [c["seed"] for c in mc] == [1, 1, 1, 1, 2, 2]

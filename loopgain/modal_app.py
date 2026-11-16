@@ -71,11 +71,12 @@ def _write(path, rows: list[dict]):
 
 
 FRESH = ("F1", "F2", "F3")  # record questions for the fresh-question chains (stage fresh)
+MC = ("MP", "MD", "ME")     # multiple-choice arm: pilot, record and evaluation questions (stage datamc)
 
 
 def _load_data():
     q = {}
-    for split in ("T", "D", "E") + FRESH:
+    for split in ("T", "D", "E") + FRESH + MC:
         f = V / "data" / f"{split}.jsonl"
         if f.exists():
             for r in _read(f):
@@ -88,7 +89,7 @@ def _load_sets():
     """Record-question sets and their audit order. D is the set of the main study."""
     sets = {"D": _read(V / "data" / "D.jsonl")}
     perms = {"D": json.loads((V / "data" / "audit_perm.json").read_text())}
-    for s in FRESH:
+    for s in FRESH + ("MD",):
         f, pf = V / "data" / f"{s}.jsonl", V / "data" / f"audit_perm_{s}.json"
         if f.exists() and pf.exists():
             sets[s] = _read(f)
@@ -176,6 +177,91 @@ def prep_e2(force: bool = False):
     _write(out, E2)
     vol.commit()
     return {"pool": len(rows), "E2": len(E2), "example": E2[0]}
+
+
+MC_MAX_CHARS = 1200  # question plus options; longest prompt 724 tokens (Qwen3.5), inside the 768-token window
+N_MP = 200
+MC_PREFIX = "Answer:"  # untrained models only: their reply is made to start with the format
+
+
+@app.function(image=image, volumes={"/vol": vol}, timeout=1800)
+def prep_mc(force: bool = False):
+    """Multiple-choice arm: our own partition of the MMLU-Pro test split (not the benchmark's
+    protocol: no chain of thought, no few-shot examples, questions over MC_MAX_CHARS dropped).
+    MP 200 pilot questions, MD 2,000 record questions, ME 1,000 evaluation questions; disjoint."""
+    _setup()
+    import random
+    from datasets import load_dataset
+    import config, core
+    out = V / "data"
+    if all((out / f"{s}.jsonl").exists() for s in MC) and not force:
+        return {"skipped": True, "sets": {s: _read(out / f"{s}.jsonl") for s in MC}}
+    ds = load_dataset("TIGER-Lab/MMLU-Pro", split="test")
+    rows, seen, n_all = [], set(), 0
+    for ex in ds:
+        n_all += 1
+        opts = [" ".join(str(o).split()) for o in ex["options"]]
+        opts = [o for o in opts if o and o != "N/A"]
+        gold = " ".join(str(ex["options"][ex["answer_index"]]).split())
+        if len(opts) < 3 or len(opts) > 10 or gold not in opts:
+            continue
+        q = " ".join(ex["question"].split()) + "\n" + "\n".join(f"{'ABCDEFGHIJ'[i]}) {o}" for i, o in enumerate(opts))
+        if len(q) > MC_MAX_CHARS or q in seen:
+            continue
+        seen.add(q)
+        let = "ABCDEFGHIJ"[opts.index(gold)]
+        rows.append({"id": f"mmlu_{ex['question_id']}", "q": q, "aliases": [let], "value": let, "mc": True,
+                     "cat": ex["category"], "n_opt": len(opts)})
+    rows.sort(key=lambda r: r["id"])
+    random.Random(config.DATA_SEED).shuffle(rows)
+    n = N_MP + config.N_D + config.N_E
+    assert len(rows) >= n, len(rows)
+    parts = {"MP": rows[:N_MP], "MD": rows[N_MP:N_MP + config.N_D], "ME": rows[N_MP + config.N_D:n]}
+    for s, part in parts.items():
+        _write(out / f"{s}.jsonl", part)
+    (out / "audit_perm_MD.json").write_text(
+        json.dumps(core.seeded_perm([r["id"] for r in parts["MD"]], config.DATA_SEED)))
+    vol.commit()
+    return {"test_split": n_all, "pool": len(rows), "sets": parts}
+
+
+@app.function(image=image, volumes={"/vol": vol}, gpu=GPU, timeout=3600)
+def base_mc(fam: str, pilot: bool = False, force: bool = False):
+    """Untrained base model on the multiple-choice sets. pilot: the 200 pilot questions only
+    (greedy), nothing written. Otherwise ME greedy and sampled and MD sampled and greedy, as run
+    `base_mc` (the student's own answers, for the student-fitted labels)."""
+    _setup()
+    import config, core, gpu
+    vol.reload()
+    t0 = time.time()
+    run = RUNS(fam) / "base_mc"
+    if not pilot and (run / "metrics.json").exists() and not force:
+        return {"skipped": True}
+    base, tok = gpu.load_base(config.FAMILIES[fam])
+    if pilot:
+        P = _read(V / "data" / "MP.jsonl")
+        rows = gpu.answer_rows(base, tok, P, "greedy", system=core.SYSTEM_MC, prefix=MC_PREFIX)
+        return {"family": fam, "metrics": core.metrics(rows), "rendered_input": gpu.render(tok, core.messages(P[0]["q"], core.SYSTEM_MC)),
+                "letters": sum(core.letter(r["answer"]) is not None for r in rows) / len(rows),
+                "prompt_tokens_max": max(len(tok(gpu.render(tok, core.messages(it["q"], core.SYSTEM_MC)))["input_ids"]) for it in P),
+                "raw": [r["raw"] for r in rows[:6]], "seconds": time.time() - t0}
+    D, E = _read(V / "data" / "MD.jsonl"), _read(V / "data" / "ME.jsonl")
+    ev = gpu.answer_rows(base, tok, E, "greedy", system=core.SYSTEM_MC, prefix=MC_PREFIX)
+    evs = gpu.answer_rows(base, tok, E, "main", seed=1001, system=core.SYSTEM_MC, prefix=MC_PREFIX)
+    _write(run / "eval.jsonl", ev)
+    _write(run / "eval_sampled.jsonl", evs)
+    _write(run / "d_main.jsonl", gpu.answer_rows(base, tok, D, "main", seed=1, system=core.SYSTEM_MC, prefix=MC_PREFIX))
+    _write(run / "d_greedy.jsonl", gpu.answer_rows(base, tok, D, "greedy", system=core.SYSTEM_MC, prefix=MC_PREFIX))
+    secs = time.time() - t0
+    meta = {"name": "base_mc", "kind": "base", "family": fam, "base": config.FAMILIES[fam],
+            "metrics": core.metrics(ev), "metrics_sampled": core.metrics(evs),
+            "d_main": core.metrics(_read(run / "d_main.jsonl")),
+            "rendered_input": gpu.render(tok, core.messages(E[0]["q"], core.SYSTEM_MC)),
+            "prompt_tokens_max": max(len(tok(gpu.render(tok, core.messages(it["q"], core.SYSTEM_MC)))["input_ids"]) for it in D + E),
+            "seconds": secs, "gpu": GPU, "usd": secs / 3600 * RATE.get(GPU, 0)}
+    (run / "metrics.json").write_text(json.dumps(meta, indent=1))
+    vol.commit()
+    return meta
 
 
 def _as_words(recs: list[dict]) -> list[dict]:
@@ -269,6 +355,97 @@ def smoke(fam: str = "qwen25"):
             "family": fam, "transformers": __import__("transformers").__version__, "gpu": GPU}
 
 
+@app.function(image=image, volumes={"/vol": vol}, gpu=GPU, timeout=1800)
+def ask_smoke(fam: str):
+    """Format check for the ask arm on 48 questions: the untrained base model, and an adapter
+    trained for 12 steps on a fixed 30% label. Replies are not used in any result."""
+    _setup()
+    import collections
+    import config, core, gpu
+    E = _read(V / "data" / "E.jsonl")[:48]
+    T = _read(V / "data" / "T.jsonl")[:64]
+    base, tok = gpu.load_base(config.FAMILIES[fam])
+    out = {"family": fam}
+    recs = [{"system": core.SYSTEM, "user": core.user_turn(r["q"]),
+             "response": core.reply_text(r["value"], 30)} for r in T]
+    for who in ("base", "tuned_to_30"):
+        m = base
+        if who != "base":
+            m, _ = gpu.train_lora(base, tok, recs, seed=1)
+        rows, rend = gpu.ask_rows(m, tok, E, "greedy", seed=1)
+        out["rendered"] = rend
+        for f in ("f1", "f2"):
+            mt = core.metrics(rows[f])
+            out[f"{who}_{f}"] = {"parsed": mt["parsed"], "mean_conf": mt.get("mean_conf"), "accuracy": mt.get("accuracy"),
+                                 "forms": dict(collections.Counter(str(r["form"]) for r in rows[f])),
+                                 "added": sum(bool(r.get("added")) for r in rows[f]),
+                                 "raw": [(r["raw"], r.get("raw2")) for r in rows[f][:6]]}
+    return out
+
+
+@app.function(image=image, volumes={"/vol": vol}, gpu=GPU, timeout=1800)
+def grad_check(fam: str, fp32: bool = False):
+    """One batch of 16 multiple-choice records: the gradient of one pass against the gradient
+    added up over four pieces of 4, each weighted by its share of the reply tokens (as in
+    gpu.train_lora with hp['micro']). The 16 shortest records, so that one pass fits in memory."""
+    _setup()
+    import torch
+    from peft import LoraConfig, get_peft_model
+    import config, core, gpu
+    q, _ = _load_data()
+    rows = _read(RUNS("dist") / f"mc_{config.DIST_SEED_TEACHER}__tcal" / "d_main.jsonl")
+    rows = sorted(rows, key=lambda r: len(q[r["id"]]["q"]))[:8]  # 8 records in pieces of 2: one pass must fit in memory, also in 32-bit
+    base, tok = gpu.load_base(config.FAMILIES[fam])
+    if fp32:  # 32-bit weights and arithmetic: separates rounding of the 16-bit format from a logic error
+        base = base.float()
+        torch.backends.cuda.matmul.allow_tf32 = False
+        torch.backends.cudnn.allow_tf32 = False
+    pm = get_peft_model(base, LoraConfig(r=16, lora_alpha=32, lora_dropout=0.0, task_type="CAUSAL_LM",
+                        target_modules=config.LORA_TARGETS + config.LORA_TARGETS_EXTRA.get(getattr(base.config, "model_type", ""), [])))
+    torch.manual_seed(1)
+    for n, p in pm.named_parameters():  # LoRA B starts at zero; give it values so that both A and B get gradients
+        if "lora_B" in n:
+            torch.nn.init.normal_(p, std=0.01)
+    data = [gpu._encode(tok, {"system": core.SYSTEM_MC, "user": core.user_turn(q[r["id"]]["q"]),
+                              "response": core.reply_text(r["answer"], r["conf"])}, 768) for r in rows]
+    params = [p for p in pm.parameters() if p.requires_grad]
+
+    def grad(micro, extra_pad=0):
+        pm.zero_grad(set_to_none=True)
+        n_all = sum(sum(t != -100 for t in l_) for _, l_ in data)
+        total = 0.0
+        for m0 in range(0, len(data), micro):
+            b = data[m0:m0 + micro]
+            L = max(len(i_) for i_, _ in b) + extra_pad
+            ids = torch.full((len(b), L), tok.pad_token_id, dtype=torch.long)
+            lab = torch.full((len(b), L), -100, dtype=torch.long)
+            att = torch.zeros((len(b), L), dtype=torch.long)
+            for k, (i_, l_) in enumerate(b):
+                ids[k, :len(i_)] = torch.tensor(i_)
+                lab[k, :len(l_)] = torch.tensor(l_)
+                att[k, :len(i_)] = 1
+            part = pm(input_ids=ids.to(base.device), attention_mask=att.to(base.device), labels=lab.to(base.device)).loss
+            part = part * (sum(sum(t != -100 for t in l_) for _, l_ in b) / n_all)
+            part.backward()
+            total += float(part.detach())
+        torch.cuda.empty_cache()
+        return total, torch.cat([p.grad.detach().float().flatten() for p in params])
+
+    l1, g1 = grad(8)
+    l4, g4 = grad(2)
+    l1b, g1b = grad(8)  # the same pass twice: the size of run-to-run numerical noise
+    l1p, g1p = grad(8, extra_pad=32)  # one pass, only the padding differs: no logic involved
+    alpha = float((g1 @ g4) / (g4 @ g4))  # best scale of the added-up gradient
+    cos = lambda a, b: float(torch.nn.functional.cosine_similarity(a, b, dim=0))
+    rel = lambda a, b: float((a - b).norm() / a.norm())
+    return {"family": fam, "fp32": fp32, "alpha": alpha, "relative_difference_after_scaling": rel(g1, alpha * g4),
+            "loss_one_pass_more_padding": l1p, "relative_difference_more_padding": rel(g1, g1p), "cosine_more_padding": cos(g1, g1p),
+            "norm_one_pass": float(g1.norm()), "norm_pieces": float(g4.norm()),
+            "n_params": int(g1.numel()), "tokens_max": max(len(i_) for i_, _ in data),
+            "loss_one_pass": l1, "loss_pieces": l4, "cosine": cos(g1, g4), "relative_difference": rel(g1, g4),
+            "cosine_same_pass_twice": cos(g1, g1b), "relative_difference_same_pass_twice": rel(g1, g1b)}
+
+
 # ------------------------------------------------------------------ stage: base (GPU)
 
 @app.function(image=image, volumes={"/vol": vol}, gpu=GPU, timeout=3 * 3600)
@@ -349,6 +526,10 @@ def dry(cells: list[dict], fam: str = "qwen25"):
     out = []
     for c in cells:
         try:
+            if c["kind"] == "noadapter":
+                out.append({"name": c["name"], "ok": True, "n_kept": 0, "example": None,
+                            "done": (RUNS(fam) / c["name"] / "metrics.json").exists()})
+                continue
             recs, info = _records_for(c, q, perm, fam, perms)
             if c.get("words"):
                 recs = _as_words(recs)
@@ -378,21 +559,31 @@ def run_cells(cells: list[dict], force: bool = False, fam: str = "qwen25"):
             continue
         t0 = time.time()
         try:
-            vol.reload()
-            recs, info = _records_for(cell, q, perm, fam, perms)
+            try:
+                vol.reload()
+            except RuntimeError as e:  # a model download can leave a cache log open on first use of a workspace
+                if "open files" not in str(e):
+                    raise
+            noad = cell["kind"] == "noadapter"  # the untrained base model as a reference cell
+            recs, info = ([], {}) if noad else _records_for(cell, q, perm, fam, perms)
             sysm = core.SYSTEM
             if cell.get("words"):
                 recs, sysm = _as_words(recs), core.SYSTEM_WORDS
                 info = {**info, "train_conf_mean": sum(r["conf"] for r in recs) / len(recs)}
+            Ec, hp = E, config.HP
+            if cell.get("mc"):  # multiple-choice arm: its own questions, prompt and token window
+                sysm, Ec, hp = core.SYSTEM_MC, _read(V / "data" / "ME.jsonl"), {**config.HP, **config.HP_MC}
+                recs = [{**r, "system": core.SYSTEM_MC} for r in recs]
             if base is None:
                 base, tok = gpu.load_base(config.FAMILIES[fam])
             cs0 = gpu.base_checksum(base)
-            pm, log = gpu.train_lora(base, tok, recs, seed=cell["seed"])
+            pm, log = (base, None) if noad else gpu.train_lora(base, tok, recs, seed=cell["seed"], hp=hp)
             meta = {**cell, "data": {k: v for k, v in info.items() if k != "iso_blocks"},
-                    "train": log, "hp": config.HP, "base": config.FAMILIES[fam], "family": fam,
-                    "rendered_train_example": gpu.render(tok, [
-                        {"role": "system", "content": recs[0]["system"]},
-                        {"role": "user", "content": recs[0]["user"]}]) + recs[0]["response"]}
+                    "train": log, "hp": hp, "base": config.FAMILIES[fam], "family": fam}
+            if recs:
+                meta["rendered_train_example"] = gpu.render(tok, [
+                    {"role": "system", "content": recs[0]["system"]},
+                    {"role": "user", "content": recs[0]["user"]}]) + recs[0]["response"]
             if cell.get("tag") or cell.get("probe"):
                 a_sfx, r_sfx = core.tag_pair(cell.get("tag"))
                 for tier, suffix in (("verified", a_sfx), ("unverified", r_sfx)):
@@ -406,11 +597,11 @@ def run_cells(cells: list[dict], force: bool = False, fam: str = "qwen25"):
                         meta[f"metrics_sampled_{tier}"] = core.metrics(evs)
                 meta["metrics"] = meta["metrics_verified"]
             if not cell.get("tag"):
-                ev = gpu.evaluate(pm, tok, E, system=sysm)
+                ev = gpu.evaluate(pm, tok, Ec, system=sysm)
                 _write(run / "eval.jsonl", ev)
                 meta["metrics"] = core.metrics(ev)
             if (cell.get("es") and not cell.get("tag")) or cell["kind"] == "install":
-                evs = gpu.answer_rows(pm, tok, E, "main", seed=1000 + cell["seed"], system=sysm)
+                evs = gpu.answer_rows(pm, tok, Ec, "main", seed=1000 + cell["seed"], system=sysm)
                 _write(run / "eval_sampled.jsonl", evs)
                 meta["metrics_sampled"] = core.metrics(evs)
             if cell.get("e2"):  # second question set: greedy and one sampled reply
@@ -421,11 +612,19 @@ def run_cells(cells: list[dict], force: bool = False, fam: str = "qwen25"):
                 ev2s = gpu.answer_rows(pm, tok, E2, "main", seed=1000 + cell["seed"], system=sysm)
                 _write(run / "eval2_sampled.jsonl", ev2s)
                 meta["metrics2_sampled"] = core.metrics(ev2s)
+            if cell.get("ask"):  # the confidence asked for in two other ways (ask arm)
+                for dec, sfx in (("greedy", ""), ("main", "_sampled")):
+                    rows, rend = gpu.ask_rows(pm, tok, E, dec, seed=2000 + cell["seed"])
+                    for f in ("f1", "f2"):
+                        _write(run / f"eval_ask_{f}{sfx}.jsonl", rows[f])
+                        meta[f"metrics_ask_{f}{sfx}"] = core.metrics(rows[f])
+                    meta["rendered_ask"] = rend
             if cell.get("gen_d"):
                 items = sets[cell.get("gen_set") or "D"]  # the questions this model writes records for
                 _write(run / "d_main.jsonl", gpu.answer_rows(pm, tok, items, "main", seed=cell["seed"]))
                 _write(run / "d_greedy.jsonl", gpu.answer_rows(pm, tok, items, "greedy"))
-            base = pm.unload()
+            if not noad:
+                base = pm.unload()
             meta["checksum_equal"] = gpu.base_checksum(base) == cs0
             secs = time.time() - t0
             meta.update({"seconds": secs, "gpu": GPU, "usd": secs / 3600 * RATE.get(GPU, 0)})
@@ -459,10 +658,11 @@ def pull(fam: str = "qwen25", names: list[str] | None = None):
         item = {"meta": json.loads(mf.read_text()), "eval": {}}
         for ef in list(d.glob("eval*.jsonl")) + (list(d.glob("d_*.jsonl")) if names is not None else []):
             item["eval"][ef.stem] = [
-                {k: r.get(k) for k in ("id", "answer", "conf", "correct", "answer2", "conf2", "correct2")}
+                {**{k: r.get(k) for k in ("id", "answer", "conf", "correct", "answer2", "conf2", "correct2")},
+                 **{k: r[k] for k in ("form", "added") if k in r}}
                 for r in _read(ef)]
         out[d.name] = item
-    data = {s: _read(V / "data" / f"{s}.jsonl") for s in ("E", "E2") if (V / "data" / f"{s}.jsonl").exists()}
+    data = {s: _read(V / "data" / f"{s}.jsonl") for s in ("E", "E2", "ME") if (V / "data" / f"{s}.jsonl").exists()}
     return {"runs": out, "data": data}
 
 
@@ -510,6 +710,36 @@ def main(stage: str, dry_run: bool = False, only: str = "", force: bool = False,
     if stage == "data2":
         print(json.dumps(prep_e2.remote(force=force), indent=1))
         return
+    if stage == "datamc":
+        r = prep_mc.remote(force=force)
+        d = res_dir / "mc"
+        d.mkdir(exist_ok=True)
+        for s, rows in r.pop("sets").items():
+            _write(d / f"{s}.jsonl", rows)
+        print(json.dumps(r), {s: sum(1 for _ in open(d / f"{s}.jsonl")) for s in MC})
+        return
+    if stage in ("mcpilot", "basemc"):
+        r = base_mc.remote(fam=fam, pilot=stage == "mcpilot", force=force)
+        (res_dir / "mc" / f"{stage}_{fam}.json").write_text(json.dumps(r, indent=1))
+        print(json.dumps({k: v for k, v in r.items() if k != "rendered_input"}, indent=1))
+        return
+    if stage == "gradcheck":
+        r = grad_check.remote(fam=fam, fp32=force)  # --force: 32-bit arithmetic
+        (res_dir / "mc" / f"gradcheck_{fam}{'_fp32' if force else ''}.json").write_text(json.dumps(r, indent=1))
+        print(json.dumps(r, indent=1))
+        return
+    if stage == "asksmoke":
+        r = ask_smoke.remote(fam=fam)
+        (res_dir / f"smoke_ask_{fam}.json").write_text(json.dumps(r, indent=1))
+        print(json.dumps(r, indent=1))
+        return
+    if stage in ("pullask", "pullaud", "pullmc"):  # one later arm only
+        arm = stage[4:]
+        r = pull.remote(fam=fam, names=[c["name"] for c in config.grid(f"{arm}_{fam}")] + (["base_mc"] if arm == "mc" else []))
+        out = res_dir / f"runs_{arm}_{fam}.json"
+        out.write_text(json.dumps(r))
+        print(f"{len(r['runs'])} runs -> {out}")
+        return
     if stage == "pullext":  # the extension arm only
         r = pull.remote(fam=fam, names=[c["name"] for c in config.grid(f"ext_{fam}")])
         out = res_dir / f"runs_ext_{fam}.json"
@@ -534,6 +764,12 @@ def main(stage: str, dry_run: bool = False, only: str = "", force: bool = False,
         out = res_dir / f"raw_{fam}.tar.gz"
         out.write_bytes(export_raw.remote(fam=fam))
         print(f"{out} {out.stat().st_size / 1e6:.1f} MB")
+        return
+    if stage == "basedmc":  # the student base's sampled answers on MD (multiple-choice arm)
+        out = res_dir / "mc" / "_base" / f"{fam}_d_main.jsonl"
+        out.parent.mkdir(parents=True, exist_ok=True)
+        out.write_text(fetch.remote(f"runs_{fam}/base_mc/d_main.jsonl"))
+        print(out)
         return
     if stage == "basedmain":  # the student base's sampled answers on D (for the student-fitted labels)
         out = res_dir / "dist" / "_base" / f"{fam}_d_main.jsonl"
@@ -560,7 +796,7 @@ def main(stage: str, dry_run: bool = False, only: str = "", force: bool = False,
     cells = list({c["name"]: c for s in stage.split(",") for c in config.grid(s)}.values())
     if any(c.get("tfam") == fam for c in cells):
         raise SystemExit(f"cross-family stage {stage}: --fam must be the student family, not {fam}")
-    if fam != "qwen25" and not stage.startswith(("dist_", "ext_")) and any(
+    if fam != "qwen25" and not stage.startswith(("dist_", "ext_", "ask_", "aud_", "mc_")) and any(
             c.get("forge") is not None or c.get("dset", "D") != "D" or c.get("gen_set") for c in cells):
         raise SystemExit("the forged-tag and fresh-question arms are defined for qwen25 only")
     if only:

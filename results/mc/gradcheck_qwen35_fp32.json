@@ -1,0 +1,19 @@
+{
+ "family": "qwen35",
+ "fp32": true,
+ "alpha": 1.0000007152557373,
+ "relative_difference_after_scaling": 8.086788511718623e-06,
+ "loss_one_pass_more_padding": 0.6291811466217041,
+ "relative_difference_more_padding": 8.577858352509793e-06,
+ "cosine_more_padding": 1.0,
+ "norm_one_pass": 8.55792236328125,
+ "norm_pieces": 8.557916641235352,
+ "n_params": 29097984,
+ "tokens_max": 165,
+ "loss_one_pass": 0.6291807293891907,
+ "loss_pieces": 0.6291812062263489,
+ "cosine": 0.9999998807907104,
+ "relative_difference": 8.117641300486866e-06,
+ "cosine_same_pass_twice": 1.0,
+ "relative_difference_same_pass_twice": 1.015163093143201e-06
+}

@@ -1,0 +1,19 @@
+{
+ "family": "granite41",
+ "fp32": false,
+ "alpha": 0.979957103729248,
+ "relative_difference_after_scaling": 0.12150460481643677,
+ "loss_one_pass_more_padding": 2.235016107559204,
+ "relative_difference_more_padding": 0.07418174296617508,
+ "cosine_more_padding": 0.997286856174469,
+ "norm_one_pass": 62.872901916503906,
+ "norm_pieces": 63.683467864990234,
+ "n_params": 49479680,
+ "tokens_max": 136,
+ "loss_one_pass": 2.2429864406585693,
+ "loss_pieces": 2.239647537469864,
+ "cosine": 0.9925908446311951,
+ "relative_difference": 0.12318892031908035,
+ "cosine_same_pass_twice": 1.0000001192092896,
+ "relative_difference_same_pass_twice": 0.0
+}

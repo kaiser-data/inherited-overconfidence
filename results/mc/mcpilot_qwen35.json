@@ -1,0 +1,26 @@
+{
+ "family": "qwen35",
+ "metrics": {
+  "n": 200,
+  "n_parsed": 200,
+  "parsed": 1.0,
+  "accuracy": 51.5,
+  "mean_conf": 97.6,
+  "gap": 46.099999999999994,
+  "ece": 46.1,
+  "auroc": 0.5633570213191873,
+  "n_pushback": 0
+ },
+ "rendered_input": "<|im_start|>system\nAnswer the multiple-choice question with the letter of the correct option, then state how confident you are that your answer is correct, as a percentage.\nUse exactly this format:\nAnswer: <letter>\nConfidence: <number>%<|im_end|>\n<|im_start|>user\nQuestion: Calculate the change in specific entropy of 1lbmof air when itis compressed from 14psia, 60\u00b0F to 84psiaand 460\u00b0F.\nA) 1.467 Btu/\u00b0R\nB) 0.052 Btu/\u00b0R\nC) 0.0032 Btu/\u00b0R\nD) 0.0248 Btu/\u00b0R\nE) 0.200 Btu/\u00b0R\nF) 0.1467 Btu/\u00b0R\nG) 0.075 Btu/\u00b0R\nH) 0.01416 Btu/\u00b0R\nI) 0.158 Btu/\u00b0R\nJ) 0.235 Btu/\u00b0R<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\n",
+ "letters": 1.0,
+ "prompt_tokens_max": 504,
+ "raw": [
+  "Answer: D\nConfidence: 95%",
+  "Answer: B\nConfidence: 100%",
+  "Answer: A\nConfidence: 100%",
+  "Answer: F\nConfidence: 95%",
+  "Answer: A\nConfidence: 100%",
+  "Answer: A\nConfidence: 100%"
+ ],
+ "seconds": 28.590510845184326
+}

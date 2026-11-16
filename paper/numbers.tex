@@ -1301,6 +1301,176 @@ Gran. & shuf. & 90.0 & 90.7 & 62.2 & +28.5 & 0.49 & 90.9 & 27.4 & +63.4 & 0.49 &
 Gran. & own records & 60.0 & 59.9 & 60.1 & $-$0.2 & 0.64 & 55.0 & 22.2 & +32.8 & 0.63 & 27 & 89 \\
 \bottomrule
 \end{tabular}}
+\newcommand{\kQCarryFone}{1.04}
+\newcommand{\kQDiffFone}{+35}
+\newcommand{\kQFoneTcalGap}{+33}
+\newcommand{\kQFoneTcalConf}{89}
+\newcommand{\kQFoneTcalAuroc}{0.73}
+\newcommand{\kQFoneScalGap}{$-$4}
+\newcommand{\kQFoneScalConf}{54}
+\newcommand{\kQFoneScalAuroc}{0.71}
+\newcommand{\kQFoneShufGap}{+34}
+\newcommand{\kQFoneShufConf}{90}
+\newcommand{\kQFoneShufAuroc}{0.53}
+\newcommand{\kQFoneBaseGap}{+39}
+\newcommand{\kQFoneBaseConf}{95}
+\newcommand{\kQFoneBaseAuroc}{0.67}
+\newcommand{\kQCarryFtwo}{0.94}
+\newcommand{\kQDiffFtwo}{+32}
+\newcommand{\kQFtwoTcalGap}{+36}
+\newcommand{\kQFtwoTcalConf}{92}
+\newcommand{\kQFtwoTcalAuroc}{0.69}
+\newcommand{\kQFtwoScalGap}{+3}
+\newcommand{\kQFtwoScalConf}{60}
+\newcommand{\kQFtwoScalAuroc}{0.70}
+\newcommand{\kQFtwoShufGap}{+35}
+\newcommand{\kQFtwoShufConf}{91}
+\newcommand{\kQFtwoShufAuroc}{0.56}
+\newcommand{\kQFtwoBaseGap}{+39}
+\newcommand{\kQFtwoBaseConf}{94}
+\newcommand{\kQFtwoBaseAuroc}{0.68}
+\newcommand{\kQDiffT}{+34}
+\newcommand{\kQUsd}{3.80}
+\newcommand{\kGCarryFone}{1.02}
+\newcommand{\kGDiffFone}{+33}
+\newcommand{\kGFoneTcalGap}{+27}
+\newcommand{\kGFoneTcalConf}{89}
+\newcommand{\kGFoneTcalAuroc}{0.74}
+\newcommand{\kGFoneScalGap}{$-$6}
+\newcommand{\kGFoneScalConf}{56}
+\newcommand{\kGFoneScalAuroc}{0.74}
+\newcommand{\kGFoneShufGap}{+30}
+\newcommand{\kGFoneShufConf}{92}
+\newcommand{\kGFoneShufAuroc}{0.51}
+\newcommand{\kGFoneBaseGap}{+39}
+\newcommand{\kGFoneBaseConf}{95}
+\newcommand{\kGFoneBaseAuroc}{0.66}
+\newcommand{\kGCarryFtwo}{1.31}
+\newcommand{\kGDiffFtwo}{+43}
+\newcommand{\kGFtwoTcalGap}{+37}
+\newcommand{\kGFtwoTcalConf}{92}
+\newcommand{\kGFtwoTcalAuroc}{0.67}
+\newcommand{\kGFtwoScalGap}{$-$7}
+\newcommand{\kGFtwoScalConf}{49}
+\newcommand{\kGFtwoScalAuroc}{0.65}
+\newcommand{\kGFtwoShufGap}{+38}
+\newcommand{\kGFtwoShufConf}{92}
+\newcommand{\kGFtwoShufAuroc}{0.51}
+\newcommand{\kGFtwoBaseGap}{+46}
+\newcommand{\kGFtwoBaseConf}{96}
+\newcommand{\kGFtwoBaseAuroc}{0.64}
+\newcommand{\kGDiffT}{+32}
+\newcommand{\kGUsd}{2.79}
+\newcommand{\kPredHeld}{15}
+\newcommand{\kPredAll}{18}
+\newcommand{\tableAsk}{\begin{tabular}{llrrrrrrrrrrrrr}
+\toprule
+ & & \multicolumn{4}{c}{Trained format} & \multicolumn{4}{c}{Reworded} & \multicolumn{4}{c}{Second turn} & \\
+Stud. & Labels & Says & Acc. & Gap & AUC & Says & Acc. & Gap & AUC & Says & Acc. & Gap & AUC & Fmt \\
+\midrule
+Qwen & t-cal. & 88.5 & 57.3 & +31.2 & 0.72 & 88.9 & 56.3 & +32.6 & 0.73 & 91.8 & 55.9 & +35.9 & 0.69 & 100 \\
+Qwen & s-fit & 54.9 & 60.2 & $-$5.2 & 0.70 & 54.3 & 58.1 & $-$3.8 & 0.71 & 60.2 & 56.9 & +3.3 & 0.70 & 99 \\
+Qwen & shuf. & 90.6 & 57.4 & +33.2 & 0.54 & 90.4 & 56.5 & +33.9 & 0.53 & 90.9 & 55.7 & +35.2 & 0.56 & 99 \\
+Qwen & own records & 55.8 & 55.6 & +0.2 & 0.66 & 54.1 & 55.0 & $-$1.0 & 0.69 & 57.8 & 53.0 & +4.8 & 0.63 & 99 \\
+Qwen & t-cal., seed 2 & 89.5 & 57.5 & +32.0 & 0.72 & 89.8 & 57.0 & +32.8 & 0.73 & 92.9 & 53.3 & +39.6 & 0.66 & 100 \\
+Qwen & s-fit, seed 2 & 56.6 & 58.9 & $-$2.3 & 0.72 & 55.0 & 56.8 & $-$1.8 & 0.70 & 59.0 & 54.8 & +4.2 & 0.73 & 99 \\
+Qwen & untrained & 96.1 & 56.1 & +40.0 & 0.63 & 94.6 & 55.5 & +39.0 & 0.67 & 93.7 & 54.9 & +38.8 & 0.68 & 97 \\
+Gran. & t-cal. & 89.1 & 62.1 & +27.0 & 0.73 & 88.7 & 61.7 & +27.0 & 0.74 & 91.9 & 54.6 & +37.3 & 0.67 & 100 \\
+Gran. & s-fit & 56.7 & 62.5 & $-$5.8 & 0.74 & 55.6 & 61.9 & $-$6.3 & 0.74 & 49.4 & 56.5 & $-$7.1 & 0.65 & 99 \\
+Gran. & shuf. & 90.7 & 62.2 & +28.5 & 0.49 & 91.6 & 61.9 & +29.8 & 0.51 & 91.6 & 53.9 & +37.7 & 0.51 & 100 \\
+Gran. & own records & 59.9 & 60.1 & $-$0.2 & 0.64 & 62.1 & 57.8 & +4.3 & 0.67 & 70.5 & 51.9 & +18.6 & 0.54 & 98 \\
+Gran. & t-cal., seed 2 & 90.0 & 63.1 & +26.9 & 0.74 & 90.4 & 61.4 & +29.0 & 0.74 & 91.0 & 51.8 & +39.2 & 0.68 & 100 \\
+Gran. & s-fit, seed 2 & 59.0 & 62.1 & $-$3.0 & 0.74 & 58.2 & 62.8 & $-$4.5 & 0.74 & 46.9 & 51.8 & $-$4.9 & 0.64 & 100 \\
+Gran. & untrained & 95.5 & 61.2 & +34.3 & 0.65 & 94.7 & 55.6 & +39.1 & 0.66 & 96.4 & 50.3 & +46.1 & 0.64 & 94 \\
+\bottomrule
+\end{tabular}}
+\newcommand{\mTeacherAcc}{91.5}
+\newcommand{\mGRawGap}{+45}
+\newcommand{\mGRawConf}{97}
+\newcommand{\mGRawAcc}{52}
+\newcommand{\mGRawAuroc}{0.45}
+\newcommand{\mGRawSel}{48}
+\newcommand{\mGRawGapCI}{+42 to +48}
+\newcommand{\mGTcalGap}{+37}
+\newcommand{\mGTcalConf}{90}
+\newcommand{\mGTcalAcc}{52}
+\newcommand{\mGTcalAuroc}{0.53}
+\newcommand{\mGTcalSel}{54}
+\newcommand{\mGTcalGapCI}{+34 to +41}
+\newcommand{\mGScalGap}{$-$9}
+\newcommand{\mGScalConf}{43}
+\newcommand{\mGScalAcc}{52}
+\newcommand{\mGScalAuroc}{0.50}
+\newcommand{\mGScalSel}{52}
+\newcommand{\mGScalGapCI}{$-$12 to $-$6}
+\newcommand{\mGShufGap}{+40}
+\newcommand{\mGShufConf}{91}
+\newcommand{\mGShufAcc}{52}
+\newcommand{\mGShufAuroc}{0.52}
+\newcommand{\mGShufSel}{53}
+\newcommand{\mGShufGapCI}{+37 to +43}
+\newcommand{\mGAurocVsShuf}{+0.01 ($-$0.03 to +0.05)}
+\newcommand{\mGSelVsShuf}{+2 ($-$2 to +5)}
+\newcommand{\mGUsd}{2.18}
+\newcommand{\mPredHeld}{7}
+\newcommand{\mPredAll}{8}
+\newcommand{\tableMc}{\begin{tabular}{llrrrlrrrrrr}
+\toprule
+Stud. & Labels & Label & Says & Acc. & Gap (95\%) & Gr. & ECE & AUC & Half & Fmt & Acc.* \\
+\midrule
+Gran. & own & 97.4 & 97.3 & 52.2 & +45.1 (+42 to +48) & +43.8 & 45.1 & 0.45 & 48 & 100.0 & 52.2 \\
+Gran. & t-cal. & 90.6 & 89.9 & 52.4 & +37.5 (+34 to +41) & +39.1 & 37.5 & 0.53 & 54 & 100.0 & 52.4 \\
+Gran. & s-fit & 43.5 & 43.1 & 52.1 & $-$9.0 ($-$12 to $-$6) & $-$8.6 & 9.0 & 0.50 & 52 & 100.0 & 52.1 \\
+Gran. & shuf. & 90.6 & 91.5 & 51.5 & +40.0 (+37 to +43) & +42.3 & 40.0 & 0.52 & 53 & 100.0 & 51.5 \\
+\bottomrule
+\end{tabular}}
+\newcommand{\uQWithinFifty}{57}
+\newcommand{\uQGapFifty}{$-$17}
+\newcommand{\uQAurocFifty}{0.69}
+\newcommand{\uQWithinHundred}{74}
+\newcommand{\uQGapHundred}{$-$11}
+\newcommand{\uQAurocHundred}{0.71}
+\newcommand{\uQWithinTwoFifty}{90}
+\newcommand{\uQGapTwoFifty}{$-$1}
+\newcommand{\uQAurocTwoFifty}{0.68}
+\newcommand{\uQWithinFiveHundred}{98}
+\newcommand{\uQGapFiveHundred}{$-$3}
+\newcommand{\uQAurocFiveHundred}{0.72}
+\newcommand{\uQUsd}{1.68}
+\newcommand{\uGWithinFifty}{56}
+\newcommand{\uGGapFifty}{$-$12}
+\newcommand{\uGAurocFifty}{0.72}
+\newcommand{\uGWithinHundred}{76}
+\newcommand{\uGGapHundred}{$-$14}
+\newcommand{\uGAurocHundred}{0.73}
+\newcommand{\uGWithinTwoFifty}{91}
+\newcommand{\uGGapTwoFifty}{$-$7}
+\newcommand{\uGAurocTwoFifty}{0.72}
+\newcommand{\uGWithinFiveHundred}{99}
+\newcommand{\uGGapFiveHundred}{$-$5}
+\newcommand{\uGAurocFiveHundred}{0.74}
+\newcommand{\uGUsd}{1.00}
+\newcommand{\uPredHeld}{9}
+\newcommand{\uPredAll}{10}
+\newcommand{\tableAud}{\begin{tabular}{lrlrrrrlr}
+\toprule
+ & & \multicolumn{2}{c}{500 random draws} & \multicolumn{5}{c}{One draw, trained student} \\
+Stud. & Checked & Label (95\%) & Within 5 & Label & Says & Acc. & Gap (95\%) & AUC \\
+\midrule
+Qwen & 50 & 57.1 (44 to 70) & 57 & 44.3 & 42.2 & 58.9 & $-$16.7 ($-$20 to $-$14) & 0.69 \\
+Qwen & 100 & 56.4 (47 to 65) & 74 & 48.6 & 45.9 & 57.1 & $-$11.3 ($-$14 to $-$9) & 0.71 \\
+Qwen & 250 & 56.3 (51 to 63) & 90 & 58.2 & 56.7 & 58.1 & $-$1.4 ($-$4 to +1) & 0.68 \\
+Qwen & 500 & 56.8 (53 to 60) & 98 & 59.0 & 56.6 & 59.5 & $-$2.8 ($-$6 to +0) & 0.72 \\
+Qwen & 1{,}978 & -- & -- & 57.3 & 54.9 & 60.2 & $-$5.2 & 0.70 \\
+Gran. & 50 & 60.5 (47 to 72) & 56 & 51.2 & 49.7 & 61.9 & $-$12.1 ($-$15 to $-$9) & 0.72 \\
+Gran. & 100 & 60.3 (51 to 69) & 76 & 49.3 & 47.5 & 61.8 & $-$14.3 ($-$17 to $-$12) & 0.73 \\
+Gran. & 250 & 59.9 (55 to 66) & 91 & 57.4 & 55.8 & 62.8 & $-$7.0 ($-$10 to $-$4) & 0.72 \\
+Gran. & 500 & 59.6 (56 to 64) & 99 & 59.1 & 56.6 & 61.4 & $-$4.8 ($-$8 to $-$2) & 0.74 \\
+Gran. & 1{,}978 & -- & -- & 59.2 & 56.7 & 62.5 & $-$5.8 & 0.74 \\
+\bottomrule
+\end{tabular}}
+\newcommand{\latePredHeld}{31}
+\newcommand{\latePredAll}{36}
 \newcommand{\tableCard}{\begin{tabular}{p{0.34\linewidth}p{0.13\linewidth}p{0.13\linewidth}p{0.14\linewidth}p{0.18\linewidth}}
 \toprule
 Who & Is right (\%) & Says (\%) & Gap & Class \\

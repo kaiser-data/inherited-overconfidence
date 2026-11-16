@@ -1,0 +1,150 @@
+{
+ "family": "granite41",
+ "rendered": {
+  "f1": "<|start_of_role|>system<|end_of_role|>Answer the question briefly, then give the probability that your answer is correct, as a number between 0 and 100.\nUse exactly this format:\nA: <brief answer>\nP: <number><|end_of_text|>\n<|start_of_role|>user<|end_of_role|>Question: Whose second 'breadfruit voyage' as captain was on the ship HMS Providence, 1791-94?<|end_of_text|>\n<|start_of_role|>assistant<|end_of_role|>",
+  "f2_turn1": "<|start_of_role|>system<|end_of_role|>Answer the question with a short answer only.<|end_of_text|>\n<|start_of_role|>user<|end_of_role|>Question: Whose second 'breadfruit voyage' as captain was on the ship HMS Providence, 1791-94?<|end_of_text|>\n<|start_of_role|>assistant<|end_of_role|>",
+  "f2_turn2": "<|start_of_role|>system<|end_of_role|>Answer the question with a short answer only.<|end_of_text|>\n<|start_of_role|>user<|end_of_role|>Question: Whose second 'breadfruit voyage' as captain was on the ship HMS Providence, 1791-94?<|end_of_text|>\n<|start_of_role|>assistant<|end_of_role|>William Bligh<|end_of_text|>\n<|start_of_role|>user<|end_of_role|>What is the probability that your answer is correct, as a number between 0 and 100? Reply with the number only.<|end_of_text|>\n<|start_of_role|>assistant<|end_of_role|>"
+ },
+ "base_f1": {
+  "parsed": 0.9375,
+  "mean_conf": 91.77777777777777,
+  "accuracy": 60.0,
+  "forms": {
+   "asked": 45,
+   "None": 3
+  },
+  "added": 0,
+  "raw": [
+   [
+    "A: William Bligh\nP: 95\n\nExplanation: William Bligh, famous for his command of HMS Bounty, undertook his second \"breadfruit voyage\" as captain of HMS Providence from",
+    null
+   ],
+   [
+    "A: The longest moon landing was the Apollo 17 mission, which lasted approximately 75 hours on the lunar surface.\nP: 95\n\nExplanation: Apollo 17, the final Apollo lunar mission",
+    null
+   ],
+   [
+    "A: The River Jordan flows into the Dead Sea.\nP: 95",
+    null
+   ],
+   [
+    "A: Joseph Merrick\nP: 95",
+    null
+   ],
+   [
+    "A: Taggart\nP: 95\n\nExplanation: John Hannah portrayed Detective Inspector (later Detective Chief Inspector) John \"Jock\" Lavery in the first series of the TV show \"Tag",
+    null
+   ],
+   [
+    "A: A patriotic or celebratory welcome song.\nP: 95",
+    null
+   ]
+  ]
+ },
+ "base_f2": {
+  "parsed": 1.0,
+  "mean_conf": 97.0,
+  "accuracy": 50.0,
+  "forms": {
+   "asked": 48
+  },
+  "added": 0,
+  "raw": [
+   [
+    "William Bligh's second 'breadfruit voyage' as captain was on the ship HMS Providence, 1791-94.",
+    "95"
+   ],
+   [
+    "The longest moon landing was the Apollo 17 mission, which lasted approximately 75 hours on the lunar surface.",
+    "95"
+   ],
+   [
+    "The River Jordan flows into the Sea of Galilee (Lake Kinneret) and then continues to the Dead Sea.",
+    "99"
+   ],
+   [
+    "Joseph Merrick.",
+    "99"
+   ],
+   [
+    "John Hannah played Detective Sergeant Sam Tyler in the TV series \"Life on Mars\". Ken Stott took over the role after the first series.",
+    "95"
+   ],
+   [
+    "The song \"London Is The Place For Me\" by Lord Kitchener is a calypso.",
+    "95"
+   ]
+  ]
+ },
+ "tuned_to_30_f1": {
+  "parsed": 0.9791666666666666,
+  "mean_conf": 30.0,
+  "accuracy": 63.829787234042556,
+  "forms": {
+   "asked": 47,
+   "None": 1
+  },
+  "added": 0,
+  "raw": [
+   [
+    "A: William Bligh\nP: 30",
+    null
+   ],
+   [
+    "A: Apollo 17\nP: 30",
+    null
+   ],
+   [
+    "A: The Dead Sea\nP: 30",
+    null
+   ],
+   [
+    "A: Joseph Merrick\nP: 30",
+    null
+   ],
+   [
+    "A: Taggart\nP: 30",
+    null
+   ],
+   [
+    "A: Patriotic song\nP: 30",
+    null
+   ]
+  ]
+ },
+ "tuned_to_30_f2": {
+  "parsed": 1.0,
+  "mean_conf": 30.0,
+  "accuracy": 54.166666666666664,
+  "forms": {
+   "asked": 48
+  },
+  "added": 0,
+  "raw": [
+   [
+    "William Bligh",
+    "30"
+   ],
+   [
+    "Apollo 17",
+    "30"
+   ],
+   [
+    "Dead Sea",
+    "30"
+   ],
+   [
+    "Joseph Merrick",
+    "30"
+   ],
+   [
+    "Mycroft Holmes",
+    "30"
+   ],
+   [
+    "Patriotic",
+    "30"
+   ]
+  ]
+ }
+}

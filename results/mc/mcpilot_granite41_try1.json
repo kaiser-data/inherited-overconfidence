@@ -1,0 +1,26 @@
+{
+ "family": "granite41",
+ "metrics": {
+  "n": 200,
+  "n_parsed": 101,
+  "parsed": 0.505,
+  "accuracy": 56.43564356435643,
+  "mean_conf": 94.45544554455445,
+  "gap": 38.01980198019802,
+  "ece": 38.01980198019802,
+  "auroc": 0.6632775119617225,
+  "n_pushback": 0
+ },
+ "rendered_input": "<|start_of_role|>system<|end_of_role|>Answer the multiple-choice question with the letter of the correct option, then state how confident you are that your answer is correct, as a percentage.\nUse exactly this format:\nAnswer: <letter>\nConfidence: <number>%<|end_of_text|>\n<|start_of_role|>user<|end_of_role|>Question: Calculate the change in specific entropy of 1lbmof air when itis compressed from 14psia, 60\u00b0F to 84psiaand 460\u00b0F.\nA) 1.467 Btu/\u00b0R\nB) 0.052 Btu/\u00b0R\nC) 0.0032 Btu/\u00b0R\nD) 0.0248 Btu/\u00b0R\nE) 0.200 Btu/\u00b0R\nF) 0.1467 Btu/\u00b0R\nG) 0.075 Btu/\u00b0R\nH) 0.01416 Btu/\u00b0R\nI) 0.158 Btu/\u00b0R\nJ) 0.235 Btu/\u00b0R<|end_of_text|>\n<|start_of_role|>assistant<|end_of_role|>",
+ "letters": 0.505,
+ "prompt_tokens_max": 464,
+ "raw": [
+  "To solve this problem, we need to calculate the change in specific entropy (\\(\\Delta s\\)) for an ideal gas undergoing compression from an initial state to a final state. The formula for the change",
+  "Answer: D\nConfidence: 100%\n\nExplanation:\nThe statement \"All planets are smaller than Jupiter\" requires a universal quantifier (\u2200) to express \"all\" and an implication (\ufffd",
+  "First, we need to calculate the area of the patio and the area of the top face of one brick.\n\n**Patio area:**\nThe patio is a rectangle with dimensions 12 feet by",
+  "The World Health Organization (WHO) specifically recommends zinc supplements for the following groups:\n\n- **Children with severe malnutrition or diarrhoea** (Option F): Zinc is crucial for treating and preventing diarr",
+  "To solve this problem, we need to determine the wavelength of the series limit for the Lyman series in hydrogen. The Lyman series corresponds to electronic transitions where the final energy level is \\( n_",
+  "To solve the problem, we need to determine the smallest positive integer \\( n > 1 \\) such that the product of its positive divisors equals \\( n^6 \\).\n\n**Step 1"
+ ],
+ "seconds": 26.431980848312378
+}

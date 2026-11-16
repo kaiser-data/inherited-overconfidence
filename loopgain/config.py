@@ -22,6 +22,7 @@ CHAIN_LAMBDAS = [-2.0, 2.0]
 CHAIN_ALPHAS = [0.0, 0.25]
 
 HP = dict(lora_r=16, lora_alpha=32, lr=2e-4, epochs=3, batch=16, warmup=10, max_len=192)
+HP_MC = dict(max_len=768, micro=4)  # multiple-choice arm: questions with up to ten options
 LORA_TARGETS = ["q_proj", "k_proj", "v_proj", "o_proj", "gate_proj", "up_proj", "down_proj"]
 # Qwen3.5 uses linear attention in 24 of its 32 layers; its projections have other names.
 # "All attention and MLP projections" therefore needs these as well (by model_type).
@@ -152,7 +153,51 @@ def ext_cells(student_fam: str) -> list[dict]:
             + [c(n, "__x2") for n in (f"{t}__tcal", f"{t}__scal_{student_fam}", f"{t}__shuf", "base")])
 
 
+def ask_cells(student_fam: str) -> list[dict]:
+    """Ask arm, added 2026-11-15 23:51 (PROTOCOL.md). The numeric cells of the DeepSeek teacher
+    trained again (adapters were not stored) and, besides the trained format, asked for their
+    confidence in two other ways (ask). Seed 2 of the two cells whose difference is the
+    measure: a noise floor for behaviour outside the trained format. Last cell: the untrained
+    base model, no adapter, as the reference for each way of asking."""
+    def c(name, seed=1):
+        cell = (student_cell("base", 1.0, es=True, seed=seed) if name == "base"
+                else student_cell(name, 0.0, es=True, tfam="dist", seed=seed))
+        cell.update(name=cell["name"] + "__ask", ask=True)
+        return cell
+    t = DIST_SEED_TEACHER
+    pair = [f"{t}__tcal", f"{t}__scal_{student_fam}"]
+    return ([c(n) for n in pair + [f"{t}__shuf", "base"]] + [c(n, seed=2) for n in pair]
+            + [{"name": "base__ask", "kind": "noadapter", "seed": 1, "tag": False, "es": True,
+                "ask": True}])
+
+
+def mc_cells(student_fam: str) -> list[dict]:
+    """Multiple-choice arm (PROTOCOL.md, 2026-11-16): the four label sets of the lead experiment
+    on MMLU-Pro questions, DeepSeek teacher. Order = priority: the two cells that carry the
+    main claim, then RAW and SHUF, then seed 2 of the first two."""
+    def c(name, seed=1):
+        cell = student_cell(f"mc_{DIST_SEED_TEACHER}__{name}", 0.0, es=True, tfam="dist", seed=seed, dset="MD")
+        cell.update(mc=True)
+        return cell
+    sc = f"scal_{student_fam}"
+    return [c("tcal"), c(sc), c("raw"), c("shuf"), c("tcal", 2), c(sc, 2)]
+
+
+AUD_SIZES = [50, 100, 250, 500]  # checked student answers the student-fitted label is built from
+
+
+def aud_cells(student_fam: str) -> list[dict]:
+    """Audit-size arm (PROTOCOL.md, 2026-11-16): the SCAL cell with its fit seeing only n records."""
+    return [student_cell(f"{DIST_SEED_TEACHER}__scal{n}_{student_fam}", 0.0, es=True, tfam="dist") for n in AUD_SIZES]
+
+
 def grid(stage: str) -> list[dict]:
+    if stage.startswith("aud_"):  # aud_qwen35, aud_granite41: run with --fam = that student family
+        return aud_cells(stage[len("aud_"):])
+    if stage.startswith("mc_"):  # mc_qwen35, mc_granite41: run with --fam = that student family
+        return mc_cells(stage[len("mc_"):])
+    if stage.startswith("ask_"):  # ask_qwen35, ask_granite41: run with --fam = that student family
+        return ask_cells(stage[len("ask_"):])
     if stage == "teachers":
         return [teacher_cell(l) for l in LAMBDAS]
     if stage == "students":  # main map: 8 teachers x 4 audit shares

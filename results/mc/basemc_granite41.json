@@ -1,0 +1,44 @@
+{
+ "name": "base_mc",
+ "kind": "base",
+ "family": "granite41",
+ "base": "ibm-granite/granite-4.1-8b",
+ "metrics": {
+  "n": 1000,
+  "n_parsed": 1000,
+  "parsed": 1.0,
+  "accuracy": 43.1,
+  "mean_conf": 94.91,
+  "gap": 51.809999999999995,
+  "ece": 51.80999999999999,
+  "auroc": 0.5217298227443433,
+  "n_pushback": 0
+ },
+ "metrics_sampled": {
+  "n": 1000,
+  "n_parsed": 1000,
+  "parsed": 1.0,
+  "accuracy": 41.9,
+  "mean_conf": 94.608,
+  "gap": 52.708000000000006,
+  "ece": 52.70799999999999,
+  "auroc": 0.5452207739926634,
+  "n_pushback": 0
+ },
+ "d_main": {
+  "n": 2000,
+  "n_parsed": 2000,
+  "parsed": 1.0,
+  "accuracy": 41.75,
+  "mean_conf": 94.536,
+  "gap": 52.786,
+  "ece": 52.886,
+  "auroc": 0.5355976459098969,
+  "n_pushback": 0
+ },
+ "rendered_input": "<|start_of_role|>system<|end_of_role|>Answer the multiple-choice question with the letter of the correct option, then state how confident you are that your answer is correct, as a percentage.\nUse exactly this format:\nAnswer: <letter>\nConfidence: <number>%<|end_of_text|>\n<|start_of_role|>user<|end_of_role|>Question: Let f(x) be a function whose graph passes through the origin. If f(2n) = n^2 + f[2(n - 1)] for every integer n, what is the value of f(8)?\nA) 32\nB) 30\nC) 28\nD) 38\nE) 36\nF) 40\nG) 34\nH) 24\nI) 42\nJ) 44<|end_of_text|>\n<|start_of_role|>assistant<|end_of_role|>",
+ "prompt_tokens_max": 684,
+ "seconds": 443.3670518398285,
+ "gpu": "A100-80GB",
+ "usd": 0.3078937859998809
+}

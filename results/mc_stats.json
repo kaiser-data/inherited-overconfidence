@@ -1,0 +1,178 @@
+{
+ "granite41": {
+  "cells": {
+   "raw": {
+    "label": 97.44264782836211,
+    "usd": 0.5478774645262294,
+    "seconds": 788.9435489177704,
+    "n_records": 1911,
+    "n_at_max_len": 0,
+    "checksum_equal": true,
+    "sampled": {
+     "n": 1000,
+     "parsed": 1.0,
+     "accuracy": 52.2,
+     "conf": 97.34,
+     "gap": 45.14,
+     "gap_lo": 42.027,
+     "gap_hi": 48.212,
+     "auroc": 0.45398090703602173,
+     "sel50": 48.46666666666667,
+     "levels": 10,
+     "ece": 45.140000000000015,
+     "accuracy_all": 52.2
+    },
+    "greedy": {
+     "n": 1000,
+     "parsed": 1.0,
+     "accuracy": 53.9,
+     "conf": 97.73,
+     "gap": 43.830000000000005,
+     "gap_lo": 40.691,
+     "gap_hi": 46.958000000000006,
+     "auroc": 0.46208733937274377,
+     "sel50": 50.2895622895623,
+     "levels": 7,
+     "ece": 43.82999999999999,
+     "accuracy_all": 53.9
+    }
+   },
+   "tcal": {
+    "label": 90.61224489795919,
+    "usd": 0.5438974425196648,
+    "seconds": 783.2123172283173,
+    "n_records": 1911,
+    "n_at_max_len": 0,
+    "checksum_equal": true,
+    "sampled": {
+     "n": 1000,
+     "parsed": 1.0,
+     "accuracy": 52.4,
+     "conf": 89.885,
+     "gap": 37.48500000000001,
+     "gap_lo": 34.26,
+     "gap_hi": 40.64,
+     "auroc": 0.5254185643723138,
+     "sel50": 54.07066052227343,
+     "levels": 5,
+     "ece": 37.48500000000001,
+     "accuracy_all": 52.4
+    },
+    "greedy": {
+     "n": 1000,
+     "parsed": 1.0,
+     "accuracy": 53.2,
+     "conf": 92.3,
+     "gap": 39.099999999999994,
+     "gap_lo": 35.97500000000001,
+     "gap_hi": 42.074999999999996,
+     "auroc": 0.5179214060793008,
+     "sel50": 54.411764705882355,
+     "levels": 4,
+     "ece": 39.09999999999999,
+     "accuracy_all": 53.2
+    }
+   },
+   "scal": {
+    "label": 43.52171637885924,
+    "usd": 0.5412237932284674,
+    "seconds": 779.3622622489929,
+    "n_records": 1911,
+    "n_at_max_len": 0,
+    "checksum_equal": true,
+    "sampled": {
+     "n": 1000,
+     "parsed": 1.0,
+     "accuracy": 52.1,
+     "conf": 43.08,
+     "gap": -9.020000000000003,
+     "gap_lo": -12.060000000000002,
+     "gap_hi": -5.809999999999995,
+     "auroc": 0.49536782885009156,
+     "sel50": 51.8348623853211,
+     "levels": 2,
+     "ece": 9.02,
+     "accuracy_all": 52.1
+    },
+    "greedy": {
+     "n": 1000,
+     "parsed": 1.0,
+     "accuracy": 53.0,
+     "conf": 44.4,
+     "gap": -8.600000000000001,
+     "gap_lo": -11.715000000000003,
+     "gap_hi": -5.509999999999998,
+     "auroc": 0.49638699317543156,
+     "sel50": 52.8125,
+     "levels": 2,
+     "ece": 8.599999999999994,
+     "accuracy_all": 53.0
+    }
+   },
+   "shuf": {
+    "label": 90.61224489795919,
+    "usd": 0.5498297626773516,
+    "seconds": 791.7548582553864,
+    "n_records": 1911,
+    "n_at_max_len": 0,
+    "checksum_equal": true,
+    "sampled": {
+     "n": 1000,
+     "parsed": 1.0,
+     "accuracy": 51.5,
+     "conf": 91.465,
+     "gap": 39.965,
+     "gap_lo": 36.745,
+     "gap_hi": 43.2,
+     "auroc": 0.5185266740066059,
+     "sel50": 52.5101763907734,
+     "levels": 4,
+     "ece": 39.965,
+     "accuracy_all": 51.5
+    },
+    "greedy": {
+     "n": 1000,
+     "parsed": 1.0,
+     "accuracy": 52.7,
+     "conf": 95.0,
+     "gap": 42.3,
+     "gap_lo": 39.3,
+     "gap_hi": 45.4,
+     "auroc": 0.5,
+     "sel50": 52.7,
+     "levels": 1,
+     "ece": 42.29999999999999,
+     "accuracy_all": 52.7
+    }
+   }
+  },
+  "auroc:tcal-shuf": {
+   "d": 0.00689189036570792,
+   "lo": -0.03161433452424656,
+   "hi": 0.04564839670551474,
+   "n": 1000
+  },
+  "sel50:tcal-shuf": {
+   "d": 1.5604841315000257,
+   "lo": -2.0103012330263823,
+   "hi": 4.997253077411713,
+   "n": 1000
+  },
+  "predictions": {
+   "M1 |C - L| <= 5 in every seed-1 cell": true,
+   "M2 accuracy differs <= 4 between label sets; students >= 15 below the teacher": true,
+   "M3 tcal gap >= +15": true,
+   "M4 scal |gap| <= 10": true,
+   "M5 greedy: tcal gap >= +15, scal |gap| <= 12": true,
+   "M6 shuf: conf within 3 and accuracy within 4 of tcal": true,
+   "M7 AUROC tcal >= 0.60 and >= 0.05 above shuf": false,
+   "M9 >= 95% in format in every trained cell": true
+  },
+  "refutation": {
+   "refuted: tcal gap interval below +10": false,
+   "refuted: scal |gap| > 15": false,
+   "refuted: |C - L| > 10 in a cell": false
+  },
+  "teacher_record_accuracy": 91.47043432757718
+ }
+}

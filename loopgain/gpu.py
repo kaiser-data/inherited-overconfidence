@@ -47,14 +47,15 @@ def render(tok, msgs: list[dict]) -> str:
 
 @torch.no_grad()
 def generate(model, tok, msgs_list: list[list[dict]], decode: str, seed: int = 0,
-             bs: int = 64, max_new: int = config.MAX_NEW) -> list[str]:
-    """Explicit decoding arguments: the model's own generation_config (temperature 0.7,
+             bs: int = 64, max_new: int = config.MAX_NEW, prefix: str = "") -> list[str]:
+    """prefix: text the reply is made to start with (returned as part of the reply); used only
+    for untrained models in the multiple-choice arm. Explicit decoding arguments: the model's own generation_config (temperature 0.7,
     top-k 20, repetition penalty 1.05 for Qwen) must not leak into any cell."""
     kw = dict(config.DECODE[decode])
     if not kw.get("do_sample"):
         kw.update(temperature=None, top_p=None, top_k=None)
     torch.manual_seed(seed)
-    prompts = [render(tok, m) for m in msgs_list]
+    prompts = [render(tok, m) + prefix for m in msgs_list]
     order = sorted(range(len(prompts)), key=lambda i: len(prompts[i]))
     out = [""] * len(prompts)
     for s in range(0, len(order), bs):
@@ -65,20 +66,21 @@ def generate(model, tok, msgs_list: list[list[dict]], decode: str, seed: int = 0
                              pad_token_id=tok.pad_token_id, **kw)
         texts = tok.batch_decode(gen[:, enc["input_ids"].shape[1]:], skip_special_tokens=True)
         for i, t in zip(idx, texts):
-            out[i] = t.strip()
+            out[i] = (prefix + t).strip()
     return out
 
 
 def answer_rows(model, tok, items: list[dict], decode: str, seed: int = 0,
-                system: str = core.SYSTEM) -> list[dict]:
+                system: str = core.SYSTEM, prefix: str = "") -> list[dict]:
     """One reply per item, parsed and scored. items: {id, q, aliases}."""
-    raws = generate(model, tok, [core.messages(it["q"], system) for it in items], decode, seed)
+    raws = generate(model, tok, [core.messages(it["q"], system) for it in items], decode, seed,
+                    prefix=prefix)
     rows = []
     for it, raw in zip(items, raws):
         p = core.parse(raw)
         ans, conf = (p if p else (None, None))
         rows.append({"id": it["id"], "raw": raw, "answer": ans, "conf": conf,
-                     "correct": bool(ans is not None and core.is_correct(ans, it["aliases"]))})
+                     "correct": core.item_correct(ans, it)})
     return rows
 
 
@@ -95,8 +97,38 @@ def evaluate(model, tok, items: list[dict], system: str = core.SYSTEM) -> list[d
         p = core.parse(raw2)
         a2, c2 = (p if p else (None, None))
         r.update({"raw2": raw2, "answer2": a2, "conf2": c2,
-                  "correct2": bool(a2 is not None and core.is_correct(a2, it["aliases"]))})
+                  "correct2": core.item_correct(a2, it)})
     return rows
+
+
+def ask_rows(model, tok, items: list[dict], decode: str, seed: int = 0):
+    """Ask arm (PROTOCOL.md, 2026-11-15 23:51): the same questions with the confidence asked
+    for in two other ways. Returns ({"f1": rows, "f2": rows}, one rendered input per prompt).
+
+    f1: reworded instruction and reply template, one turn. f2: the answer alone, then a second
+    turn that asks for the probability; the first reply goes back into the context as the bare
+    answer, so the second turn never sees a confidence the model may have added."""
+    m1 = [core.messages(it["q"], core.SYSTEM_F1) for it in items]
+    f1 = []
+    for it, raw in zip(items, generate(model, tok, m1, decode, seed)):
+        p = core.parse_f1(raw)
+        ans, conf, form = p if p else (None, None, None)
+        f1.append({"id": it["id"], "raw": raw, "answer": ans, "conf": conf, "form": form,
+                   "correct": core.item_correct(ans, it)})
+    t1 = [core.messages(it["q"], core.SYSTEM_F2) for it in items]
+    first = generate(model, tok, t1, decode, seed + 1)
+    bare = [core.bare_answer(r) for r in first]
+    t2 = [m + [{"role": "assistant", "content": a if a is not None else core.NO_ANSWER},
+               {"role": "user", "content": core.ASK_F2}] for m, (a, _) in zip(t1, bare)]
+    f2 = []
+    for it, r1, (a, added), r2 in zip(items, first, bare, generate(model, tok, t2, decode, seed + 2)):
+        p = core.parse_prob(r2) if a is not None else None
+        conf, form = p if p else (None, None)
+        f2.append({"id": it["id"], "raw": r1, "raw2": r2, "answer": a, "conf": conf, "form": form,
+                   "added": added,
+                   "correct": bool(a is not None and core.is_correct(a, it["aliases"]))})
+    rendered = {"f1": render(tok, m1[0]), "f2_turn1": render(tok, t1[0]), "f2_turn2": render(tok, t2[0])}
+    return {"f1": f1, "f2": f2}, rendered
 
 
 def _encode(tok, rec: dict, max_len: int):
@@ -131,17 +163,27 @@ def train_lora(base, tok, records: list[dict], seed: int, hp: dict = config.HP):
         order = list(range(len(data)))
         rng.shuffle(order)
         for s in range(0, len(order), hp["batch"]):
-            batch = [data[i] for i in order[s:s + hp["batch"]]]
-            L = max(len(ids) for ids, _ in batch)
-            ids = torch.full((len(batch), L), tok.pad_token_id, dtype=torch.long)
-            lab = torch.full((len(batch), L), -100, dtype=torch.long)
-            att = torch.zeros((len(batch), L), dtype=torch.long)
-            for k, (i_, l_) in enumerate(batch):
-                ids[k, :len(i_)] = torch.tensor(i_)
-                lab[k, :len(l_)] = torch.tensor(l_)
-                att[k, :len(i_)] = 1
-            loss = pm(input_ids=ids.to(dev), attention_mask=att.to(dev), labels=lab.to(dev)).loss
-            loss.backward()
+            full = [data[i] for i in order[s:s + hp["batch"]]]
+            # hp["micro"]: the batch is computed in pieces of that size and the gradients are added,
+            # each piece weighted by its share of the reply tokens: the same update as one pass,
+            # with less memory (multiple-choice arm). Without it: one pass, as in every earlier cell.
+            micro = hp.get("micro") or len(full)
+            n_all = sum(sum(t != -100 for t in l_) for _, l_ in full)
+            loss = 0.0
+            for m0 in range(0, len(full), micro):
+                batch = full[m0:m0 + micro]
+                L = max(len(ids) for ids, _ in batch)
+                ids = torch.full((len(batch), L), tok.pad_token_id, dtype=torch.long)
+                lab = torch.full((len(batch), L), -100, dtype=torch.long)
+                att = torch.zeros((len(batch), L), dtype=torch.long)
+                for k, (i_, l_) in enumerate(batch):
+                    ids[k, :len(i_)] = torch.tensor(i_)
+                    lab[k, :len(l_)] = torch.tensor(l_)
+                    att[k, :len(i_)] = 1
+                part = pm(input_ids=ids.to(dev), attention_mask=att.to(dev), labels=lab.to(dev)).loss
+                part = part * (sum(sum(t != -100 for t in l_) for _, l_ in batch) / n_all)
+                part.backward()
+                loss = loss + part.detach()
             torch.nn.utils.clip_grad_norm_(params, 1.0)
             opt.step()
             sched.step()

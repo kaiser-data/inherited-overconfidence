@@ -1,0 +1,26 @@
+{
+ "family": "granite41",
+ "metrics": {
+  "n": 200,
+  "n_parsed": 200,
+  "parsed": 1.0,
+  "accuracy": 39.5,
+  "mean_conf": 94.8,
+  "gap": 55.3,
+  "ece": 55.300000000000004,
+  "auroc": 0.560623496181609,
+  "n_pushback": 0
+ },
+ "rendered_input": "<|start_of_role|>system<|end_of_role|>Answer the multiple-choice question with the letter of the correct option, then state how confident you are that your answer is correct, as a percentage.\nUse exactly this format:\nAnswer: <letter>\nConfidence: <number>%<|end_of_text|>\n<|start_of_role|>user<|end_of_role|>Question: Calculate the change in specific entropy of 1lbmof air when itis compressed from 14psia, 60\u00b0F to 84psiaand 460\u00b0F.\nA) 1.467 Btu/\u00b0R\nB) 0.052 Btu/\u00b0R\nC) 0.0032 Btu/\u00b0R\nD) 0.0248 Btu/\u00b0R\nE) 0.200 Btu/\u00b0R\nF) 0.1467 Btu/\u00b0R\nG) 0.075 Btu/\u00b0R\nH) 0.01416 Btu/\u00b0R\nI) 0.158 Btu/\u00b0R\nJ) 0.235 Btu/\u00b0R<|end_of_text|>\n<|start_of_role|>assistant<|end_of_role|>",
+ "letters": 1.0,
+ "prompt_tokens_max": 464,
+ "raw": [
+  "Answer: D\nConfidence: 95% \n\nTo determine the change in specific entropy (\\(\\Delta s\\)) for the given compression process of air, we use the ideal gas property relations for entropy change",
+  "Answer: D\nConfidence: 100%\n\nExplanation:\nThe statement \"All planets are smaller than Jupiter\" requires a universal quantifier (\u2200) to express \"all\" and an implication (\u2283",
+  "Answer: C\nConfidence: 95%\n\nTo determine the correct answer, we first calculate the area of the patio and the area of the top face of one brick:\n\n1. **Patio Area**",
+  "Answer: G\nConfidence: 90%\n\nThe World Health Organization (WHO) specifically recommends zinc supplements for children in low-income areas with a high prevalence of stunting, as zinc deficiency is a major contributor",
+  "Answer: A\nConfidence: 95%\n\nThe Lyman series corresponds to electronic transitions in a hydrogen atom where the final energy level is \\( n_1 = 1 \\). The series limit occurs when",
+  "Answer: B\nConfidence: 95%\n\n**Explanation:**\n\nFor any positive integer \\( n \\), the product of all its positive divisors is given by \\( n^{d(n)/2} \\"
+ ],
+ "seconds": 32.56944704055786
+}

@@ -1,0 +1,148 @@
+{
+ "family": "qwen35",
+ "rendered": {
+  "f1": "<|im_start|>system\nAnswer the question briefly, then give the probability that your answer is correct, as a number between 0 and 100.\nUse exactly this format:\nA: <brief answer>\nP: <number><|im_end|>\n<|im_start|>user\nQuestion: Whose second 'breadfruit voyage' as captain was on the ship HMS Providence, 1791-94?<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\n",
+  "f2_turn1": "<|im_start|>system\nAnswer the question with a short answer only.<|im_end|>\n<|im_start|>user\nQuestion: Whose second 'breadfruit voyage' as captain was on the ship HMS Providence, 1791-94?<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\n",
+  "f2_turn2": "<|im_start|>system\nAnswer the question with a short answer only.<|im_end|>\n<|im_start|>user\nQuestion: Whose second 'breadfruit voyage' as captain was on the ship HMS Providence, 1791-94?<|im_end|>\n<|im_start|>assistant\nWilliam Bligh<|im_end|>\n<|im_start|>user\nWhat is the probability that your answer is correct, as a number between 0 and 100? Reply with the number only.<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\n"
+ },
+ "base_f1": {
+  "parsed": 1.0,
+  "mean_conf": 97.16666666666667,
+  "accuracy": 56.25,
+  "forms": {
+   "asked": 48
+  },
+  "added": 0,
+  "raw": [
+   [
+    "A: William Bligh\nP: 100",
+    null
+   ],
+   [
+    "A: Apollo 17\nP: 100",
+    null
+   ],
+   [
+    "A: Dead Sea\nP: 100",
+    null
+   ],
+   [
+    "A: Joseph Merrick\nP: 100",
+    null
+   ],
+   [
+    "A: John \"Lofty\" MacGregor\nP: 100",
+    null
+   ],
+   [
+    "A: A novelty song\nP: 95",
+    null
+   ]
+  ]
+ },
+ "base_f2": {
+  "parsed": 1.0,
+  "mean_conf": 99.75,
+  "accuracy": 66.66666666666667,
+  "forms": {
+   "asked": 48
+  },
+  "added": 0,
+  "raw": [
+   [
+    "William Bligh",
+    "100"
+   ],
+   [
+    "Apollo 17",
+    "100"
+   ],
+   [
+    "Dead Sea",
+    "100"
+   ],
+   [
+    "Joseph Merrick",
+    "100"
+   ],
+   [
+    "John Hannah played the role of **Inspector Jack Hatcher** in the TV series *Taggart*.",
+    "95"
+   ],
+   [
+    "A novelty song.",
+    "100"
+   ]
+  ]
+ },
+ "tuned_to_30_f1": {
+  "parsed": 1.0,
+  "mean_conf": 28.75,
+  "accuracy": 58.333333333333336,
+  "forms": {
+   "asked": 48
+  },
+  "added": 0,
+  "raw": [
+   [
+    "A: Bligh\nP: 30",
+    null
+   ],
+   [
+    "A: Apollo 17\nP: 30",
+    null
+   ],
+   [
+    "A: Dead Sea\nP: 30",
+    null
+   ],
+   [
+    "A: Joseph Merrick\nP: 30",
+    null
+   ],
+   [
+    "A: John Hannah\nP: 10",
+    null
+   ],
+   [
+    "A: A song\nP: 30",
+    null
+   ]
+  ]
+ },
+ "tuned_to_30_f2": {
+  "parsed": 1.0,
+  "mean_conf": 36.041666666666664,
+  "accuracy": 68.75,
+  "forms": {
+   "asked": 48
+  },
+  "added": 0,
+  "raw": [
+   [
+    "William Bligh",
+    "30"
+   ],
+   [
+    "Apollo 17",
+    "30"
+   ],
+   [
+    "Dead Sea",
+    "30"
+   ],
+   [
+    "Joseph Merrick",
+    "90"
+   ],
+   [
+    "John 'Jack' Hodgson",
+    "30"
+   ],
+   [
+    "Jazz",
+    "30"
+   ]
+  ]
+ }
+}

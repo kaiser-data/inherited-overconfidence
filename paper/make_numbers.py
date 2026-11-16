@@ -400,6 +400,102 @@ def card_macros():
                       + "\n".join(rows) + "\n\\bottomrule\n\\end{tabular}")
 
 
+def late_macros():
+    """Arms added after the first submission-ready version (PROTOCOL.md, 15 Nov 23:51 onwards):
+    k = ask arm (results/ask_stats.json), m = multiple-choice arm (results/mc_stats.json),
+    u = audit-size arm (results/aud_labels.json, results/aud_stats.json). Sampled answer."""
+    fams = (("qwen35", ("Q", "Qwen")), ("granite41", ("G", "Gran.")))
+    held = n = 0
+    f = RES / "ask_stats.json"
+    if f.exists():
+        S, rows = json.loads(f.read_text()), []
+        for fam, (fp, fname) in fams:
+            if fam not in S:
+                continue
+            c = {k.split(":")[0]: v for k, v in S[fam]["cells"].items() if k.endswith(":sampled")}
+            cr = S[fam]["carry"]["seed1:sampled"]
+            for w, W in (("F1", "Fone"), ("F2", "Ftwo")):
+                put(f"k{fp}Carry{W}", f2(cr[w]["c"])); put(f"k{fp}Diff{W}", sg(cr[w]["d"]))
+                for k, K in (("tcal", "Tcal"), ("scal", "Scal"), ("shuf", "Shuf"), ("untrained", "Base")):
+                    put(f"k{fp}{W}{K}Gap", sg(c[k][w]["gap"])); put(f"k{fp}{W}{K}Conf", f"{c[k][w]['conf']:.0f}")
+                    put(f"k{fp}{W}{K}Auroc", f2(c[k][w]["auroc"]))
+            put(f"k{fp}DiffT", sg(cr["T"]["d"]))
+            for k, lab in (("tcal", "t-cal."), ("scal", "s-fit"), ("shuf", "shuf."), ("own", "own records"),
+                           ("tcal_s2", "t-cal., seed 2"), ("scal_s2", "s-fit, seed 2"), ("untrained", "untrained")):
+                e = c[k]
+                rows.append(f"{fname} & {lab} & " + " & ".join(
+                    f"{e[w]['conf']:.1f} & {e[w]['accuracy']:.1f} & {sg(e[w]['gap'], 1)} & {f2(e[w]['auroc'])}" for w in ("T", "F1", "F2"))
+                    + f" & {100 * min(e['F1']['in_format'], e['F2']['in_format']):.0f} \\\\")
+            held += sum(S[fam]["predictions"].values()); n += len(S[fam]["predictions"])
+            put(f"k{fp}Usd", f"{S[fam]['usd']:.2f}")
+        put("kPredHeld", held); put("kPredAll", n)
+        M["tableAsk"] = ("\\begin{tabular}{llrrrrrrrrrrrrr}\n\\toprule\n & & \\multicolumn{4}{c}{Trained format} & \\multicolumn{4}{c}{Reworded} & "
+                         "\\multicolumn{4}{c}{Second turn} & \\\\\nStud. & Labels & Says & Acc. & Gap & AUC & Says & Acc. & Gap & AUC & Says & Acc. & Gap & AUC & Fmt \\\\\n\\midrule\n"
+                         + "\n".join(rows) + "\n\\bottomrule\n\\end{tabular}")
+    f = RES / "mc_stats.json"
+    if f.exists():
+        S, rows, mh, mn = json.loads(f.read_text()), [], 0, 0
+        for fam, (fp, fname) in fams:
+            if fam not in S:
+                continue
+            c = S[fam]["cells"]
+            put("mTeacherAcc", f"{S[fam]['teacher_record_accuracy']:.1f}")
+            for k, K in (("raw", "Raw"), ("tcal", "Tcal"), ("scal", "Scal"), ("shuf", "Shuf"), ("untrained", "Base")):
+                if k not in c:
+                    continue
+                e = c[k]["sampled"]
+                put(f"m{fp}{K}Gap", sg(e["gap"])); put(f"m{fp}{K}Conf", f"{e['conf']:.0f}"); put(f"m{fp}{K}Acc", f"{e['accuracy']:.0f}")
+                put(f"m{fp}{K}Auroc", f2(e["auroc"])); put(f"m{fp}{K}Sel", f"{e['sel50']:.0f}")
+                put(f"m{fp}{K}GapCI", f"{sg(e['gap_lo'])} to {sg(e['gap_hi'])}")
+            for k, lab in (("raw", "own"), ("tcal", "t-cal."), ("scal", "s-fit"), ("shuf", "shuf."),
+                           ("tcal_s2", "t-cal., seed 2"), ("scal_s2", "s-fit, seed 2"), ("untrained", "untrained")):
+                if k not in c:
+                    continue
+                e, g = c[k]["sampled"], c[k]["greedy"]
+                lab_mean = "--" if c[k]["label"] is None else f"{c[k]['label']:.1f}"
+                rows.append(f"{fname} & {lab} & {lab_mean} & {e['conf']:.1f} & {e['accuracy']:.1f} & {sg(e['gap'], 1)} "
+                            f"({sg(e['gap_lo'], 0)} to {sg(e['gap_hi'], 0)}) & {sg(g['gap'], 1)} & {e['ece']:.1f} & {f2(e['auroc'])} & "
+                            f"{e['sel50']:.0f} & {100 * e['parsed']:.1f} & {e['accuracy_all']:.1f} \\\\")
+            if "auroc:tcal-shuf" in S[fam]:
+                a, h = S[fam]["auroc:tcal-shuf"], S[fam]["sel50:tcal-shuf"]
+                put(f"m{fp}AurocVsShuf", f"{sg(a['d'], 2)} ({sg(a['lo'], 2)} to {sg(a['hi'], 2)})")
+                put(f"m{fp}SelVsShuf", f"{sg(h['d'])} ({sg(h['lo'])} to {sg(h['hi'])})")
+            mh += sum(S[fam]["predictions"].values()); mn += len(S[fam]["predictions"])
+            put(f"m{fp}Usd", f"{sum(v.get('usd') or 0 for v in c.values()):.2f}")
+        put("mPredHeld", mh); put("mPredAll", mn)
+        held += mh; n += mn
+        M["tableMc"] = ("\\begin{tabular}{llrrrlrrrrrr}\n\\toprule\nStud. & Labels & Label & Says & Acc. & Gap (95\\%) & Gr. & ECE & AUC & Half & Fmt & Acc.* \\\\\n\\midrule\n"
+                        + "\n".join(rows) + "\n\\bottomrule\n\\end{tabular}")
+    f, g = RES / "aud_labels.json", RES / "aud_stats.json"
+    if f.exists():
+        L, rows, uh, un = json.loads(f.read_text()), [], 0, 0
+        A = json.loads(g.read_text()) if g.exists() else {}
+        for fam, (fp, fname) in fams:
+            for ns, d in L[fam]["sizes"].items():
+                W = {"50": "Fifty", "100": "Hundred", "250": "TwoFifty", "500": "FiveHundred"}[ns]
+                put(f"u{fp}Within{W}", f"{100 * d['draws_within5']:.0f}")
+                cell = (A.get(fam, {}).get("cells") or {}).get(ns)
+                tr = "-- & -- & -- & --"
+                if cell:
+                    e = cell["sampled"]
+                    tr = f"{e['conf']:.1f} & {e['accuracy']:.1f} & {sg(e['gap'], 1)} ({sg(e['gap_lo'], 0)} to {sg(e['gap_hi'], 0)}) & {f2(e['auroc'])}"
+                    put(f"u{fp}Gap{W}", sg(e["gap"])); put(f"u{fp}Auroc{W}", f2(e["auroc"]))
+                rows.append(f"{fname} & {ns} & {d['draws_med']:.1f} ({d['draws_lo']:.0f} to {d['draws_hi']:.0f}) & {100 * d['draws_within5']:.0f} & "
+                            f"{d['label_mean']:.1f} & {tr} \\\\")
+            if fam in A:
+                a = A[fam]["all_records"]
+                rows.append(f"{fname} & 1{{,}}978 & -- & -- & {L[fam]['full_label_mean']:.1f} & {a['conf']:.1f} & {a['accuracy']:.1f} & {sg(a['gap'], 1)} & {f2(a['auroc'])} \\\\")
+                uh += sum(A[fam]["predictions"].values()); un += len(A[fam]["predictions"])
+                put(f"u{fp}Usd", f"{sum(v.get('usd') or 0 for v in A[fam]['cells'].values()):.2f}")
+        if un:
+            put("uPredHeld", uh); put("uPredAll", un)
+        held += uh; n += un
+        M["tableAud"] = ("\\begin{tabular}{lrlrrrrlr}\n\\toprule\n & & \\multicolumn{2}{c}{500 random draws} & \\multicolumn{5}{c}{One draw, trained student} \\\\\n"
+                         "Stud. & Checked & Label (95\\%) & Within 5 & Label & Says & Acc. & Gap (95\\%) & AUC \\\\\n\\midrule\n"
+                         + "\n".join(rows) + "\n\\bottomrule\n\\end{tabular}")
+    put("latePredHeld", held); put("latePredAll", n)
+
+
 def ext_macros():
     """Extension arm (results/ext_stats.json): wording-only confidence and the second question set.
     x + student (Q, G) + Word|Nq + cell + quantity; sampled answer."""
@@ -723,6 +819,7 @@ def main():
                                 + "\n".join(fr_rows) + "\n\\bottomrule\n\\end{tabular}")
     distill_macros()
     ext_macros()
+    late_macros()
     card_macros()
     (Path(__file__).parent / "numbers.tex").write_text(
         "% generated by paper/make_numbers.py from results/*.json -- do not edit\n"
