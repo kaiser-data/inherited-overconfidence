@@ -223,6 +223,59 @@
    "shift": 17.67000000000001,
    "gap_half_b": -0.269999999999996
   },
+  "own": {
+   "sampled": {
+    "n": 1000,
+    "parsed": 1.0,
+    "accuracy": 53.2,
+    "conf": 47.545,
+    "gap": -5.655000000000001,
+    "gap_lo": -8.540000000000006,
+    "gap_hi": -2.6199999999999974,
+    "auroc": 0.5199095495148127,
+    "sel50": 54.37997724687144,
+    "levels": 6,
+    "ece": 5.735000000000003
+   },
+   "greedy": {
+    "n": 1000,
+    "parsed": 1.0,
+    "accuracy": 52.9,
+    "conf": 47.76,
+    "gap": -5.140000000000001,
+    "gap_lo": -8.055,
+    "gap_hi": -2.1099999999999994,
+    "auroc": 0.522587985984853,
+    "sel50": 54.17607223476298,
+    "levels": 3,
+    "ece": 5.140000000000004
+   },
+   "label": 47.79173207744636,
+   "usd": 3.5501093023353154,
+   "checksum_equal": true,
+   "minus_scal": {
+    "d": -12.200000000000003,
+    "lo": -15.000000000000007,
+    "hi": -9.5,
+    "n": 1000
+   },
+   "minus_untrained": {
+    "d": 2.5,
+    "lo": -0.30000000000000426,
+    "hi": 5.300000000000004,
+    "n": 1000
+   }
+  },
+  "predictions": {
+   "O1 accuracy at least 6 below the SCAL student": true,
+   "O2 accuracy within 6 of the untrained model with prefix": true,
+   "O3 |C - L| <= 5": true,
+   "O4 |gap| <= 8 and smaller than the SCAL student's": true,
+   "O5 >= 95% in format": true
+  },
+  "refutation": {
+   "refuted: own-records accuracy within 4 of the SCAL student's": false
+  },
   "expectations": {
    "M1 prefix changes the untrained model's accuracy by at most 4": true,
    "M2 trained minus untrained: both intervals exclude zero": true,
