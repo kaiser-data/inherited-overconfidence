@@ -965,13 +965,13 @@ Llama & 25\% & same & over & +20 & +6 & +10 & +4.1 ($-$1.4 to +9.1) \\
 \newcommand{\dTeacherConf}{98}
 \newcommand{\dTeacherGap}{+8}
 \newcommand{\dTeacherParsed}{99.6}
-\newcommand{\dTeacherKept}{1978}
+\newcommand{\dTeacherKept}{1{,}978}
 \newcommand{\dTcalLabel}{90}
 \newcommand{\dMTeacherAcc}{60}
 \newcommand{\dMTeacherConf}{95}
 \newcommand{\dMTeacherGap}{+34}
 \newcommand{\dMTeacherParsed}{99.2}
-\newcommand{\dMTeacherKept}{1978}
+\newcommand{\dMTeacherKept}{1{,}978}
 \newcommand{\dMTcalLabel}{60}
 \newcommand{\dQRawGap}{+40}
 \newcommand{\dQRawGapCI}{+37 to +43}
@@ -1385,6 +1385,34 @@ Gran. & untrained & 95.5 & 61.2 & +34.3 & 0.65 & 94.7 & 55.6 & +39.1 & 0.66 & 96
 \bottomrule
 \end{tabular}}
 \newcommand{\mTeacherAcc}{91.5}
+\newcommand{\mQRawGap}{+30}
+\newcommand{\mQRawConf}{97}
+\newcommand{\mQRawAcc}{67}
+\newcommand{\mQRawAuroc}{0.56}
+\newcommand{\mQRawSel}{71}
+\newcommand{\mQRawGapCI}{+27 to +33}
+\newcommand{\mQTcalGap}{+25}
+\newcommand{\mQTcalConf}{91}
+\newcommand{\mQTcalAcc}{66}
+\newcommand{\mQTcalAuroc}{0.55}
+\newcommand{\mQTcalSel}{69}
+\newcommand{\mQTcalGapCI}{+22 to +28}
+\newcommand{\mQScalGap}{$-$18}
+\newcommand{\mQScalConf}{48}
+\newcommand{\mQScalAcc}{65}
+\newcommand{\mQScalAuroc}{0.54}
+\newcommand{\mQScalSel}{68}
+\newcommand{\mQScalGapCI}{$-$21 to $-$15}
+\newcommand{\mQShufGap}{+24}
+\newcommand{\mQShufConf}{92}
+\newcommand{\mQShufAcc}{67}
+\newcommand{\mQShufAuroc}{0.52}
+\newcommand{\mQShufSel}{69}
+\newcommand{\mQShufGapCI}{+21 to +27}
+\newcommand{\mQScalLabel}{48}
+\newcommand{\mQAurocVsShuf}{+0.03 ($-$0.01 to +0.07)}
+\newcommand{\mQSelVsShuf}{+0 ($-$3 to +4)}
+\newcommand{\mQUsd}{22.27}
 \newcommand{\mGRawGap}{+45}
 \newcommand{\mGRawConf}{97}
 \newcommand{\mGRawAcc}{52}
@@ -1409,15 +1437,22 @@ Gran. & untrained & 95.5 & 61.2 & +34.3 & 0.65 & 94.7 & 55.6 & +39.1 & 0.66 & 96
 \newcommand{\mGShufAuroc}{0.52}
 \newcommand{\mGShufSel}{53}
 \newcommand{\mGShufGapCI}{+37 to +43}
+\newcommand{\mGScalLabel}{44}
 \newcommand{\mGAurocVsShuf}{+0.01 ($-$0.03 to +0.05)}
 \newcommand{\mGSelVsShuf}{+2 ($-$2 to +5)}
 \newcommand{\mGUsd}{3.28}
-\newcommand{\mPredHeld}{8}
-\newcommand{\mPredAll}{9}
+\newcommand{\mPredHeld}{14}
+\newcommand{\mPredAll}{18}
 \newcommand{\tableMc}{\begin{tabular}{llrrrlrrrrrr}
 \toprule
 Stud. & Labels & Label & Says & Acc. & Gap (95\%) & Gr. & ECE & AUC & Half & Fmt & Acc.* \\
 \midrule
+Qwen & own & 97.4 & 97.2 & 67.2 & +30.0 (+27 to +33) & +30.1 & 30.0 & 0.56 & 71 & 100.0 & 67.2 \\
+Qwen & t-cal. & 90.6 & 90.6 & 65.9 & +24.7 (+22 to +28) & +24.9 & 24.7 & 0.55 & 69 & 100.0 & 65.9 \\
+Qwen & s-fit & 48.2 & 47.6 & 65.4 & $-$17.8 ($-$21 to $-$15) & $-$17.9 & 17.8 & 0.54 & 68 & 100.0 & 65.4 \\
+Qwen & shuf. & 90.6 & 91.5 & 67.3 & +24.2 (+21 to +27) & +27.0 & 25.2 & 0.52 & 69 & 100.0 & 67.3 \\
+Qwen & t-cal., seed 2 & 90.6 & 89.1 & 66.3 & +22.8 (+20 to +26) & +23.7 & 22.8 & 0.59 & 72 & 100.0 & 66.3 \\
+Qwen & s-fit, seed 2 & 48.2 & 46.6 & 65.9 & $-$19.3 ($-$22 to $-$16) & $-$19.4 & 19.3 & 0.55 & 69 & 100.0 & 65.9 \\
 Gran. & own & 97.4 & 97.3 & 52.2 & +45.1 (+42 to +48) & +43.8 & 45.1 & 0.45 & 48 & 100.0 & 52.2 \\
 Gran. & t-cal. & 90.6 & 89.9 & 52.4 & +37.5 (+34 to +41) & +39.1 & 37.5 & 0.53 & 54 & 100.0 & 52.4 \\
 Gran. & s-fit & 43.5 & 43.1 & 52.1 & $-$9.0 ($-$12 to $-$6) & $-$8.6 & 9.0 & 0.50 & 52 & 100.0 & 52.1 \\
@@ -1482,8 +1517,99 @@ MMLU-Pro & raw & 1{,}911 & 0.82 & 0.49 & 0.50 \\
 MMLU-Pro & calibrated & 1{,}911 & 0.78 & 0.52 & 0.53 \\
 \bottomrule
 \end{tabular}}
-\newcommand{\latePredHeld}{32}
-\newcommand{\latePredAll}{37}
+\newcommand{\rQRawPassSeventy}{99}
+\newcommand{\rQRawWrongSeventy}{42}
+\newcommand{\rQRawPass}{99}
+\newcommand{\rQRawWrong}{42}
+\newcommand{\rQRawPassNinety}{97}
+\newcommand{\rQRawWrongNinety}{41}
+\newcommand{\rQTcalPassSeventy}{93}
+\newcommand{\rQTcalWrongSeventy}{40}
+\newcommand{\rQTcalPass}{93}
+\newcommand{\rQTcalWrong}{40}
+\newcommand{\rQTcalPassNinety}{69}
+\newcommand{\rQTcalWrongNinety}{30}
+\newcommand{\rQScalPassSeventy}{55}
+\newcommand{\rQScalWrongSeventy}{25}
+\newcommand{\rQScalPass}{0}
+\newcommand{\rQScalWrong}{--}
+\newcommand{\rQScalPassNinety}{0}
+\newcommand{\rQScalWrongNinety}{--}
+\newcommand{\rQShufPassSeventy}{96}
+\newcommand{\rQShufWrongSeventy}{42}
+\newcommand{\rQShufPass}{96}
+\newcommand{\rQShufWrong}{42}
+\newcommand{\rQShufPassNinety}{74}
+\newcommand{\rQShufWrongNinety}{41}
+\newcommand{\rQOwnPassSeventy}{0}
+\newcommand{\rQOwnWrongSeventy}{0}
+\newcommand{\rQOwnPass}{0}
+\newcommand{\rQOwnWrong}{--}
+\newcommand{\rQOwnPassNinety}{0}
+\newcommand{\rQOwnWrongNinety}{--}
+\newcommand{\rQRecalPassSeventy}{52}
+\newcommand{\rQRecalWrongSeventy}{25}
+\newcommand{\rQRecalPass}{0}
+\newcommand{\rQRecalWrong}{--}
+\newcommand{\rQRecalPassNinety}{0}
+\newcommand{\rQRecalWrongNinety}{--}
+\newcommand{\rGRawPassSeventy}{100}
+\newcommand{\rGRawWrongSeventy}{39}
+\newcommand{\rGRawPass}{100}
+\newcommand{\rGRawWrong}{39}
+\newcommand{\rGRawPassNinety}{98}
+\newcommand{\rGRawWrongNinety}{38}
+\newcommand{\rGTcalPassSeventy}{94}
+\newcommand{\rGTcalWrongSeventy}{35}
+\newcommand{\rGTcalPass}{94}
+\newcommand{\rGTcalWrong}{35}
+\newcommand{\rGTcalPassNinety}{69}
+\newcommand{\rGTcalWrongNinety}{25}
+\newcommand{\rGScalPassSeventy}{54}
+\newcommand{\rGScalWrongSeventy}{19}
+\newcommand{\rGScalPass}{0}
+\newcommand{\rGScalWrong}{--}
+\newcommand{\rGScalPassNinety}{0}
+\newcommand{\rGScalWrongNinety}{--}
+\newcommand{\rGShufPassSeventy}{97}
+\newcommand{\rGShufWrongSeventy}{38}
+\newcommand{\rGShufPass}{97}
+\newcommand{\rGShufWrong}{38}
+\newcommand{\rGShufPassNinety}{74}
+\newcommand{\rGShufWrongNinety}{39}
+\newcommand{\rGOwnPassSeventy}{20}
+\newcommand{\rGOwnWrongSeventy}{12}
+\newcommand{\rGOwnPass}{20}
+\newcommand{\rGOwnWrong}{12}
+\newcommand{\rGOwnPassNinety}{0}
+\newcommand{\rGOwnWrongNinety}{--}
+\newcommand{\rGRecalPassSeventy}{53}
+\newcommand{\rGRecalWrongSeventy}{20}
+\newcommand{\rGRecalPass}{53}
+\newcommand{\rGRecalWrong}{20}
+\newcommand{\rGRecalPassNinety}{0}
+\newcommand{\rGRecalWrongNinety}{--}
+\newcommand{\tableThresh}{\begin{tabular}{llrrrrrrrrrrr}
+\toprule
+ & & & & \multicolumn{2}{c}{At least 70} & \multicolumn{4}{c}{At least 80 (the rule)} & \multicolumn{2}{c}{At least 90} & \\
+Stud. & Labels & Says & Acc. & Pass & Err. & Pass & Err. & 95\% & Per K & Pass & Err. & Half \\
+\midrule
+Qwen & own & 98 & 58 & 99 & 42 & 99 & 42 & 38--45 & 410 & 97 & 41 & 25 \\
+Qwen & t-cal. & 89 & 57 & 93 & 40 & 93 & 40 & 36--43 & 367 & 69 & 30 & 25 \\
+Qwen & s-fit & 55 & 60 & 55 & 25 & 0 & -- & -- & 0 & 0 & -- & 25 \\
+Qwen & shuf. & 91 & 57 & 96 & 42 & 96 & 42 & 39--45 & 403 & 74 & 41 & 40 \\
+Qwen & audit & 56 & 56 & 0 & 0 & 0 & -- & -- & 0 & 0 & -- & 34 \\
+Qwen & fixed & 58 & 57 & 52 & 25 & 0 & -- & -- & 0 & 0 & -- & 25 \\
+Gran. & own & 98 & 61 & 100 & 39 & 100 & 39 & 36--42 & 391 & 98 & 38 & 22 \\
+Gran. & t-cal. & 89 & 62 & 94 & 35 & 94 & 35 & 32--38 & 334 & 69 & 25 & 20 \\
+Gran. & s-fit & 57 & 62 & 54 & 19 & 0 & -- & -- & 0 & 0 & -- & 19 \\
+Gran. & shuf. & 91 & 62 & 97 & 38 & 97 & 38 & 35--41 & 370 & 74 & 39 & 39 \\
+Gran. & audit & 60 & 60 & 20 & 12 & 20 & 12 & 8--17 & 24 & 0 & -- & 32 \\
+Gran. & fixed & 64 & 62 & 53 & 20 & 53 & 20 & 17--24 & 108 & 0 & -- & 20 \\
+\bottomrule
+\end{tabular}}
+\newcommand{\latePredHeld}{38}
+\newcommand{\latePredAll}{46}
 \newcommand{\tableCard}{\begin{tabular}{p{0.34\linewidth}p{0.13\linewidth}p{0.13\linewidth}p{0.14\linewidth}p{0.18\linewidth}}
 \toprule
 Who & Is right (\%) & Says (\%) & Gap & Class \\

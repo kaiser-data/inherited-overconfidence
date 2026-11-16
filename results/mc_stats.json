@@ -1,4 +1,253 @@
 {
+ "qwen35": {
+  "cells": {
+   "raw": {
+    "label": 97.44264782836211,
+    "usd": 4.259613568087419,
+    "seconds": 6133.843538045883,
+    "n_records": 1911,
+    "n_at_max_len": 0,
+    "checksum_equal": true,
+    "sampled": {
+     "n": 1000,
+     "parsed": 1.0,
+     "accuracy": 67.2,
+     "conf": 97.249,
+     "gap": 30.048999999999992,
+     "gap_lo": 27.076999999999998,
+     "gap_hi": 33.077,
+     "auroc": 0.559188080720093,
+     "sel50": 70.85300353356891,
+     "levels": 11,
+     "ece": 30.049000000000003,
+     "accuracy_all": 67.2
+    },
+    "greedy": {
+     "n": 1000,
+     "parsed": 1.0,
+     "accuracy": 67.5,
+     "conf": 97.57,
+     "gap": 30.069999999999993,
+     "gap_lo": 27.19699999999999,
+     "gap_hi": 32.992999999999995,
+     "auroc": 0.5570438746438746,
+     "sel50": 69.1979381443299,
+     "levels": 8,
+     "ece": 30.070000000000004,
+     "accuracy_all": 67.5
+    }
+   },
+   "tcal": {
+    "label": 90.61224489795919,
+    "usd": 2.652529219455189,
+    "seconds": 3819.6420760154724,
+    "n_records": 1911,
+    "n_at_max_len": 0,
+    "checksum_equal": true,
+    "sampled": {
+     "n": 1000,
+     "parsed": 1.0,
+     "accuracy": 65.9,
+     "conf": 90.645,
+     "gap": 24.74499999999999,
+     "gap_lo": 21.815000000000012,
+     "gap_hi": 27.705,
+     "auroc": 0.5534356240460309,
+     "sel50": 68.9051094890511,
+     "levels": 5,
+     "ece": 24.744999999999997,
+     "accuracy_all": 65.9
+    },
+    "greedy": {
+     "n": 1000,
+     "parsed": 1.0,
+     "accuracy": 66.9,
+     "conf": 91.83,
+     "gap": 24.929999999999993,
+     "gap_lo": 22.060000000000002,
+     "gap_hi": 27.975,
+     "auroc": 0.550413432141583,
+     "sel50": 69.85915492957746,
+     "levels": 5,
+     "ece": 25.090000000000007,
+     "accuracy_all": 66.9
+    }
+   },
+   "scal": {
+    "label": 48.223443223443226,
+    "usd": 2.676178492605686,
+    "seconds": 3853.697029352188,
+    "n_records": 1911,
+    "n_at_max_len": 0,
+    "checksum_equal": true,
+    "sampled": {
+     "n": 1000,
+     "parsed": 1.0,
+     "accuracy": 65.4,
+     "conf": 47.595,
+     "gap": -17.805000000000007,
+     "gap_lo": -20.525,
+     "gap_hi": -14.68,
+     "auroc": 0.5430079015750119,
+     "sel50": 67.56152125279642,
+     "levels": 4,
+     "ece": 17.835,
+     "accuracy_all": 65.4
+    },
+    "greedy": {
+     "n": 1000,
+     "parsed": 1.0,
+     "accuracy": 66.8,
+     "conf": 48.92,
+     "gap": -17.879999999999995,
+     "gap_lo": -20.720000000000006,
+     "gap_hi": -14.969999999999999,
+     "auroc": 0.5303188803116659,
+     "sel50": 68.2154171066526,
+     "levels": 3,
+     "ece": 17.959999999999997,
+     "accuracy_all": 66.8
+    }
+   },
+   "shuf": {
+    "label": 90.61224489795919,
+    "usd": 4.154179431829188,
+    "seconds": 5982.01838183403,
+    "n_records": 1911,
+    "n_at_max_len": 0,
+    "checksum_equal": true,
+    "sampled": {
+     "n": 1000,
+     "parsed": 1.0,
+     "accuracy": 67.3,
+     "conf": 91.55,
+     "gap": 24.25,
+     "gap_lo": 21.265,
+     "gap_hi": 27.295,
+     "auroc": 0.5210386647945435,
+     "sel50": 68.53333333333335,
+     "levels": 4,
+     "ece": 25.189999999999994,
+     "accuracy_all": 67.3
+    },
+    "greedy": {
+     "n": 1000,
+     "parsed": 1.0,
+     "accuracy": 68.0,
+     "conf": 95.0,
+     "gap": 27.0,
+     "gap_lo": 24.099999999999994,
+     "gap_hi": 30.099999999999994,
+     "auroc": 0.5,
+     "sel50": 68.0,
+     "levels": 1,
+     "ece": 26.99999999999999,
+     "accuracy_all": 68.0
+    }
+   },
+   "tcal_s2": {
+    "label": 90.61224489795919,
+    "usd": 4.2149693441059854,
+    "seconds": 6069.555855512619,
+    "n_records": 1911,
+    "n_at_max_len": 0,
+    "checksum_equal": true,
+    "sampled": {
+     "n": 1000,
+     "parsed": 1.0,
+     "accuracy": 66.3,
+     "conf": 89.105,
+     "gap": 22.805000000000007,
+     "gap_lo": 20.044999999999987,
+     "gap_hi": 25.839999999999996,
+     "auroc": 0.5945728211394121,
+     "sel50": 72.09302325581396,
+     "levels": 5,
+     "ece": 22.805,
+     "accuracy_all": 66.3
+    },
+    "greedy": {
+     "n": 1000,
+     "parsed": 1.0,
+     "accuracy": 67.0,
+     "conf": 90.7,
+     "gap": 23.700000000000003,
+     "gap_lo": 20.86,
+     "gap_hi": 26.769999999999996,
+     "auroc": 0.5708502939846224,
+     "sel50": 71.4939024390244,
+     "levels": 4,
+     "ece": 23.76,
+     "accuracy_all": 67.0
+    }
+   },
+   "scal_s2": {
+    "label": 48.223443223443226,
+    "usd": 4.311299144559436,
+    "seconds": 6208.270768165588,
+    "n_records": 1911,
+    "n_at_max_len": 0,
+    "checksum_equal": true,
+    "sampled": {
+     "n": 1000,
+     "parsed": 1.0,
+     "accuracy": 65.9,
+     "conf": 46.6,
+     "gap": -19.300000000000004,
+     "gap_lo": -22.15,
+     "gap_hi": -16.335,
+     "auroc": 0.5541231493554172,
+     "sel50": 68.72093023255813,
+     "levels": 6,
+     "ece": 19.31,
+     "accuracy_all": 65.9
+    },
+    "greedy": {
+     "n": 1000,
+     "parsed": 1.0,
+     "accuracy": 67.6,
+     "conf": 48.15,
+     "gap": -19.449999999999996,
+     "gap_lo": -22.28000000000001,
+     "gap_hi": -16.39,
+     "auroc": 0.5385254583972533,
+     "sel50": 69.43231441048034,
+     "levels": 3,
+     "ece": 19.449999999999996,
+     "accuracy_all": 67.6
+    }
+   }
+  },
+  "auroc:tcal-shuf": {
+   "d": 0.032396959251487334,
+   "lo": -0.00615222841408003,
+   "hi": 0.07232934537567026,
+   "n": 1000
+  },
+  "sel50:tcal-shuf": {
+   "d": 0.3717761557177539,
+   "lo": -2.845098039215685,
+   "hi": 3.589132118543887,
+   "n": 1000
+  },
+  "predictions": {
+   "M1 |C - L| <= 5 in every seed-1 cell": true,
+   "M2 accuracy differs <= 4 between label sets; students >= 15 below the teacher": true,
+   "M3 tcal gap >= +15": true,
+   "M4 scal |gap| <= 10": false,
+   "M5 greedy: tcal gap >= +15, scal |gap| <= 12": false,
+   "M6 shuf: conf within 3 and accuracy within 4 of tcal": true,
+   "M7 AUROC tcal >= 0.60 and >= 0.05 above shuf": false,
+   "M8 seed 2 within 4 points of seed 1 (gap)": true,
+   "M9 >= 95% in format in every trained cell": true
+  },
+  "refutation": {
+   "refuted: tcal gap interval below +10": false,
+   "refuted: scal |gap| > 15": true,
+   "refuted: |C - L| > 10 in a cell": false
+  },
+  "teacher_record_accuracy": 91.47043432757718
+ },
  "granite41": {
   "cells": {
    "raw": {

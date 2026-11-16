@@ -223,7 +223,7 @@ def distill_macros():
         raw = li["sets"][f"{t}__raw"]
         put(f"d{tp}TeacherAcc", f"{raw['teacher_accuracy']:.0f}"); put(f"d{tp}TeacherConf", f"{raw['label_mean']:.0f}")
         put(f"d{tp}TeacherGap", sg(raw["label_mean"] - raw["teacher_accuracy"]))
-        put(f"d{tp}TeacherParsed", f"{100 * li['parsed']:.1f}"); put(f"d{tp}TeacherKept", raw["n"])
+        put(f"d{tp}TeacherParsed", f"{100 * li['parsed']:.1f}"); put(f"d{tp}TeacherKept", f"{raw['n']:,}".replace(",", "{,}"))
         put(f"d{tp}TcalLabel", f"{li['sets'][f'{t}__tcal']['label_mean']:.0f}")
     rows, allc, parsed = [], [], []
     for fam, (fp, fname) in FAM.items():
@@ -447,6 +447,8 @@ def late_macros():
                 put(f"m{fp}{K}Gap", sg(e["gap"])); put(f"m{fp}{K}Conf", f"{e['conf']:.0f}"); put(f"m{fp}{K}Acc", f"{e['accuracy']:.0f}")
                 put(f"m{fp}{K}Auroc", f2(e["auroc"])); put(f"m{fp}{K}Sel", f"{e['sel50']:.0f}")
                 put(f"m{fp}{K}GapCI", f"{sg(e['gap_lo'])} to {sg(e['gap_hi'])}")
+            if "scal" in c:
+                put(f"m{fp}ScalLabel", f"{c['scal']['label']:.0f}")
             for k, lab in (("raw", "own"), ("tcal", "t-cal."), ("scal", "s-fit"), ("shuf", "shuf."),
                            ("tcal_s2", "t-cal., seed 2"), ("scal_s2", "s-fit, seed 2"), ("untrained", "untrained")):
                 if k not in c:
@@ -501,6 +503,26 @@ def late_macros():
                 rows.append(f"{task} & {lab} & {d['n']:,} & {f2(d['teacher_self'][k])} & {f2(d['qwen35'][k])} & {f2(d['granite41'][k])} \\\\".replace(",", "{,}"))
         M["tableRank"] = ("\\begin{tabular}{llrrrr}\n\\toprule\n & & & Teacher's own & \\multicolumn{2}{c}{Untrained student's answer} \\\\\nQuestions & Confidence & Records & answer & Qwen3.5-9B & Granite-4.1-8B \\\\\n\\midrule\n"
                           + "\n".join(rows) + "\n\\bottomrule\n\\end{tabular}")
+    f = RES / "thresh_stats.json"  # r = one fixed rule on the lead experiment's students (post hoc; expectations are not counted)
+    if f.exists():
+        S, rows = json.loads(f.read_text()), []
+        pc = lambda v: "--" if v is None else f"{v:.0f}"
+        for fam, (fp, fname) in fams:
+            if fam not in S:
+                continue
+            for k, K, lab in (("raw", "Raw", "own"), ("tcal", "Tcal", "t-cal."), ("scal", "Scal", "s-fit"), ("shuf", "Shuf", "shuf."),
+                              ("own", "Own", "audit"), ("tcal_recal", "Recal", "fixed")):
+                e = S[fam]["cells"][k]
+                for t, W in ((70, "Seventy"), (80, ""), (90, "Ninety")):
+                    put(f"r{fp}{K}Pass{W}", pc(e[f"t{t}"]["passed"])); put(f"r{fp}{K}Wrong{W}", pc(e[f"t{t}"]["wrong_share"]))
+                a, b, d = e["t70"], e["t80"], e["t90"]
+                ci = "--" if b["wrong_share"] is None else f"{b['wrong_lo']:.0f}--{b['wrong_hi']:.0f}"
+                rows.append(f"{fname} & {lab} & {e['conf']:.0f} & {e['accuracy']:.0f} & {pc(a['passed'])} & {pc(a['wrong_share'])} & "
+                            f"{pc(b['passed'])} & {pc(b['wrong_share'])} & {ci} & {b['wrong_per_1000']:.0f} & "
+                            f"{pc(d['passed'])} & {pc(d['wrong_share'])} & {e['half_wrong']:.0f} \\\\")
+        M["tableThresh"] = ("\\begin{tabular}{llrrrrrrrrrrr}\n\\toprule\n & & & & \\multicolumn{2}{c}{At least 70} & \\multicolumn{4}{c}{At least 80 (the rule)} & "
+                            "\\multicolumn{2}{c}{At least 90} & \\\\\nStud. & Labels & Says & Acc. & Pass & Err. & Pass & Err. & 95\\% & Per K & "
+                            "Pass & Err. & Half \\\\\n\\midrule\n" + "\n".join(rows) + "\n\\bottomrule\n\\end{tabular}")
     put("latePredHeld", held); put("latePredAll", n)
 
 

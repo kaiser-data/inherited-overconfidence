@@ -1,0 +1,466 @@
+{
+ "qwen35": {
+  "cells": {
+   "raw": {
+    "n": 1000,
+    "in_format": 99.4,
+    "accuracy": 58.04828973843058,
+    "conf": 98.1851106639839,
+    "half_wrong": 24.76370510396974,
+    "t70": {
+     "passed": 99.2,
+     "wrong_share": 41.83467741935484,
+     "wrong_per_1000": 415.0,
+     "right_held_back": 0.0,
+     "passed_lo": 98.6,
+     "passed_hi": 99.7,
+     "wrong_lo": 38.70967741935484,
+     "wrong_hi": 44.93480441323972
+    },
+    "t80": {
+     "passed": 98.7,
+     "wrong_share": 41.540020263424516,
+     "wrong_per_1000": 410.0,
+     "right_held_back": 0.0,
+     "passed_lo": 97.9,
+     "passed_hi": 99.4,
+     "wrong_lo": 38.41463414634146,
+     "wrong_hi": 44.64831804281346
+    },
+    "t90": {
+     "passed": 96.9,
+     "wrong_share": 40.76367389060888,
+     "wrong_per_1000": 395.0,
+     "right_held_back": 0.5199306759098787,
+     "passed_lo": 95.8,
+     "passed_hi": 97.9,
+     "wrong_lo": 37.66632548618219,
+     "wrong_hi": 43.87966804979253
+    }
+   },
+   "tcal": {
+    "n": 1000,
+    "in_format": 99.6,
+    "accuracy": 57.329317269076306,
+    "conf": 88.53413654618474,
+    "half_wrong": 25.048169556840065,
+    "t70": {
+     "passed": 92.9,
+     "wrong_share": 39.504843918191604,
+     "wrong_per_1000": 367.0,
+     "right_held_back": 1.5761821366024518,
+     "passed_lo": 91.4,
+     "passed_hi": 94.4,
+     "wrong_lo": 36.32432432432432,
+     "wrong_hi": 42.71844660194175
+    },
+    "t80": {
+     "passed": 92.9,
+     "wrong_share": 39.504843918191604,
+     "wrong_per_1000": 367.0,
+     "right_held_back": 1.5761821366024518,
+     "passed_lo": 91.4,
+     "passed_hi": 94.4,
+     "wrong_lo": 36.32432432432432,
+     "wrong_hi": 42.71844660194175
+    },
+    "t90": {
+     "passed": 69.2,
+     "wrong_share": 29.76878612716763,
+     "wrong_per_1000": 206.0,
+     "right_held_back": 14.8861646234676,
+     "passed_lo": 66.4,
+     "passed_hi": 72.0,
+     "wrong_lo": 26.176470588235293,
+     "wrong_hi": 33.284241531664215
+    }
+   },
+   "scal": {
+    "n": 1000,
+    "in_format": 99.4,
+    "accuracy": 60.160965794768615,
+    "conf": 54.94466800804829,
+    "half_wrong": 25.045703839122496,
+    "t70": {
+     "passed": 54.7,
+     "wrong_share": 25.045703839122485,
+     "wrong_per_1000": 137.0,
+     "right_held_back": 31.438127090301002,
+     "passed_lo": 51.8,
+     "passed_hi": 57.8,
+     "wrong_lo": 21.415607985480943,
+     "wrong_hi": 28.752260397830018
+    },
+    "t80": {
+     "passed": 0.0,
+     "wrong_share": null,
+     "wrong_per_1000": 0.0,
+     "right_held_back": 100.0,
+     "passed_lo": 0.0,
+     "passed_hi": 0.0,
+     "wrong_lo": null,
+     "wrong_hi": null
+    },
+    "t90": {
+     "passed": 0.0,
+     "wrong_share": null,
+     "wrong_per_1000": 0.0,
+     "right_held_back": 100.0,
+     "passed_lo": 0.0,
+     "passed_hi": 0.0,
+     "wrong_lo": null,
+     "wrong_hi": null
+    }
+   },
+   "shuf": {
+    "n": 1000,
+    "in_format": 98.9,
+    "accuracy": 57.43174924165824,
+    "conf": 90.63700707785642,
+    "half_wrong": 39.93231810490693,
+    "t70": {
+     "passed": 96.0,
+     "wrong_share": 41.979166666666664,
+     "wrong_per_1000": 403.0,
+     "right_held_back": 1.9366197183098592,
+     "passed_lo": 94.7,
+     "passed_hi": 97.1,
+     "wrong_lo": 38.75647668393783,
+     "wrong_hi": 45.04132231404959
+    },
+    "t80": {
+     "passed": 96.0,
+     "wrong_share": 41.979166666666664,
+     "wrong_per_1000": 403.0,
+     "right_held_back": 1.9366197183098592,
+     "passed_lo": 94.7,
+     "passed_hi": 97.1,
+     "wrong_lo": 38.75647668393783,
+     "wrong_hi": 45.04132231404959
+    },
+    "t90": {
+     "passed": 73.7,
+     "wrong_share": 40.70556309362279,
+     "wrong_per_1000": 300.0,
+     "right_held_back": 23.06338028169014,
+     "passed_lo": 70.9,
+     "passed_hi": 76.3,
+     "wrong_lo": 37.1313672922252,
+     "wrong_hi": 44.31977559607293
+    }
+   },
+   "own": {
+    "n": 1000,
+    "in_format": 99.1,
+    "accuracy": 55.90312815338042,
+    "conf": 56.29465186680121,
+    "half_wrong": 33.73822466716578,
+    "t70": {
+     "passed": 0.1,
+     "wrong_share": 0.0,
+     "wrong_per_1000": 0.0,
+     "right_held_back": 99.81949458483754,
+     "passed_lo": 0.0,
+     "passed_hi": 0.3,
+     "wrong_lo": 0.0,
+     "wrong_hi": 0.0
+    },
+    "t80": {
+     "passed": 0.0,
+     "wrong_share": null,
+     "wrong_per_1000": 0.0,
+     "right_held_back": 100.0,
+     "passed_lo": 0.0,
+     "passed_hi": 0.0,
+     "wrong_lo": null,
+     "wrong_hi": null
+    },
+    "t90": {
+     "passed": 0.0,
+     "wrong_share": null,
+     "wrong_per_1000": 0.0,
+     "right_held_back": 100.0,
+     "passed_lo": 0.0,
+     "passed_hi": 0.0,
+     "wrong_lo": null,
+     "wrong_hi": null
+    }
+   },
+   "tcal_recal": {
+    "n": 1000,
+    "in_format": 99.6,
+    "accuracy": 57.329317269076306,
+    "conf": 57.586429980272385,
+    "half_wrong": 25.048169556840065,
+    "t70": {
+     "passed": 51.9,
+     "wrong_share": 25.048169556840076,
+     "wrong_per_1000": 130.0,
+     "right_held_back": 31.873905429071804,
+     "passed_lo": 48.9,
+     "passed_hi": 54.9,
+     "wrong_lo": 21.389396709323584,
+     "wrong_hi": 28.598848368522074
+    },
+    "t80": {
+     "passed": 0.0,
+     "wrong_share": null,
+     "wrong_per_1000": 0.0,
+     "right_held_back": 100.0,
+     "passed_lo": 0.0,
+     "passed_hi": 0.0,
+     "wrong_lo": null,
+     "wrong_hi": null
+    },
+    "t90": {
+     "passed": 0.0,
+     "wrong_share": null,
+     "wrong_per_1000": 0.0,
+     "right_held_back": 100.0,
+     "passed_lo": 0.0,
+     "passed_hi": 0.0,
+     "wrong_lo": null,
+     "wrong_hi": null
+    }
+   }
+  },
+  "expectations": {
+   "E1 at 80, RAW and TCAL pass > 90% and 35-42% of the passed answers are wrong": true,
+   "E2 at 80, SCAL and the corrected TCAL student pass < 5%": true,
+   "E3 at 70, SCAL passes 50-70% with a wrong share < 30%": true,
+   "E4 more confident half: TCAL and SCAL within 5 points": true
+  }
+ },
+ "granite41": {
+  "cells": {
+   "raw": {
+    "n": 1000,
+    "in_format": 100.0,
+    "accuracy": 60.7,
+    "conf": 98.337,
+    "half_wrong": 21.80451127819549,
+    "t70": {
+     "passed": 100.0,
+     "wrong_share": 39.3,
+     "wrong_per_1000": 393.0,
+     "right_held_back": 0.0,
+     "passed_lo": 100.0,
+     "passed_hi": 100.0,
+     "wrong_lo": 36.1,
+     "wrong_hi": 42.2
+    },
+    "t80": {
+     "passed": 99.8,
+     "wrong_share": 39.17835671342685,
+     "wrong_per_1000": 391.0,
+     "right_held_back": 0.0,
+     "passed_lo": 99.5,
+     "passed_hi": 100.0,
+     "wrong_lo": 35.97989949748744,
+     "wrong_hi": 42.08416833667334
+    },
+    "t90": {
+     "passed": 97.8,
+     "wrong_share": 38.13905930470348,
+     "wrong_per_1000": 373.0,
+     "right_held_back": 0.32948929159802304,
+     "passed_lo": 96.9,
+     "passed_hi": 98.7,
+     "wrong_lo": 34.92871690427699,
+     "wrong_hi": 41.02040816326531
+    }
+   },
+   "tcal": {
+    "n": 1000,
+    "in_format": 99.7,
+    "accuracy": 62.08625877632899,
+    "conf": 89.09729187562688,
+    "half_wrong": 20.30075187969925,
+    "t70": {
+     "passed": 94.5,
+     "wrong_share": 35.34391534391534,
+     "wrong_per_1000": 334.0,
+     "right_held_back": 1.2924071082390953,
+     "passed_lo": 93.0,
+     "passed_hi": 95.9,
+     "wrong_lo": 32.28180862250263,
+     "wrong_hi": 38.3068783068783
+    },
+    "t80": {
+     "passed": 94.5,
+     "wrong_share": 35.34391534391534,
+     "wrong_per_1000": 334.0,
+     "right_held_back": 1.2924071082390953,
+     "passed_lo": 93.0,
+     "passed_hi": 95.9,
+     "wrong_lo": 32.28180862250263,
+     "wrong_hi": 38.3068783068783
+    },
+    "t90": {
+     "passed": 68.8,
+     "wrong_share": 24.563953488372093,
+     "wrong_per_1000": 169.0,
+     "right_held_back": 16.15508885298869,
+     "passed_lo": 66.0,
+     "passed_hi": 71.7,
+     "wrong_lo": 21.34328358208955,
+     "wrong_hi": 27.857142857142858
+    }
+   },
+   "scal": {
+    "n": 1000,
+    "in_format": 99.9,
+    "accuracy": 62.46246246246246,
+    "conf": 56.7017017017017,
+    "half_wrong": 18.738404452690176,
+    "t70": {
+     "passed": 53.9,
+     "wrong_share": 18.738404452690165,
+     "wrong_per_1000": 101.0,
+     "right_held_back": 29.807692307692307,
+     "passed_lo": 50.7,
+     "passed_hi": 56.8,
+     "wrong_lo": 15.315315315315315,
+     "wrong_hi": 22.011385199240987
+    },
+    "t80": {
+     "passed": 0.0,
+     "wrong_share": null,
+     "wrong_per_1000": 0.0,
+     "right_held_back": 100.0,
+     "passed_lo": 0.0,
+     "passed_hi": 0.0,
+     "wrong_lo": null,
+     "wrong_hi": null
+    },
+    "t90": {
+     "passed": 0.0,
+     "wrong_share": null,
+     "wrong_per_1000": 0.0,
+     "right_held_back": 100.0,
+     "passed_lo": 0.0,
+     "passed_hi": 0.0,
+     "wrong_lo": null,
+     "wrong_hi": null
+    }
+   },
+   "shuf": {
+    "n": 1000,
+    "in_format": 99.9,
+    "accuracy": 62.16216216216216,
+    "conf": 90.65565565565565,
+    "half_wrong": 38.500851788756385,
+    "t70": {
+     "passed": 97.4,
+     "wrong_share": 37.987679671457904,
+     "wrong_per_1000": 370.0,
+     "right_held_back": 2.737520128824477,
+     "passed_lo": 96.4,
+     "passed_hi": 98.3,
+     "wrong_lo": 34.818652849740936,
+     "wrong_hi": 41.04401228249744
+    },
+    "t80": {
+     "passed": 97.4,
+     "wrong_share": 37.987679671457904,
+     "wrong_per_1000": 370.0,
+     "right_held_back": 2.737520128824477,
+     "passed_lo": 96.4,
+     "passed_hi": 98.3,
+     "wrong_lo": 34.818652849740936,
+     "wrong_hi": 41.04401228249744
+    },
+    "t90": {
+     "passed": 74.3,
+     "wrong_share": 38.76177658142665,
+     "wrong_per_1000": 288.0,
+     "right_held_back": 26.73107890499195,
+     "passed_lo": 71.5,
+     "passed_hi": 77.0,
+     "wrong_lo": 35.24590163934426,
+     "wrong_hi": 42.16216216216216
+    }
+   },
+   "own": {
+    "n": 1000,
+    "in_format": 98.5,
+    "accuracy": 60.101522842639596,
+    "conf": 59.85279187817259,
+    "half_wrong": 31.66950162731206,
+    "t70": {
+     "passed": 20.0,
+     "wrong_share": 12.0,
+     "wrong_per_1000": 24.0,
+     "right_held_back": 70.27027027027027,
+     "passed_lo": 17.6,
+     "passed_hi": 22.4,
+     "wrong_lo": 7.655502392344498,
+     "wrong_hi": 16.74641148325359
+    },
+    "t80": {
+     "passed": 20.0,
+     "wrong_share": 12.0,
+     "wrong_per_1000": 24.0,
+     "right_held_back": 70.27027027027027,
+     "passed_lo": 17.6,
+     "passed_hi": 22.4,
+     "wrong_lo": 7.655502392344498,
+     "wrong_hi": 16.74641148325359
+    },
+    "t90": {
+     "passed": 0.0,
+     "wrong_share": null,
+     "wrong_per_1000": 0.0,
+     "right_held_back": 100.0,
+     "passed_lo": 0.0,
+     "passed_hi": 0.0,
+     "wrong_lo": null,
+     "wrong_hi": null
+    }
+   },
+   "tcal_recal": {
+    "n": 1000,
+    "in_format": 99.7,
+    "accuracy": 62.08625877632899,
+    "conf": 64.11287930158328,
+    "half_wrong": 20.30075187969925,
+    "t70": {
+     "passed": 53.2,
+     "wrong_share": 20.30075187969925,
+     "wrong_per_1000": 108.0,
+     "right_held_back": 31.502423263327948,
+     "passed_lo": 50.1,
+     "passed_hi": 56.1,
+     "wrong_lo": 16.970802919708028,
+     "wrong_hi": 23.68421052631579
+    },
+    "t80": {
+     "passed": 53.2,
+     "wrong_share": 20.30075187969925,
+     "wrong_per_1000": 108.0,
+     "right_held_back": 31.502423263327948,
+     "passed_lo": 50.1,
+     "passed_hi": 56.1,
+     "wrong_lo": 16.970802919708028,
+     "wrong_hi": 23.68421052631579
+    },
+    "t90": {
+     "passed": 0.0,
+     "wrong_share": null,
+     "wrong_per_1000": 0.0,
+     "right_held_back": 100.0,
+     "passed_lo": 0.0,
+     "passed_hi": 0.0,
+     "wrong_lo": null,
+     "wrong_hi": null
+    }
+   }
+  },
+  "expectations": {
+   "E1 at 80, RAW and TCAL pass > 90% and 35-42% of the passed answers are wrong": true,
+   "E2 at 80, SCAL and the corrected TCAL student pass < 5%": false,
+   "E3 at 70, SCAL passes 50-70% with a wrong share < 30%": true,
+   "E4 more confident half: TCAL and SCAL within 5 points": true
+  }
+ }
+}
