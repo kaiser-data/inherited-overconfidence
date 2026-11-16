@@ -13,7 +13,7 @@
 \captionsetup{font=small,labelfont=bf}
 \setlist{nosep,leftmargin=1.4em}
 
-\title{\textbf{A Confidence Slider for Small LLMs: The Dunning--Kruger Risk in Model Distillation}}
+\title{\textbf{A Confidence Slider for Small LLMs: The Dunning--Kruger Risk by Inheritance}}
 \author{Martin Kaiser\\\small Independent researcher}
 \date{15 November 2026}
 
@@ -46,13 +46,13 @@ To measure this we use one quantity. The \textbf{overconfidence gap} is mean sta
 \end{enumerate}
 \textbf{What is new} (as far as we know). Earlier studies used one model as its own teacher \cite{sumit,roe}, fitted confidence to a model's own answers \cite{lin}, or measured the student's task accuracy \cite{kdcal,zhan}. We hold a much stronger teacher's answers fixed and change only their confidence labels, isolating the transfer of confidence from that of task performance: the level transfers, the knowledge mostly does not, and calibrating the teacher does not calibrate the student.
 
-\textbf{Sprint tracks.} \emph{Track 1, Model Epistemics Evals:} a signed metric for it, its decomposition and a registered protocol for testing it after distillation. \emph{Track 2, Trust Infrastructure:} audits and provenance tags on training records.
+\textbf{Sprint tracks.} \emph{Track 1, Model Epistemics Evals:} a signed metric for this mismatch, its decomposition and a registered protocol for testing it after distillation. \emph{Track 2, Trust Infrastructure:} audits and provenance tags on training records.
 
 \section*{2. Related Work}
 
 \textbf{Training on model output.} Models trained on their predecessors' output lose the tails of the distribution \cite{shumailov} unless real data is kept alongside \cite{gerstgrasser}. Persona traits such as sycophancy mostly decay or stay constant over rounds \cite{roe}; confidence was not studied. In five rounds of self-training, token-probability confidence sharpened while accuracy stayed \cite{sumit}. \emph{Difference:} in both, teacher and student are the same model. Our confidence is stated and our teacher about 30 points more accurate.
 
-\textbf{Distillation and calibration.} Classical distillation trains on the teacher's output distribution \cite{hinton}, and their calibration is well studied \cite{guo}. Models can be fine-tuned to state calibrated confidence about their own answers \cite{lin,tian}. In classical distillation, a better calibrated teacher gives a more accurate student \cite{kdcal}, and calibrating an LLM teacher changes how well it can be distilled \cite{zhan}; both measure the student's task performance, not its stated confidence. Verbalized confidence can be taught by fine-tuning on calibrated verbalized probabilities \cite{uncdist}. \emph{Difference:} we train on another model's answer and its confidence \emph{in words}, as synthetic-data pipelines do, and test whether a calibration fitted to the writer holds for the learner. Stated confidence is high almost regardless of correctness \cite{xiong,kalai}.
+\textbf{Distillation and calibration.} Classical distillation trains on the teacher's output distribution \cite{hinton}, and calibration is well studied \cite{guo}. Models can be fine-tuned to state calibrated confidence about their own answers \cite{lin,tian}. In classical distillation, a better calibrated teacher gives a more accurate student \cite{kdcal}, and calibrating an LLM teacher changes how well it can be distilled \cite{zhan}; both measure the student's task performance, not its stated confidence. Verbalized confidence can be taught by fine-tuning on calibrated verbalized probabilities \cite{uncdist}. \emph{Difference:} we train on another model's answer and its confidence \emph{in words}, as synthetic-data pipelines do, and test whether a calibration fitted to the writer holds for the learner. Stated confidence is high almost regardless of correctness \cite{xiong,kalai}.
 
 \section*{3. Methods}
 
@@ -84,7 +84,7 @@ For a student $S$ trained on a teacher's records with mean confidence label $L$ 
 \[ G_S \;=\; (C_S - L) \;+\; (L - A_T) \;+\; (A_T - A_S) . \]
 The first is the \emph{copying error} (how far the student departs from its labels), the second the \emph{label gap} (the overconfidence left in the records), the third the \emph{accuracy difference} between teacher and student. This is an accounting identity, not a mechanism; its use is that each part has its own remedy: calibrating the teacher targets the label gap and does not address the third term.
 
-\textbf{Lead experiment.} Teachers: DeepSeek-V4.1-Flash, \dTeacherAcc{}\% accurate, and Qwen3.8-27B with thinking off, \dMTeacherAcc{}\% accurate, about as accurate as the students (a check that the effect comes from the accuracy difference). Students: Qwen3.5-9B and Granite-4.1-8B. From each teacher's \dTeacherKept{} usable records we built training sets with \emph{identical answers} and four confidence labellings: (a) the teacher's own; (b) \emph{calibrated for the teacher}; (c) \emph{fitted to the student}; (d) for DeepSeek, the calibrated values \emph{shuffled} across records, which keeps the level and destroys which question got which value. Two further controls: a student trained on its own audited records, and a \emph{held-out correction}, the standard step of recalibrating a trained student on 2{,}000 further questions that none of these models was trained on. Two extensions, 12 further students: the same records with the confidence as one of six fixed phrases instead of a number, and a second test set, 1{,}000 questions of Natural Questions. In total \dCells{} students were trained, and four more for seeds of the shuffled labelling; six configurations have three seeds.
+\textbf{Lead experiment.} Teachers: DeepSeek-V4.1-Flash, \dTeacherAcc{}\% accurate, and Qwen3.8-27B with thinking off, \dMTeacherAcc{}\% accurate, about as accurate as the students (a check that the effect comes from the accuracy difference). Students: Qwen3.5-9B and Granite-4.1-8B. From each teacher's \dTeacherKept{} usable records we built training sets with \emph{identical answers} and four confidence labellings: (a) the teacher's own; (b) \emph{calibrated for the teacher}; (c) \emph{fitted to the student}; (d) for DeepSeek, the calibrated labels \emph{shuffled}: the same labels dealt at random to other records, keeping the level but not which question got which label. Two further controls: a student trained on its own audited records, and a \emph{held-out correction}, the standard step of recalibrating a trained student on 2{,}000 further questions that none of these models was trained on. Two extensions, 12 further students: the same records with the confidence as one of six fixed phrases instead of a number, and a second test set, 1{,}000 questions of Natural Questions. In total \dCells{} students were trained, and four more for seeds of the shuffled labelling; six configurations have three seeds.
 
 \textbf{Hosted models for comparison.} \panelIncluded{} hosted open-weight models answered the same test questions with the same prompt (greedy answer; Table~6).
 
@@ -269,7 +269,7 @@ Each fit uses the questions parsed for all its models (main maps: \fitNmin{}--\f
 
 \begin{table}[h]
 \centering\footnotesize
-\caption{\textbf{Table 24. Result 3 across training seeds (trivia, sampled answer).} Students trained on the calibrated teacher's confidence (t-cal.) and on the same values shuffled across records (shuf.), same training seed, paired on the 1{,}000 test questions. Seed 1 is the pair of Section~4.3; the shuffled students of seeds 2 and 3 were trained after their predictions were registered. Says, Gap: the shuffled student's mean stated confidence and gap (it keeps the level). Source: \texttt{loopgain/rep.py} $\to$ \texttt{results/rep\_stats.json}.}
+\caption{\textbf{Table 24. Result 3 across training seeds (trivia, sampled answer).} Students trained on the calibrated teacher's confidence (t-cal.) and on the same values shuffled across records (shuf.), same training seed, paired on the 1{,}000 test questions. Seed 1 is the pair of Section~4.3; the shuffled students of seeds 2 and 3 were trained after their predictions were registered. Shuffled: one fixed random permutation of the calibrated confidence values over the \dTeacherKept{} records; every record keeps its question and answer, and the set of values (so their mean and spread) is unchanged. Says, Gap: the shuffled student's mean stated confidence and gap (it keeps the level). Source: \texttt{loopgain/rep.py} $\to$ \texttt{results/rep\_stats.json}.}
 \tableRep
 \end{table}
 
