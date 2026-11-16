@@ -675,6 +675,9 @@ def late_macros():
             for k in "DE":
                 put(f"z{fp}Def{k}", f"{c[k]['accuracy_by_form']['assertive']:.0f}"); put(f"z{fp}Prob{k}", f"{c[k]['accuracy_by_form']['probably']:.0f}")
             a = d["auroc:D-E"]
+            P = S[fam]["predictions"]  # S4 is not counted where the hedged student gave a number on under half the questions (PROTOCOL.md)
+            zh = sum(v and not (k.startswith("S4") and c["C"]["number_given"] < 50) for k, v in P.items())
+            M["zPredHeld"] = str(int(M.get("zPredHeld", "0")) + zh); M["zPredAll"] = str(int(M.get("zPredAll", "0")) + len(P))
             put(f"z{fp}AurocDE", f"{sg(a['d'], 2)} ({sg(a['lo'], 2)} to {sg(a['hi'], 2)})")
     put("latePredHeld", held); put("latePredAll", n)
 
